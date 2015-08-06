@@ -1,0 +1,173 @@
+.stars-rating,
+.star-rating,
+#wpjmr-submit-ratings .choose-rating,
+.comment-form-rating .stars {
+	.dashicons,
+	.dashicons:before,
+	.star,
+	.star:before,
+	[class^="star"]:not(.star-rating-title):before {
+		@include ionicon;
+		font-size: 17px;
+		width: auto;
+		height: auto;
+	}
+
+	.dashicons-star-empty:before,
+	.dashicons-star-filled:before,
+	.star:before,
+	[class^="star"]:before {
+		content: '\f4b3';
+	}
+
+	.dashicons-star-empty {
+		color: #949db2;
+	}
+}
+
+.single_job_listing {
+	.stars-rating {
+		height: 27px;
+		display: inline-block;
+		vertical-align: middle;
+
+		.dashicons,
+		.dashicons:before {
+			font-size: 24px;
+		}
+		
+		.dashicons.dashicons-star-empty:before {
+			content: '\f4b2';
+		}
+	}
+
+	.has-image .stars-rating {
+		.dashicons,
+		.dashicons:before {
+			color: #fff;
+		}
+	}
+
+	.star-rating {
+		p {
+			margin-top: 4px;
+		}
+
+		.dashicons,
+		.dashicons:before {
+			width: auto;
+			height: auto;
+		}
+	}
+}
+
+.comment-content .comment-rating {
+	display: none;
+	float: left;
+	margin-right: 1em;
+	margin-top: -2px;
+}
+
+	@include bp(lg) {
+		.comment-content .comment-rating {
+			display: block;
+		}
+	}
+
+#wpjmr-submit-ratings,
+.star-rating-wrapper,
+.comment-form-rating {
+	margin-bottom: 24px;
+
+	label {
+		font-size: 15px;
+		display: inline-block;
+		vertical-align: middle;
+		min-width: 150px;
+	}
+
+	.choose-rating,
+	.stars-rating,
+	.stars {
+		display: inline-block;
+		vertical-align: middle;
+		float: none;
+
+		.star,
+		[class^="star"] {
+			margin-right: 2px;
+
+			&:before {
+				font-size: 20px;
+			}
+
+			&:hover::before,
+			&:hover ~ .star::before,
+			&.active::before,
+			&.active ~ .star::before {
+				content: "\f4b3";
+			}
+		}
+	}
+}
+
+.star-rating-wrapper .stars-rating {
+	height: 22px;
+	
+	.star {
+		float: right;
+	}
+}
+
+.commentlist #wpjmr-submit-ratings {
+	display: none;
+}
+
+#wpjmr-list-reviews {
+	float: none;
+    padding: 1em 1em 0 1em;
+    border: 1px solid #eee;
+    border-radius: 4px;
+	margin-bottom: 1em;
+
+	.star-rating {
+		text-align: left;
+		display: inline-block;
+        width: 49%;
+        margin-right: 0;
+		margin-bottom: 1em;
+        max-height: none;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+	}
+
+	.dashicons:before {
+		font-size: 14px;
+		margin-right: 3px;
+	}
+
+	.star-rating-title:before {
+		display: none;
+	}
+
+	@include bp(lg) {
+		.star-rating-title {
+			line-height: 1;
+		}
+
+		.star-rating {
+			display: inline-block;
+			margin-right: 2em;
+            width: auto;
+		}
+	}
+}
+
+    @include bp(lg) {
+        #wpjmr-list-reviews {
+            border: 0;
+            padding: 0;
+        }
+    }

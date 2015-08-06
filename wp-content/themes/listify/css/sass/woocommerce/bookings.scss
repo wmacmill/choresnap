@@ -1,0 +1,9 @@
+.listify_widget_panel_listing_bookings {
+	form:not(:last-child) {
+		margin-bottom: 1.5em;
+	}
+
+    .booking-form-title {
+        font-size: 16px;
+    }
+}

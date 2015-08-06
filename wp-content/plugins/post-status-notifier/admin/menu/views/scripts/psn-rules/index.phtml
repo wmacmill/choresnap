@@ -1,0 +1,25 @@
+<?php if (!$this->dbPatcher->isValid()): ?>
+    <div class="updated error inline below-h2"><p><?php printf(__('There seems to be a <b>database mismatch</b>. This could result in problems when saving rules. Please run the selftests on the overview page. If this warning persists, <a href="%s" target="_blank">please contact the support.</a>', 'psn'), $this->pm->getConfig()->plugin->supportUrl); ?></p></div>
+<?php endif; ?>
+<p><a href="<?php echo $this->url(array('page' => $this->pm->getPathinfo()->getDirname(), 'controller' => 'rules', 'action' => 'create'), 'requestVars', true) ?>" class="ifw-wp-icon-plus" id="create_new_rule"><?php echo $this->langCreateNewRule; ?></a>
+    <?php if($this->isPremium): ?><a href="javascript:void(0)" class="ifw-wp-icon-plus import_items_container_toggle"><?php _e('Import rules', 'psn'); ?></a><?php endif; ?></p>
+<?php if($this->isPremium): ?>
+<div id="import_items_container" style="display: none;">
+    <h3><?php _e('Import rules', 'psn'); ?></h3>
+    <p class="ifw-wp-icon-help"><?php printf(__('Need help? <a href="%s" target="_blank">Check the docs</a>.', 'psn'), 'http://docs.ifeelweb.de/post-status-notifier/rules.html#importing-rules'); ?></p>
+    <form action="<?php echo $this->url(array('page' => $this->pm->getPathinfo()->getDirname(), 'controller' => 'rules', 'action' => 'import'), 'requestVars', true) ?>" name="import_rules_form" id="import_rules_form" method="post" enctype="multipart/form-data">
+        <label for="importfile"><?php _e('Import file', 'psn'); ?>:</label>
+        <input type="file" name="importfile" id="importfile" accept="text/xml" /><br>
+        <p class="description"><?php _e('Please select a valid .xml export file created by this plugin.', 'psn'); ?></p>
+        <label for="import_prefix"><?php _e('Import prefix', 'psn'); ?>:</label>
+        <input type="text" name="import_prefix" id="import_prefix" />
+        <p class="description"><?php _e('Prepend this text to imported rule names to identify them.', 'psn'); ?></p>
+        <label><input type="checkbox" name="import_deactivate" id="import_deactivate" value="1"><?php _e('Deactivate imported rules.', 'psn'); ?></label>
+        <br><br>
+        <input type="submit" name="submit" value="<?php _e('Submit'); ?>" class="button button-primary">
+    </form>
+</div>
+<?php endif; ?>
+<?php
+echo $this->listTable->display();
+?>

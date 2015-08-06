@@ -1,0 +1,54 @@
+/*
+Theme Name: Listify - Child Theme 
+Theme URI: http://astoundify.com/themes/listify
+Author: Astoundify
+Author URI: http://astoundify.com
+Description: Your beautiful handcrafted directory.
+Version: 1.0.0
+License: GNU General Public License
+License URI: license.txt
+Text Domain: listify-foursquare
+Domain Path: /languages/
+Tags: white, two-columns, one-column, right-sidebar, left-sidebar, responsive-layout, custom-background, custom-header, theme-options, full-width-template, featured-images, flexible-header, custom-menu, translation-ready
+Template: listify
+*/
+
+@media only screen and (min-width: 994px) {
+/*updating the header color and transparency*/
+.search-overlay, .primary-header {
+    background-color: rgba(51, 150, 209, 0.9) !important;
+}
+
+/*moves the filters on the listings page up towards the secondary menu*/
+/*.job_filters {
+    margin-top: -50px;
+}
+
+}*/
+
+/*this is to remove the keywords search box on the homepage and adjusts the sizes of the boxes*/
+
+/*
+ 
+.search_jobs > div.search_location {
+    margin-right: 3%;
+    width: 48% !important;
+}
+
+.search_jobs > div.search_categories {
+    width: 48% !important;
+}
+
+.search_jobs > div.search_keywords {
+    display: none !important;
+}
+
+*/
+
+/*adds button to the signin menu at the top*/
+.popup-wide.menu-item.menu-item-type-post_type.menu-item-object-page.menu-item-832 {
+    background-clip: padding-box;
+    border: 2px solid #fff;
+    border-radius: 2px;
+    padding: 0 20px;
+}

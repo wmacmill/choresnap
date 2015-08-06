@@ -1,0 +1,66 @@
+/* theme reset */
+#wpjmr-list-reviews .star-rating::before {
+	display: none;
+}
+
+#wpjmr-list-reviews li {
+	list-style: none;
+	clear: both;
+	margin-bottom: 30px;
+	float: left;
+	width: 100%;
+}
+
+
+#wpjmr-list-reviews {
+	float: right;
+	padding-left: 15px;
+}
+#wpjmr-list-reviews .star-rating-title {
+	line-height: 1.2;
+}
+#wpjmr-submit-ratings .star-rating,
+#wpjmr-list-reviews .star-rating {
+	float: none;
+	text-align: center;
+	max-height: 35px;
+}
+#wpjmr-submit-ratings .star-rating .dashicons,
+#wpjmr-list-reviews .star-rating .dashicons {
+	color: #3BBDED;
+	font-size: 12px;
+	width: 10px;
+}
+
+
+/**
+ * Comment form
+ */
+ #wpjmr-submit-ratings {
+	 margin-bottom: 24px;
+ }
+#wpjmr-submit-ratings label {
+	display: block;
+}
+#wpjmr-submit-ratings .rating-row { 
+	clear: both;
+}
+#wpjmr-submit-ratings .choose-rating {
+	float: left;
+}
+#wpjmr-submit-ratings .choose-rating .star {
+	float: right;
+}
+#wpjmr-submit-ratings .choose-rating .star:hover,
+#wpjmr-submit-ratings .choose-rating .star:hover ~ .star,
+#wpjmr-submit-ratings .choose-rating .star.active,
+#wpjmr-submit-ratings .choose-rating .star.active ~ .star {
+	color: #3BBDED;
+	cursor: pointer;
+}
+#wpjmr-submit-ratings .choose-rating .star:hover::before,
+#wpjmr-submit-ratings .choose-rating .star:hover ~ .star::before,
+#wpjmr-submit-ratings .choose-rating .star.active::before,
+#wpjmr-submit-ratings .choose-rating .star.active ~ .star::before {
+	content: "\f155";
+}

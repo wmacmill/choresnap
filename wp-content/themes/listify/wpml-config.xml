@@ -1,0 +1,19 @@
+<wpml-config>
+    <custom-fields>
+        <custom-field action="copy">rating</custom-field>
+        <custom-field action="copy">enable_tertiary_navigation</custom-field>
+        <custom-field action="copy">_gallery</custom-field>
+        <custom-field action="copy">_job_hours</custom-field>
+        <custom-field action="copy">_phone</custom-field>
+    </custom-fields>
+    <admin-texts>
+        <key name="theme_mods_listify">
+			<key name="label-singular" />
+			<key name="label-plural" />
+        </key>
+        <key name="theme_mods_listify-child">
+			<key name="label-singular" />
+			<key name="label-plural" />
+        </key>
+    </admin-texts>
+</wpml-config>

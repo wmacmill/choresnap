@@ -1,0 +1,2 @@
+<h2 class="modal-title">So close...</h2>
+<p><?php echo apply_filters( 'job_manager_job_applications_login_required_message', sprintf( __( '<div id="application-logged-out">You must <a href="%s">sign in</a> to apply for this position. Need to register? Click <a href="https://choresnap.com/register/register-company/">here.</a></div>', 'wp-job-manager-applications' ), wp_login_url( get_permalink() ) ) ); ?></p>

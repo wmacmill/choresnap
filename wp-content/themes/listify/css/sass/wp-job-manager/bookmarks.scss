@@ -1,0 +1,114 @@
+.job_listing-entry-footer .wp-job-manager-bookmarks-form {
+	float: right;
+
+	.bookmark-notice:before {
+		color: #e27276;
+	}
+}
+
+.wp-job-manager-bookmarks-form,
+.wp-job-manager-bookmarks-form > div:first-child {
+	display: inline-block;
+	margin: 0;
+	border: 0;
+}
+
+.content-single-job_listing-hero .wp-job-manager-bookmarks-form {
+	vertical-align: middle;
+	margin: -1px 10px 0 15px;
+}
+
+.wp-job-manager-bookmarks-count {
+	font-size: 16px;
+	display: inline-block;
+	vertical-align: middle;
+}
+
+div.bookmark-details,
+.popup .bookmark-notice,
+form.wp-job-manager-bookmarks-form .remove-bookmark {
+	display: none;
+}
+
+.popup {
+	form.wp-job-manager-bookmarks-form {
+		display: block;
+		margin-left: 0;
+
+		div.bookmark-details,
+		.remove-bookmark {
+			display: block;
+		}
+
+		.remove-bookmark {
+			color: red;
+			margin-bottom: 1em;
+		}
+
+		div.bookmark-details {
+			textarea {
+				width: 100%;
+			}
+
+			p:last-child {
+				margin-bottom: 0;
+			}
+		}
+	}
+
+	// logged out
+	div.wp-job-manager-bookmarks-form {
+		display: block;
+		margin: 0;
+
+		> div {
+			display: block;
+		}
+
+		.bookmark-notice {
+			font-size: 16px;
+			display: block;
+
+			&:before {
+				display: none;
+			}
+		}
+	}
+}
+
+.wp-job-manager-bookmarks-form {
+	.bookmark-notice {
+		font-size: 0px;
+
+		&:before {
+			@include ionicon;
+			font-size: 26px;
+			content: '\f387';
+		}
+
+		&.bookmarked:before {
+			color: #de6a6f;
+			content: '\f388';
+		}
+	}
+}
+
+table.job-manager-bookmarks {
+	td {
+		vertical-align: top;
+	}
+}
+
+.job-manager-bookmark-actions {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+
+	li {
+		display: inline-block;
+	}
+}
+
+.type-job_listing.style-list .job_listing-entry-footer .job-manager-form.wp-job-manager-bookmarks-form {
+	margin-left: 10px;
+}

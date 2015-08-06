@@ -1,0 +1,51 @@
+/** GEO my WP admin stylesheet */
+
+input.regular-text {
+	width: initial;
+}
+
+.gmw-license-key-addon-wrapper td,
+.gmw-license-key-addon-wrapper th {
+	-webkit-box-shadow: none !important;
+	box-shadow: none !important;
+}
+
+
+tr.gmw-license-key-wrapper td {
+	border-left:4px solid #2ea2cc !important;
+}
+
+tr.gmw-license-key-wrapper td.plugin-title,
+tr.gmw-license-key-wrapper td.column-description {
+	border:0px !important;
+}
+
+.gmw-license-key-wrapper.update td {
+	border-left:4px solid #d54e21 !important;
+}
+
+.gmw-single-addon-wrapper .gmw-license-key-wrapper td {
+	border-left:0px !important;
+	padding:0px;
+} 
+
+.gmw-single-addon-wrapper .gmw-license-key-fields-wrapper {
+	padding:0px;
+}
+
+.gmw-license-valid-wrapper {
+	padding:5px 10px;
+	background:#E9F5E8;
+	border:1px solid #CDF1CA;
+}
+
+.gmw-license-invalid-wrapper {
+	padding:5px 10px;
+	background:#f1f1f1;
+	border:1px solid #e5e5e5
+}
+
+.gmw-license-error {
+	background:rgb(255, 237, 237);	
+	border:1px solid rgb(249, 214, 214);
+}

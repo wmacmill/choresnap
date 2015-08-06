@@ -1,0 +1,27 @@
+.geo-tag {
+	position: relative;
+}
+.geo-tag i.location.loading {
+	background-image: url( '../images/load.svg' );
+	-webkit-animation: rotate 1500ms infinite linear;
+	-moz-animation: rotate 1500ms infinite linear;
+	animation: rotate 1500ms infinite linear;
+}
+.geo-tag i.location {
+	width: 20px;
+	height: 20px;
+	margin-top: -10px;
+	cursor: pointer;
+	right: 10px;
+	position: absolute;
+	top: 50%;
+	background: url( '../images/locate.svg' ) repeat 0 0;
+	background-size: contain;
+}
+.geo-tag input { padding-right: 40px; }
+
+#map-canvas { margin-bottom: 10px; }
+
+#settings-wpjmel_settings #map-canvas {
+	width: 65% !important;
+}

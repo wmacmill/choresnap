@@ -1,0 +1,346 @@
+/**
+ * Forms
+ *
+ * Global labels, inputs, buttons, fieldsets, etc.
+ */
+
+
+/** Labels */
+
+label {
+	cursor: pointer;
+}
+
+/** Input fields */
+
+input,
+textarea,
+.site select,
+.facetwp-facet .facetwp-checkbox:before,
+.search-choice-close,
+.widget_layered_nav li a:before,
+.site-main .content-box select,
+.site-main .job_listings select,
+a.page-numbers,
+span.page-numbers,
+.job-manager-pagination li > *,
+.facetwp-pager .facetwp-page,
+.js-toggle-area-trigger,
+.chosen-container .chosen-choices,
+.filter_by_tag a:before {
+	-webkit-appearance: none;
+
+	border: 0;
+	background-image: none;
+	border-width: 2px;
+	border-style: solid;
+	box-shadow: none;
+	border-radius: 4px;
+	padding: 11px 15px;
+	max-width: 100%;
+}
+
+.wp-editor-wrap {
+	border-width: 2px;
+	border-style: solid;
+}
+
+.site select {
+	border: 0;
+}
+
+textarea {
+	width: 100%;
+}
+
+input[type="search"] {
+	border-radius: 60px;
+}
+
+input[type="file"] {
+	background: none;
+	margin-right: 10px;
+	padding: 0;
+	border: 0;
+}
+
+.site select,
+.site-main .content-box select,
+.site-main .job_listings select,
+a.page-numbers,
+span.page-numbers,
+.job-manager-pagination li > *,
+.facetwp-pager .facetwp-page,
+.js-toggle-area-trigger {
+	padding: 13px 15px 12px;
+	border: 0;
+	box-shadow: inset rgba(0, 0, 0, .05) 0 -3px 0;
+
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+}
+
+.site select,
+.site-main .content-box select,
+.site-main .job_listings select {
+	padding-right: 40px;
+}
+
+@include bp(md) {
+	.site select,
+	.site-main .content-box select,
+	.site-main .job_listings select {
+		min-width: 175px;
+	}
+}
+
+.select {
+	position: relative;
+	display: inline-block;
+	max-width: 100%;
+	border-radius: 4px;
+}
+
+input:focus,
+textarea:focus {
+	background: #fff;
+}
+
+
+/** Select */
+
+.select:after,
+.select:before,
+.facetwp-facet-proximity .select:after,
+.site-main .content-box .select:before,
+.site-main .job_listings .select:before,
+.site-main .job_listings .select:after,
+.js-toggle-area-trigger:before,
+.js-toggle-area-trigger:after {
+	position: absolute;
+	top: 0;
+	right: 0;
+	content: ' ';
+	width: 40px;
+	height: 35px;
+	z-index: 10;
+	border-top-right-radius: 4px;
+	border-bottom-right-radius: 4px;
+	pointer-events: none;
+}
+
+.select:after,
+.site-main .content-box .select:after,
+.site-main .job_listings .select:after,
+.js-toggle-area-trigger:after {
+	@include ionicon;
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 40px;
+	height: 40px;
+	pointer-events: none;
+	content: "\f123";
+	text-align: center;
+	line-height: 45px;
+	background: none;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+	outline: 0;
+}
+
+/** Buttons */
+
+button:not([role="presentation"]),
+input[type="button"],
+input[type="reset"],
+input[type="submit"],
+.button,
+.button-secondary,
+.button.button-small,
+.account-sign-in .button,
+input[type="button"].facetwp-update,
+input[type="button"].facetwp-reset,
+.woocommerce_message .button,
+.woocommerce-message .button,
+.job_listing_packages_title .button {
+	color: #fff;
+	border: 0;
+	border-radius: 3px;
+	color: #fff;
+	font-size: 14px;
+	font-weight: 400;
+	padding: 12px 25px;
+	vertical-align: bottom;
+	box-shadow: inset 0 -3px 0 rgba(0, 0, 0, .10);
+	text-shadow: none !important;
+	display: inline-block;
+}
+
+.order-actions .button,
+.account-sign-in .button {
+	font-size: 12px;
+	padding: 2px 15px;
+}
+
+	@include bp(sm) {
+		button,
+		input[type="button"],
+		input[type="reset"],
+		input[type="submit"],
+		.button,
+		.button-secondary {
+			font-size: 14px;
+			padding: 16px 38px;
+		}
+	}
+
+	@include bp(md) {
+		button,
+		input[type="button"],
+		input[type="reset"],
+		input[type="submit"],
+		.button,
+		.button-secondary {
+			padding: 18px 40px;
+		}
+	}
+
+button:not([role="presentation"]):hover,
+button:not([role="presentation"]):focus,
+button:not(.search-submit):hover,
+button:not(.search-submit):focus,
+input[type="button"]:hover,
+input[type="button"]:focus,
+input[type="reset"]:hover,
+input[type="reset"]:focus,
+input[type="submit"]:hover,
+input[type="submit"]:focus,
+.button:hover,
+.button:focus,
+.button-secondary:hover,
+.button-secondary:focus {
+	color: #fff;
+	box-shadow: none;
+	outline: 0;
+}
+
+input[type="checkbox"],
+input[type="radio"],
+.facetwp-facet .facetwp-checkbox:before,
+.widget_layered_nav li a:before,
+.search-choice-close,
+.filter_by_tag a:before {
+	border-style: solid;
+	border-width: 2px;
+	background: #fff;
+	color: #555;
+	clear: none;
+	cursor: pointer;
+	display: inline-block;
+	line-height: 0;
+	height: 20px;
+	margin: -4px 4px 0 0;
+	outline: 0;
+	padding: 4px !important;
+	text-align: center;
+	vertical-align: middle;
+	width: 20px;
+	min-width: 20px;
+	-webkit-appearance: none;
+	-webkit-transition: .05s border-color ease-in-out;
+	transition: .05s border-color ease-in-out;
+}
+
+input[type=checkbox]:checked:before,
+.facetwp-facet .facetwp-checkbox.checked:after,
+.widget_layered_nav li.chosen a:after,
+.search-choice-close:after,
+.filter_by_tag a:after {
+	@include ionicon;
+
+	content: '\f121';
+	margin: -1px 0 0;
+	font-size: 10px;
+}
+
+input[type="radio"] {
+	border-radius: 50%;
+}
+
+input[type=radio]:checked:before {
+	@include ionicon;
+
+	content: '\2022';
+	text-indent: -9999px;
+	-webkit-border-radius: 50px;
+	border-radius: 50px;
+	font-size: 24px;
+	width: 8px;
+	height: 8px;
+	margin: 0;
+	line-height: 16px;
+	background-color: #1e8cbe;
+}
+
+.search-field {
+	width: 100%;
+}
+
+.search-submit {
+	display: none;
+}
+
+/** GravityForms */
+
+body .gform_wrapper {
+	margin: 0;
+	max-width: 100%;
+}
+
+body .gform_fields .gfield {
+	margin-bottom: 1.5em;
+}
+
+body .gform_title,
+body .gform_wrapper .top_label .gfield_label {
+	font-weight: 400;
+	line-height: normal;
+}
+
+body .gform_wrapper textarea,
+body .gform_wrapper input[type=text],
+body .gform_wrapper input[type=url],
+body .gform_wrapper input[type=email],
+body .gform_wrapper input[type=tel],
+body .gform_wrapper input[type=number],
+body .gform_wrapper input[type=password] {
+	font-size: 13px;
+	padding: 12px 15px;
+}
+
+body .gform_wrapper .gfield_checkbox li label,
+body .gform_wrapper .gfield_radio li label,
+body .gform_wrapper.gf_browser_chrome .gfield_checkbox li input[type=checkbox],
+body .gform_wrapper.gf_browser_chrome .gfield_radio li input[type=radio],
+body .gform_wrapper.gf_browser_chrome .gfield_checkbox li input {
+	margin: 0;
+	display: inline-block;
+	vertical-align: middle;
+	float: none;
+	line-height: normal;
+}
+
+body .gform_wrapper .gfield_checkbox li label,
+body .gform_wrapper .gfield_radio li label {
+	margin-left: 5px;
+}
+
+body .gform_wrapper ul.gfield_radio li input[type="radio"]:checked+label,
+body .gform_wrapper ul.gfield_checkbox li input[type="checkbox"]:checked+label {
+	font-weight: 400;
+}

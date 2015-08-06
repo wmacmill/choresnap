@@ -1,0 +1,109 @@
+# Copyright (C) 2015 WP Job Manager - Extended Location
+# This file is distributed under the same license as the WP Job Manager - Extended Location package.
+msgid ""
+msgstr ""
+"Project-Id-Version: WP Job Manager - Extended Location 2.1.0\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/wp-job-manager-extended-"
+"location\n"
+"POT-Creation-Date: 2015-03-11 18:31:24+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2015-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: includes/admin/class-wpjmel-settings.php:57
+msgid "Location Settings"
+msgstr ""
+
+#: includes/admin/class-wpjmel-settings.php:62
+msgid "Auto Location"
+msgstr ""
+
+#: includes/admin/class-wpjmel-settings.php:63
+msgid "Enable City Suggest"
+msgstr ""
+
+#: includes/admin/class-wpjmel-settings.php:64
+msgid ""
+"When checked the city of the user will be automatically used to filter "
+"results."
+msgstr ""
+
+#: includes/admin/class-wpjmel-settings.php:70
+msgid "Submission Form"
+msgstr ""
+
+#: includes/admin/class-wpjmel-settings.php:71
+msgid "Display Map"
+msgstr ""
+
+#: includes/admin/class-wpjmel-settings.php:72
+msgid ""
+"When checked there will be a small Google Map positioned beneath the "
+"location field."
+msgstr ""
+
+#: includes/admin/class-wpjmel-settings.php:79
+msgid "Default Location"
+msgstr ""
+
+#: includes/admin/class-wpjmel-settings.php:80
+msgid "The start location if the map is enabled"
+msgstr ""
+
+#: includes/updater/EDD_SL_Plugin_Updater.php:177
+msgid ""
+"There is a new version of %1$s available. <a target=\"_blank\" class="
+"\"thickbox\" href=\"%2$s\">View version %3$s details</a>."
+msgstr ""
+
+#: includes/updater/EDD_SL_Plugin_Updater.php:184
+msgid ""
+"There is a new version of %1$s available. <a target=\"_blank\" class="
+"\"thickbox\" href=\"%2$s\">View version %3$s details</a> or <a href=\"%4$s"
+"\">update now</a>."
+msgstr ""
+
+#: includes/updater/EDD_SL_Plugin_Updater.php:324
+msgid "You do not have permission to install plugin updates"
+msgstr ""
+
+#: includes/updater/EDD_SL_Plugin_Updater.php:324
+msgid "Error"
+msgstr ""
+
+#: includes/updater/class-astoundify-updater.php:42
+msgid "License Key"
+msgstr ""
+
+#: includes/updater/class-astoundify-updater.php:43
+msgid "Enter the license key you received with your purchase receipt."
+msgstr ""
+
+#: includes/updater/class-astoundify-updater.php:78
+msgid "Deactivate"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "WP Job Manager - Extended Location"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://astoundify.com/downloads/wp-job-manager-google-places-suggest/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Use Google Places to auto suggest locations when submitting a listing or "
+"searching."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Astoundify"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://astoundify.com"
+msgstr ""

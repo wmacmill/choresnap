@@ -1,0 +1,20 @@
+
+<ol>
+<?php foreach($this->tests as $key => $test) : ?>
+    <li><?php echo $this->langPerfomingTest; ?>: <b><?php echo $test->getName(); ?></b><br>
+        <em><?php echo $test->getDescription(); ?></em>
+        <br><br>
+        <?php echo $this->langResult; ?>:
+        <?php if($test->getResult()): ?>
+            <span style="color: green;"><?php echo $this->langOK; ?></span>
+        <?php else: ?>
+            <span style="color: red;"><?php echo $this->langERROR; ?></span><br>
+            <?php echo $this->langMessage; ?>: <?php echo $test->getErrorMessage(); ?><?php if($test->canHandle()): ?><br><a href="<?php echo $this->urlHandle; ?>&id=<?php echo $key; ?>">Fix it</a><?php endif ?>
+        <?php endif ?>
+        <br><br></li>
+<?php endforeach; ?>
+</ol>
+
+<script type="text/javascript">
+    parent.metabox_plugin_status_reload();
+</script>

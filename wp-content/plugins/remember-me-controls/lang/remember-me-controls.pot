@@ -1,0 +1,209 @@
+# Translation of the WordPress plugin Remember Me Controls v1.5 by Scott Reilly.
+# Copyright (C) 2014 Scott Reilly
+# This file is distributed under the same license as the Remember Me Controls plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: Remember Me Controls 1.5\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/remember-me-"
+"controls\n"
+"POT-Creation-Date: 2015-02-23 06:56:44+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2015-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: c2c-plugin.php:75
+msgid "Invalid file specified for C2C_Plugin: %s"
+msgstr ""
+
+#: c2c-plugin.php:127 c2c-plugin.php:134
+msgid "Cheatin&#8217; huh?"
+msgstr ""
+
+#: c2c-plugin.php:322
+msgid "See the \"Help\" link to the top-right of the page for more help."
+msgstr ""
+
+#: c2c-plugin.php:357
+msgid "Settings reset."
+msgstr ""
+
+#: c2c-plugin.php:368 c2c-plugin.php:376
+msgid "A value is required for: \"%s\""
+msgstr ""
+
+#: c2c-plugin.php:385
+msgid "Expected integer value for: %s"
+msgstr ""
+
+#: c2c-plugin.php:502
+msgid "More information about %1$s %2$s"
+msgstr ""
+
+#: c2c-plugin.php:503
+msgid "Click for more help on this plugin"
+msgstr ""
+
+#: c2c-plugin.php:504
+msgid " (especially check out the \"Other Notes\" tab, if present)"
+msgstr ""
+
+#: c2c-plugin.php:620
+msgid "More Help"
+msgstr ""
+
+#: c2c-plugin.php:632
+msgid "Settings"
+msgstr ""
+
+#: c2c-plugin.php:644
+msgid "Donation for coffee2code plugin: %s"
+msgstr ""
+
+#: c2c-plugin.php:645
+msgid "Coffee fuels my coding."
+msgstr ""
+
+#: c2c-plugin.php:914
+msgid "A plugin by coffee2code"
+msgstr ""
+
+#: c2c-plugin.php:923
+msgid "Save Changes"
+msgstr ""
+
+#: c2c-plugin.php:924
+msgid "Reset Settings"
+msgstr ""
+
+#: c2c-plugin.php:930
+msgid "Scott Reilly, aka coffee2code"
+msgstr ""
+
+#: c2c-plugin.php:931
+msgid "This plugin brought to you by %s."
+msgstr ""
+
+#: c2c-plugin.php:932
+msgid "Please consider a donation"
+msgstr ""
+
+#: c2c-plugin.php:933
+msgid "Did you find this plugin useful?"
+msgstr ""
+
+#. #-#-#-#-#  remember-me-controls.pot (Remember Me Controls 1.5)  #-#-#-#-#
+#. Plugin Name of the plugin/theme
+#: remember-me-controls.php:108
+msgid "Remember Me Controls"
+msgstr ""
+
+#: remember-me-controls.php:109
+msgid "Remember Me"
+msgstr ""
+
+#: remember-me-controls.php:114
+msgid "Have the \"Remember Me\" checkbox automatically checked?"
+msgstr ""
+
+#: remember-me-controls.php:115
+msgid ""
+"If checked, then the \"Remember Me\" checkbox will automatically be checked "
+"when visiting the login form."
+msgstr ""
+
+#: remember-me-controls.php:118
+msgid "Remember forever*?"
+msgstr ""
+
+#: remember-me-controls.php:119
+msgid ""
+"Should user be remembered forever if \"Remember Me\" is checked? If so, then "
+"the \"Remember Me duration\" value below is ignored.<br /><small style="
+"\"font-style:italic;\">(*Not quite forever; actually it's 100 years.)</small>"
+msgstr ""
+
+#: remember-me-controls.php:122
+msgid "Remember Me duration"
+msgstr ""
+
+#: remember-me-controls.php:123
+msgid ""
+"The number of <strong>hours</strong> a login with \"Remember Me\" checked "
+"will last. If not provided, then the WordPress default of 336 (i.e. two "
+"weeks) will be used. Do not include any commas.<br />NOTE: This value is "
+"ignored if \"Remember forever?\" is checked above."
+msgstr ""
+
+#: remember-me-controls.php:126
+msgid "Disable the \"Remember Me\" feature?"
+msgstr ""
+
+#: remember-me-controls.php:127
+msgid ""
+"If checked, then the \"Remember Me\" checkbox will not appear on login and "
+"the login session will last no longer than 24 hours."
+msgstr ""
+
+#: remember-me-controls.php:148
+msgid "Remember Me Controls Settings"
+msgstr ""
+
+#: remember-me-controls.php:159
+msgid "About"
+msgstr ""
+
+#: remember-me-controls.php:161
+msgid ""
+"Take control of the \"Remember Me\" feature for WordPress. For those "
+"unfamiliar, \"Remember Me\" is a checkbox present when logging into "
+"WordPress. If checked, WordPress will remember the login session for 14 "
+"days. If unchecked, the login session will be remembered for only 2 days. "
+"Once a login session expires, WordPress will require you to log in again if "
+"you wish to continue using the admin section of the site."
+msgstr ""
+
+#: remember-me-controls.php:162
+msgid ""
+"This plugin provides three primary controls over the behavior of the "
+"\"Remember Me\" feature:"
+msgstr ""
+
+#: remember-me-controls.php:164
+msgid ""
+"Automatically check \"Remember Me\" : Have the \"Remember Me\" checkbox "
+"automatically checked when the login form is loaded (it isn't checked by "
+"default)."
+msgstr ""
+
+#: remember-me-controls.php:165
+msgid ""
+"Customize the duration of the \"Remember Me\" : Customize how long WordPress "
+"will remember a login session when \"Remember Me\" is checked."
+msgstr ""
+
+#: remember-me-controls.php:166
+msgid ""
+"Disable \"Remember Me\" : Completely disable the feature, preventing the "
+"checkbox from appearing and restricting all login sessions to one day."
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "http://coffee2code.com/wp-plugins/remember-me-controls/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Have \"Remember Me\" checked by default on logins, configure how long a "
+"login is remembered, or disable the \"Remember Me\" feature altogether."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Scott Reilly"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://coffee2code.com/"
+msgstr ""

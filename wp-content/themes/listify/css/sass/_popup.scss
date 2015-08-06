@@ -1,0 +1,179 @@
+/**
+ * Popup
+ *
+ * Magnificant Popup overrides and basic styles
+ */
+
+.mfp-wrap {
+	z-index: 1030;
+}
+
+.mfp-bg {
+	z-index: 1029;
+}
+
+.mfp-bg {
+	background-color: rgba(47, 51, 57, .89);
+}
+
+.mfp-content .mfp-close {
+	background: none;
+	padding: 0;
+	box-shadow: none;
+	border-radius: 0;
+	line-height: normal;
+	width: auto;
+	height: auto;
+	opacity: 1;
+	font-size: 0;
+	top: 20px;
+	right: 35px;
+}
+
+	@include bp(sm) {
+		.mfp-content .mfp-close {
+			top: 28px;
+		}
+
+		.gallery-overlay #main {
+			margin-top: 32px;
+		}
+
+		.gallery-overlay .mfp-content .mfp-close {
+			top: 15px;
+			right: 30px;
+		}
+
+		.gallery-overlay.admin-bar #main {
+			margin-top: 62px;
+		}
+
+		.gallery-overlay.admin-bar .mfp-content .mfp-close {
+			top: 20px;
+			right: 40px;
+		}
+	}
+
+.gallery-overlay .mfp-content .mfp-close:before {
+	color: #fff;
+}
+
+.mfp-content .mfp-close:before {
+	@include ionicon;
+	color: #b4bcc7;
+	font-size: 32px;
+	padding-left: 2px;
+	content: '\f128';
+}
+
+.popup {
+	display: none;
+	background: #FFF;
+	padding: 2em;
+	text-align: left;
+	max-width: 550px;
+	margin: 40px auto;
+	position: relative;
+	border-radius: 4px;
+	box-shadow: rgba(0, 0, 0, .15) 0 0 0 4px;
+}
+
+.mfp-auto-cursor .mfp-content {
+	top: 0;
+}
+
+.mfp-content .popup-wide {
+	max-width: 95%;
+}
+
+	@include bp(sm) {
+		.mfp-content .popup {
+			padding: 2.5em;
+		}
+
+		.mfp-content .popup.popup-wide {
+			max-width: 75%;
+		}
+	}
+
+.mfp-content .popup {
+	display: block;
+}
+
+.popup-title {
+	font-size: 20px;
+	margin: 0 40px 1em 0;
+}
+
+	@include bp(sm) {
+		.popup-title {
+			font-size: 24px;
+		}
+	}
+
+
+button.mfp-arrow {
+	top: 50%;
+}
+
+.mfp-container button.mfp-arrow, 
+.mfp-container button.mfp-arrow:hover,
+.mfp-container button.mfp-arrow:focus {
+	background-color: transparent;
+}
+
+
+/** For AJAX modals */
+
+.popup .content-box {
+	margin-bottom: 0;
+}
+
+.popup .content-box.content-box-wrapper .content-box-inner,
+.popup .type-page.content-box.content-box-wrapper .content-box-inner {
+	padding: 0;
+}
+
+.popup .content-box {
+	box-shadow: none;
+}
+
+.home .popup .wocommerce-error,
+.popup .wocommerce-error {
+	margin-top: 0;
+}
+
+
+/** OpenTable resets */
+
+#opentable.popup {
+	max-width: 234px;
+
+	.mfp-close {
+		top: 5px;
+		right: 5px;
+	}
+}
+
+body #opentable.popup *,
+body #OT_searchWrapperAll * {
+	-webkit-box-sizing: content-box;
+	-moz-box-sizing: content-box;
+	box-sizing: content-box;
+}
+
+body #OT_searchWrapperAll {
+	height: 150px;
+}
+
+#OT_searchWrapper #startDate {
+	padding: 4px;
+}
+
+/** Guestful */
+
+/** Resurva */
+
+#resurva.popup {
+	max-width: 365px;
+}

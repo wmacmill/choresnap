@@ -1,0 +1,668 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Gravity Forms Geolocation Add-on\n"
+"POT-Creation-Date: 2015-05-25 17:04-1000\n"
+"PO-Revision-Date: 2015-05-25 17:05-1000\n"
+"Last-Translator: Eyal Fitoussi <info@geomywp.com>\n"
+"Language-Team: Eyal Fitoussi <info@geomywp.com>\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.7.6\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: gravityforms-geolocation.php:29
+msgid ""
+"Please deactivate Gravity Forms Geo Field add-on in order to use Gravity "
+"Forms Geolocation add-on."
+msgstr ""
+
+#: gravityforms-geolocation.php:157
+msgid "Enhance Gravity Forms plugin with geolocation features."
+msgstr ""
+
+#: includes/admin/ggf-admin-form-editor-page.php:78
+msgid "Advanced Address"
+msgstr ""
+
+#: includes/admin/ggf-admin-form-editor-page.php:84
+#: includes/admin/ggf-form-fields.php:137
+#: includes/admin/ggf-form-fields.php:214
+msgid "GEO Fields - Geocoded Address Fields"
+msgstr ""
+
+#: includes/admin/ggf-admin-form-editor-page.php:98
+msgid "GGF Map Icons"
+msgstr ""
+
+#: includes/admin/ggf-admin-form-editor-page.php:115
+msgid "Button Label"
+msgstr ""
+
+#: includes/admin/ggf-admin-form-editor-page.php:124
+msgid "Automatic Form Submission"
+msgstr ""
+
+#: includes/admin/ggf-admin-form-editor-page.php:132
+msgid "Hide Submit Button"
+msgstr ""
+
+#: includes/admin/ggf-admin-form-editor-page.php:139
+msgid "Enable Location Alert Message"
+msgstr ""
+
+#: includes/admin/ggf-admin-form-editor-page.php:146
+msgid "Location Found Message"
+msgstr ""
+
+#: includes/admin/ggf-admin-form-editor-page.php:160
+msgid "Map Width"
+msgstr ""
+
+#: includes/admin/ggf-admin-form-editor-page.php:168
+msgid "Map Height"
+msgstr ""
+
+#: includes/admin/ggf-admin-form-editor-page.php:176
+#: includes/admin/ggf-admin-form-editor-page.php:563
+#: includes/admin/ggf-admin-form-settings-page.php:71
+#: includes/admin/ggf-admin-user-registration.php:29
+msgid "Latitude"
+msgstr ""
+
+#: includes/admin/ggf-admin-form-editor-page.php:184
+#: includes/admin/ggf-admin-form-editor-page.php:564
+#: includes/admin/ggf-admin-form-settings-page.php:72
+#: includes/admin/ggf-admin-user-registration.php:30
+msgid "Longitude"
+msgstr ""
+
+#: includes/admin/ggf-admin-form-editor-page.php:192
+msgid "Map Type"
+msgstr ""
+
+#: includes/admin/ggf-admin-form-editor-page.php:205
+msgid "Zoom Level"
+msgstr ""
+
+#: includes/admin/ggf-admin-form-editor-page.php:228
+msgid "Geocode this Field"
+msgstr ""
+
+#: includes/admin/ggf-admin-form-editor-page.php:238
+msgid "Enable Locator Auto-fill"
+msgstr ""
+
+#: includes/admin/ggf-admin-form-editor-page.php:245
+msgid "Enable Map Auto-fill"
+msgstr ""
+
+#: includes/admin/ggf-admin-form-editor-page.php:252
+msgid "Enable Google Address Autocomplete"
+msgstr ""
+
+#: includes/admin/ggf-admin-form-editor-page.php:260
+msgid "Placeholder"
+msgstr ""
+
+#: includes/admin/ggf-admin-form-editor-page.php:268
+msgid "Field description"
+msgstr ""
+
+#: includes/admin/ggf-admin-form-editor-page.php:279
+msgid "Update Map Based on autocomplete choice"
+msgstr ""
+
+#: includes/admin/ggf-admin-form-editor-page.php:285
+msgid "Restrict Autocomplete Results"
+msgstr ""
+
+#: includes/admin/ggf-admin-form-editor-page.php:548
+msgid "Output Location Field"
+msgstr ""
+
+#: includes/admin/ggf-admin-form-editor-page.php:551
+#: includes/admin/ggf-admin-user-registration.php:93
+msgid "N/A"
+msgstr ""
+
+#: includes/admin/ggf-admin-form-editor-page.php:552
+#: includes/admin/ggf-admin-form-settings-page.php:59
+#: includes/admin/ggf-admin-user-registration.php:17
+msgid "Street number"
+msgstr ""
+
+#: includes/admin/ggf-admin-form-editor-page.php:553
+#: includes/admin/ggf-admin-form-settings-page.php:60
+#: includes/admin/ggf-admin-user-registration.php:18
+msgid "Street name"
+msgstr ""
+
+#: includes/admin/ggf-admin-form-editor-page.php:554
+msgid "Street ( street number + street name )"
+msgstr ""
+
+#: includes/admin/ggf-admin-form-editor-page.php:555
+msgid "Apt #"
+msgstr ""
+
+#: includes/admin/ggf-admin-form-editor-page.php:556
+#: includes/admin/ggf-admin-form-settings-page.php:63
+#: includes/admin/ggf-admin-user-registration.php:21
+#: includes/admin/ggf-form-fields.php:319
+msgid "City"
+msgstr ""
+
+#: includes/admin/ggf-admin-form-editor-page.php:557
+msgid "State ( short-name )"
+msgstr ""
+
+#: includes/admin/ggf-admin-form-editor-page.php:558
+msgid "State ( long-name )"
+msgstr ""
+
+#: includes/admin/ggf-admin-form-editor-page.php:559
+msgid "Zip-code / Postal-code"
+msgstr ""
+
+#: includes/admin/ggf-admin-form-editor-page.php:560
+msgid "Country ( short-name )"
+msgstr ""
+
+#: includes/admin/ggf-admin-form-editor-page.php:561
+msgid "Country ( long-name )"
+msgstr ""
+
+#: includes/admin/ggf-admin-form-editor-page.php:562
+#: includes/admin/ggf-admin-form-settings-page.php:70
+#: includes/admin/ggf-admin-user-registration.php:28
+msgid "Formatted Address"
+msgstr ""
+
+#: includes/admin/ggf-admin-form-editor-page.php:577
+msgid "Enter the Label for this locator button."
+msgstr ""
+
+#: includes/admin/ggf-admin-form-editor-page.php:578
+msgid "Dynamically submit this form once a location successfully found."
+msgstr ""
+
+#: includes/admin/ggf-admin-form-editor-page.php:579
+msgid ""
+"Hide the submit button of this form. This feature can be useful when using "
+"the locator button to auto-submit the form once a location is found.</h6>"
+msgstr ""
+
+#: includes/admin/ggf-admin-form-editor-page.php:580
+msgid "Enable alert message when the user poisiton was found."
+msgstr ""
+
+#: includes/admin/ggf-admin-form-editor-page.php:581
+msgid ""
+"Enter the message which you would like to be displayed once location is "
+"found."
+msgstr ""
+
+#: includes/admin/ggf-admin-form-editor-page.php:584
+msgid "Enter the map width in pixels or percentage."
+msgstr ""
+
+#: includes/admin/ggf-admin-form-editor-page.php:585
+msgid "Enter the map height in pixels or percentage."
+msgstr ""
+
+#: includes/admin/ggf-admin-form-editor-page.php:586
+msgid ""
+"Enter the latitude of the initial point that will be displayed on the map."
+msgstr ""
+
+#: includes/admin/ggf-admin-form-editor-page.php:587
+msgid ""
+"Enter the longitude of the initial point that will be displayed on the map."
+msgstr ""
+
+#: includes/admin/ggf-admin-form-editor-page.php:588
+msgid "Choose the map type."
+msgstr ""
+
+#: includes/admin/ggf-admin-form-editor-page.php:589
+msgid "Set the zoom level of the map."
+msgstr ""
+
+#: includes/admin/ggf-admin-form-editor-page.php:591
+msgid ""
+"Dynamically populate this field with the address found via the auto-locator."
+msgstr ""
+
+#: includes/admin/ggf-admin-form-editor-page.php:592
+msgid ""
+"Dynamically update this field with the address found once the map is being "
+"updated."
+msgstr ""
+
+#: includes/admin/ggf-admin-form-editor-page.php:593
+msgid ""
+"Apply Google address autocomplete feature to this field. Google address "
+"autocomplete displays suggested results while the user is typing an address."
+msgstr ""
+
+#: includes/admin/ggf-admin-form-editor-page.php:594
+msgid ""
+"Update the Marker's location on the map once an address was selected using "
+"the address autocomplete."
+msgstr ""
+
+#: includes/admin/ggf-admin-form-editor-page.php:595
+msgid ""
+"Restrict Google address autocomplete results to a certain country by "
+"choosing the country from the drop-down menu."
+msgstr ""
+
+#: includes/admin/ggf-admin-form-editor-page.php:596
+msgid "Check this checkbox if you want this field to be geocoded."
+msgstr ""
+
+#: includes/admin/ggf-admin-form-editor-page.php:597
+msgid "Enter the placeholder of the address autocomplete text field."
+msgstr ""
+
+#: includes/admin/ggf-admin-form-editor-page.php:598
+msgid ""
+"Enter a description that you would liket to show below the address "
+"autocomplete text field."
+msgstr ""
+
+#: includes/admin/ggf-admin-form-editor-page.php:600
+msgid ""
+"Dynamically populate this field with the selected location field after "
+"geocoding."
+msgstr ""
+
+#: includes/admin/ggf-admin-form-settings-page.php:34
+#: includes/admin/ggf-admin-form-settings-page.php:184
+msgid "Geolocation"
+msgstr ""
+
+#: includes/admin/ggf-admin-form-settings-page.php:61
+#: includes/admin/ggf-form-fields.php:207
+msgid "Street"
+msgstr ""
+
+#: includes/admin/ggf-admin-form-settings-page.php:62
+#: includes/admin/ggf-admin-user-registration.php:20
+msgid "Apt"
+msgstr ""
+
+#: includes/admin/ggf-admin-form-settings-page.php:64
+#: includes/admin/ggf-admin-user-registration.php:22
+#: includes/admin/ggf-form-fields.php:368
+msgid "State"
+msgstr ""
+
+#: includes/admin/ggf-admin-form-settings-page.php:65
+#: includes/admin/ggf-admin-user-registration.php:23
+msgid "State long name"
+msgstr ""
+
+#: includes/admin/ggf-admin-form-settings-page.php:66
+#: includes/admin/ggf-admin-user-registration.php:24
+#: includes/admin/ggf-form-fields.php:417
+msgid "Zipcode"
+msgstr ""
+
+#: includes/admin/ggf-admin-form-settings-page.php:67
+#: includes/admin/ggf-admin-user-registration.php:25
+#: includes/admin/ggf-form-fields.php:470
+msgid "Country"
+msgstr ""
+
+#: includes/admin/ggf-admin-form-settings-page.php:68
+#: includes/admin/ggf-admin-user-registration.php:26
+msgid "Country long name"
+msgstr ""
+
+#: includes/admin/ggf-admin-form-settings-page.php:69
+#: includes/admin/ggf-admin-user-registration.php:27
+msgid "Full Address"
+msgstr ""
+
+#: includes/admin/ggf-admin-form-settings-page.php:94
+#, php-format
+msgid "requires <a %s>GEO my WP</a> plugin"
+msgstr ""
+
+#: includes/admin/ggf-admin-form-settings-page.php:108
+msgid "Address Fields Usage"
+msgstr ""
+
+#: includes/admin/ggf-admin-form-settings-page.php:108
+msgid ""
+"This is where you set the input address fields type that you would like to "
+"use with this form. The input address fields are the fields that will be "
+"geocoded. You can choose between a single address field that can be used as "
+"full address, multiple address fields ( street, city, state, zipcode and "
+"country ) or advanced address field which uses that native \"Address\" Field "
+"provided by Gravity Forms plugin"
+msgstr ""
+
+#: includes/admin/ggf-admin-form-settings-page.php:111
+msgid "Disable Geolocation for this form"
+msgstr ""
+
+#: includes/admin/ggf-admin-form-settings-page.php:113
+msgid "Single address field"
+msgstr ""
+
+#: includes/admin/ggf-admin-form-settings-page.php:115
+msgid "Multiple address fields"
+msgstr ""
+
+#: includes/admin/ggf-admin-form-settings-page.php:117
+msgid "Advanced address field"
+msgstr ""
+
+#: includes/admin/ggf-admin-form-settings-page.php:125
+msgid "Enable auto-locator on form load"
+msgstr ""
+
+#: includes/admin/ggf-admin-form-settings-page.php:125
+msgid ""
+"Dynamically get the user's current location on the initial load of the form."
+msgstr ""
+
+#: includes/admin/ggf-admin-form-settings-page.php:134
+msgid "Post's custom fields"
+msgstr ""
+
+#: includes/admin/ggf-admin-form-settings-page.php:134
+msgid ""
+"Enter the custom fields where you would like to save each of the location "
+"fields on form submission."
+msgstr ""
+
+#: includes/admin/ggf-admin-form-settings-page.php:159
+msgid "GEO my WP Options"
+msgstr ""
+
+#: includes/admin/ggf-admin-form-settings-page.php:159
+msgid "Integration with GEO my WP plugin."
+msgstr ""
+
+#: includes/admin/ggf-admin-form-settings-page.php:169
+msgid "Save posts location"
+msgstr ""
+
+#: includes/admin/ggf-admin-form-settings-page.php:169
+msgid ""
+"Save location information to GEO my WP database. This way posts will be "
+"searchable via GEO my WP search forms."
+msgstr ""
+
+#: includes/admin/ggf-admin-form-settings-page.php:202
+msgid "Update Form Settings"
+msgstr ""
+
+#: includes/admin/ggf-admin-user-registration.php:19
+msgid "Street ( number + name )"
+msgstr ""
+
+#: includes/admin/ggf-admin-user-registration.php:42
+#, php-format
+msgid "Requires GEO my WP's <a %s>\"Member Locator\" add-on</a>"
+msgstr ""
+
+#: includes/admin/ggf-admin-user-registration.php:49
+#, php-format
+msgid "Requires <a %s>GEO my WP</a> plugin"
+msgstr ""
+
+#: includes/admin/ggf-admin-user-registration.php:54
+msgid "Geolocation Options"
+msgstr ""
+
+#: includes/admin/ggf-admin-user-registration.php:58
+msgid "Address Fields Setup"
+msgstr ""
+
+#: includes/admin/ggf-admin-user-registration.php:62
+msgid ""
+"In the table below you can setup the fields where you would like to save "
+"each of the geocoded location fields. You can save the location information "
+"in user meta as well in Xprofile Fields when BuddyPress plugin is install "
+"and activated."
+msgstr ""
+
+#: includes/admin/ggf-admin-user-registration.php:76
+msgid "Address Field"
+msgstr ""
+
+#: includes/admin/ggf-admin-user-registration.php:77
+msgid "User Meta"
+msgstr ""
+
+#: includes/admin/ggf-admin-user-registration.php:79
+msgid "Xprofile fields"
+msgstr ""
+
+#: includes/admin/ggf-admin-user-registration.php:113
+msgid "GEO my WP options"
+msgstr ""
+
+#: includes/admin/ggf-admin-user-registration.php:116
+msgid "Integrate with GEO my WP"
+msgstr ""
+
+#: includes/admin/ggf-admin-user-registration.php:117
+msgid ""
+"Save members location in GEO my WP database table. This way members will be "
+"searchable via GEO my WP search forms"
+msgstr ""
+
+#: includes/admin/ggf-form-fields.php:27
+msgid "Auto Locator"
+msgstr ""
+
+#: includes/admin/ggf-form-fields.php:34
+msgid "GEO Fields - Geolocation Fields"
+msgstr ""
+
+#: includes/admin/ggf-form-fields.php:43
+msgid "Auto Locator Button ( GEO Field )"
+msgstr ""
+
+#: includes/admin/ggf-form-fields.php:77
+msgid "Map ( GEO Field )"
+msgstr ""
+
+#: includes/admin/ggf-form-fields.php:84
+msgid "Map"
+msgstr ""
+
+#: includes/admin/ggf-form-fields.php:130
+msgid "Address"
+msgstr ""
+
+#: includes/admin/ggf-form-fields.php:146
+msgid "Address ( GEO Field )"
+msgstr ""
+
+#: includes/admin/ggf-form-fields.php:222
+msgid "Street ( GEO Field )"
+msgstr ""
+
+#: includes/admin/ggf-form-fields.php:264
+msgid "Apt/House ( GEO Field )"
+msgstr ""
+
+#: includes/admin/ggf-form-fields.php:270
+msgid "Apt/House"
+msgstr ""
+
+#: includes/admin/ggf-form-fields.php:313
+msgid "City ( GEO Field )"
+msgstr ""
+
+#: includes/admin/ggf-form-fields.php:362
+msgid "State ( GEO Field )"
+msgstr ""
+
+#: includes/admin/ggf-form-fields.php:411
+msgid "Zipcode ( GEO Field )"
+msgstr ""
+
+#: includes/admin/ggf-form-fields.php:460
+msgid "Country ( GEO Field )"
+msgstr ""
+
+#: includes/admin/ggf-form-fields.php:526
+msgid "Phone"
+msgstr ""
+
+#: includes/admin/ggf-form-fields.php:533
+msgid "GEO Fields - GMW Contact Fields"
+msgstr ""
+
+#: includes/admin/ggf-form-fields.php:542
+msgid "GEO my WP Phone"
+msgstr ""
+
+#: includes/admin/ggf-form-fields.php:584
+msgid "GEO my WP Fax"
+msgstr ""
+
+#: includes/admin/ggf-form-fields.php:594
+msgid "Fax"
+msgstr ""
+
+#: includes/admin/ggf-form-fields.php:637
+msgid "GEO my WP Email"
+msgstr ""
+
+#: includes/admin/ggf-form-fields.php:647
+msgid "Email"
+msgstr ""
+
+#: includes/admin/ggf-form-fields.php:690
+msgid "GEO my WP Website"
+msgstr ""
+
+#: includes/admin/ggf-form-fields.php:700
+msgid "Website"
+msgstr ""
+
+#: includes/ggf-frontend-form-class.php:147
+msgid "Location found."
+msgstr ""
+
+#: updater/geo-my-wp-license-handler.php:79
+msgid "Please deactivate the license key before deactivating the plugin"
+msgstr ""
+
+#: updater/geo-my-wp-license-handler.php:171
+#: updater/geo-my-wp-license-handler.php:215
+msgid "License Key:"
+msgstr ""
+
+#: updater/geo-my-wp-license-handler.php:190
+#: updater/geo-my-wp-license-handler.php:191
+msgid "Deactivate License Key"
+msgstr ""
+
+#: updater/geo-my-wp-license-handler.php:223
+msgid "Enter license key"
+msgstr ""
+
+#: updater/geo-my-wp-license-handler.php:230
+msgid "Activate License Key"
+msgstr ""
+
+#: updater/geo-my-wp-license-handler.php:232
+msgid "Activate License"
+msgstr ""
+
+#: updater/geo-my-wp-license-handler.php:281
+msgid ""
+"Please enter your license key and click \"Activate License\". The license "
+"key is required in order to receive automatic updated for the plugin."
+msgstr ""
+
+#: updater/geo-my-wp-license-handler.php:282
+#, php-format
+msgid ""
+"Your license for %s plugin successfully activated. Thank you for your "
+"support!"
+msgstr ""
+
+#: updater/geo-my-wp-license-handler.php:283
+#, php-format
+msgid "Your license for %s plugin successfully deactivated."
+msgstr ""
+
+#: updater/geo-my-wp-license-handler.php:284
+msgid "License is activated. Thank you for your support!"
+msgstr ""
+
+#: updater/geo-my-wp-license-handler.php:285
+msgid "No license key entered. Please enter the license key and try again."
+msgstr ""
+
+#: updater/geo-my-wp-license-handler.php:286
+msgid ""
+"Your license has expired. Please renew your license in order to keep getting "
+"its updates and support."
+msgstr ""
+
+#: updater/geo-my-wp-license-handler.php:287
+#, php-format
+msgid ""
+"Your license has no activations left. Click <a %s>here</a> to manager your "
+"license activations."
+msgstr ""
+
+#: updater/geo-my-wp-license-handler.php:288
+msgid ""
+"Something is wrong with the key you entered. Please verify the key and try "
+"again."
+msgstr ""
+
+#: updater/geo-my-wp-license-handler.php:289
+#, php-format
+msgid "Lost or forgot your license key? <a %s >Retrieve it here.</a>"
+msgstr ""
+
+#: updater/geo-my-wp-license-handler.php:290
+#, php-format
+msgid ""
+"Your license for %s plugin could not be activated. See error message below!"
+msgstr ""
+
+#: updater/geo-my-wp-updater.php:180
+#, php-format
+msgid ""
+"There is a new version of %1$s available. <a target=\"_blank\" class="
+"\"thickbox\" href=\"%2$s\">View version %3$s details</a>."
+msgstr ""
+
+#: updater/geo-my-wp-updater.php:187
+#, php-format
+msgid ""
+"There is a new version of %1$s available. <a target=\"_blank\" class="
+"\"thickbox\" href=\"%2$s\">View version %3$s details</a> or <a href=\"%4$s"
+"\">update now</a>."
+msgstr ""
+
+#: updater/geo-my-wp-updater.php:328
+msgid "You do not have permission to install plugin updates"
+msgstr ""
+
+#: updater/geo-my-wp-updater.php:328
+msgid "Error"
+msgstr ""

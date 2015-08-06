@@ -1,0 +1,42 @@
+/* ==========================================================================
+   Lightbox
+   ========================================================================== */
+.soliloquybox-skin.soliloquybox-theme-classic {
+    /**
+    * Image Sprite
+    */
+    .soliloquybox-close, .soliloquybox-prev span, .soliloquybox-next span {
+        background-image: url('images/soliloquybox_sprite.png');
+    }
+
+    /**
+    * Close
+    */
+    .soliloquybox-close {
+        top: -36px;
+        right: -36px;
+    }
+}
+
+/* ==========================================================================
+   Retina Styles
+   ========================================================================== */
+
+@media
+only screen and (-webkit-min-device-pixel-ratio: 2),
+only screen and (   min--moz-device-pixel-ratio: 2),
+only screen and (     -o-min-device-pixel-ratio: 2/1),
+only screen and (        min-device-pixel-ratio: 2),
+only screen and (                min-resolution: 192dpi),
+only screen and (                min-resolution: 2dppx) {
+
+    .soliloquybox-skin.soliloquybox-theme-classic {
+        /**
+        * Image Sprite
+        */
+        .soliloquybox-close, .soliloquybox-prev span, .soliloquybox-next span {
+            background-image: url('images/soliloquybox_sprite@2x.png');
+        }
+    }
+
+}

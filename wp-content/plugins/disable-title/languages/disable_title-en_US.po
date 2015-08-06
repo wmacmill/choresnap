@@ -1,0 +1,95 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Disable Title v0.9\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-04-03 21:11+0100\n"
+"PO-Revision-Date: 2013-12-05 08:11:46+0000\n"
+"Last-Translator: Frank Staude <frank@staude.net>\n"
+"Language-Team: frank@staude.net <frank@staude.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Poedit 1.5.5\n"
+"X-Poedit-Language: \n"
+"X-Poedit-Country: \n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;\n"
+"X-Poedit-Basepath: /Users/staude/Projekte/Wordpress Plugins/wp-content/plugins/disable-title\n"
+"X-Poedit-Bookmarks: \n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Textdomain-Support: yes"
+
+#: class-disable-title.php:147
+#: class-disable-title.php:148
+#: class-disable-title.php:160
+#@ disable_title
+msgid "Title settings"
+msgstr "Title settings"
+
+#: class-disable-title.php:180
+#@ disable_title
+msgid "Disable title on homepage"
+msgstr "Disable title on homepage"
+
+#: class-disable-title.php:182
+#@ disable_title
+msgid "Disable title on page/post"
+msgstr "Disable title on page/post"
+
+#: class-disable-title.php:184
+#@ disable_title
+msgid "Disable title on category page"
+msgstr "Disable title on category page"
+
+#: class-disable-title.php:186
+#@ disable_title
+msgid "Disable title on archive page"
+msgstr "Disable title on archive page"
+
+#. translators: plugin header field 'Name'
+#: disable-title.php:0
+#@ disable_title
+msgid "Disable Title"
+msgstr ""
+
+#. translators: plugin header field 'PluginURI'
+#: disable-title.php:0
+#@ disable_title
+msgid "http://www.staude.net/wordpress/plugins/DisableTitle"
+msgstr ""
+
+#. translators: plugin header field 'Description'
+#: disable-title.php:0
+#@ disable_title
+msgid "Disable the title per page/post"
+msgstr "With this plugin you can define for each page/post whether the title should be suppressed on the homepage, category, archive or detail pages."
+
+#. translators: plugin header field 'Author'
+#: disable-title.php:0
+#@ disable_title
+msgid "Frank Staude"
+msgstr ""
+
+#. translators: plugin header field 'AuthorURI'
+#: disable-title.php:0
+#@ disable_title
+msgid "http://www.staude.net/"
+msgstr ""
+
+#: class-disable-title.php:188
+#@ disable_title
+msgid "Disable title on menu"
+msgstr "Disable title on menu"
+
+#: class-disable-title.php:190
+#@ disable_title
+msgid "Disable title on widgets"
+msgstr "Disable title on widgets"
+
+#. translators: plugin header field 'Version'
+#: disable-title.php:0
+#@ disable_title
+msgid "0.9"
+msgstr ""
+

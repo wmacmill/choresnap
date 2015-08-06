@@ -1,0 +1,152 @@
+# Copyright (C) 2015 Soliloquy - Thumbnails Addon
+# This file is distributed under the same license as the Soliloquy - Thumbnails Addon package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Soliloquy - Thumbnails Addon 2.2.1\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/soliloquy-"
+"thumbnails\n"
+"POT-Creation-Date: 2015-06-25 15:21:01+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2015-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: soliloquy-thumbnails.php:158
+msgid "Thumbnails"
+msgstr ""
+
+#: soliloquy-thumbnails.php:176 soliloquy-thumbnails.php:204
+msgid "Enable Slider Thumbnails?"
+msgstr ""
+
+#: soliloquy-thumbnails.php:180
+msgid "Enables or disables the slider thumbnails feature on mobile devices."
+msgstr ""
+
+#: soliloquy-thumbnails.php:199
+msgid "The settings below adjust the thumbnails settings for the slider."
+msgstr ""
+
+#: soliloquy-thumbnails.php:208
+msgid "Enables or disables the slider thumbnails feature."
+msgstr ""
+
+#: soliloquy-thumbnails.php:213
+msgid "Thumbnails Width"
+msgstr ""
+
+#: soliloquy-thumbnails.php:216 soliloquy-thumbnails.php:225
+#: soliloquy-thumbnails.php:247
+msgid "px"
+msgstr ""
+
+#: soliloquy-thumbnails.php:217
+msgid ""
+"The width of each slide thumbnail (acts a max width and adjusts dynamically)."
+msgstr ""
+
+#: soliloquy-thumbnails.php:222
+msgid "Thumbnails Height"
+msgstr ""
+
+#: soliloquy-thumbnails.php:226
+msgid ""
+"The height of each slide thumbnail (acts a max height and adjusts "
+"dynamically)."
+msgstr ""
+
+#: soliloquy-thumbnails.php:231
+msgid "Thumbnails Position"
+msgstr ""
+
+#: soliloquy-thumbnails.php:239
+msgid "Sets the thumbnail position relative to the slider."
+msgstr ""
+
+#: soliloquy-thumbnails.php:244
+msgid "Thumbnails Margin"
+msgstr ""
+
+#: soliloquy-thumbnails.php:248
+msgid "The margin between each thumbnail within the slider."
+msgstr ""
+
+#: soliloquy-thumbnails.php:253
+msgid "Number of Visible Thumbnails"
+msgstr ""
+
+#: soliloquy-thumbnails.php:257
+msgid "The number of thumbnails visible in the thumbnail container."
+msgstr ""
+
+#: soliloquy-thumbnails.php:262
+msgid "Crop Slider Thumbnails?"
+msgstr ""
+
+#: soliloquy-thumbnails.php:266
+msgid "Enables or disables thumbnail cropping."
+msgstr ""
+
+#: soliloquy-thumbnails.php:316 soliloquy-thumbnails.php:355
+msgid "Thumbnail"
+msgstr ""
+
+#: soliloquy-thumbnails.php:319
+msgid "Choose Thumbnail Image"
+msgstr ""
+
+#: soliloquy-thumbnails.php:320
+msgid "Remove Thumbnail Image"
+msgstr ""
+
+#: soliloquy-thumbnails.php:329
+msgid ""
+"Optionally choose a specific thumbnail for this image. If none is chosen, "
+"one will be automatically generated from the image above."
+msgstr ""
+
+#: soliloquy-thumbnails.php:334
+msgid "Specify a thumbnail image for this HTML slider."
+msgstr ""
+
+#: soliloquy-thumbnails.php:357
+msgid "Specify the URL of the image to display as a thumbnail."
+msgstr ""
+
+#: soliloquy-thumbnails.php:776
+msgid "Top"
+msgstr ""
+
+#: soliloquy-thumbnails.php:780
+msgid "Bottom"
+msgstr ""
+
+#: soliloquy-thumbnails.php:784
+msgid "Left"
+msgstr ""
+
+#: soliloquy-thumbnails.php:788
+msgid "Right"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "Soliloquy - Thumbnails Addon"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "http://soliloquywp.com"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Enables thumbnails display for Soliloquy sliders."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Thomas Griffin"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://thomasgriffinmedia.com"
+msgstr ""

@@ -1,0 +1,241 @@
+# Copyright (C) 2015 Soliloquy - Lightbox Addon
+# This file is distributed under the same license as the Soliloquy - Lightbox Addon package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Soliloquy - Lightbox Addon 2.2.6\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/soliloquy-"
+"lightbox\n"
+"POT-Creation-Date: 2015-07-16 14:29:51+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2015-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: soliloquy-lightbox.php:163
+msgid "Lightbox"
+msgstr ""
+
+#: soliloquy-lightbox.php:180
+msgid "The settings below adjust the lightbox settings for the slider."
+msgstr ""
+
+#: soliloquy-lightbox.php:185
+msgid "Enable Lightbox?"
+msgstr ""
+
+#: soliloquy-lightbox.php:189
+msgid "Enables or disables the slider lightbox."
+msgstr ""
+
+#: soliloquy-lightbox.php:194
+msgid "Lightbox Theme"
+msgstr ""
+
+#: soliloquy-lightbox.php:202
+msgid "Sets the theme for the lightbox display."
+msgstr ""
+
+#: soliloquy-lightbox.php:207
+msgid "Lightbox Title Position"
+msgstr ""
+
+#: soliloquy-lightbox.php:215
+msgid "Sets the display of the titles inside of the lightbox."
+msgstr ""
+
+#: soliloquy-lightbox.php:220
+msgid "Enable Lightbox Arrows?"
+msgstr ""
+
+#: soliloquy-lightbox.php:224
+msgid "Enables or disables the lightbox navigation arrows."
+msgstr ""
+
+#: soliloquy-lightbox.php:229
+msgid "Enable Keyboard Navigation?"
+msgstr ""
+
+#: soliloquy-lightbox.php:233
+msgid "Enables or disables keyboard navigation in the lightbox."
+msgstr ""
+
+#: soliloquy-lightbox.php:238
+msgid "Enable Mousewheel Navigation?"
+msgstr ""
+
+#: soliloquy-lightbox.php:242
+msgid "Enables or disables mousewheel navigation in the lightbox."
+msgstr ""
+
+#: soliloquy-lightbox.php:247
+msgid "Keep Aspect Ratio?"
+msgstr ""
+
+#: soliloquy-lightbox.php:251
+msgid ""
+"If enabled, images will always resize based on the original aspect ratio."
+msgstr ""
+
+#: soliloquy-lightbox.php:256
+msgid "Loop Lightbox Navigation?"
+msgstr ""
+
+#: soliloquy-lightbox.php:260
+msgid "Enables or disables infinite navigation cycling of the lightbox."
+msgstr ""
+
+#: soliloquy-lightbox.php:265
+msgid "Lightbox Transition Effect"
+msgstr ""
+
+#: soliloquy-lightbox.php:273
+msgid "Type of transition between images in the lightbox view."
+msgstr ""
+
+#: soliloquy-lightbox.php:278
+msgid "Load Videos in Lightbox?"
+msgstr ""
+
+#: soliloquy-lightbox.php:282
+msgid ""
+"Loads video slides in the lightbox on click instead of inside the slider "
+"itself."
+msgstr ""
+
+#: soliloquy-lightbox.php:287
+msgid "Enable Lightbox Thumbnails?"
+msgstr ""
+
+#: soliloquy-lightbox.php:291
+msgid "Enables or disables lightbox thumbnails."
+msgstr ""
+
+#: soliloquy-lightbox.php:296
+msgid "Lightbox Thumbnails Width"
+msgstr ""
+
+#: soliloquy-lightbox.php:299 soliloquy-lightbox.php:308
+msgid "px"
+msgstr ""
+
+#: soliloquy-lightbox.php:300
+msgid "Sets the width of each lightbox thumbnail."
+msgstr ""
+
+#: soliloquy-lightbox.php:305
+msgid "Lightbox Thumbnails Height"
+msgstr ""
+
+#: soliloquy-lightbox.php:309
+msgid "Sets the height of each lightbox thumbnail."
+msgstr ""
+
+#: soliloquy-lightbox.php:314
+msgid "Lightbox Thumbnails Position"
+msgstr ""
+
+#: soliloquy-lightbox.php:322
+msgid "Sets the position of the lightbox thumbnails."
+msgstr ""
+
+#: soliloquy-lightbox.php:346
+msgid "Enable Lightbox on Mobile?"
+msgstr ""
+
+#: soliloquy-lightbox.php:350
+msgid "Enables or disables the slider lightbox on mobile devices."
+msgstr ""
+
+#: soliloquy-lightbox.php:371
+msgid "Load in Lightbox?"
+msgstr ""
+
+#: soliloquy-lightbox.php:730
+msgid "The requested content cannot be loaded.<br/>Please try again later.</p>"
+msgstr ""
+
+#: soliloquy-lightbox.php:731
+msgid "Close"
+msgstr ""
+
+#: soliloquy-lightbox.php:732
+msgid "Next"
+msgstr ""
+
+#: soliloquy-lightbox.php:733
+msgid "Previous"
+msgstr ""
+
+#: soliloquy-lightbox.php:860
+msgid "Base"
+msgstr ""
+
+#: soliloquy-lightbox.php:864
+msgid "Classic"
+msgstr ""
+
+#: soliloquy-lightbox.php:869
+msgid "Karisma"
+msgstr ""
+
+#: soliloquy-lightbox.php:874
+msgid "Metro"
+msgstr ""
+
+#: soliloquy-lightbox.php:896
+msgid "Float"
+msgstr ""
+
+#: soliloquy-lightbox.php:900
+msgid "Inside"
+msgstr ""
+
+#: soliloquy-lightbox.php:904
+msgid "Outside"
+msgstr ""
+
+#: soliloquy-lightbox.php:908
+msgid "Over"
+msgstr ""
+
+#: soliloquy-lightbox.php:928
+msgid "Fade"
+msgstr ""
+
+#: soliloquy-lightbox.php:932
+msgid "Elastic"
+msgstr ""
+
+#: soliloquy-lightbox.php:936
+msgid "No Effect"
+msgstr ""
+
+#: soliloquy-lightbox.php:956
+msgid "Bottom"
+msgstr ""
+
+#: soliloquy-lightbox.php:960
+msgid "Top"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "Soliloquy - Lightbox Addon"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "http://soliloquywp.com"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Enables responsive lightbox support for Soliloquy sliders."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Thomas Griffin"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://thomasgriffinmedia.com"
+msgstr ""

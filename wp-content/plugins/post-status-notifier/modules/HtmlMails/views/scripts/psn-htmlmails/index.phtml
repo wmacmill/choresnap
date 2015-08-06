@@ -1,0 +1,19 @@
+<p><a href="<?php echo $this->url(array('page' => $this->pm->getPathinfo()->getDirname(), 'controller' => 'htmlmails', 'mod' => 'htmlmails', 'action' => 'create'), 'requestVars', true) ?>" class="ifw-wp-icon-plus" id="create_new_mailtemplate"><?php _e('Create new mail template', 'psn_htm'); ?></a>
+    <a href="javascript:void(0)" class="ifw-wp-icon-plus import_items_container_toggle"><?php _e('Import mail templates', 'psn_htm'); ?></a>
+</p>
+<div id="import_items_container" style="display: none;">
+    <h3><?php _e('Import mail templates', 'psn_htm'); ?></h3>
+    <p class="ifw-wp-icon-help"><?php printf(__('Need help? <a href="%s" target="_blank">Check the docs</a>.', 'psn'), 'http://docs.ifeelweb.de/post-status-notifier/rules.html#importing-rules'); ?></p>
+    <form action="<?php echo $this->url(array('page' => $this->pm->getPathinfo()->getDirname(), 'controller' => 'htmlmails', 'action' => 'import', 'mod' => 'htmlmails'), 'requestVars', true) ?>" name="import_items_form" id="import_items_form" method="post" enctype="multipart/form-data">
+        <label for="importfile"><?php _e('Import file', 'psn'); ?>:</label>
+        <input type="file" name="importfile" id="importfile" accept="text/xml" /><br>
+        <p class="description"><?php _e('Please select a valid .xml export file created by this plugin.', 'psn'); ?></p>
+        <label for="import_prefix"><?php _e('Import prefix', 'psn'); ?>:</label>
+        <input type="text" name="import_prefix" id="import_prefix" />
+        <p class="description"><?php _e('Prepend this text to imported item names to identify them.', 'psn'); ?></p>
+        <input type="submit" name="submit" value="<?php _e('Submit'); ?>" class="button button-primary">
+    </form>
+</div>
+<?php
+echo $this->listTable->display();
+?>

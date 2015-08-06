@@ -1,0 +1,17 @@
+/* Ninja Forms */
+
+.mfp-content .ninja-forms-form-title {
+	margin: 0 0 1em;
+	display: none;
+}
+
+.ninja-forms-required-items {
+	@extend .showing_jobs;
+
+	margin-bottom: 1em;
+}
+
+.ninja-forms-field-error {
+	color: #F00;
+	margin: 8px 0 0;
+}

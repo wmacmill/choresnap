@@ -1,0 +1,590 @@
+/*--------------------------------------------------------------
+This is your custom stylesheet.
+
+Add your own styles here to make theme updates easier.
+To override any styles from other stylesheets, simply copy them into here and edit away.
+
+Make sure to respect the media queries! Otherwise you may
+accidentally add desktop styles to the mobile layout.
+
+You're the boss, so have fun editing!
+
+--------------------------------------------------------------
+>>> TABLE OF CONTENTS:
+----------------------------------------------------------------
+1.0 - Global Styles
+2.0 - Responsive media queries (mobile styles)
+	2.1 - MAXIMUM width of 720 pixels (phones landscape)
+	2.2 - MAXIMUM width of 380 pixels (phones portrait)
+	2.3 - MINIMUM width of 721 pixels (tablets+)
+	2.4 - MINIMUM width of 1040 pixels (desktops and laptops)
+--------------------------------------------------------------*/
+/*--------------------------------------------------------------
+1.0 - Global Styles
+--------------------------------------------------------------*/
+
+
+
+/*makes a border on the "post a chore" menu*/ 
+.menu-item-1107 {
+    border: 2px solid #fff;
+    border-radius: 5px;
+}
+
+/*changing the size of the menus*/
+.nav-menu-primary li a, .nav-menu-primary ul li a {
+  padding: 4px 7px;
+}
+
+/*changes the arrow on the alert link for single job page*/
+p.job-manager-single-alert-link a::before {
+  content: "▶";
+  display: inline-block;
+  font-family: job-manager !important;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  height: 16px;
+  margin: -1px 4px 0 0;
+  padding: 0;
+  text-decoration: none;
+  vertical-align: top;
+  width: 16px;
+}
+
+/*makes the modal popups slightly wider*/
+.modal {
+    max-width: 800px;
+}
+
+/*change the background of featured resumes*/
+.resume_featured {
+  background: #deeefd !important;
+}
+
+/*changes font size & alignment on homepage callout widget*/
+.callout-description > p {
+    font-size: 30px;
+    text-align: center;
+}
+
+/*removes header on the "pick a chore" page*/
+.page-id-1104 .page-header {
+    display: none !important;
+}
+
+.page-id-1611 .page-header {
+    display: none !important;
+}
+
+.page-id-23 .page-header {
+    display: none !important;
+}
+
+.page-id-1982 .page-header {
+  display:none !important;
+}
+
+.page-id-1982 .entry-content {
+    margin: 0 auto !important;
+}
+
+.page-id-943 .page-header {
+    display: none !important;
+}
+
+/*signup page css here*/
+/*creates the background on the signup boxes*/
+.contractor-signup-square {
+    background: url("/wp-content/uploads/2014/10/63444873.jpg") repeat scroll center center / cover #000;
+    height: 225px;
+    padding: 1px;
+    width: 500px;
+}
+
+.contractor-signup-square > h2 {
+    color: #F0F8FF;
+}
+
+.contractor-signup-square > p {
+    color: #f0f8ff;
+}
+
+.homeowner-signup-square {
+    background: url("/wp-content/uploads/2015/03/Depositphotos_13112463_l.jpg") repeat scroll center center / cover #000;
+    border: 1px solid #e6e6e6;
+    height: 225px;
+    padding: 1px;
+    width: 500px;
+}
+
+.homeowner-signup-square > h2 {
+  color: #F0F8FF;
+}
+
+.homeowner-signup-square > p {
+  color: #F0F8FF;
+}
+
+.signup-login-section {
+    padding: 40px;
+}
+/*end signup page css*/
+
+/*changes the image size on resume page*/
+/*.candidate_photo {
+    max-width: 250px !important;
+    min-width: auto !important;
+    max-height: 250px !important;
+}*/
+
+/*changes the image size when uploading image for a resume*/
+.job-manager-uploaded-files {
+    width: 250px !important;
+}
+
+/*hide the resume label on the application form*/
+.fieldset-resume > label {
+    display: none;
+}
+
+/*remove buttons on the descrioption box editor on resume submission/edit form */
+  /*removes bullets and numbered lists*/
+  #mceu_13 > div {
+      display: none;
+  }
+  /*removes hyperlinks*/
+  #mceu_14 > div {
+      display: none !important;
+  }
+  /*Removes "source code" button*/
+  #mceu_16 > div {
+      display: none;
+  }
+
+.page-id-1006 .mce-toolbar-grp.mce-container.mce-panel.mce-first.mce-stack-layout-item {
+    display: none;
+}
+
+/*makes the font under the resume for "edit" actions bigger so the "i" doesn't look messed up*/
+.candidate-dashboard-actions a, .job-dashboard-actions a {
+    color: #6e6e6e;
+    font: 400 14px Montserrat,sans-serif;
+}
+
+/*adds space under the buttons on the buy credits page*/
+.button.credit {
+    margin-bottom: 5px;
+}
+
+/*removes rss button from jobs page*/
+.rss_link {
+    display: none;
+}
+
+/*makes the checkout page full width*/
+.woocommerce.col2-set.col-1, .woocommerce-page .col2-set .col-1 {
+    float: left;
+    width: 100% !important;
+}
+
+/*hides the "cancel" button on the subscription page - instead get them to change the to the free subscription*/
+/*.button.cancel {
+    display: none;
+}*/
+
+/*modifying css on the applicaitons plugin*/
+/*adds some padding to the modal popup on a listing page when somone who isn't a company clicks the apply button*/
+#not-a-business {
+    display: block;
+    padding: 20px;
+}
+
+/*adds some padding to the modal popup when a user isn't logged in and tries to apply*/
+#application-logged-out {
+    display: block;
+    padding: 20px;
+}
+
+/*
+*
+* Styling Resume pages
+*
+*/
+
+/*creates the details box on the right side*/
+.resume-company-details {
+  background-color: #f5f5f5 !important;
+  box-sizing: border-box !important;
+  float: right !important;
+  margin: 0 0 0 5% !important;
+  padding: 1em !important;
+  width: 35% !important;
+  border-radius: 5px !important;
+}
+
+.resume-main-content {
+  float: left !important;
+  width: 50% !important;
+}
+
+/*styling the list in the details box*/
+.single-resume-content dd {
+  border-left: 0px !important;
+  margin: 5px 0px !important;
+  padding-left: 15px !important;
+}
+
+.resume-def-list dt {
+  text-transform: uppercase !important;
+}
+
+
+
+/*making responsive on smaller screens*/
+@media only screen and (max-width: 800px) {
+
+  .resume-main-content {
+    width: 100% !important
+  }
+
+  .resume-company-details {
+    float: left !important;
+    width: 100% !important;
+    margin: 0px !important;
+  }
+
+}
+
+/*
+*
+* Styling Applications Page
+*
+*/
+/*styling the info under "quick details"*/
+div.job-applications ul.job-applications li.job-application header {
+  line-height: 13px !important;
+}
+
+/*adds a colon and space after the list of items*/
+.application-defined-list dt::after {
+  content: ":\00a0" !important;
+}
+
+.application-defined-list dt {
+  float: left !important;
+  margin-left: -20px !important;
+}
+
+.application-defined-list dd {
+  margin: 0 0 3px !important;
+}
+
+/*styling headers*/
+.job-application-cost {
+  display: block;
+  margin-top: 1px;
+}
+
+.application-title {
+  float: right;
+}
+
+.application-contact {
+    font-size: small;
+    text-align: right;
+}
+
+.page-id-37 .candidate_photo {
+    max-height: 250px !important;
+    max-width: 250px !important;
+    min-width: unset !important;
+}
+
+.page-id-37 div.job-applications ul.job-applications li.job-application header img {
+  display: inline-block;
+  margin: 0 !important;
+  vertical-align: middle;
+}
+
+.page-id-37 .campaign-feature-image img, .comment-content img, .entry-content img, .entry-summary img, .widget img, .wp-caption {
+  max-width: 250px !important;
+}
+
+
+/*mobile styling stuff*/
+@media only screen and (max-width: 400px) {
+  
+  div.job-applications ul.job-applications li.job-application footer ul.meta {
+    max-width: 100%;
+  }
+
+  .job-application-cost {
+    display: inline-block;
+    width: 90%;
+    margin-left: 1em;
+    text-align: right;
+  }
+
+  /*.candidate_photo {
+    min-width: unset !important;
+  }*/
+
+  .application-photo-header > a {
+  float: right;
+  }
+
+  div.job-applications ul.job-applications li.job-application footer ul.actions {
+  margin: 0 0 0 0;
+  }
+}
+/*
+* Ending Applications page styling
+*/
+
+/*
+*
+*
+*Homepage css styling
+*
+*
+*/
+.homepage-hero {
+  background: rgba(0, 0, 0, 0) url("/wp-content/uploads/2015/07/Chore-Snap-Homepage-Hero.jpg") no-repeat fixed center top / cover ; 
+  /*background: rgba(0, 0, 0, 0) url("/wp-content/uploads/2015/07/Chore-Snap-Homepage-Hero.jpg") no-repeat scroll center top / cover ;*/
+  height: 550px; /* can use 80vh this makes it 80% of the viewer height*/
+  left: 0;
+  top: 0;
+  margin-left: -105px;
+  margin-right: -105px;
+  position:relative;
+  min-width: 100%;
+}
+
+.hero-caption-box {
+    background: rgba(0, 0, 0, 0.3) none repeat scroll 0 0;
+    margin: 25px 25px 75px 105px;
+    padding: 5px 25px 5px 75px;
+    color: #fff;
+    position: absolute;
+    bottom: 0px;
+    min-width: 75%;
+}
+
+.homepage-hero-caption {
+  max-width: 45%;
+  font-size: 22px;
+  line-height: 26px;
+  padding-bottom: 10px;
+}
+
+.homepage-hero-text {
+  font-size: 40px;
+}
+
+.homepage-step {
+    display: inline-block;
+}
+
+#homepage-left-column {
+    float: left;
+    width: 48%;
+}
+
+#homepage-right-column {
+    float: right;
+    width: 48%;
+}
+
+/*
+*
+*  Sizing for smaller screens
+*
+*/
+
+@media only screen and (max-width: 800px) {
+
+  div.job-applications ul.job-applications li.job-application section.job-application-content .job-application-meta, div.job-applications ul.job-applications li.job-application section.job-application-edit .job-application-meta, div.job-applications ul.job-applications li.job-application section.job-application-notes .job-application-meta {
+    width: 100%;
+  }
+
+  .homepage-hero-caption{
+    margin-left:auto;
+    margin-right:auto;
+    max-width: 90%;
+    font-size: 16px;
+  }
+
+  .hero-caption-box {
+    text-align: center;
+    bottom: auto;
+    margin: 0;
+    padding: 0;
+    padding-top:15px;
+    position: static;
+  }
+
+  .homepage-hero-text {
+    font-size: 26px;
+  }
+
+  .homepage-hero {
+    background: rgba(0, 0, 0, 0) url("/wp-content/uploads/2015/07/Chore-Snap-Homepage-Hero.jpg") repeat scroll center top / cover ; 
+    height: 300px;
+    padding-top: 15px;
+    margin-left: -25px;
+    margin-right: -25px;
+  }
+
+}
+
+@media only screen and (max-width: 1010px) {
+
+  #homepage-left-column {
+    float: left;
+    width: 99%;
+  }
+
+  #homepage-right-column {
+    float: right;
+    width: 99%;
+  }
+
+}
+
+
+/*
+* end home page css
+*/
+
+
+/*
+*
+* Styling My Chores page
+*
+*/
+.applications {
+  text-align: center;
+}
+
+.applications > a {
+  background: #3396d1 none repeat scroll 0 0;
+  border-radius: 20px;
+  color: #fff !important;
+  display: block;
+  height: 40px;
+  line-height: 40px;
+  width: 40px;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.applications > a:hover {
+  background: #fff !important;
+  border-color: #3396d1 !important;
+  color: #3396d1 !important;
+  text-decoration: none !important;
+  border:1px;
+  border-style: solid;
+  text-align: center;
+}
+
+@media only screen and (max-width: 1010px) {
+  .filled {
+    display: none !important;
+  }
+
+  .date {
+    display: none !important;
+  }
+
+  .expires {
+    display: none !important;
+  }
+
+  .applications {
+    text-align: center !important;
+  }
+
+}
+
+/*
+* end My Chores page styling
+*/
+
+
+/*--------------------------------------------------------------
+2.0 - Responsive media queries (mobile styles)
+--------------------------------------------------------------*/
+/*--------------------------------------------------------------
+2.1 - MAXIMUM width of 720 pixels (phones landscape)
+--------------------------------------------------------------*/
+@media screen and (max-width: 720px) {
+
+
+	/*
+	.just_an_example {
+		color: black;
+	}
+	*/
+
+
+}/* don't delete this closing bracket */
+
+
+
+
+
+/*--------------------------------------------------------------
+2.2 - MAXIMUM width of 380 pixels (phones portrait)
+--------------------------------------------------------------*/
+@media screen and (max-width: 380px) {
+
+
+	/*
+	.just_an_example {
+		color: black;
+	}
+	*/
+
+
+}/* don't delete this closing bracket */
+
+
+
+
+
+/*--------------------------------------------------------------
+2.3 - MINIMUM width of 721 pixels (tablets+)
+--------------------------------------------------------------*/
+@media screen and (min-width: 721px)  {
+
+
+	/*
+	.just_an_example {
+		color: black;
+	}
+	*/
+
+
+}/* don't delete this closing bracket */
+
+
+
+
+
+/*--------------------------------------------------------------
+2.4 - MINIMUM width of 1040 pixels (desktops and laptops)
+--------------------------------------------------------------*/
+@media screen and (min-width: 1040px)  {
+
+
+	/*
+	.just_an_example {
+		color: black;
+	}
+	*/
+
+
+}/* don't delete this closing bracket */

@@ -1,0 +1,43 @@
+/**
+ * Structure
+ *
+ * Stuff not controlled by the grid directly.
+ */
+
+
+/** Global content area */
+
+.container {
+	padding-left: 25px;
+	padding-right: 25px;
+}
+
+	@include bp(sm) {
+		.container {
+			padding-left: 15px;
+			padding-right: 15px;
+		}
+	}
+
+.content-area,
+.post-type-archive-job_listing .content-area {
+	margin-top: 1.5em;
+	margin-bottom: 2em;
+}
+
+	@include bp(sm) {
+		.content-area {
+			margin-top: 3.5em;
+			margin-bottom: 3em;
+		}
+	}
+
+	@include bp(md) {
+		.content-area {
+			margin-bottom: 4em;
+		}
+
+		.post-type-archive-job_listing .content-area {
+			margin-top: 2.5em;
+		}
+	}
