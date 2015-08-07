@@ -1,20 +1,12 @@
 <?php
-/*
-Plugin Name: Will - Buddypress Snippets
-Plugin URI:
-Description: This is a site specific plugin that's used to store the snippets to modify the core Buddypress functionality or edit the add on functionality
-Version: 0.1
-Author: Will MacMillan
-Author URI: http://www.facebook.com/macmillan.will
-Text Domain: 
-Domain Path: 
-*/
+//These are all the buddypress customizations here. It's basically like functions.php but for buddypress
+
 /* Start Adding Functions Below this Line */
 
 
-/*testing adding private messaging to the applications page*/
-/* see url http://buddydev.com/buddypress/add-send-private-message-button-in-members-directory-on-a-buddypress-network/ */
-/**
+/* testing adding private messaging to the applications page
+ * see url http://buddydev.com/buddypress/add-send-private-message-button-in-members-directory-on-a-buddypress-network/ 
+ *
  * Get the User Id in the current context
  * @param int $user_id
  * @return int user_id
@@ -227,5 +219,6 @@ function bp_adding_notification_icon () {
    </style>';
 }
 add_action ('wp_footer', 'bp_adding_notification_icon', 999);
+
 
 ?>
