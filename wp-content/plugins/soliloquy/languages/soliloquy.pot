@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the Soliloquy package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Soliloquy 2.4.2.3\n"
+"Project-Id-Version: Soliloquy 2.4.2.4\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/soliloquy\n"
-"POT-Creation-Date: 2015-07-30 15:23:59+00:00\n"
+"POT-Creation-Date: 2015-08-06 17:33:00+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -111,7 +111,7 @@ msgstr ""
 msgid "Imported Slider #%s"
 msgstr ""
 
-#: includes/admin/import.php:593
+#: includes/admin/import.php:600
 msgid ""
 "Soliloquy slider imported. Please check to ensure all images and data have "
 "been imported properly."
@@ -1263,7 +1263,7 @@ msgstr ""
 msgid "Soliloquy Sliders"
 msgstr ""
 
-#. #-#-#-#-#  soliloquy.pot (Soliloquy 2.4.2.3)  #-#-#-#-#
+#. #-#-#-#-#  soliloquy.pot (Soliloquy 2.4.2.4)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: includes/global/posttype.php:52 includes/global/posttype.php:62
 #: includes/global/widget.php:64
