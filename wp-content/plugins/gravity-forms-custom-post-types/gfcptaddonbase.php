@@ -113,7 +113,8 @@ if (!class_exists('GFCPTAddonBase')) {
 
         function enqueue_custom_scripts($form, $is_ajax) {
           //loop thru all fields
-          foreach($form['fields'] as &$field) {
+          $formfields [] = $form['fields']; 
+          foreach( $formfields as $field) {
             //if its a text field, see if we have set it to save to a taxonomy
             if ($field['type'] == 'text' && array_key_exists('saveToTaxonomy', $field)) {
               $saveToTaxonomy = $field['saveToTaxonomy'];

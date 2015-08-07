@@ -94,7 +94,8 @@ function wp_job_manager_wc_paid_listings_free_package ( $package_id, $is_user_pa
         wc_clear_notices();
 
         //wrap it up and send them to the my chores page
-        wp_redirect ( 'http://choresnap.com/my-account/my-chores' );
+        $url = site_url ( '/my-account/my-chores/', 'https' );
+        wp_redirect ( $url );
         exit;
     }
     return $valid;
