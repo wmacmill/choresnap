@@ -3,7 +3,7 @@
 Plugin Name: WP Job Manager - Job Alerts
 Plugin URI: https://wpjobmanager.com/add-ons/job-alerts/
 Description: Allow users to subscribe to job alerts for their searches. Once registered, users can access a 'My Alerts' page which you can create with the shortcode [job_alerts].
-Version: 1.3.13
+Version: 1.3.14
 Author: Mike Jolley
 Author URI: http://mikejolley.com
 Requires at least: 3.8
@@ -33,7 +33,7 @@ class WP_Job_Manager_Alerts extends WPJM_Updater {
 	public function __construct() {
 
 		// Define constants
-		define( 'JOB_MANAGER_ALERTS_VERSION', '1.3.13' );
+		define( 'JOB_MANAGER_ALERTS_VERSION', '1.3.14' );
 		define( 'JOB_MANAGER_ALERTS_PLUGIN_DIR', untrailingslashit( plugin_dir_path( __FILE__ ) ) );
 		define( 'JOB_MANAGER_ALERTS_PLUGIN_URL', untrailingslashit( plugins_url( basename( plugin_dir_path( __FILE__ ) ), basename( __FILE__ ) ) ) );
 

@@ -46,10 +46,10 @@ class WP_Job_Manager_Alerts_Shortcodes {
 					case 'add_alert' :
 					case 'edit' :
 						if ( isset( $_POST['submit-job-alert'] ) ) {
-							$alert_name      = sanitize_text_field( $_POST['alert_name'] );
-							$alert_keyword   = sanitize_text_field( $_POST['alert_keyword'] );
-							$alert_location  = sanitize_text_field( $_POST['alert_location'] );
-							$alert_frequency = sanitize_text_field( $_POST['alert_frequency'] );
+							$alert_name      = isset( $_POST['alert_name'] ) ? sanitize_text_field( $_POST['alert_name'] ) : '';
+							$alert_keyword   = isset( $_POST['alert_keyword'] ) ? sanitize_text_field( $_POST['alert_keyword'] ) : '';
+							$alert_location  = isset( $_POST['alert_location'] ) ? sanitize_text_field( $_POST['alert_location'] ) : '';
+							$alert_frequency = isset( $_POST['alert_frequency'] ) ? sanitize_text_field( $_POST['alert_frequency'] ) : '';
 
 							if ( empty( $alert_name ) ) {
 								throw new Exception( __( 'Please name your alert', 'wp-job-manager-alerts' ) );
