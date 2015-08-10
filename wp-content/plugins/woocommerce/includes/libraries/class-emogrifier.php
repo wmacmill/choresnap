@@ -137,6 +137,8 @@ class Emogrifier {
 	 * Sets the HTML to emogrify.
 	 *
 	 * @param string $html the HTML to emogrify, must be UTF-8-encoded
+	 *
+	 * @return void
 	 */
 	public function setHtml($html = '') {
 		$this->html = $html;
@@ -146,6 +148,8 @@ class Emogrifier {
 	 * Sets the CSS to merge with the HTML.
 	 *
 	 * @param string $css the CSS to merge, must be UTF-8-encoded
+	 *
+	 * @return void
 	 */
 	public function setCss($css = '') {
 		$this->css = $css;
@@ -153,6 +157,8 @@ class Emogrifier {
 
 	/**
 	 * Clears all caches.
+	 *
+	 * @return void
 	 */
 	private function clearAllCaches() {
 		$this->clearCache(self::CACHE_KEY_CSS);
@@ -165,6 +171,8 @@ class Emogrifier {
 	 * Clears a single cache by key.
 	 *
 	 * @param integer $key the cache key, must be CACHE_KEY_CSS, CACHE_KEY_SELECTOR, CACHE_KEY_XPATH or CACHE_KEY_CSS_DECLARATION_BLOCK
+	 *
+	 * @return void
 	 *
 	 * @throws InvalidArgumentException
 	 */
@@ -179,6 +187,8 @@ class Emogrifier {
 
 	/**
 	 * Purges the visited nodes.
+	 *
+	 * @return void
 	 */
 	private function purgeVisitedNodes() {
 		$this->visitedNodes = array();
@@ -194,6 +204,8 @@ class Emogrifier {
 	 * Note: The tags will not be removed if they have any content.
 	 *
 	 * @param string $tagName the tag name, e.g., "p"
+	 *
+	 * @return void
 	 */
 	public function addUnprocessableHtmlTag($tagName) {
 		$this->unprocessableHtmlTags[] = $tagName;
@@ -203,6 +215,8 @@ class Emogrifier {
 	 * Drops a tag from the removal list.
 	 *
 	 * @param string $tagName the tag name, e.g., "p"
+	 *
+	 * @return void
 	 */
 	public function removeUnprocessableHtmlTag($tagName) {
 		$key = array_search($tagName, $this->unprocessableHtmlTags, true);
@@ -377,6 +391,7 @@ class Emogrifier {
 	 *
 	 * @param array $cssParts
 	 * @param DOMDocument $xmlDocument
+	 * @return void
 	 */
 	public function copyCssWithMediaToStyleNode(array $cssParts, DOMDocument $xmlDocument) {
 		if (isset($cssParts['media']) && $cssParts['media'] !== '') {
@@ -412,6 +427,7 @@ class Emogrifier {
 	 *
 	 * @param DOMDocument $document
 	 * @param string $css
+	 * @return void
 	 */
 	private function addStyleElementToDocument(DOMDocument $document, $css) {
 		$styleElement = $document->createElement('style', $css);

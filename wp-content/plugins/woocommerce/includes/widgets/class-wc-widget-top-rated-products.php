@@ -51,6 +51,8 @@ class WC_Widget_Top_Rated_Products extends WC_Widget {
 	 *
 	 * @param array $args
 	 * @param array $instance
+	 *
+	 * @return void
 	 */
 	public function widget( $args, $instance ) {
 

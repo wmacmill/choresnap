@@ -70,7 +70,7 @@ class WC_Shortcode_Cart {
 		// Calc totals
 		WC()->cart->calculate_totals();
 
-		if ( WC()->cart->is_empty() ) {
+		if ( 0 === sizeof( WC()->cart->get_cart() ) ) {
 			wc_get_template( 'cart/cart-empty.php' );
 		} else {
 			wc_get_template( 'cart/cart.php' );

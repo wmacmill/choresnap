@@ -89,7 +89,6 @@ p.demo_store {
 		list-style: none outside !important;
 		@include clearfix();
 		width: auto;
-		word-wrap: break-word;
 
 		&:before {
 			font-family: "WooCommerce";
@@ -188,6 +187,7 @@ p.demo_store {
 
 			del {
 				opacity: 0.5;
+				display: block;
 			}
 		}
 
@@ -203,7 +203,7 @@ p.demo_store {
 			color: red;
 		}
 
-		.woocommerce-product-rating {
+		.woocommerce-product-rating{
 			margin-bottom: 1.618em;
 		}
 
@@ -402,20 +402,6 @@ p.demo_store {
 				td {
 					vertical-align: top;
 				}
-			}
-
-			.woocommerce-variation-description {
-				p {
-					margin-bottom: 1em;
-				}
-			}
-
-			.reset_variations {
-				visibility: hidden;
-			}
-
-			.wc-no-matching-variations {
-				display: none;
 			}
 
 			.button {
@@ -903,7 +889,7 @@ p.demo_store {
 			}
 
 			textarea {
-				box-sizing: border-box;
+				@include box-sizing(border-box);
 				width: 100%;
 			}
 		}
@@ -1291,7 +1277,7 @@ p.demo_store {
 
 			input.input-text,
 			textarea {
-				box-sizing: border-box;
+				@include box-sizing(border-box);
 				width: 100%;
 				margin: 0;
 				outline: 0;

@@ -1,4 +1,4 @@
-/*global Simplify_commerce_params, SimplifyCommerce */
+/*global Simplify_commerce_params, wc_checkout_params, SimplifyCommerce */
 (function ( $ ) {
 
 	// Form handler
@@ -75,7 +75,7 @@
 
 	$( function () {
 
-		$( document.body ).on( 'checkout_error', function () {
+		$( 'body' ).on( 'checkout_error', function () {
 			$( '.simplify-token' ).remove();
 		});
 

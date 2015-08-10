@@ -68,24 +68,13 @@ class WC_Settings_Payment_Gateways extends WC_Settings_Page {
 			array(	'title' => __( 'Checkout Process', 'woocommerce' ), 'type' => 'title', 'id' => 'checkout_process_options' ),
 
 			array(
-				'title'         => __( 'Coupons', 'woocommerce' ),
-				'desc'          => __( 'Enable the use of coupons', 'woocommerce' ),
-				'id'            => 'woocommerce_enable_coupons',
-				'default'       => 'yes',
-				'type'          => 'checkbox',
-				'checkboxgroup' => 'start',
-				'desc_tip'      =>  __( 'Coupons can be applied from the cart and checkout pages.', 'woocommerce' ),
-				'autoload'      => false
-			),
-
-			array(
-				'desc'          => __( 'Calculate coupon discounts sequentially', 'woocommerce' ),
-				'id'            => 'woocommerce_calc_discounts_sequentially',
-				'default'       => 'no',
-				'type'          => 'checkbox',
-				'desc_tip'      =>  __( 'When applying multiple coupons, apply the first coupon to the full price and the second coupon to the discounted price and so on.', 'woocommerce' ),
-				'checkboxgroup' => 'end',
-				'autoload'      => false
+				'title'    => __( 'Coupons', 'woocommerce' ),
+				'desc'     => __( 'Enable the use of coupons', 'woocommerce' ),
+				'id'       => 'woocommerce_enable_coupons',
+				'default'  => 'yes',
+				'type'     => 'checkbox',
+				'desc_tip' =>  __( 'Coupons can be applied from the cart and checkout pages.', 'woocommerce' ),
+				'autoload' => false
 			),
 
 			array(
@@ -106,7 +95,7 @@ class WC_Settings_Payment_Gateways extends WC_Settings_Page {
 				'type'            => 'checkbox',
 				'checkboxgroup'   => '',
 				'show_if_checked' => 'option',
-				'desc_tip'        => __( 'Force SSL (HTTPS) on the checkout pages (a SSL Certificate is required).', 'woocommerce' ),
+				'desc_tip'        => __( 'Force SSL (HTTPS) on the checkout pages (an SSL Certificate is required).', 'woocommerce' ),
 			),
 
 			array(
@@ -238,10 +227,11 @@ class WC_Settings_Payment_Gateways extends WC_Settings_Page {
 						<tr>
 							<?php
 								$columns = apply_filters( 'woocommerce_payment_gateways_setting_columns', array(
-									'sort'     => '',
+									'default'  => __( 'Default', 'woocommerce' ),
 									'name'     => __( 'Gateway', 'woocommerce' ),
 									'id'       => __( 'Gateway ID', 'woocommerce' ),
-									'status'   => __( 'Enabled', 'woocommerce' )
+									'status'   => __( 'Status', 'woocommerce' ),
+									'settings' => ''
 								) );
 
 								foreach ( $columns as $key => $column ) {
@@ -252,6 +242,8 @@ class WC_Settings_Payment_Gateways extends WC_Settings_Page {
 					</thead>
 					<tbody>
 						<?php
+						$default_gateway = get_option( 'woocommerce_default_gateway' );
+
 						foreach ( WC()->payment_gateways->payment_gateways() as $gateway ) {
 
 							echo '<tr>';
@@ -260,15 +252,16 @@ class WC_Settings_Payment_Gateways extends WC_Settings_Page {
 
 								switch ( $key ) {
 
-									case 'sort' :
-										echo '<td width="1%" class="sort">
+									case 'default' :
+										echo '<td width="1%" class="default">
+											<input type="radio" name="default_gateway" value="' . esc_attr( $gateway->id ) . '" ' . checked( $default_gateway, esc_attr( $gateway->id ), false ) . ' />
 											<input type="hidden" name="gateway_order[]" value="' . esc_attr( $gateway->id ) . '" />
 										</td>';
 									break;
 
 									case 'name' :
 										echo '<td class="name">
-											<a href="' . admin_url( 'admin.php?page=wc-settings&tab=checkout&section=' . strtolower( get_class( $gateway ) ) ) . '">' . $gateway->get_title() . '</a>
+											' . $gateway->get_title() . '
 										</td>';
 									break;
 
@@ -282,11 +275,17 @@ class WC_Settings_Payment_Gateways extends WC_Settings_Page {
 										echo '<td class="status">';
 
 										if ( $gateway->enabled == 'yes' )
-											echo '<span class="status-enabled tips" data-tip="' . __ ( 'Yes', 'woocommerce' ) . '">' . __ ( 'Yes', 'woocommerce' ) . '</span>';
+											echo '<span class="status-enabled tips" data-tip="' . __ ( 'Enabled', 'woocommerce' ) . '">' . __ ( 'Enabled', 'woocommerce' ) . '</span>';
 										else
 											echo '-';
 
 										echo '</td>';
+									break;
+
+									case 'settings' :
+										echo '<td class="settings">
+											<a class="button" href="' . admin_url( 'admin.php?page=wc-settings&tab=checkout&section=' . strtolower( get_class( $gateway ) ) ) . '">' . __( 'Settings', 'woocommerce' ) . '</a>
+										</td>';
 									break;
 
 									default :

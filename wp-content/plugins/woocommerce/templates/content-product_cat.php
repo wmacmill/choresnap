@@ -6,29 +6,33 @@
  *
  * @author 		WooThemes
  * @package 	WooCommerce/Templates
- * @version     2.4.0
+ * @version     1.6.4
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+	exit; // Exit if accessed directly
 }
 
 global $woocommerce_loop;
 
 // Store loop count we're currently on
-if ( empty( $woocommerce_loop['loop'] ) ) {
+if ( empty( $woocommerce_loop['loop'] ) )
 	$woocommerce_loop['loop'] = 0;
-}
 
 // Store column count for displaying the grid
-if ( empty( $woocommerce_loop['columns'] ) ) {
+if ( empty( $woocommerce_loop['columns'] ) )
 	$woocommerce_loop['columns'] = apply_filters( 'loop_shop_columns', 4 );
-}
 
 // Increase loop count
-$woocommerce_loop['loop'] ++;
+$woocommerce_loop['loop']++;
 ?>
-<li <?php wc_product_cat_class(); ?>>
+<li class="product-category product<?php
+    if ( ( $woocommerce_loop['loop'] - 1 ) % $woocommerce_loop['columns'] == 0 || $woocommerce_loop['columns'] == 1 )
+        echo ' first';
+	if ( $woocommerce_loop['loop'] % $woocommerce_loop['columns'] == 0 )
+		echo ' last';
+	?>">
+
 	<?php do_action( 'woocommerce_before_subcategory', $category ); ?>
 
 	<a href="<?php echo get_term_link( $category->slug, 'product_cat' ); ?>">
@@ -61,4 +65,5 @@ $woocommerce_loop['loop'] ++;
 	</a>
 
 	<?php do_action( 'woocommerce_after_subcategory', $category ); ?>
+
 </li>

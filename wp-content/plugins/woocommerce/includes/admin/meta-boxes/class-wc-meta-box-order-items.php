@@ -23,11 +23,7 @@ class WC_Meta_Box_Order_Items {
 	 * Output the metabox
 	 */
 	public static function output( $post ) {
-		global $post, $thepostid, $theorder;
-
-		if ( ! is_int( $thepostid ) ) {
-			$thepostid = $post->ID;
-		}
+		global $thepostid, $theorder;
 
 		if ( ! is_object( $theorder ) ) {
 			$theorder = wc_get_order( $thepostid );

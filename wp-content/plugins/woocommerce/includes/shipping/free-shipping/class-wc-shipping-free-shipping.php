@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * A simple shipping method for free shipping
  *
  * @class   WC_Shipping_Free_Shipping
- * @version 2.4.0
+ * @version 2.3.0
  * @package WooCommerce/Classes/Shipping
  * @author  WooThemes
  */
@@ -23,9 +23,11 @@ class WC_Shipping_Free_Shipping extends WC_Shipping_Method {
 	public $requires;
 
 	/**
-	 * Constructor
+	 * __construct function.
+	 *
+	 * @return void
 	 */
-	public function __construct() {
+	function __construct() {
 		$this->id 			= 'free_shipping';
 		$this->method_title = __( 'Free Shipping', 'woocommerce' );
 		$this->init();
@@ -33,8 +35,10 @@ class WC_Shipping_Free_Shipping extends WC_Shipping_Method {
 
 	/**
 	 * init function.
+	 *
+	 * @return void
 	 */
-	public function init() {
+	function init() {
 
 		// Load the settings.
 		$this->init_form_fields();
@@ -52,10 +56,14 @@ class WC_Shipping_Free_Shipping extends WC_Shipping_Method {
 		add_action( 'woocommerce_update_options_shipping_' . $this->id, array( $this, 'process_admin_options' ) );
 	}
 
+
 	/**
 	 * Initialise Gateway Settings Form Fields
+	 *
+	 * @return void
 	 */
-	public function init_form_fields() {
+	function init_form_fields() {
+
 		$this->form_fields = array(
 			'enabled' => array(
 				'title' 		=> __( 'Enable/Disable', 'woocommerce' ),
@@ -115,12 +123,36 @@ class WC_Shipping_Free_Shipping extends WC_Shipping_Method {
 		);
 	}
 
+
+	/**
+	 * Admin Panel Options
+	 * - Options for bits like 'title' and availability on a country-by-country basis
+	 *
+	 * @since 1.0.0
+	 * @return void
+	 */
+	public function admin_options() {
+
+		?>
+		<h3><?php _e( 'Free Shipping', 'woocommerce' ); ?></h3>
+		<table class="form-table">
+		<?php
+			// Generate the HTML For the settings form.
+			$this->generate_settings_html();
+		?>
+		</table><!--/.form-table-->
+		<?php
+	}
+
+
 	/**
 	 * is_available function.
-	 * @param array $package
+	 *
+	 * @param mixed $package
 	 * @return bool
 	 */
-	public function is_available( $package ) {
+	function is_available( $package ) {
+
 		if ( 'no' == $this->enabled ) {
 			return false;
 		}
@@ -152,6 +184,7 @@ class WC_Shipping_Free_Shipping extends WC_Shipping_Method {
 		}
 
 		if ( in_array( $this->requires, array( 'min_amount', 'either', 'both' ) ) && isset( WC()->cart->cart_contents_total ) ) {
+
 			if ( WC()->cart->prices_include_tax ) {
 				$total = WC()->cart->cart_contents_total + array_sum( WC()->cart->taxes );
 			} else {
@@ -192,11 +225,13 @@ class WC_Shipping_Free_Shipping extends WC_Shipping_Method {
 		return apply_filters( 'woocommerce_shipping_' . $this->id . '_is_available', $is_available, $package );
 	}
 
+
 	/**
 	 * calculate_shipping function.
+	 *
 	 * @return array
 	 */
-	public function calculate_shipping() {
+	function calculate_shipping() {
 		$args = array(
 			'id' 	=> $this->id,
 			'label' => $this->title,
@@ -205,4 +240,5 @@ class WC_Shipping_Free_Shipping extends WC_Shipping_Method {
 		);
 		$this->add_rate( $args );
 	}
+
 }

@@ -41,6 +41,8 @@ class WC_Widget_Product_Search extends WC_Widget {
 	 *
 	 * @param array $args
 	 * @param array $instance
+	 *
+	 * @return void
 	 */
 	function widget( $args, $instance ) {
 		$this->widget_start( $args, $instance );

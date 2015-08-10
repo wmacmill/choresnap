@@ -4,11 +4,11 @@
  *
  * Loads Integrations into WooCommerce.
  *
- * @class    WC_Integrations
- * @version  2.3.0
- * @package  WooCommerce/Classes/Integrations
- * @category Class
- * @author   WooThemes
+ * @class 		WC_Integrations
+ * @version		2.3.0
+ * @package		WooCommerce/Classes/Integrations
+ * @category	Class
+ * @author 		WooThemes
  */
 class WC_Integrations {
 
@@ -16,7 +16,10 @@ class WC_Integrations {
 	public $integrations = array();
 
     /**
-     * Initialize integrations.
+     * __construct function.
+     *
+     * @access public
+     * @return void
      */
     public function __construct() {
 
@@ -31,6 +34,7 @@ class WC_Integrations {
 
 			$this->integrations[ $load_integration->id ] = $load_integration;
 		}
+
 	}
 
 	/**

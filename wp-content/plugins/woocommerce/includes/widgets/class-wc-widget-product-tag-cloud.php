@@ -41,6 +41,8 @@ class WC_Widget_Product_Tag_Cloud extends WC_Widget {
 	 *
 	 * @param array $args
 	 * @param array $instance
+	 *
+	 * @return void
 	 */
 	public function widget( $args, $instance ) {
 		$current_taxonomy = $this->_get_current_taxonomy( $instance );

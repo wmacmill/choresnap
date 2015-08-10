@@ -69,8 +69,6 @@ class WC_Emails {
 			'woocommerce_order_status_on-hold_to_processing',
 			'woocommerce_order_status_on-hold_to_cancelled',
 			'woocommerce_order_status_completed',
-			'woocommerce_order_status_refunded',
-			'woocommerce_order_partially_refunded',
 			'woocommerce_new_customer_note',
 			'woocommerce_created_customer'
 		) );
@@ -102,7 +100,7 @@ class WC_Emails {
 		add_action( 'woocommerce_email_footer', array( $this, 'email_footer' ) );
 		add_action( 'woocommerce_email_order_meta', array( $this, 'order_meta' ), 10, 3 );
 		add_action( 'woocommerce_email_customer_details', array( $this, 'customer_details' ), 10, 3 );
-		add_action( 'woocommerce_email_customer_details', array( $this, 'email_addresses' ), 20, 3 );
+		add_action( 'woocommerce_email_customer_details', array( $this, 'email_addresses' ), 10, 3 );
 
 		// Hooks for sending emails during store events
 		add_action( 'woocommerce_low_stock_notification', array( $this, 'low_stock' ) );
@@ -121,15 +119,14 @@ class WC_Emails {
 		// Include email classes
 		include_once( 'emails/class-wc-email.php' );
 
-		$this->emails['WC_Email_New_Order']                 		= include( 'emails/class-wc-email-new-order.php' );
-		$this->emails['WC_Email_Cancelled_Order']           		= include( 'emails/class-wc-email-cancelled-order.php' );
-		$this->emails['WC_Email_Customer_Processing_Order'] 		= include( 'emails/class-wc-email-customer-processing-order.php' );
-		$this->emails['WC_Email_Customer_Completed_Order']  		= include( 'emails/class-wc-email-customer-completed-order.php' );
-		$this->emails['WC_Email_Customer_Refunded_Order']   		= include( 'emails/class-wc-email-customer-refunded-order.php' );
-		$this->emails['WC_Email_Customer_Invoice']          		= include( 'emails/class-wc-email-customer-invoice.php' );
-		$this->emails['WC_Email_Customer_Note']             		= include( 'emails/class-wc-email-customer-note.php' );
-		$this->emails['WC_Email_Customer_Reset_Password']   		= include( 'emails/class-wc-email-customer-reset-password.php' );
-		$this->emails['WC_Email_Customer_New_Account']      		= include( 'emails/class-wc-email-customer-new-account.php' );
+		$this->emails['WC_Email_New_Order']                 = include( 'emails/class-wc-email-new-order.php' );
+		$this->emails['WC_Email_Cancelled_Order']           = include( 'emails/class-wc-email-cancelled-order.php' );
+		$this->emails['WC_Email_Customer_Processing_Order'] = include( 'emails/class-wc-email-customer-processing-order.php' );
+		$this->emails['WC_Email_Customer_Completed_Order']  = include( 'emails/class-wc-email-customer-completed-order.php' );
+		$this->emails['WC_Email_Customer_Invoice']          = include( 'emails/class-wc-email-customer-invoice.php' );
+		$this->emails['WC_Email_Customer_Note']             = include( 'emails/class-wc-email-customer-note.php' );
+		$this->emails['WC_Email_Customer_Reset_Password']   = include( 'emails/class-wc-email-customer-reset-password.php' );
+		$this->emails['WC_Email_Customer_New_Account']      = include( 'emails/class-wc-email-customer-new-account.php' );
 
 		$this->emails = apply_filters( 'woocommerce_email_classes', $this->emails );
 
@@ -213,12 +210,11 @@ class WC_Emails {
 	 * @param mixed $message
 	 * @param string $headers (default: "Content-Type: text/html\r\n")
 	 * @param string $attachments (default: "")
-	 * @return bool
 	 */
 	public function send( $to, $subject, $message, $headers = "Content-Type: text/html\r\n", $attachments = "" ) {
 		// Send
 		$email = new WC_Email();
-		return $email->send( $to, $subject, $message, $headers, $attachments );
+		$email->send( $to, $subject, $message, $headers, $attachments );
 	}
 
 	/**
@@ -356,7 +352,7 @@ class WC_Emails {
 
 				foreach ( $fields as $field ) {
 					if ( isset( $field['label'] ) && isset( $field['value'] ) && $field['value'] ) {
-						echo '<p><strong>' . $field['label'] . ':</strong> <span class="text">' . $field['value'] . '</span></p>';
+						echo '<p><strong>' . $field['label'] . ':</strong> ' . $field['value'] . '</p>';
 					}
 				}
 			}
@@ -367,6 +363,8 @@ class WC_Emails {
 
 	/**
 	 * Get the email addresses.
+	 *
+	 * @return void
 	 */
 	public function email_addresses( $order, $sent_to_admin = false, $plain_text = false ) {
 		if ( $plain_text ) {
@@ -391,7 +389,7 @@ class WC_Emails {
 	 */
 	public function low_stock( $product ) {
 		$subject = sprintf( '[%s] %s', $this->get_blogname(), __( 'Product low in stock', 'woocommerce' ) );
-		$message = sprintf( __( '%s is low in stock.', 'woocommerce' ), html_entity_decode( strip_tags( $product->get_formatted_name() ) ) ) . ' ' . sprintf( __( 'There are %d left', 'woocommerce' ), html_entity_decode( strip_tags( $product->get_total_stock() ) ) );
+		$message = sprintf( __( '%s is low in stock.', 'woocommerce' ), html_entity_decode( strip_tags( $product->get_formatted_name() ) ) );
 
 		wp_mail(
 			apply_filters( 'woocommerce_email_recipient_low_stock', get_option( 'woocommerce_stock_email_recipient' ), $product ),

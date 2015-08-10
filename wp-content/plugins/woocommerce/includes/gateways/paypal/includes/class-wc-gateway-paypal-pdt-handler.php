@@ -12,7 +12,7 @@ include_once( 'class-wc-gateway-paypal-response.php' );
 class WC_Gateway_Paypal_PDT_Handler extends WC_Gateway_Paypal_Response {
 
 	/** @var string identity_token for PDT support */
-	protected $identity_token;
+	private $identity_token;
 
 	/**
 	 * Constructor
@@ -29,7 +29,7 @@ class WC_Gateway_Paypal_PDT_Handler extends WC_Gateway_Paypal_Response {
 	 * @param  string $transaction
 	 * @return bool
 	 */
-	protected function validate_transaction( $transaction ) {
+	private function validate_transaction( $transaction ) {
 		$pdt = array(
 			'body' 			=> array(
 				'cmd' => '_notify-synch',
@@ -74,11 +74,6 @@ class WC_Gateway_Paypal_PDT_Handler extends WC_Gateway_Paypal_Response {
 				$this->payment_on_hold( $order, sprintf( __( 'Validation error: PayPal amounts do not match (amt %s).', 'woocommerce' ), $amount ) );
 			} else {
 				$this->payment_complete( $order, $transaction,  __( 'PDT payment completed', 'woocommerce' ) );
-
-				if ( ! empty( $_REQUEST['mc_fee'] ) ) {
-					// log paypal transaction fee
-					update_post_meta( $order->id, 'PayPal Transaction Fee', wc_clean( $_REQUEST['mc_fee'] ) );
-				}
 			}
 		}
 	}

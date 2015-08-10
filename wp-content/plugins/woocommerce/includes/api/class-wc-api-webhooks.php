@@ -164,12 +164,9 @@ class WC_API_Webhooks extends WC_API_Resource {
 	 */
 	public function create_webhook( $data ) {
 
-		try {
-			if ( ! isset( $data['webhook'] ) ) {
-				throw new WC_API_Exception( 'woocommerce_api_missing_webhook_data', sprintf( __( 'No %1$s data specified to create %1$s', 'woocommerce' ), 'webhook' ), 400 );
-			}
+		$data = isset( $data['webhook'] ) ? $data['webhook'] : array();
 
-			$data = $data['webhook'];
+		try {
 
 			// permission check
 			if ( ! current_user_can( 'publish_shop_webhooks' ) ) {
@@ -240,12 +237,9 @@ class WC_API_Webhooks extends WC_API_Resource {
 	 */
 	public function edit_webhook( $id, $data ) {
 
-		try {
-			if ( ! isset( $data['webhook'] ) ) {
-				throw new WC_API_Exception( 'woocommerce_api_missing_webhook_data', sprintf( __( 'No %1$s data specified to edit %1$s', 'woocommerce' ), 'webhook' ), 400 );
-			}
+		$data = isset( $data['webhook'] ) ? $data['webhook'] : array();
 
-			$data = $data['webhook'];
+		try {
 
 			$id = $this->validate_request( $id, 'shop_webhook', 'edit' );
 

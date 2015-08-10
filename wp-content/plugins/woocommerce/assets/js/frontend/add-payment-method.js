@@ -1,9 +1,8 @@
 jQuery( function( $ ) {
 
 	// woocommerce_params is required to continue, ensure the object exists
-	if ( typeof woocommerce_params === 'undefined' ) {
+	if ( typeof woocommerce_params === 'undefined' )
 		return false;
-	}
 
 	$( '#add_payment_method' )
 
@@ -30,6 +29,6 @@ jQuery( function( $ ) {
 		$( '#add_payment_method' ).block({ message: null, overlayCSS: { background: '#fff', opacity: 0.6 } });
 	});
 
-	$( document.body ).trigger( 'init_add_payment_method' );
+	$( 'body' ).trigger( 'init_add_payment_method' );
 
 });

@@ -1146,7 +1146,7 @@
           'style': style_block
         });
         div.text(this.search_field.val());
-        $(document.body).append(div);
+        $('body').append(div);
         w = div.width() + 25;
         div.remove();
         f_width = this.container.outerWidth();

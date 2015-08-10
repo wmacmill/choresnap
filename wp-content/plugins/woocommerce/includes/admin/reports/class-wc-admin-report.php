@@ -35,7 +35,7 @@ class WC_Admin_Report {
 	 * )
 	 *
 	 * @param  array $args
-	 * @return mixed depending on query_type
+	 * @return array|string depending on query_type
 	 */
 	public function get_order_report_data( $args = array() ) {
 		global $wpdb;
@@ -76,24 +76,16 @@ class WC_Admin_Report {
 				$distinct = 'DISTINCT';
 			}
 
-			switch ( $value['type'] ) {
-				case 'meta' :
-					$get_key = "meta_{$key}.meta_value";
-					break;
-				case 'parent_meta' :
-					$get_key = "parent_meta_{$key}.meta_value";
-					break;
-				case 'post_data' :
-					$get_key = "posts.{$key}";
-					break;
-				case 'order_item_meta' :
-					$get_key = "order_item_meta_{$key}.meta_value";
-					break;
-				case 'order_item' :
-					$get_key = "order_items.{$key}";
-					break;
-				default :
-					continue;
+			if ( $value['type'] == 'meta' ) {
+				$get_key = "meta_{$key}.meta_value";
+			} elseif( $value['type'] == 'post_data' ) {
+				$get_key = "posts.{$key}";
+			} elseif( $value['type'] == 'order_item_meta' ) {
+				$get_key = "order_item_meta_{$key}.meta_value";
+			} elseif( $value['type'] == 'order_item' ) {
+				$get_key = "order_items.{$key}";
+			} else {
+				continue;
 			}
 
 			if ( $value['function'] ) {
@@ -111,51 +103,42 @@ class WC_Admin_Report {
 		// Joins
 		$joins = array();
 
-		foreach ( ( $data + $where ) as $key => $value ) {
-			$join_type = isset( $value['join_type'] ) ? $value['join_type'] : 'INNER';
-			$type      = isset( $value['type'] ) ? $value['type'] : false;
+		foreach ( $data as $key => $value ) {
 
-			switch ( $type ) {
-				case 'meta' :
-					$joins["meta_{$key}"] = "{$join_type} JOIN {$wpdb->postmeta} AS meta_{$key} ON ( posts.ID = meta_{$key}.post_id AND meta_{$key}.meta_key = '{$key}' )";
-					break;
-				case 'parent_meta' :
-					$joins["parent_meta_{$key}"] = "{$join_type} JOIN {$wpdb->postmeta} AS parent_meta_{$key} ON (posts.post_parent = parent_meta_{$key}.post_id) AND (parent_meta_{$key}.meta_key = '{$key}')";
-					break;
-				case 'order_item_meta' :
-					$joins["order_items"] = "{$join_type} JOIN {$wpdb->prefix}woocommerce_order_items AS order_items ON (posts.ID = order_items.order_id)";
+			if ( $value['type'] == 'meta' ) {
 
-					if ( ! empty( $value['order_item_type'] ) ) {
-						$joins["order_items"] .= " AND (order_items.order_item_type = '{$value['order_item_type']}')";
-					}
+				$joins["meta_{$key}"] = "LEFT JOIN {$wpdb->postmeta} AS meta_{$key} ON posts.ID = meta_{$key}.post_id";
 
-					$joins["order_item_meta_{$key}"]  = "{$join_type} JOIN {$wpdb->prefix}woocommerce_order_itemmeta AS order_item_meta_{$key} ON " .
-														"(order_items.order_item_id = order_item_meta_{$key}.order_item_id) " .
-														" AND (order_item_meta_{$key}.meta_key = '{$key}')";
-					break;
-				case 'order_item' :
-					$joins["order_items"] = "{$join_type} JOIN {$wpdb->prefix}woocommerce_order_items AS order_items ON posts.ID = order_items.order_id";
-					break;
+			} elseif ( $value['type'] == 'order_item_meta' ) {
+
+				$joins["order_items"] = "LEFT JOIN {$wpdb->prefix}woocommerce_order_items AS order_items ON posts.ID = order_items.order_id";
+				$joins["order_item_meta_{$key}"] = "LEFT JOIN {$wpdb->prefix}woocommerce_order_itemmeta AS order_item_meta_{$key} ON order_items.order_item_id = order_item_meta_{$key}.order_item_id";
+
+			} elseif ( $value['type'] == 'order_item' ) {
+
+				$joins["order_items"] = "LEFT JOIN {$wpdb->prefix}woocommerce_order_items AS order_items ON posts.ID = order_items.order_id";
+
 			}
 		}
 
 		if ( ! empty( $where_meta ) ) {
+
 			foreach ( $where_meta as $value ) {
+
 				if ( ! is_array( $value ) ) {
 					continue;
 				}
-				$join_type = isset( $value['join_type'] ) ? $value['join_type'] : 'INNER';
-				$type      = isset( $value['type'] ) ? $value['type'] : false;
-				$key       = is_array( $value['meta_key'] ) ? $value['meta_key'][0] . '_array' : $value['meta_key'];
 
-				if ( 'order_item_meta' === $type ) {
+				$key = is_array( $value['meta_key'] ) ? $value['meta_key'][0] . '_array' : $value['meta_key'];
 
-					$joins["order_items"] = "{$join_type} JOIN {$wpdb->prefix}woocommerce_order_items AS order_items ON posts.ID = order_items.order_id";
-					$joins["order_item_meta_{$key}"] = "{$join_type} JOIN {$wpdb->prefix}woocommerce_order_itemmeta AS order_item_meta_{$key} ON order_items.order_item_id = order_item_meta_{$key}.order_item_id";
+				if ( isset( $value['type'] ) && $value['type'] == 'order_item_meta' ) {
+
+					$joins["order_items"] = "LEFT JOIN {$wpdb->prefix}woocommerce_order_items AS order_items ON posts.ID = order_items.order_id";
+					$joins["order_item_meta_{$key}"] = "LEFT JOIN {$wpdb->prefix}woocommerce_order_itemmeta AS order_item_meta_{$key} ON order_items.order_item_id = order_item_meta_{$key}.order_item_id";
 
 				} else {
 					// If we have a where clause for meta, join the postmeta table
-					$joins["meta_{$key}"] = "{$join_type} JOIN {$wpdb->postmeta} AS meta_{$key} ON posts.ID = meta_{$key}.post_id";
+					$joins["meta_{$key}"] = "LEFT JOIN {$wpdb->postmeta} AS meta_{$key} ON posts.ID = meta_{$key}.post_id";
 				}
 			}
 		}
@@ -177,11 +160,9 @@ class WC_Admin_Report {
 		}
 
 		if ( ! empty( $parent_order_status ) ) {
-			if ( ! empty( $order_status ) ) {
-				$query['where'] .= " AND ( parent.post_status IN ( 'wc-" . implode( "','wc-", $parent_order_status ) . "') OR parent.ID IS NULL ) ";
-			} else {
-				$query['where'] .= " AND parent.post_status IN ( 'wc-" . implode( "','wc-", $parent_order_status ) . "') ";
-			}
+			$query['where'] .= "
+				AND ( parent.post_status IN ( 'wc-" . implode( "','wc-", $parent_order_status ) . "') OR parent.ID IS NULL )
+			";
 		}
 
 		if ( $filter_range ) {
@@ -192,6 +173,21 @@ class WC_Admin_Report {
 			";
 		}
 
+		foreach ( $data as $key => $value ) {
+
+			if ( $value['type'] == 'meta' ) {
+
+				$query['where'] .= " AND meta_{$key}.meta_key = '{$key}'";
+
+			} elseif ( $value['type'] == 'order_item_meta' ) {
+
+				if ( $value['order_item_type'] ) {
+					$query['where'] .= " AND order_items.order_item_type = '{$value['order_item_type']}'";
+				}
+				$query['where'] .= " AND order_item_meta_{$key}.meta_key = '{$key}'";
+
+			}
+		}
 
 		if ( ! empty( $where_meta ) ) {
 

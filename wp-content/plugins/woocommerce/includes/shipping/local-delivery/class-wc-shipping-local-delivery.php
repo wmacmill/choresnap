@@ -81,7 +81,10 @@ class WC_Shipping_Local_Delivery extends WC_Shipping_Local_Pickup {
 	}
 
 	/**
-	 * Init form fields.
+	 * init_form_fields function.
+	 *
+	 * @access public
+	 * @return void
 	 */
 	public function init_form_fields() {
 		$this->form_fields = array(

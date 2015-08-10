@@ -1,12 +1,12 @@
 /*!
- * accounting.js v0.4.2
- * Copyright 2014 Open Exchange Rates
+ * accounting.js v0.3.2
+ * Copyright 2011, Joss Crowcroft
  *
  * Freely distributable under the MIT license.
  * Portions of accounting.js are inspired or borrowed from underscore.js
  *
  * Full details and documentation:
- * http://openexchangerates.github.io/accounting.js/
+ * http://josscrowcroft.github.com/accounting.js/
  */
 
 (function(root, undefined) {
@@ -17,7 +17,7 @@
 	var lib = {};
 
 	// Current version
-	lib.version = '0.4.1';
+	lib.version = '0.3.2';
 
 
 	/* --- Exposed settings --- */
@@ -166,7 +166,7 @@
 
 	/**
 	 * Takes a string/array of strings, removes all formatting/cruft and returns the raw float value
-	 * Alias: `accounting.parse(string)`
+	 * alias: accounting.`parse(string)`
 	 *
 	 * Decimal must be included in the regular expression to match floats (defaults to
 	 * accounting.settings.number.decimal), so if the number uses a non-standard decimal
@@ -224,12 +224,11 @@
 
 	/**
 	 * Format a number, with comma-separated thousands and custom precision/decimal places
-	 * Alias: `accounting.format()`
 	 *
 	 * Localise by overriding the precision and thousand / decimal separators
 	 * 2nd parameter `precision` can be an object matching `settings.number`
 	 */
-	var formatNumber = lib.formatNumber = lib.format = function(number, precision, thousand, decimal) {
+	var formatNumber = lib.formatNumber = function(number, precision, thousand, decimal) {
 		// Resursively format arrays:
 		if (isArray(number)) {
 			return map(number, function(val) {

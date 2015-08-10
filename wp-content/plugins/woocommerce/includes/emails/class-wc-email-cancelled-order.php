@@ -26,7 +26,7 @@ class WC_Email_Cancelled_Order extends WC_Email {
 
 		$this->id               = 'cancelled_order';
 		$this->title            = __( 'Cancelled order', 'woocommerce' );
-		$this->description      = __( 'Cancelled order emails are sent to the recipient list when orders have been marked cancelled (if they were previously processing or on-hold).', 'woocommerce' );
+		$this->description      = __( 'Cancelled order emails are sent when orders have been marked cancelled (if they were previously pending or on-hold).', 'woocommerce' );
 
 		$this->heading          = __( 'Cancelled order', 'woocommerce' );
 		$this->subject          = __( '[{site_title}] Cancelled order ({order_number})', 'woocommerce' );
@@ -49,7 +49,10 @@ class WC_Email_Cancelled_Order extends WC_Email {
 	}
 
 	/**
-	 * Trigger.
+	 * trigger function.
+	 *
+	 * @access public
+	 * @return void
 	 */
 	function trigger( $order_id ) {
 
@@ -86,8 +89,9 @@ class WC_Email_Cancelled_Order extends WC_Email {
 	}
 
 	/**
-	 * Get content plain.
+	 * get_content_plain function.
 	 *
+	 * @access public
 	 * @return string
 	 */
 	function get_content_plain() {
@@ -102,7 +106,10 @@ class WC_Email_Cancelled_Order extends WC_Email {
 	}
 
 	/**
-	 * Initialise settings form fields.
+	 * Initialise Settings Form Fields
+	 *
+	 * @access public
+	 * @return void
 	 */
 	function init_form_fields() {
 		$this->form_fields = array(

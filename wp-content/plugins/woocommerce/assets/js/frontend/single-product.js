@@ -1,4 +1,3 @@
-/*global wc_single_product_params */
 jQuery( function( $ ) {
 
 	// wc_single_product_params is required to continue, ensure the object exists
@@ -7,36 +6,36 @@ jQuery( function( $ ) {
 	}
 
 	// Tabs
-	$( '.wc-tabs-wrapper, .woocommerce-tabs' )
-		.on( 'init', function() {
-			$( '.wc-tab, .panel:not(.panel .panel)' ).hide();
+	$( '.woocommerce-tabs .panel' ).hide();
 
-			var hash  = window.location.hash;
-			var url   = window.location.href;
-			var $tabs = $( this ).find( '.wc-tabs, ul.tabs' ).first();
+	$( '.woocommerce-tabs ul.tabs li a' ).click( function() {
 
-			if ( hash.toLowerCase().indexOf( 'comment-' ) >= 0 || hash === '#reviews' ) {
-				$tabs.find( 'li.reviews_tab a' ).click();
-			} else if ( url.indexOf( 'comment-page-' ) > 0 || url.indexOf( 'cpage=' ) > 0 ) {
-				$tabs.find( 'li.reviews_tab a' ).click();
-			} else {
-				$tabs.find( 'li:first a' ).click();
-			}
-		})
-		.on( 'click', '.wc-tabs li a, ul.tabs li a', function() {
-			var $tab          = $( this );
-			var $tabs_wrapper = $tab.closest( '.wc-tabs-wrapper, .woocommerce-tabs' );
-			var $tabs         = $tabs_wrapper.find( '.wc-tabs, ul.tabs' );
+		var $tab = $( this ),
+			$tabs_wrapper = $tab.closest( '.woocommerce-tabs' );
 
-			$tabs.find( 'li' ).removeClass( 'active' );
-			$tabs_wrapper.find( '.wc-tab, .panel:not(.panel .panel)' ).hide();
+		$( 'ul.tabs li', $tabs_wrapper ).removeClass( 'active' );
+		$( 'div.panel', $tabs_wrapper ).hide();
+		$( 'div' + $tab.attr( 'href' ), $tabs_wrapper).show();
+		$tab.parent().addClass( 'active' );
 
-			$tab.closest( 'li' ).addClass( 'active' );
-			$tabs_wrapper.find( $tab.attr( 'href' ) ).show();
+		return false;
+	});
 
-			return false;
-		})
-		.trigger( 'init' );
+	$( '.woocommerce-tabs' ).each( function() {
+		var hash	= window.location.hash,
+			url		= window.location.href,
+			tabs	= $( this );
+
+		if ( hash.toLowerCase().indexOf( "comment-" ) >= 0 || hash == '#reviews' ) {
+			$('ul.tabs li.reviews_tab a', tabs ).click();
+
+		} else if ( url.indexOf( "comment-page-" ) > 0 || url.indexOf( "cpage=" ) > 0 ) {
+			$( 'ul.tabs li.reviews_tab a', $( this ) ).click();
+
+		} else {
+			$( 'ul.tabs li:first a', tabs ).click();
+		}
+	});
 
 	$( 'a.woocommerce-review-link' ).click( function() {
 		$( '.reviews_tab a' ).click();
@@ -62,9 +61,14 @@ jQuery( function( $ ) {
 				rating  = $rating.val();
 
 			if ( $rating.size() > 0 && ! rating && wc_single_product_params.review_rating_required === 'yes' ) {
-				window.alert( wc_single_product_params.i18n_required_rating_text );
+				alert( wc_single_product_params.i18n_required_rating_text );
 
 				return false;
 			}
 		});
+
+	// prevent double form submission
+	$( 'form.cart' ).submit( function() {
+		$( this ).find( ':submit' ).attr( 'disabled','disabled' );
+	});
 });

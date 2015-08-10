@@ -3,7 +3,7 @@
  * Admin Settings API used by Shipping Methods and Payment Gateways
  *
  * @class    WC_Settings_API
- * @version  2.4.0
+ * @version  2.3.0
  * @package  WooCommerce/Abstracts
  * @category Abstract Class
  * @author   WooThemes
@@ -89,13 +89,14 @@ abstract class WC_Settings_API {
 	 * Add an array of fields to be displayed
 	 * on the gateway's settings screen.
 	 *
-	 * @since  1.0.0
+	 * @since 1.0.0
 	 * @return string
 	 */
 	public function init_form_fields() {}
 
 	/**
 	 * Get the form fields after they are initialized
+	 *
 	 * @return array of options
 	 */
 	public function get_form_fields() {
@@ -158,7 +159,7 @@ abstract class WC_Settings_API {
 			}
 		}
 
-		if ( ! empty( $this->settings ) && is_array( $this->settings ) ) {
+		if ( $this->settings && is_array( $this->settings ) ) {
 			$this->settings = array_map( array( $this, 'format_settings' ), $this->settings );
 			$this->enabled  = isset( $this->settings['enabled'] ) && $this->settings['enabled'] == 'yes' ? 'yes' : 'no';
 		}
@@ -169,9 +170,9 @@ abstract class WC_Settings_API {
 	 *
 	 * Gets and option from the settings API, using defaults if necessary to prevent undefined notices.
 	 *
-	 * @param  string $key
-	 * @param  mixed  $empty_value
-	 * @return mixed  The value specified for the option or a default value for the option
+	 * @param string $key
+	 * @param mixed $empty_value
+	 * @return mixed The value specified for the option or a default value for the option
 	 */
 	public function get_option( $key, $empty_value = null ) {
 
@@ -193,19 +194,9 @@ abstract class WC_Settings_API {
 	}
 
 	/**
-	 * Prefix key for settings.
-	 *
-	 * @param  mixed $key
-	 * @return string
-	 */
-	public function get_field_key( $key ) {
-		return $this->plugin_id . $this->id . '_' . $key;
-	}
-
-	/**
 	 * Decode values for settings.
 	 *
-	 * @param  mixed $value
+	 * @param mixed $value
 	 * @return array
 	 */
 	public function format_settings( $value ) {
@@ -217,14 +208,14 @@ abstract class WC_Settings_API {
 	 *
 	 * Generate the HTML for the fields on the "settings" screen.
 	 *
-	 * @param  array $form_fields (default: array())
-	 * @since  1.0.0
-	 * @uses   method_exists()
+	 * @param array $form_fields (default: array())
+	 * @since 1.0.0
+	 * @uses method_exists()
 	 * @return string the html for the settings
 	 */
 	public function generate_settings_html( $form_fields = array() ) {
 
-		if ( empty( $form_fields ) ) {
+		if ( ! $form_fields ) {
 			$form_fields = $this->get_form_fields();
 		}
 
@@ -307,14 +298,14 @@ abstract class WC_Settings_API {
 	/**
 	 * Generate Text Input HTML.
 	 *
-	 * @param  mixed $key
-	 * @param  mixed $data
-	 * @since  1.0.0
+	 * @param mixed $key
+	 * @param mixed $data
+	 * @since 1.0.0
 	 * @return string
 	 */
 	public function generate_text_html( $key, $data ) {
 
-		$field    = $this->get_field_key( $key );
+		$field    = $this->plugin_id . $this->id . '_' . $key;
 		$defaults = array(
 			'title'             => '',
 			'disabled'          => false,
@@ -352,14 +343,14 @@ abstract class WC_Settings_API {
 	/**
 	 * Generate Price Input HTML.
 	 *
-	 * @param  mixed $key
-	 * @param  mixed $data
-	 * @since  1.0.0
+	 * @param mixed $key
+	 * @param mixed $data
+	 * @since 1.0.0
 	 * @return string
 	 */
 	public function generate_price_html( $key, $data ) {
 
-		$field    = $this->get_field_key( $key );
+		$field    = $this->plugin_id . $this->id . '_' . $key;
 		$defaults = array(
 			'title'             => '',
 			'disabled'          => false,
@@ -397,14 +388,14 @@ abstract class WC_Settings_API {
 	/**
 	 * Generate Decimal Input HTML.
 	 *
-	 * @param  mixed $key
-	 * @param  mixed $data
-	 * @since  1.0.0
+	 * @param mixed $key
+	 * @param mixed $data
+	 * @since 1.0.0
 	 * @return string
 	 */
 	public function generate_decimal_html( $key, $data ) {
 
-		$field    = $this->get_field_key( $key );
+		$field    = $this->plugin_id . $this->id . '_' . $key;
 		$defaults = array(
 			'title'             => '',
 			'disabled'          => false,
@@ -442,9 +433,9 @@ abstract class WC_Settings_API {
 	/**
 	 * Generate Password Input HTML.
 	 *
-	 * @param  mixed $key
-	 * @param  mixed $data
-	 * @since  1.0.0
+	 * @param mixed $key
+	 * @param mixed $data
+	 * @since 1.0.0
 	 * @return string
 	 */
 	public function generate_password_html( $key, $data ) {
@@ -455,14 +446,13 @@ abstract class WC_Settings_API {
 	/**
 	 * Generate Color Picker Input HTML.
 	 *
-	 * @param  mixed $key
-	 * @param  mixed $data
-	 * @since  1.0.0
+	 * @param mixed $key
+	 * @param mixed $data
+	 * @since 2.3.0
 	 * @return string
 	 */
 	public function generate_color_html( $key, $data ) {
-
-		$field    = $this->get_field_key( $key );
+		$field    = $this->plugin_id . $this->id . '_' . $key;
 		$defaults = array(
 			'title'             => '',
 			'disabled'          => false,
@@ -486,9 +476,10 @@ abstract class WC_Settings_API {
 			<td class="forminp">
 				<fieldset>
 					<legend class="screen-reader-text"><span><?php echo wp_kses_post( $data['title'] ); ?></span></legend>
-					<span class="colorpickpreview" style="background:<?php echo esc_attr( $this->get_option( $key ) ); ?>;"></span>
-					<input class="colorpick <?php echo esc_attr( $data['class'] ); ?>" type="text" name="<?php echo esc_attr( $field ); ?>" id="<?php echo esc_attr( $field ); ?>" style="<?php echo esc_attr( $data['css'] ); ?>" value="<?php echo esc_attr( $this->get_option( $key ) ); ?>" placeholder="<?php echo esc_attr( $data['placeholder'] ); ?>" <?php disabled( $data['disabled'], true ); ?> <?php echo $this->get_custom_attribute_html( $data ); ?> />
-					<div id="colorPickerDiv_<?php echo esc_attr( $field ); ?>" class="colorpickdiv" style="z-index: 100; background: #eee; border: 1px solid #ccc; position: absolute; display: none;"></div>
+					<div class="color_box">
+						<input class="colorpick <?php echo esc_attr( $data['class'] ); ?>" type="text" name="<?php echo esc_attr( $field ); ?>" id="<?php echo esc_attr( $field ); ?>" style="<?php echo esc_attr( $data['css'] ); ?>" value="<?php echo esc_attr( $this->get_option( $key ) ); ?>" placeholder="<?php echo esc_attr( $data['placeholder'] ); ?>" <?php disabled( $data['disabled'], true ); ?> <?php echo $this->get_custom_attribute_html( $data ); ?> />
+						<div id="colorPickerDiv_<?php echo esc_attr( $field ); ?>" class="colorpickdiv" style="z-index: 100; background: #eee; border: 1px solid #ccc; position: absolute; display: none;"></div>
+					</div>
 					<?php echo $this->get_description_html( $data ); ?>
 				</fieldset>
 			</td>
@@ -501,14 +492,14 @@ abstract class WC_Settings_API {
 	/**
 	 * Generate Textarea HTML.
 	 *
-	 * @param  mixed $key
-	 * @param  mixed $data
-	 * @since  1.0.0
+	 * @param mixed $key
+	 * @param mixed $data
+	 * @since 1.0.0
 	 * @return string
 	 */
 	public function generate_textarea_html( $key, $data ) {
 
-		$field    = $this->get_field_key( $key );
+		$field    = $this->plugin_id . $this->id . '_' . $key;
 		$defaults = array(
 			'title'             => '',
 			'disabled'          => false,
@@ -546,14 +537,14 @@ abstract class WC_Settings_API {
 	/**
 	 * Generate Checkbox HTML.
 	 *
-	 * @param  mixed $key
-	 * @param  mixed $data
-	 * @since  1.0.0
+	 * @param mixed $key
+	 * @param mixed $data
+	 * @since 1.0.0
 	 * @return string
 	 */
 	public function generate_checkbox_html( $key, $data ) {
 
-		$field    = $this->get_field_key( $key );
+		$field    = $this->plugin_id . $this->id . '_' . $key;
 		$defaults = array(
 			'title'             => '',
 			'label'             => '',
@@ -596,14 +587,14 @@ abstract class WC_Settings_API {
 	/**
 	 * Generate Select HTML.
 	 *
-	 * @param  mixed $key
-	 * @param  mixed $data
-	 * @since  1.0.0
+	 * @param mixed $key
+	 * @param mixed $data
+	 * @since 1.0.0
 	 * @return string
 	 */
 	public function generate_select_html( $key, $data ) {
 
-		$field    = $this->get_field_key( $key );
+		$field    = $this->plugin_id . $this->id . '_' . $key;
 		$defaults = array(
 			'title'             => '',
 			'disabled'          => false,
@@ -646,14 +637,14 @@ abstract class WC_Settings_API {
 	/**
 	 * Generate Multiselect HTML.
 	 *
-	 * @param  mixed $key
-	 * @param  mixed $data
-	 * @since  1.0.0
+	 * @param mixed $key
+	 * @param mixed $data
+	 * @since 1.0.0
 	 * @return string
 	 */
 	public function generate_multiselect_html( $key, $data ) {
 
-		$field    = $this->get_field_key( $key );
+		$field    = $this->plugin_id . $this->id . '_' . $key;
 		$defaults = array(
 			'title'             => '',
 			'disabled'          => false,
@@ -697,14 +688,13 @@ abstract class WC_Settings_API {
 	/**
 	 * Generate Title HTML.
 	 *
-	 * @param  mixed $key
-	 * @param  mixed $data
-	 * @since  1.0.0
+	 * @param mixed $key
+	 * @param mixed $data
+	 * @since 1.6.2
 	 * @return string
 	 */
 	public function generate_title_html( $key, $data ) {
 
-		$field    = $this->get_field_key( $key );
 		$defaults = array(
 			'title'             => '',
 			'class'             => ''
@@ -715,7 +705,7 @@ abstract class WC_Settings_API {
 		ob_start();
 		?>
 			</table>
-			<h3 class="wc-settings-sub-title <?php echo esc_attr( $data['class'] ); ?>" id="<?php echo esc_attr( $field ); ?>"><?php echo wp_kses_post( $data['title'] ); ?></h3>
+			<h3 class="wc-settings-sub-title <?php echo esc_attr( $data['class'] ); ?>"><?php echo wp_kses_post( $data['title'] ); ?></h3>
 			<?php if ( ! empty( $data['description'] ) ) : ?>
 				<p><?php echo wp_kses_post( $data['description'] ); ?></p>
 			<?php endif; ?>
@@ -731,12 +721,12 @@ abstract class WC_Settings_API {
 	 * Validate the data on the "Settings" form.
 	 *
 	 * @since 1.0.0
-	 * @uses  method_exists()
+	 * @uses method_exists()
 	 * @param array $form_fields (default: array())
 	 */
 	public function validate_settings_fields( $form_fields = array() ) {
 
-		if ( empty( $form_fields ) ) {
+		if ( ! $form_fields ) {
 			$form_fields = $this->get_form_fields();
 		}
 
@@ -767,20 +757,39 @@ abstract class WC_Settings_API {
 	}
 
 	/**
+	 * Validate Checkbox Field.
+	 *
+	 * If not set, return "no", otherwise return "yes".
+	 *
+	 * @param mixed $key
+	 * @since 1.0.0
+	 * @return string
+	 */
+	public function validate_checkbox_field( $key ) {
+
+		$status = 'no';
+
+		if ( isset( $_POST[ $this->plugin_id . $this->id . '_' . $key ] ) && ( 1 == $_POST[ $this->plugin_id . $this->id . '_' . $key ] ) ) {
+			$status = 'yes';
+		}
+
+		return $status;
+	}
+
+	/**
 	 * Validate Text Field.
 	 *
 	 * Make sure the data is escaped correctly, etc.
 	 *
-	 * @param  mixed $key
+	 * @param mixed $key
 	 * @return string
 	 */
 	public function validate_text_field( $key ) {
 
-		$text  = $this->get_option( $key );
-		$field = $this->get_field_key( $key );
+		$text = $this->get_option( $key );
 
-		if ( isset( $_POST[ $field ] ) ) {
-			$text = wp_kses_post( trim( stripslashes( $_POST[ $field ] ) ) );
+		if ( isset( $_POST[ $this->plugin_id . $this->id . '_' . $key ] ) ) {
+			$text = wp_kses_post( trim( stripslashes( $_POST[ $this->plugin_id . $this->id . '_' . $key ] ) ) );
 		}
 
 		return $text;
@@ -791,18 +800,17 @@ abstract class WC_Settings_API {
 	 *
 	 * Make sure the data is escaped correctly, etc.
 	 *
-	 * @param  mixed $key
+	 * @param mixed $key
 	 * @return string
 	 */
 	public function validate_price_field( $key ) {
 
-		$text  = $this->get_option( $key );
-		$field = $this->get_field_key( $key );
+		$text = $this->get_option( $key );
 
-		if ( isset( $_POST[ $field ] ) ) {
+		if ( isset( $_POST[ $this->plugin_id . $this->id . '_' . $key ] ) ) {
 
-			if ( $_POST[ $field ] !== '' ) {
-				$text = wc_format_decimal( trim( stripslashes( $_POST[ $field ] ) ) );
+			if ( $_POST[ $this->plugin_id . $this->id . '_' . $key ] !== '' ) {
+				$text = wc_format_decimal( trim( stripslashes( $_POST[ $this->plugin_id . $this->id . '_' . $key ] ) ) );
 			} else {
 				$text = '';
 			}
@@ -816,18 +824,17 @@ abstract class WC_Settings_API {
 	 *
 	 * Make sure the data is escaped correctly, etc.
 	 *
-	 * @param  mixed $key
+	 * @param mixed $key
 	 * @return string
 	 */
 	public function validate_decimal_field( $key ) {
 
-		$text  = $this->get_option( $key );
-		$field = $this->get_field_key( $key );
+		$text = $this->get_option( $key );
 
-		if ( isset( $_POST[ $field ] ) ) {
+		if ( isset( $_POST[ $this->plugin_id . $this->id . '_' . $key ] ) ) {
 
-			if ( $_POST[ $field ] !== '' ) {
-				$text = wc_format_decimal( trim( stripslashes( $_POST[ $field ] ) ) );
+			if ( $_POST[ $this->plugin_id . $this->id . '_' . $key ] !== '' ) {
+				$text = wc_format_decimal( trim( stripslashes( $_POST[ $this->plugin_id . $this->id . '_' . $key ] ) ) );
 			} else {
 				$text = '';
 			}
@@ -841,21 +848,19 @@ abstract class WC_Settings_API {
 	 *
 	 * Make sure the data is escaped correctly, etc.
 	 *
-	 * @param  mixed $key
-	 * @since  1.0.0
+	 * @param mixed $key
+	 * @since 1.0.0
 	 * @return string
 	 */
 	public function validate_password_field( $key ) {
 
-		$text  = $this->get_option( $key );
-		$field = $this->get_field_key( $key );
-		$value = trim( stripslashes( $_POST[ $field ] ) );
+		$text = $this->get_option( $key );
 
-		if ( isset( $_POST[ $field ] ) ) {
-			$text = wp_kses_post( $value );
+		if ( isset( $_POST[ $this->plugin_id . $this->id . '_' . $key ] ) ) {
+			$text = wc_clean( stripslashes( $_POST[ $this->plugin_id . $this->id . '_' . $key ] ) );
 		}
 
-		return $text === $value ? $text : '';
+		return $text;
 	}
 
 	/**
@@ -863,18 +868,17 @@ abstract class WC_Settings_API {
 	 *
 	 * Make sure the data is escaped correctly, etc.
 	 *
-	 * @param  mixed $key
-	 * @since  1.0.0
+	 * @param mixed $key
+	 * @since 1.0.0
 	 * @return string
 	 */
 	public function validate_textarea_field( $key ) {
 
-		$text  = $this->get_option( $key );
-		$field = $this->get_field_key( $key );
+		$text = $this->get_option( $key );
 
-		if ( isset( $_POST[ $field ] ) ) {
+		if ( isset( $_POST[ $this->plugin_id . $this->id . '_' . $key ] ) ) {
 
-			$text = wp_kses( trim( stripslashes( $_POST[ $field ] ) ),
+			$text = wp_kses( trim( stripslashes( $_POST[ $this->plugin_id . $this->id . '_' . $key ] ) ),
 				array_merge(
 					array(
 						'iframe' => array( 'src' => true, 'style' => true, 'id' => true, 'class' => true )
@@ -888,42 +892,20 @@ abstract class WC_Settings_API {
 	}
 
 	/**
-	 * Validate Checkbox Field.
-	 *
-	 * If not set, return "no", otherwise return "yes".
-	 *
-	 * @param  mixed $key
-	 * @since  1.0.0
-	 * @return string
-	 */
-	public function validate_checkbox_field( $key ) {
-
-		$status = 'no';
-		$field  = $this->get_field_key( $key );
-
-		if ( isset( $_POST[ $field ] ) && ( 1 == $_POST[ $field ] ) ) {
-			$status = 'yes';
-		}
-
-		return $status;
-	}
-
-	/**
 	 * Validate Select Field.
 	 *
 	 * Make sure the data is escaped correctly, etc.
 	 *
-	 * @param  mixed $key
-	 * @since  1.0.0
+	 * @param mixed $key
+	 * @since 1.0.0
 	 * @return string
 	 */
 	public function validate_select_field( $key ) {
 
 		$value = $this->get_option( $key );
-		$field = $this->get_field_key( $key );
 
-		if ( isset( $_POST[ $field ] ) ) {
-			$value = wc_clean( stripslashes( $_POST[ $field ] ) );
+		if ( isset( $_POST[ $this->plugin_id . $this->id . '_' . $key ] ) ) {
+			$value = wc_clean( stripslashes( $_POST[ $this->plugin_id . $this->id . '_' . $key ] ) );
 		}
 
 		return $value;
@@ -934,16 +916,14 @@ abstract class WC_Settings_API {
 	 *
 	 * Make sure the data is escaped correctly, etc.
 	 *
-	 * @param  mixed $key
-	 * @since  1.0.0
+	 * @param mixed $key
+	 * @since 1.0.0
 	 * @return string
 	 */
 	public function validate_multiselect_field( $key ) {
 
-		$field = $this->get_field_key( $key );
-
-		if ( isset( $_POST[ $field ] ) ) {
-			$value = array_map( 'wc_clean', array_map( 'stripslashes', (array) $_POST[ $field ] ) );
+		if ( isset( $_POST[ $this->plugin_id . $this->id . '_' . $key ] ) ) {
+			$value = array_map( 'wc_clean', array_map( 'stripslashes', (array) $_POST[ $this->plugin_id . $this->id . '_' . $key ] ) );
 		} else {
 			$value = '';
 		}

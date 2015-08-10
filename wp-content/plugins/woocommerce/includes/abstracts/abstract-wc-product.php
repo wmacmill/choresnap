@@ -57,6 +57,13 @@ class WC_Product {
 	public $product_type = null;
 
 	/**
+	 * String of dimensions (imploded with X)
+	 *
+	 * @var string
+	 */
+	protected $dimensions = '';
+
+	/**
 	 * Prouduct shipping class
 	 *
 	 * @var string
@@ -192,15 +199,14 @@ class WC_Product {
 	/**
 	 * Check if the stock status needs changing
 	 */
-	public function check_stock_status() {
+	protected function check_stock_status() {
+
+		// Update stock status
 		if ( ! $this->backorders_allowed() && $this->get_total_stock() <= get_option( 'woocommerce_notify_no_stock_amount' ) ) {
-			if ( $this->stock_status !== 'outofstock' ) {
-				$this->set_stock_status( 'outofstock' );
-			}
+			$this->set_stock_status( 'outofstock' );
+
 		} elseif ( $this->backorders_allowed() || $this->get_total_stock() > get_option( 'woocommerce_notify_no_stock_amount' ) ) {
-			if ( $this->stock_status !== 'instock' ) {
-				$this->set_stock_status( 'instock' );
-			}
+			$this->set_stock_status( 'instock' );
 		}
 	}
 
@@ -275,6 +281,7 @@ class WC_Product {
 	 * set_stock_status function.
 	 *
 	 * @param string $status
+	 * @return void
 	 */
 	public function set_stock_status( $status ) {
 
@@ -291,15 +298,6 @@ class WC_Product {
 			$this->stock_status = $status;
 			do_action( 'woocommerce_product_set_stock_status', $this->id, $status );
 		}
-	}
-
-	/**
-	 * Return the product type.
-	 *
-	 * @return string
-	 */
-	public function get_type() {
-		return is_null( $this->product_type ) ? '' : $this->product_type;
 	}
 
 	/**
@@ -346,7 +344,7 @@ class WC_Product {
 
 		$downloadable_files = array_filter( isset( $this->downloadable_files ) ? (array) maybe_unserialize( $this->downloadable_files ) : array() );
 
-		if ( ! empty( $downloadable_files ) ) {
+		if ( $downloadable_files ) {
 
 			foreach ( $downloadable_files as $key => $file ) {
 
@@ -488,7 +486,7 @@ class WC_Product {
 	 * @return bool
 	 */
 	public function is_taxable() {
-		$taxable = $this->get_tax_status() === 'taxable' && wc_tax_enabled() ? true : false;
+		$taxable = $this->tax_status == 'taxable' && wc_tax_enabled() ? true : false;
 		return apply_filters( 'woocommerce_product_is_taxable', $taxable, $this );
 	}
 
@@ -498,7 +496,7 @@ class WC_Product {
 	 * @return bool
 	 */
 	public function is_shipping_taxable() {
-		return $this->get_tax_status() === 'taxable' || $this->get_tax_status() === 'shipping' ? true : false;
+		return $this->tax_status=='taxable' || $this->tax_status=='shipping' ? true : false;
 	}
 
 	/**
@@ -561,6 +559,7 @@ class WC_Product {
 	 * @return bool
 	 */
 	public function is_in_stock() {
+
 		if ( $this->managing_stock() && $this->backorders_allowed() ) {
 			return true;
 		} elseif ( $this->managing_stock() && $this->get_total_stock() <= get_option( 'woocommerce_notify_no_stock_amount' ) ) {
@@ -605,7 +604,7 @@ class WC_Product {
 	 * @return bool
 	 */
 	public function has_enough_stock( $quantity ) {
-		return ! $this->managing_stock() || $this->backorders_allowed() || $this->get_stock_quantity() >= $quantity ? true : false;
+		return ! $this->managing_stock() || $this->backorders_allowed() || $this->stock >= $quantity ? true : false;
 	}
 
 	/**
@@ -726,6 +725,15 @@ class WC_Product {
 	}
 
 	/**
+	 * Returns the product's weight.
+	 * @todo   refactor filters in this class to naming woocommerce_product_METHOD
+	 * @return string
+	 */
+	public function get_weight() {
+		return apply_filters( 'woocommerce_product_get_weight', $this->weight ? $this->weight : '' );
+	}
+
+	/**
 	 * Returns false if the product cannot be bought.
 	 *
 	 * @return bool
@@ -754,6 +762,7 @@ class WC_Product {
 	 * Set a products price dynamically.
 	 *
 	 * @param float $price Price to set.
+	 * @return void
 	 */
 	public function set_price( $price ) {
 		$this->price = $price;
@@ -763,6 +772,7 @@ class WC_Product {
 	 * Adjust a products price dynamically.
 	 *
 	 * @param mixed $price
+	 * @return void
 	 */
 	public function adjust_price( $price ) {
 		$this->price = $this->price + $price;
@@ -894,15 +904,9 @@ class WC_Product {
 	/**
 	 * Get the suffix to display after prices > 0
 	 *
-	 * @param  string  $price to calculate, left blank to just use get_price()
-	 * @param  integer $qty   passed on to get_price_including_tax() or get_price_excluding_tax()
 	 * @return string
 	 */
-	public function get_price_suffix( $price = '', $qty = 1 ) {
-
-		if ( $price === '' ) {
-			$price = $this->get_price();
-		}
+	public function get_price_suffix() {
 
 		$price_display_suffix  = get_option( 'woocommerce_price_display_suffix' );
 
@@ -916,8 +920,8 @@ class WC_Product {
 			);
 
 			$replace = array(
-				wc_price( $this->get_price_including_tax( $qty, $price ) ),
-				wc_price( $this->get_price_excluding_tax( $qty, $price ) )
+				wc_price( $this->get_price_including_tax() ),
+				wc_price( $this->get_price_excluding_tax() )
 			);
 
 			$price_display_suffix = str_replace( $find, $replace, $price_display_suffix );
@@ -1152,7 +1156,7 @@ class WC_Product {
 	 * @return array
 	 */
 	public function get_upsells() {
-		return apply_filters( 'woocommerce_product_upsell_ids', (array) maybe_unserialize( $this->upsell_ids ), $this );
+		return (array) maybe_unserialize( $this->upsell_ids );
 	}
 
 	/**
@@ -1161,7 +1165,7 @@ class WC_Product {
 	 * @return array
 	 */
 	public function get_cross_sells() {
-		return apply_filters( 'woocommerce_product_crosssell_ids', (array) maybe_unserialize( $this->crosssell_ids ), $this );
+		return (array) maybe_unserialize( $this->crosssell_ids );
 	}
 
 	/**
@@ -1347,39 +1351,6 @@ class WC_Product {
 	}
 
 	/**
-	 * Returns the product length.
-	 * @return string
-	 */
-	public function get_length() {
-		return apply_filters( 'woocommerce_product_length', $this->length ? $this->length : '', $this );
-	}
-
-	/**
-	 * Returns the product width.
-	 * @return string
-	 */
-	public function get_width() {
-		return apply_filters( 'woocommerce_product_width', $this->width ? $this->width : '', $this );
-	}
-
-	/**
-	 * Returns the product height.
-	 * @return string
-	 */
-	public function get_height() {
-		return apply_filters( 'woocommerce_product_height', $this->height ? $this->height : '', $this );
-	}
-
-	/**
-	 * Returns the product's weight.
-	 * @todo   refactor filters in this class to naming woocommerce_product_METHOD
-	 * @return string
-	 */
-	public function get_weight() {
-		return apply_filters( 'woocommerce_product_weight', apply_filters( 'woocommerce_product_get_weight', $this->weight ? $this->weight : '' ), $this );
-	}
-
-	/**
 	 * Returns whether or not the product has weight set.
 	 *
 	 * @return bool
@@ -1389,21 +1360,36 @@ class WC_Product {
 	}
 
 	/**
-	 * Returns formatted dimensions.
+	 * Returns dimensions.
+	 *
 	 * @return string
 	 */
 	public function get_dimensions() {
-		$dimensions = implode( ' x ', array_filter( array(
-			$this->get_length(),
-			$this->get_width(),
-			$this->get_height(),
-		) ) );
 
-		if ( ! empty( $dimensions ) ) {
-			$dimensions .= ' ' . get_option( 'woocommerce_dimension_unit' );
+		if ( ! $this->dimensions ) {
+			$dimensions = array();
+
+			if ( $this->length ) {
+				$dimensions[] = $this->length;
+			}
+
+			if ( $this->width ) {
+				$dimensions[] = $this->width;
+			}
+
+			if ( $this->height ){
+				$dimensions[] = $this->height;
+			}
+
+			$this->dimensions = implode( ' x ', $dimensions );
+
+			if ( ! empty( $this->dimensions ) ) {
+				$this->dimensions .= ' ' . get_option( 'woocommerce_dimension_unit' );
+			}
+
 		}
 
-		return  apply_filters( 'woocommerce_product_dimensions', $dimensions, $this );
+		return $this->dimensions;
 	}
 
 	/**

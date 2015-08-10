@@ -49,6 +49,8 @@ class WC_Widget_Recent_Reviews extends WC_Widget {
 	 *
 	 * @param array $args
 	 * @param array $instance
+	 *
+	 * @return void
 	 */
 	 public function widget( $args, $instance ) {
 		global $comments, $comment;
