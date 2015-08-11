@@ -61,6 +61,15 @@ function acf_post_submission ($entry, $form)
 
 
 
+add_filter ('resume_manager_attach_uploaded_files', 'attach_images_resume');
+
+add_filter( 'gform_confirmation', 'custom_confirmation', 10, 4 );
+function custom_confirmation( $confirmation, $form, $entry, $ajax ) {
+    if( $form['id'] == '5' ) {
+         $confirmation = array( 'redirect' => site_url('/post-a-chore/apartment-cleaning') );
+    }
+    return $confirmation;
+}
 
 
 
