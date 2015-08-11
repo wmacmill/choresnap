@@ -348,7 +348,6 @@ function attach_images_resume () {
   $attach = true;
   return $attach;
 }
-
 add_filter ('resume_manager_attach_uploaded_files', 'attach_images_resume');
 
 

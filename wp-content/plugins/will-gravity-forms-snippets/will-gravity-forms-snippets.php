@@ -38,15 +38,19 @@ function change_menu_order( $post_data, $form, $entry ) {
 //this updates the user meta fields based on the address information as well as the user type
 add_action( 'gform_after_submission', 'input_fields', 10, 2 );
 function input_fields( $entry, $form ) {
+    if ( $form['id']==5){
+        return;
+    }
+    else {
+        $address_meta = $entry[68];
+        $user_type = $entry[42];
+        $user_region = $entry[19];
+        $user_id = get_current_user_id();
 
-    $address_meta = $entry[68];
-    $user_type = $entry[42];
-    $user_region = $entry[19];
-    $user_id = get_current_user_id();
-
-    update_user_meta( $user_id, 'user_location', $address_meta );
-    update_user_meta( $user_id, 'user_type', $user_type );
-    update_user_meta( $user_id, 'user_region', $user_region );
+        update_user_meta( $user_id, 'user_location', $address_meta );
+        update_user_meta( $user_id, 'user_type', $user_type );
+        update_user_meta( $user_id, 'user_region', $user_region );
+    }
 }
 
 
@@ -61,11 +65,9 @@ function acf_post_submission ($entry, $form)
 
 
 
-add_filter ('resume_manager_attach_uploaded_files', 'attach_images_resume');
-
 add_filter( 'gform_confirmation', 'custom_confirmation', 10, 4 );
 function custom_confirmation( $confirmation, $form, $entry, $ajax ) {
-    if( $form['id'] == '5' ) {
+    if( $form['id'] == 5 ) {
          $confirmation = array( 'redirect' => site_url('/post-a-chore/apartment-cleaning') );
     }
     return $confirmation;
