@@ -110,7 +110,8 @@ function change_resume_listing_slug( $args ) {
 add_filter( 'register_post_type_resume', 'change_resume_listing_slug' );
 
 
-add_action ('wp_footer','will_testing_bp_notifications');*/
+add_action ('wp_footer','will_testing_bp_notifications');
+
 function attach_images_resume () {
   $attach = true;
   return $attach;
