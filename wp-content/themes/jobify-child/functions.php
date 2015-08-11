@@ -343,12 +343,7 @@ function yourprefix_register_demo_metabox() {
   }
 }
 
-add_action ('wp_footer','will_testing_bp_notifications');*/
-function attach_images_resume () {
-  $attach = true;
-  return $attach;
-}
-add_filter ('resume_manager_attach_uploaded_files', 'attach_images_resume');
+/*bump this version on git so it is in sync*/
 
 
 ?>
