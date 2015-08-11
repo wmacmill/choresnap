@@ -23,7 +23,6 @@ function gmw_fl_db_installation() {
 
     $gmw_sql[] = "CREATE TABLE wppl_friends_locator (
 		`member_id` 			bigint(30) NOT NULL,
-        `feature`               tinyint NOT NULL default '0',
 		`lat` 					FLOAT(10,6) NOT NULL ,
 		`long` 					FLOAT(10,6) NOT NULL ,
         `street_number`         varchar(60) NOT NULL ,
