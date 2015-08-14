@@ -15,7 +15,7 @@
 			var self = this;
 
 			this.cache.$document.on( 'ready', function() {
-				self.$forms = $( '.search_jobs, .job_search_form' );
+				self.$forms = $( '.search_jobs' );
 
 				self.addSubmission();
 				self.addRegions();
@@ -30,22 +30,18 @@
 
 		addRegions: function() {
 			this.$forms.each(function(i, el) {
-				$(this).find( '.search_region' ).chosen();
-			});
+				var $regions = $(el).find( 'select.search_region' );
 
-			this.$forms.each(function(i, el) {
-				var location = $(this).find( '.search_location' );
+				if ( ! $regions.length ) {
+					return;
+				}
+				
+				var location = $(el).find( '.search_location' );
 				location.html( '' );
 				location.removeClass( 'search_location' ).addClass( 'search_region' );
 
-				var $chosen = $( this ).find( '#search_region_chosen' );
-				var $std = $(this).find( '#search_region' );
-
-				if ( $chosen.length ) {
-					$chosen.detach().appendTo(location);
-				} else {
-					$std.detach().appendTo(location);
-				}
+				$regions.detach().appendTo(location);
+				$regions.chosen();
 			});
 		},
 
