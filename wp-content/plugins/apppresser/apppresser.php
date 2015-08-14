@@ -5,7 +5,7 @@ Plugin URI: http://apppresser.com
 Description: A mobile app development framework for WordPress.
 Text Domain: apppresser
 Domain Path: /languages
-Version: 1.1.9
+Version: 1.2.0
 Author: AppPresser Team
 Author URI: http://apppresser.com
 License: GPLv2
@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 class AppPresser {
 
-	const VERSION           = '1.1.9';
+	const VERSION           = '1.2.0';
 	const SETTINGS_NAME     = 'appp_settings';
 	public static $settings = 'false';
 	public static $instance = null;
@@ -43,6 +43,8 @@ class AppPresser {
 	public static $js_url;
 	public static $dir_url;
 	public static $pg_url;
+	public static $pg_version;
+	// public static $errorpath = '../php-error-log.php';
 
 	/**
 	 * Creates or returns an instance of this class.
@@ -62,7 +64,7 @@ class AppPresser {
 	 */
 	function __construct() {
 
-		$pg_version =  ( appp_get_setting( 'appp_pg_version' ) ) ? appp_get_setting( 'appp_pg_version' ) : '3.5.0';
+		self::$pg_version =  ( appp_get_setting( 'appp_pg_version' ) ) ? appp_get_setting( 'appp_pg_version' ) : '3.5.0';
 
 		// Define plugin constants
 		self::$dir_path = trailingslashit( plugin_dir_path( __FILE__ ) );
@@ -72,7 +74,7 @@ class AppPresser {
 		self::$css_url  = self::$dir_url  . 'css/';
 		self::$img_url  = self::$dir_url  . 'images/';
 		self::$js_url   = self::$dir_url  . 'js/';
-		self::$pg_url   = self::$dir_url  . 'pg/' . $pg_version . '/';
+		self::$pg_url   = self::$dir_url  . 'pg/' . self::$pg_version . '/';
 
 		self::$l10n = array(
 			'ajaxurl'                     => admin_url( 'admin-ajax.php' ),
@@ -102,6 +104,7 @@ class AppPresser {
 		require_once( self::$inc_path . 'AppPresser_Admin_Settings.php' );
 		require_once( self::$inc_path . 'plugin-updater.php' );
 		require_once( self::$inc_path . 'AppPresser_Theme_Customizer.php' );
+		require_once( self::$inc_path . 'AppPresser_Ajax_Extras.php' );
 		$this->theme_customizer = new AppPresser_Theme_Customizer();
 
 	}
@@ -148,8 +151,6 @@ class AppPresser {
 
 		require_once( self::$inc_path . 'AppPresser_Theme_Switcher.php' );
 		$this->theme_switcher = new AppPresser_Theme_Switcher();
-		// Uncomment when we add back in the app panel
-		// require_once( self::$inc_path . 'body-class-meta-box.php' );
 
 	}
 
@@ -178,9 +179,9 @@ class AppPresser {
 
 		if ( self::is_app() ) {
 			if ( appp_is_ios() ) {
-				wp_enqueue_script( 'cordova-core', self::$pg_url .'ios/cordova.js', null, filemtime( self::$dir_path .'pg/' . $pg_version . '/ios/cordova_plugins.js' ) );
+				wp_enqueue_script( 'cordova-core', self::$pg_url .'ios/cordova.js', null, filemtime( self::$dir_path .'pg/' . self::$pg_version . '/ios/cordova_plugins.js' ) );
 			} elseif ( appp_is_android() ) {
-				wp_enqueue_script( 'cordova-core', self::$pg_url .'android/cordova.js', null, filemtime( self::$dir_path .'pg/' . $pg_version . '/android/cordova_plugins.js' ) );
+				wp_enqueue_script( 'cordova-core', self::$pg_url .'android/cordova.js', null, filemtime( self::$dir_path .'pg/' . self::$pg_version . '/android/cordova_plugins.js' ) );
 			}
 		}
 	}
