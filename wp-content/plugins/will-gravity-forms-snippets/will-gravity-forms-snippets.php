@@ -73,6 +73,18 @@ function custom_confirmation( $confirmation, $form, $entry, $ajax ) {
     return $confirmation;
 }
 
+/*
+ *
+ * what is the performance hit associated with this? probalby minimal if it's only this one form I think?
+ * this is required to get the 'ajaxify' links for apppresser to work with this form as it won't load on the page otherwise
+ *
+ */
+
+function will_testing_gravity_ajax () {
+    gravity_form_enqueue_scripts( 5, true );
+}
+
+add_action ('wp_head','will_testing_gravity_ajax');
 
 
 /* Stop Adding Functions Below this Line */
