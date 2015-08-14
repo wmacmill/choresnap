@@ -341,6 +341,28 @@ class Soliloquy_Common {
     }
 
     /**
+     * Returns an array of supported file type groups and file types
+     *
+     * @since 2.4.3
+     *
+     * @return array Supported File Types
+     */
+    public function get_supported_filetypes() {
+
+        $supported_file_types = array(
+            array(
+                'title'     => __( 'Image Files', 'soliloquy' ),
+                'extensions'=> 'jpg,jpeg,jpe,gif,png,bmp,tif,tiff,JPG,JPEG,JPE,GIF,PNG,BMP,TIF,TIFF',
+            ),
+        );
+
+        // Allow Developers and Addons to filter the supported file types
+        $supported_file_types = apply_filters( 'soliloquy_supported_file_types', $supported_file_types );
+
+        return $supported_file_types;
+    }
+
+    /**
      * Helper method for setting default meta values.
      *
      * @since 1.0.0

@@ -76,6 +76,10 @@ class Soliloquy_Editor {
         // Enqueue the script that will trigger the editor button.
         wp_enqueue_script( $this->base->plugin_slug . '-editor-script', plugins_url( 'assets/js/editor.js', $this->base->file ), array( 'jquery' ), $this->base->version, true );
 
+        // Modal CSS is used for any modals to deal with grids and close buttons, since their styling changes from 4.3
+        wp_register_style( $this->base->plugin_slug . '-modal-style', plugins_url( 'assets/css/modal.css', $this->base->file ), array(), $this->base->version );
+        wp_enqueue_style( $this->base->plugin_slug . '-modal-style' );
+        
         // Add the action to the footer to output the modal window.
         add_action( 'admin_footer', array( $this, 'slider_selection_modal' ) );
 
