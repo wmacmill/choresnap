@@ -61,7 +61,7 @@ class Soliloquy_Widget extends WP_Widget {
         );
         $control_ops = apply_filters( 'soliloquy_widget_control_ops', $control_ops );
 
-        $this->WP_Widget( 'soliloquy', apply_filters( 'soliloquy_widget_name', __( 'Soliloquy', 'soliloquy' ) ), $widget_ops, $control_ops );
+        parent::__construct( 'soliloquy', apply_filters( 'soliloquy_widget_name', __( 'Soliloquy', 'soliloquy' ) ), $widget_ops, $control_ops );
 
     }
 
