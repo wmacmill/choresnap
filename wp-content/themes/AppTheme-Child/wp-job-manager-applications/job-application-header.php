@@ -1,0 +1,6 @@
+<?php $resumeid = get_post_meta($application->ID, "_resume_id", true); ?>
+<div class="application-photo-header"><a class= "ajaxify" href="<?php echo get_permalink( $resumeid ); ?>" target="blank">
+<?php echo the_candidate_photo ( $size = 'thumbnail', $default = 'null', $resumeid); ?>
+<h3 class="application-title"><?php echo get_the_title ( $resumeid ); ?></a><div class="application-contact"><?php echo $application->post_title; ?></div><?php $applicant_ID = get_post_field ( 'post_author', $resumeid ); do_action ( 'bp_send_private_message', $applicant_ID );/*This is the code for private messaging button*/?></h3><span class="job-application-cost"><?php $key="Estimate"; echo _(" \n<br />Estimate: $"); echo get_post_meta($application->ID, $key, true); ?></span></div>
+<span class="job-application-rating"><span style="width: <?php echo ( get_job_application_rating( $application->ID ) / 5 ) * 100; ?>%;"></span></span>
+<br><?php $resumeid = get_post_meta($application->ID, "_resume_id", true); //keep this to output the resume skills tags ?>
