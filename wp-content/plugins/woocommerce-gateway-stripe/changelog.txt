@@ -1,5 +1,9 @@
 *** Stripe Changelog ***
 
+2015.08.11 - version 2.5.4
+* Tweak - Terms and conditions error styling when required
+* Tweak - Account password error styling when required
+
 2015.7.28 - version 2.5.3
 * Added - Filter to prevent Stripe from sending its own receipts "wc_stripe_send_stripe_receipt"
 

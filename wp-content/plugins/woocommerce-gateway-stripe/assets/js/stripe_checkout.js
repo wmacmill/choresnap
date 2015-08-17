@@ -25,15 +25,11 @@ jQuery( function( $ ) {
 		}
 
 		if ( $( 'input#terms' ).size() === 1 && $( 'input#terms:checked' ).size() === 0 ) {
-			alert( wc_stripe_params.i18n_terms );
-
-			return false;
+			return true;
 		}
 
 		if ( $( '#createaccount' ).is( ':checked' ) && $( '#account_password' ).length && $( '#account_password' ).val() === '' ) {
-			alert( wc_stripe_params.i18n_required_fields );
-
-			return false;
+			return true;
 		}
 		
 		// check to see if we need to validate shipping address
