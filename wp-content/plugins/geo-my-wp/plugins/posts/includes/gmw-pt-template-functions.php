@@ -23,16 +23,23 @@ function gmw_pt_form_get_post_types_dropdown( $gmw, $title, $class, $all_label )
 		
     	$output .= '<span class="search-all">'.$all_label.'</span>';
     	$output .= '<ul class="post-types-checkboxes">';
+
 		foreach ( $gmw['search_form']['post_types'] as $post_type ) {
-		
-			if ( isset( $_GET[$gmw['url_px'].'post'] ) && $_GET[$gmw['url_px'].'post'] == $post_type )
+		      
+            $pto = get_post_type_object( $post_type );
+
+            if ( empty( $pto ) ) 
+               continue;
+
+			if ( isset( $_GET[$gmw['url_px'].'post'] ) && $_GET[$gmw['url_px'].'post'] == $post_type ) {
 				$pti_post = 'checked="checked"';
-			else
+            } else {
 				$pti_post = "";
+            }
+
 			$output .= '<li id="gmw-'.$gmw['ID'].'-'.$post_type.'-post-type-cb-wrapper" class="post-type-checkbox-wrapper pt-'.$post_type.'">';
 			$output .= '<input type="checkbox" name="'.$gmw['url_px'].'post[]" id="gmw-'.$gmw['ID'].'-'.$post_type.'-post-type-cb" class="post-type-checkbox pt-'.$post_type.'" value="'.$post_type.'" '.$pti_post.' checked="checked">';
-			$output .= '<label for="gmw-'.$gmw['ID'].'-'.$post_type.'-post-type-cb">'.get_post_type_object( $post_type )->labels->name.'</label></li>';
-		
+			$output .= '<label for="gmw-'.$gmw['ID'].'-'.$post_type.'-post-type-cb">'.$pto->labels->name.'</label></li>';
 		}
 		
 	} else {
@@ -107,7 +114,9 @@ function gmw_pt_get_form_taxonomies( $gmw, $tag, $class ) {
 			
        		$single_tax = '<'.$subTag.' class="gmw-single-taxonomy-wrapper gmw-dropdown-taxonomy-wrapper gmw-dropdown-' . $tax . '-wrapper '.$class.'">';
 
-       		$single_tax .= '<label for="' . $taxonomy->rewrite['slug'] . '">' . apply_filters( 'gmw_pt_' . $gmw['ID'] . '_' . $tax . '_label', $taxonomy->labels->singular_name .':', $tax, $gmw ) . '</label>';
+            if ( apply_filters( 'gmw_pt_show_tax_label', true, $gmw, $taxonomy, $values ) ) {
+       		   $single_tax .= '<label for="' . $taxonomy->rewrite['slug'] . '">' . apply_filters( 'gmw_pt_' . $gmw['ID'] . '_' . $tax . '_label', $taxonomy->labels->singular_name .':', $tax, $gmw ) . '</label>';
+            }
 
         	if ( isset( $_GET['tax_' . $tax] ) )
             	$tax_value = sanitize_text_field( $_GET['tax_' . $tax] );
@@ -123,11 +132,10 @@ function gmw_pt_get_form_taxonomies( $gmw, $tag, $class ) {
         			'id'              => $tax . '-tax',
         			'name'            => 'tax_' . $tax,
         			'selected'        => $tax_value,
-        			'show_option_all' => __( ' - All - ', 'GMW' ),
+        			'show_option_all' => sprintf( __( 'All %s', 'GMW' ), $taxonomy->labels->name )
         	), $gmw, $taxonomy, $tax, $values );
 
        		$single_tax .= wp_dropdown_categories( $args );
-
        		$single_tax .= '</'.$subTag.'>';
 
          	$output .= apply_filters( 'gmw_search_form_taxonomy', $single_tax, $gmw, $args, $tag, $class, $tax, $taxonomy );
