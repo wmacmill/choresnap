@@ -60,7 +60,7 @@
 		resetResults: function() {
 			var self = this;
 
-			$( '.job_listings' ).on( 'reset', function() {
+			$( '.job_filters' ).on( 'click', 'reset', function() {
 				self.cache.$regions.val(0).trigger( 'change' );
 			});
 		}
