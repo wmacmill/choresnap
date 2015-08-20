@@ -35,6 +35,7 @@ ol.comment-list,
 	list-style: none;
 	margin: 0;
 }
+
 ol.comment-list {
 	margin-bottom: .7em;
 	padding-left: 0;
@@ -84,17 +85,14 @@ li.pingback {
 	color: #999;
 }
 .comment-content{
-	margin: 1em 0 0;
+	margin: 10px 0 0;
 }
-.comment .reply {
+.comment .reply, li.pingback {
 	font-size: 12px;
 	font-size: 1.2rem;
 }
-li.pingback {
-	font-weight: bold;
-}
-li.pingback a {
-	font-weight: normal;
+.comment-body .reply {
+	margin-top: 5px;
 }
 #comments .form-allowed-tags {
 	display: none;
@@ -103,12 +101,12 @@ li.pingback a {
 	margin-top: 0;
 }
 .comment-body {
-	padding: 2em;
+	padding: 10px 0;
 	background: #fff;
-	@include box-shadow(rgba(1, 1, 1, .12) 1px 1px 1px);
-	-moz-border-radius: 2px;
-	-webkit-border-radius: 2px;
-	border-radius: 2px;
+	border-bottom: 1px solid #eee;
+}
+li.pingback .comment-body {
+	padding: 5px 0;
 }
 
 /* Comment Form */
@@ -138,4 +136,47 @@ p.comment-form-author {
 #commentform label {
 	display: block;
 	margin-bottom: .5em;
+}
+
+#comments #respond {
+	display: none;
+}
+
+textarea#comment {
+	height: 60px;
+	padding: 10px;;
+}
+
+h3#reply-title.comment-reply-title {
+	font-size: 17px;
+}
+
+.comments-title {
+	display: none;
+}
+
+div.comment-content p {
+	margin-bottom: 0;
+	margin-top: 5px;
+}
+
+footer.comment-meta {
+	margin-bottom: 0;
+	padding-bottom: 5px;
+}
+
+.appp-below-post {
+	background-color: #fafafa;
+	border-top: 1px solid #eee;
+	border-bottom: 1px solid #eee;
+	margin: 0 -10px;
+}
+
+.appp-below-post .btn {
+	padding: 13px 0;
+}
+
+.appp-below-post .btn, .appp-below-post a, .appp-below-post a:visited {
+	color: #777;
+	background-color: transparent;
 }

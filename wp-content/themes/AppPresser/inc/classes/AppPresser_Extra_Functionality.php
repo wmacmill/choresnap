@@ -19,7 +19,7 @@ class AppPresser_Extra_Functionality {
 			array( 'wp_page_menu_args', 'page_menu_args' ),
 			array( 'attachment_link', 'enhanced_image_navigation', 10, 2 ),
 			array( 'wp_title', 'wp_title', 10, 2 ),
-			array( 'wp_head', 'viewport_meta' ),
+			array( 'wp_head', 'viewport_meta' )
 		);
 	}
 

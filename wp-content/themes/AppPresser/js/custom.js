@@ -151,7 +151,7 @@
 			// 	}, 500);
 
 			// })
-			.on('click', '.ajaxify, .ajaxify a, .blog .post a, li.previous a, li.next a, .entry-meta a, .entry-title a, .page-links a, .comment-author a, .woocommerce-pagination a, a.wc-forward', function(event) {
+			.on('click', '.ajaxify, .ajaxify a, .blog .post a, li.previous a, li.next a, .entry-meta a, .entry-title a, .page-links a, .comment-author a, .woocommerce-pagination a, a.wc-forward, .bbp-forum-title a, #bbpress-forums a, a.item-link, .appp-below-post a', function(event) {
 				var $self = $(this);
 
 				if ( app.canAjax( $self ) )
@@ -233,12 +233,10 @@
 				app.$.modalInside.load( content );
 			})
 			// Load login screen in modal.
-			//.on( 'click', '[href*="wp-login.php"]', function(event) {
-				//event.preventDefault();
-				//var content = this.href+' #login';
-				//app.$.ajaxModal.modal();
-				//app.$.modalInside.load( content );
-			//})
+			.on( 'click', '.comment-reply-login', function(event) {
+				event.preventDefault();
+				$('.snap-drawer .io-modal-open').trigger('click');
+			})
 			// Panel open
 			.on( 'click', '#nav-left-open', function(){
 				// Close left panel menu if it's open
@@ -264,22 +262,29 @@
 					if( app.modalID == '#loginModal') {
 						$('input[name=redirect_to]').val(window.location);
 					}
-
+					
+					$('#error-message').html(' ');
 					// need to move .css to css file
 					$(app.modalID).css('display', 'block').removeClass(downClasses).addClass(UpClasses);
-
-
-					// focus on textarea needs delay for modal slide up
-					setTimeout(function() {
-						$('textarea#whats-new').focus();
-					}, 1000);
 
 				} else {
 
 					// slide down modal and put it back in the content area.
 					$('.io-modal').removeClass(UpClasses).addClass(downClasses).css('display', 'none');
 					$('form').trigger("reset");
+					app.$.spinner.hide();
 
+				}
+			})
+			.on( 'submit', 'form#loginform', function(event) {
+						
+				var data = $(this).serializeArray().reduce(function(obj, item) {
+					obj[item.name] = item.value;
+					return obj;
+				}, {});
+				
+				if( '' === data['log'] || '' === data['pwd'] ) {
+					event.preventDefault();
 				}
 			});
 
@@ -458,19 +463,14 @@
 		'use strict';
 
 		// var for passed event target
-		var that = event.target;
+		if(event) {
+			var that = event.target;
+			event.preventDefault();
+		}
 
 		var fragments = href.split( '/' );
 		// Don't ajax page fragments
 		if ( fragments[fragments.length-1].charAt(0) === '#' && !$(that).parent().hasClass('back') )
-			return;
-
-
-		if ( event )
-			event.preventDefault();
-
-		// Don't bother re-fetching this page's content
-		if ( app.untrailingslashit( href ) === app.untrailingslashit( window.location.href ) )
 			return;
 
 		// @TODO get ajax working on main nav items
@@ -749,6 +749,123 @@
 			}
 		}
 	}
+
+	/*
+	 * Handles ajax modal new password request
+	 */
+	app.newPassword = function() {
+
+		var codeMsg = $('.reset-code-rsp');
+
+		console.log('newPassword');
+
+		if( $('#lost_email').val() === '' ) {
+			codeMsg.html('Email required.');
+			return false;
+		}
+
+		codeMsg.html('<i class="fa fa-cog fa-spin"></1>');
+
+		var data = {
+			// app_lost_password functions found in apppresser core plugin, inc/AppPresser_Ajax_Extras.php
+	  		action: 'app-lost-password',
+	  		email: $('#lost_email').val(),
+	  		nonce: $('#app_new_password').val()
+	  	}
+
+	  	console.dir(data);
+
+	  	var reset = $.ajax({
+			type: 'post',
+			url : apppCore.ajaxurl,
+			dataType: 'json',
+			data : data,
+			success: function( response ) {
+				console.dir(response);
+				codeMsg.html(response.data.message);
+				$('input[type=text]').val('');
+				$('input[type=password]').val('');
+			},
+			error: function(e) {
+				console.log('Password reset error ' + e);
+			}
+
+		});
+
+		return reset;
+
+	}
+
+	/*
+	 * Handles ajax modal change password request
+	 */
+	app.changePassword = function() {
+
+		var pwVal = $('#app-pw').val();
+		var pwrVal = $('#app-pwr').val();
+		var rCode = $('#reset-code').val();
+		var pwMsg = $('.psw-msg');
+
+		console.log('changePassword');
+
+		if ( pwVal != pwrVal || pwVal === '' ) {
+				pwMsg.html('Passwords do not match.');
+				return false;
+		}
+
+		if ( rCode === '' ) {
+				pwMsg.html('Please enter your reset code.');
+				return false;
+		}
+
+		pwMsg.html('<i class="fa fa-cog fa-spin"></i>');
+
+		var data = {
+	  		action: 'app-validate-password',
+	  		code: rCode,
+	  		password: pwVal,
+	  		nonce: $('#app_new_password').val()
+	  	};
+
+	  	var validation = $.ajax({
+				type: 'post',
+				url : apppCore.ajaxurl,
+				dataType: 'json',
+				data : data,
+				success: function( response ) {
+					pwMsg.html(response.data.message);
+					$('#app-pw').val('');
+					$('#app-pwr').val('');
+					if( response.data.success ) {
+						pwMsg.append(' Logging you in...');
+						setTimeout( function() {
+							window.location.reload();
+						}, 1000);
+					}
+				}
+
+		});
+
+		return validation;
+
+	}
+
+	/*
+	 * Ajax password reset events
+	 */
+
+	$( 'body' )
+
+	.on('click', '#app-new-password', app.newPassword )
+
+	.on('click', '#app-change-password', app.changePassword );
+
+	/*
+	 * Add comment to page after submitted with ajax
+	 */
+	app.appendComment = function( author, comment ) {
+		$('.comment-list').append( '<li class="comment" id="ajax-comment"> <article class="comment-body"> <footer class="comment-meta"> <div class="comment-author vcard"> <cite class="fn">' + author + '</cite> <span class="says">says:</span></div><!-- .comment-author --> <div class="comment-metadata"></div><!-- .comment-metadata --> <p class="comment-awaiting-moderation">Your comment is awaiting moderation.</p> </footer><!-- .comment-meta --> <div class="comment-content"> <p>' + comment + '</p> </div><!-- .comment-content --> </article><!-- .comment-body --> </li>' );
+	}
 	
 	// do not submit comment if no value
 	$( 'body' ).on( 'click', '#respond #submit', function() {
@@ -771,6 +888,82 @@
 			return false;
 		}
 			
+	});
+
+	/*
+	 * Ajax comment modal
+	 */
+
+	$( 'body' )
+
+	.on('click' , '.comment-reply-link', function() {
+		// get the comment id from href
+		var re = /\b\d+/;
+		var comment_id = re.exec(this.href);
+
+		// send comment id to form and open comment modal
+		$('#ajax-comment-parent').val(comment_id);
+		$( '.appp-comment-btn' ).trigger('click');
+	} )
+
+	.on( 'click', '#ajax-comment-form-submit #submit', function() {
+
+		var commentform=$('#commentform');
+
+		// Defining the Status message element 
+		var statusdiv = $('#comment-status');
+
+		var comment_author = $('.ajax-comment-form-author #author').val();
+		var comment_email = $('.ajax-comment-form-email #email').val();
+		var comment = $('.ajax-comment-form-comment #comment').val();
+		var comment_parent = $('#ajax-comment-parent').val();
+
+		// if name, email, or comment empty, show error
+		if( !comment_author || !comment_email || !comment ) {
+			statusdiv.html('<p class="ajax-error" >Please fill out required fields.</p>');
+			return false;
+		}
+
+		//Add a status message
+		statusdiv.html('<p class="ajax-placeholder">Processing...</p>');
+
+		//Extract action URL from commentform
+		var formurl=commentform.attr('action');
+
+		//Post Form with data
+		$.ajax({
+			type: 'post',
+			url: formurl,
+			data: {
+				author: comment_author,
+				email: comment_email,
+				url: $('.ajax-comment-form-url #url').val(),
+				comment_post_ID: $('#commentform #comment_post_ID').val(),
+				comment: comment,
+				comment_parent: comment_parent,
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown){
+				statusdiv.html('<p class="ajax-error" >You might have left one of the fields blank, or be posting too quickly</p>');
+			},
+			success: function(data, textStatus){
+				console.log( data );
+				if(textStatus=="success") {
+					statusdiv.html('<p class="ajax-success" >Thanks for your comment. We appreciate your response.</p>');
+
+					app.appendComment( comment_author, comment );
+
+					setTimeout( function() {
+						$( ".io-modal-close" ).trigger( "click" );
+					}, 1500 );
+				} else {
+					statusdiv.html('<p class="ajax-error" >Please wait a while before posting your next comment</p>');
+					commentform.find('textarea[name=comment]').val('');
+				}
+			}
+		});
+
+		return false;
+
 	});
 	
 

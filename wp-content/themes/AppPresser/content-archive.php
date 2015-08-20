@@ -16,7 +16,7 @@
 	<div class="entry-content">
 		<?php
 		if ( has_post_thumbnail() ) {
-			the_post_thumbnail( 'featured' );
+			the_post_thumbnail( 'large' );
 		}
 		if ( is_category() || is_archive() ) {
 			the_excerpt();

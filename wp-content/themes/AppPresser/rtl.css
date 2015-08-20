@@ -4,7 +4,7 @@ Author: AppPresser
 Author URI: http://apppresser.com
 
 Description: Right to left language support
-Version: 1.0.5
+Version: 1.0.9
 License: GNU General Public License
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: flexible-width, custom-background, custom-colors, custom-header, flexible-header, featured-image-header, featured-images, light, white, full-width-template, theme-options, threaded-comments, translation-ready, one-column, two-columns, left-sidebar, right-sidebar
@@ -1155,7 +1155,7 @@ output {
 .pager {
   padding-left: 0;
   padding-right:0;
-  margin: 20px 0;
+  margin: 0;
   text-align: center; }
   
   .pager:after {
@@ -1166,7 +1166,7 @@ output {
       padding: 5px 14px;
       border: 1px solid #dddddd;
       border-radius: 15px;
-      margin: 5px 0; }
+      margin: 0; }
       @media only screen and (min-width: 35em) {
         .pager li > a,
         .pager li > span {

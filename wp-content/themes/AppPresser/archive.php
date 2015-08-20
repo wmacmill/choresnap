@@ -7,26 +7,25 @@
  * @package AppPresser Theme
  */
 
-get_header(); ?>
-
-<?php if ( have_posts() ) : ?>
-
-<?php appp_title_header(); ?>
+get_header();
+appp_title_header(); ?>
 
 <div id="content" class="site-content" role="main">
 
-	<?php /* Start the Loop */ ?>
-	<?php while ( have_posts() ) : the_post(); ?>
-
-		<?php
-			/* Include the Post-Format-specific template for the content.
-			 * If you want to overload this in a child theme then include a file
-			 * called content-___.php (where ___ is the Post Format name) and that will be used instead.
-			 */
-			get_template_part( 'content', 'archive' );
-		?>
-
-	<?php endwhile; ?>
+	<?php if ( have_posts() ) : ?>
+		
+		<div class="<?php echo apptheme_get_list_type() ?>">
+			
+		    <ul>
+			
+				<?php while ( have_posts() ) : the_post(); ?>
+				
+					<?php get_template_part( 'content', apptheme_get_list_type() ); ?>
+				
+				<?php endwhile; ?>
+	
+		    </ul>
+		</div>
 
 	<?php appp_content_nav( 'nav-below' ); ?>
 

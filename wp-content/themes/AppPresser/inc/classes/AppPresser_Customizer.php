@@ -17,13 +17,14 @@ class AppPresser_Customizer {
 	public function hooks() {
 
 		return array(
-			array( 'customize_register', 'register' ),
+			array( 'customize_register', 'register', 20  ),
 			// make Theme Customizer preview reload changes asynchronously.
 			array( 'customize_preview_init', 'preview_js' ),
 			// Now that the controls are set, add code to wp_head
 			array( 'wp_head', 'customizer_css', 210 ), // run action late
 		);
 	}
+	
 
 	/**
 	 * Add settings/controls to the Theme Customizer.
@@ -32,7 +33,7 @@ class AppPresser_Customizer {
 	 * @param WP_Customize_Manager $wp_customize Theme Customizer object.
 	 */
 	public function register( $wp_customize ) {
-
+	
 		/**
 		 * Add Settings
 		 */
@@ -267,3 +268,17 @@ class AppPresser_Customizer {
 		return $formatted;
 	}
 }
+
+
+function appp_customizer_live_preview() {
+
+	wp_enqueue_script(
+		'appp-theme-customizer',
+		get_template_directory_uri() . '/js/theme-customizer.js',
+		array( 'jquery', 'customize-preview' ),
+		'',
+		true
+	);
+
+} 
+add_action( 'customize_preview_init', 'appp_customizer_live_preview' );

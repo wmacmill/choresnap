@@ -53,8 +53,8 @@ class AppPresser_Tags {
 		<?php if ( is_single() ) : // navigation links for single posts ?>
 
 			<ul class="pager">
-			<?php previous_post_link( '<li class="previous">%link</li>', '<span class="meta-nav">' . _x( '&larr;', 'Previous post link', 'apptheme' ) . '</span> %title' ); ?>
-			<?php next_post_link( '<li class="next">%link</li>', '%title <span class="meta-nav">' . _x( '&rarr;', 'Next post link', 'apptheme' ) . '</span>' ); ?>
+			<?php previous_post_link( '<li class="previous">%link</li>', '<span class="meta-nav">' . _x( '&larr;', 'Previous post link', 'apptheme' ) . '</span> Previous' ); ?>
+			<?php next_post_link( '<li class="next">%link</li>', 'Next <span class="meta-nav">' . _x( '&rarr;', 'Next post link', 'apptheme' ) . '</span>' ); ?>
 			</ul>
 
 		<?php elseif ( $wp_query->max_num_pages > 1 && ( is_home() || is_archive() || is_search() ) ) : // navigation links for home, archive, and search pages ?>
@@ -288,20 +288,20 @@ class AppPresser_Tags {
 
 		self::$title = '';
 		if ( is_category() ) :
-			self::$title = sprintf( __( 'Category Archives: %s', 'apptheme' ), '<span>' . single_cat_title( '', false ) . '</span>' );
+			self::$title = sprintf( __( '%s', 'apptheme' ), '<span>' . single_cat_title( '', false ) . '</span>' );
 
 		elseif ( is_tag() ) :
-			self::$title = sprintf( __( 'Tag Archives: %s', 'apptheme' ), '<span>' . single_tag_title( '', false ) . '</span>' );
+			self::$title = sprintf( __( '%s', 'apptheme' ), '<span>' . single_tag_title( '', false ) . '</span>' );
 
 		elseif ( isset( $object->taxonomy ) ) :
-			self::$title = sprintf( __( '%s Archives', 'apptheme' ), '<span>' . single_term_title( '', false ) . '</span>' );
+			self::$title = sprintf( __( '%s', 'apptheme' ), '<span>' . single_term_title( '', false ) . '</span>' );
 
 		elseif ( is_author() ) :
 			/* Queue the first post, that way we know
 			 * what author we're dealing with (if that is the case).
 			*/
 			the_post();
-			self::$title = sprintf( __( 'Author Archives: %s', 'apptheme' ), '<span class="vcard"><a class="url fn n" href="' . esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ) . '" title="' . esc_attr( get_the_author() ) . '" rel="me">' . get_the_author() . '</a></span>' );
+			self::$title = sprintf( __( '%s', 'apptheme' ), '<span class="vcard"><a class="url fn n" href="' . esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ) . '" title="' . esc_attr( get_the_author() ) . '" rel="me">' . get_the_author() . '</a></span>' );
 			/* Since we called the_post() above, we need to
 			 * rewind the loop back to the beginning that way
 			 * we can run the loop properly, in full.
@@ -309,19 +309,19 @@ class AppPresser_Tags {
 			rewind_posts();
 
 		elseif ( is_day() ) :
-			self::$title = sprintf( __( 'Daily Archives: %s', 'apptheme' ), '<span>' . get_the_date() . '</span>' );
+			self::$title = sprintf( __( '%s', 'apptheme' ), '<span>' . get_the_date() . '</span>' );
 
 		elseif ( is_month() ) :
-			self::$title = sprintf( __( 'Monthly Archives: %s', 'apptheme' ), '<span>' . get_the_date( 'F Y' ) . '</span>' );
+			self::$title = sprintf( __( '%s', 'apptheme' ), '<span>' . get_the_date( 'F Y' ) . '</span>' );
 
 		elseif ( is_year() ) :
-			self::$title = sprintf( __( 'Yearly Archives: %s', 'apptheme' ), '<span>' . get_the_date( 'Y' ) . '</span>' );
+			self::$title = sprintf( __( '%s', 'apptheme' ), '<span>' . get_the_date( 'Y' ) . '</span>' );
 
 		elseif ( is_404() ) :
 			self::$title = __( 'Oops! We can&rsquo;t find what you&rsquo;re looking for.', 'apptheme' );
 
 		elseif ( is_search() ) :
-			self::$title = sprintf( __( 'Search Results for: %s', 'apptheme' ), '<span>' . get_search_query() . '</span>' );
+			self::$title = sprintf( __( 'Search: %s', 'apptheme' ), '<span>' . get_search_query() . '</span>' );
 
 		elseif ( is_singular() || is_page() ) :
 			self::$title = single_post_title( '', false );

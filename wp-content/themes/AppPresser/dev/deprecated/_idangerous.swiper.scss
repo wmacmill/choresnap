@@ -17,7 +17,7 @@
 Basic Swiper Styles
 ================================================================*/
 .swiper-container {
-	margin: 0 -2.1% .7em -2.1%;
+	margin: 0 -10px .7em -10px;
 	width: auto;
 	position:relative;
 	overflow:hidden;
@@ -29,6 +29,10 @@ Basic Swiper Styles
 	/* Fix of Webkit flickering */
 	z-index:1;
 	opacity: 0;
+}
+
+.page .swiper-container {
+	margin-top: -15px;
 }
 .swiper-container.showit {
 	opacity: 1;

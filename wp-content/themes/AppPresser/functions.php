@@ -11,3 +11,5 @@
  * @version 1.0.1
  */
 require_once( dirname( __FILE__ ) . '/inc/init.php' );
+// load customizer options
+require_once( dirname( __FILE__ ) . '/inc/customizer.php' );

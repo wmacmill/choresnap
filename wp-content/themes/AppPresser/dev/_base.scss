@@ -29,11 +29,17 @@ body {
 /* Headings */
 h1,h2,h3,h4 {
 	font-weight: 300;
+	margin-bottom: 15px;
 }
 .entry-title {
 	font-size: 15px;
 	font-size: 1.5rem;
-	margin: 0;
+}
+.single .entry-title {
+	font-weight: bold;
+	font-size: 20px;
+	font-size: 2.0rem;
+	margin-top: 0;
 }
 .page-title {
 	color: $brand-primary;

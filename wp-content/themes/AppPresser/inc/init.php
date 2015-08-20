@@ -144,8 +144,9 @@ class AppPresser_Theme_Functions extends AppPresser_Theme_Setup {
 		 * @link http://codex.wordpress.org/Function_Reference/add_theme_support#Post_Thumbnails
 		 */
 		add_theme_support( 'post-thumbnails' );
-		add_image_size( 'logo', 500, 100 ); // Header logo
-		add_image_size( 'featured', 768, 432 ); // Featured Image
+		add_image_size( 'logo', 500, 100 ); // Header logo. Works cause it's in the customizer
+
+		// Custom image sizes won't do anything if theme is inactive
 
 		/**
 		 * This theme uses wp_nav_menu() in one location.
@@ -231,10 +232,8 @@ class AppPresser_Theme_Functions extends AppPresser_Theme_Setup {
 			if ( $can_use_function && is_woocommerce() && ! is_product() ) {
 				woocommerce_page_title();
 				add_filter( 'woocommerce_show_page_title', '__return_false' );
-			} elseif ( !$can_use_function || $can_use_function && ! is_product() ) {
-				appp_get_title();
 			} else {
-				return;
+				appp_get_title();
 			}
 
 			?>
@@ -268,7 +267,7 @@ class AppPresser_Theme_Functions extends AppPresser_Theme_Setup {
 	public function scripts_styles() {
 
 		// Main stylesheet
-		wp_enqueue_style( 'appp-style', get_stylesheet_uri(), null, filemtime( get_template_directory() . '/style.css' ) );
+		wp_enqueue_style( 'appp-style', get_stylesheet_uri(), null, filemtime( get_stylesheet_directory() . '/style.css' ) );
 
 		// Only use minified files if SCRIPT_DEBUG is off
 		$min = $use_concatenated = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '' : '.min';
