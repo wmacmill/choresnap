@@ -76,12 +76,13 @@ class WP_Job_Manager_WCPL_Submit_Job_Form {
 	 */
 	public static function get_packages( $post__in = array() ) {
 		return get_posts( array(
-			'post_type'      => 'product',
-			'posts_per_page' => -1,
-			'post__in'       => $post__in,
-			'order'          => 'asc',
-			'orderby'        => 'menu_order',
-			'tax_query'      => array(
+			'post_type'        => 'product',
+			'posts_per_page'   => -1,
+			'post__in'         => $post__in,
+			'order'            => 'asc',
+			'orderby'          => 'menu_order',
+			'suppress_filters' => false,
+			'tax_query'        => array(
 				array(
 					'taxonomy' => 'product_type',
 					'field'    => 'slug',
@@ -236,14 +237,14 @@ class WP_Job_Manager_WCPL_Submit_Job_Form {
 				return new WP_Error( 'error', __( 'Invalid Package', 'wp-job-manager-wc-paid-listings' ) );
 			}
 		} else {
-			$package = get_product( $package_id );
+			$package = wc_get_product( $package_id );
 
 			if ( ! $package->is_type( 'job_package' ) && ! $package->is_type( 'job_package_subscription' ) ) {
 				return new WP_Error( 'error', __( 'Invalid Package', 'wp-job-manager-wc-paid-listings' ) );
 			}
 
 			// Don't let them buy the same subscription twice if the subscription is for the package
-			if ( class_exists( 'WC_Subscriptions' ) && is_user_logged_in() && 'package' === $package->package_subscription_type ) {
+			if ( class_exists( 'WC_Subscriptions' ) && is_user_logged_in() && $package->is_type( 'job_package_subscription' ) && 'package' === $package->package_subscription_type ) {
 				$user_subscriptions = WC_Subscriptions_Manager::get_users_subscriptions( get_current_user_id() );
 				foreach ( $user_subscriptions as $user_subscription ) {
 					if ( $user_subscription['product_id'] == $package_id ) {
@@ -264,7 +265,7 @@ class WP_Job_Manager_WCPL_Submit_Job_Form {
 	private static function process_package( $package_id, $is_user_package, $job_id ) {
 		if ( $is_user_package ) {
 			$user_package = wc_paid_listings_get_user_package( $package_id );
-			$package      = get_product( $user_package->get_product_id() );
+			$package      = wc_get_product( $user_package->get_product_id() );
 
 			// Give job the package attributes
 			update_post_meta( $job_id, '_job_duration', $user_package->get_duration() );
@@ -285,7 +286,7 @@ class WP_Job_Manager_WCPL_Submit_Job_Form {
 
 			return true;
 		} else {
-			$package = get_product( $package_id );
+			$package = wc_get_product( $package_id );
 
 			// Give job the package attributes
 			update_post_meta( $job_id, '_job_duration', $package->get_duration() );

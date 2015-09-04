@@ -29,7 +29,7 @@
 		<?php if ( $packages ) : ?>
 			<li class="package-section"><?php _e( 'Purchase Package:', 'wp-job-manager-wc-paid-listings' ); ?></li>
 			<?php foreach ( $packages as $key => $package ) :
-				$product = get_product( $package );
+				$product = wc_get_product( $package );
 				if ( ! $product->is_type( array( 'resume_package', 'resume_package_subscription' ) ) ) {
 					continue;
 				}
