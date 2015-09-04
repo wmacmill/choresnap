@@ -626,7 +626,7 @@ class WC_Subscriptions_Cart {
 				// Display varies depending on settings
 				if ( $cart->tax_display_cart == 'excl' ) {
 
-					$cart_subtotal = self::get_cart_subscription_string( $cart_subtotal, self::get_recurring_subtotal_ex_tax() );
+					$cart_subtotal = self::get_cart_subscription_string( $cart->subtotal_ex_tax, self::get_recurring_subtotal_ex_tax() );
 
 					if ( $cart->tax_total > 0 && $cart->prices_include_tax ) {
 						$cart_subtotal = str_replace( $woocommerce->countries->ex_tax_or_vat(), '', $cart_subtotal ) . ' <small>' . $woocommerce->countries->ex_tax_or_vat() . '</small>';
@@ -634,7 +634,7 @@ class WC_Subscriptions_Cart {
 
 				} else {
 
-					$cart_subtotal = self::get_cart_subscription_string( $cart_subtotal, self::get_recurring_subtotal() );
+					$cart_subtotal = self::get_cart_subscription_string( $cart->subtotal, self::get_recurring_subtotal() );
 
 					if ( $cart->tax_total > 0 && ! $cart->prices_include_tax ) {
 						$cart_subtotal = str_replace( $woocommerce->countries->inc_tax_or_vat(), '', $cart_subtotal ) . ' <small>' . $woocommerce->countries->inc_tax_or_vat() . '</small>';
@@ -1050,7 +1050,7 @@ class WC_Subscriptions_Cart {
 		if ( self::cart_contains_subscription() ) {
 			foreach ( $woocommerce->cart->cart_contents as $cart_item ) {
 				$item_id = empty( $cart_item['variation_id'] ) ? $cart_item['product_id'] : $cart_item['variation_id'];
-				if ( ! empty( $cart_item['data']->subscription_trial_length ) ) {
+				if ( isset( $cart_item['data']->subscription_trial_length ) ) {
 					$trial_length = $cart_item['data']->subscription_trial_length;
 					break;
 				} elseif ( WC_Subscriptions_Product::is_subscription( $item_id ) ) {

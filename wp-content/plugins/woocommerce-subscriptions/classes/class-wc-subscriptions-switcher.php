@@ -437,7 +437,8 @@ class WC_Subscriptions_Switcher {
 				add_action( 'cancelled_subscription', 'WC_Subscriptions_Email::send_subscription_email', 10, 2 );
 
 				// Now set a custom status of "switched"
-				$original_subscription['status'] = 'switched';
+				$original_subscription['status']   = 'switched';
+				$original_subscription['end_date'] = gmdate( 'Y-m-d H:i:s' );
 				WC_Subscriptions_Manager::update_subscription( $original_subscription_key, $original_subscription );
 
 				wc_unschedule_action( 'scheduled_subscription_end_of_prepaid_term', array( 'user_id' => (int)$original_order->customer_user, 'subscription_key' => $original_subscription_key ) );

@@ -64,6 +64,9 @@ class WC_Subscriptions_Renewal_Order {
 
 		add_filter( 'woocommerce_product_addons_adjust_price', __CLASS__ . '::product_addons_adjust_price', 10, 2 );
 
+		// Don't allow downloads for inactive subscriptions
+		add_action( 'woocommerce_order_is_download_permitted', __CLASS__ . '::is_download_permitted', 10, 2 );
+
 		// The notice displayed when a subscription product has been deleted and the custoemr attempts to manually renew or make a renewal payment for a failed recurring payment for that product/subscription
 		self::$product_deleted_error_message = apply_filters( 'woocommerce_subscriptions_renew_deleted_product_error_message', __( 'That product has been deleted and can no longer be renewed. Please choose a new product or contact us for assistance.', 'woocommerce-subscriptions' ) );
 	}
@@ -213,7 +216,7 @@ class WC_Subscriptions_Renewal_Order {
 		$order_meta_query = "SELECT `meta_key`, `meta_value`
 							 FROM $wpdb->postmeta
 							 WHERE `post_id` = $original_order->id
-							 AND `meta_key` NOT IN ('_paid_date', '_completed_date', '_order_key', '_edit_lock', '_original_order', '_wc_points_earned', '_transaction_id')";
+							 AND `meta_key` NOT IN ('_paid_date', '_completed_date', '_order_key', '_edit_lock', '_original_order', '_wc_points_earned', '_transaction_id', '_download_permissions_granted')";
 
 		// Superseding existing order so don't carry over payment details
 		if ( 'parent' == $args['new_order_role'] || true === $args['checkout_renewal'] ) {
@@ -1424,6 +1427,33 @@ class WC_Subscriptions_Renewal_Order {
 		$failed_order_id = $wpdb->get_var( $wpdb->prepare( "SELECT post_id FROM $wpdb->postmeta WHERE meta_key = '_failed_order_replaced_by' AND meta_value = %s", $renewal_order_id ) );
 
 		return ( $failed_order_id === NULL ) ? false : $failed_order_id;
+	}
+
+	/**
+	 * Checks if a renewal order contains an in-active subscription and if it does, denies download acces
+	 * to files purchased on the order.
+	 *
+	 * @since 1.5.29
+	 */
+	public static function is_download_permitted( $download_permitted, $order ) {
+
+		if ( self::is_renewal( $order ) ) {
+
+			$original_order = self::get_parent_order( $order->id );
+
+			foreach ( WC_Subscriptions_Order::get_recurring_items( $original_order ) as $order_item ) {
+
+				$subscription_key = WC_Subscriptions_Manager::get_subscription_key( $original_order->id, WC_Subscriptions_Order::get_items_product_id( $order_item ) );
+				$subscription     = WC_Subscriptions_Manager::get_subscription( $subscription_key );
+
+				if ( ! isset( $subscription['status'] ) || 'active' !== $subscription['status'] ) {
+					$download_permitted = false;
+					break;
+				}
+			}
+		}
+
+		return $download_permitted;
 	}
 
 	/* Deprecated functions */
