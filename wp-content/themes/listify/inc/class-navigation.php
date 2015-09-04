@@ -125,7 +125,11 @@ class Listify_Navigation {
 			return $items;
 		}
 
-		return '<li class="menu-item menu-type-link"><a href="#search-header" data-toggle="#search-header" class="search-overlay-toggle"></a></li>' . $items;
+        if ( listify_has_integration( 'facetwp' ) ) {
+    		return '<li class="menu-item menu-type-link"><a href="' . get_post_type_archive_link( 'job_listing' ) . '" class="search-overlay-toggle"></a></li>' . $items;
+        } else {
+    		return '<li class="menu-item menu-type-link"><a href="#search-header" data-toggle="#search-header" class="search-overlay-toggle"></a></li>' . $items;
+        }
 	}
 }
 

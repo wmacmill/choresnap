@@ -1,5 +1,23 @@
 == Changelog ==
 
+= 1.0.6: August 20, 2015 =
+
+* New: Extra support for Polylang. See: http://listify.astoundify.com/article/826-use-polylang-to-create-a-multilingual-website
+* New: Max Zoom Out option for Google Maps
+* Fix: If you are using WP Job Manager - Regions, please update: https://wordpress.org/plugins/wp-job-manager-locations/
+* Fix: Undefined variable check for selected package.
+* Fix: Only limit login form width in popup if registration or social login is enabled.
+* Fix: Update to PHP5 style constructor.
+* Fix: Page gallery styles.
+* Fix: WooCommerce template version numbers.
+* Fix: Use a standard form for searching from the homepage. Improves performance.
+* Fix: Show correct location on map widget with Extended Location disabled.
+* Fix: "Get Started" on Plans & Pricing always links to Submit Listing.
+* Fix: Remove types from RSS feed URL if not in use.
+* Fix: Disable header search if FacetWP is enabled.
+* Fix: FacetWP timing to avoid empty maps.
+* Fix: FacetWP megamenu mobile links.
+
 = 1.0.5: July 1, 2015 =
 
 * New: Add tertiary navigation menu label on mobile.

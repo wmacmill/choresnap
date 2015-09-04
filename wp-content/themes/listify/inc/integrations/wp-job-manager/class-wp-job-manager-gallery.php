@@ -148,9 +148,7 @@ class Listify_WP_Job_Manager_Gallery {
 		}
 
 		foreach ( $output[ 'urls' ] as $url ) {
-			if ( strstr( $url, WP_CONTENT_URL ) ) {
-				$maybe_attach[] = str_replace( WP_CONTENT_URL, WP_CONTENT_DIR, $url );
-			}
+            $maybe_attach[] = str_replace( array( WP_CONTENT_URL, site_url() ), array( WP_CONTENT_DIR, ABSPATH ), $url );
 		}
 
 		foreach ( $maybe_attach as $attachment_url ) {

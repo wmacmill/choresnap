@@ -124,13 +124,7 @@ class Listify_Widget_Search_Listings extends Listify_Widget {
 			</script>
 		<?php
 		} else {
-			global $listify_job_manager;
-
-			add_action( 'job_manager_job_filters_before', array( $listify_job_manager->template, 'temp_remove_ajax_filters' ) );
-
-			do_action( 'listify_output_results' );
-
-			add_action( 'job_manager_job_filters_after', array( $listify_job_manager->template, 'temp_add_ajax_filters' ) );
+            locate_template( array( 'job-filters-flat.php', 'job-filters.php'), true, false );
 		}
 
 		echo $after_widget;

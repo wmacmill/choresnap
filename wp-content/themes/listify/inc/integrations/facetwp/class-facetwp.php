@@ -26,7 +26,45 @@ class Listify_FacetWP extends listify_Integration {
 		add_filter( 'listify_theme_mod_defaults', array( $this, 'add_customizer_defaults' ) );
 		
 		add_filter( 'facetwp_index_row', array( $this, 'index_listify_latlng' ), 10, 2 );
+
+        add_filter( 'listify_js_settings', array( $this, 'megamenu_facet' ) );
 	}
+
+    public function megamenu_facet( $settings ) {
+        $facets = FWP()->helper->get_facets();
+        $taxonomy = listify_theme_mod( 'nav-megamenu' );
+        $sources = array();
+
+        $permalink_type = FWP()->helper->get_setting( 'permalink_type', 'hash' );
+
+        if ( empty( $facets ) ) {
+			return $link;
+		}
+
+		foreach ( $facets as $facet ) {
+			if ( isset( $facet[ 'source' ] ) ) {
+				$sources[ $facet[ 'name' ] ] = $facet[ 'source' ];
+			}
+		}
+
+		if ( empty( $sources ) ) {
+			return $link;
+		}
+
+		foreach ( $sources as $name => $source ) {
+			$source = str_replace( 'tax/', '', $source );
+
+			if ( $taxonomy == $source ) {
+                $facet = $name;
+                break;
+			}
+		}
+
+        $settings[ 'megamenu' ][ 'facet' ] = $facet;
+
+        return $settings;
+
+    }
 
 	public function init() {
 		$this->template = new Listify_FacetWP_Template;

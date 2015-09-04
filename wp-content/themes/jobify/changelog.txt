@@ -1,5 +1,17 @@
 == Changelog ==
 
+= 2.0.5: August 11, 2015 =
+
+* Fix: Restore sane verseion numbering.
+* Fix: PHP5 style constructors (for WP 4.3+)
+* Fix: Update TGMPA.
+* Fix: WooCommerce 2.4.0+ compatibility.
+* Fix: Remove Soliloquy dependency. See: http://jobify.astoundify.com/article/411-create-a-hero-slider
+
+= 2.0.4.7: May 11, 2015 =
+
+* Fix: Update TGM Plugin Activation to 2.4.2
+
 = 2.0.4.6: April 21, 2015 =
 
 * Fix: Update TGM Plugin Activation class (again).

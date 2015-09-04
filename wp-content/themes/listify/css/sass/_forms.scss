@@ -100,6 +100,28 @@ span.page-numbers,
 	display: inline-block;
 	max-width: 100%;
 	border-radius: 4px;
+
+    select {
+        text-overflow: ellipsis; 
+    }
+}
+
+.select {
+    display: block;
+
+    select {
+        width: 100%;
+    }
+}
+
+@include bp(sm) {
+    .select {
+        display: inline-block;
+
+        select {
+            width: auto;
+        }
+    }
 }
 
 input:focus,

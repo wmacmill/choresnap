@@ -1,13 +1,13 @@
 jQuery ($) ->
 
-  class Plotter    
+  class Plotter
     @geocoder:  new google.maps.Geocoder()
     @settings: listifyMapSettings
     @loadedOnce: false
 
     constructor: ->
       @filters = new FiltersView()
-      
+
       if Plotter.settings.displayMap
         @map = new MapView(filters: @filters)
 
@@ -48,7 +48,7 @@ jQuery ($) ->
 
         $( 'html, body' ).animate({
           scrollTop: $( '.archive-job_listing-toggle-wrapper' ).offset().top
-		}, 1)
+        }, 1)
 
         $( '.job_listings-map-wrapper' ).trigger( 'map-toggled' );
 
@@ -60,7 +60,7 @@ jQuery ($) ->
     lat: $( '#search_lat' )
     lng: $( '#search_lng' )
     use: $( '#use_search_radius' )
-    submit: $( '.update_results' )
+    submit: $( '.job_filters' ).find( '.update_results' )
 
     initialize: =>
       @shutdown()
@@ -94,7 +94,7 @@ jQuery ($) ->
         @shutdown()
 
     update: =>
-      @target.triggerHandler( 'update_results', [ 1, false ] );
+      @target.triggerHandler 'update_results', [ 1, false ]
 
     # stop enter from doing anything
     haltform: =>
@@ -170,14 +170,9 @@ jQuery ($) ->
       navigator.geolocation.getCurrentPosition success, error
 
       @
-     
 
   class RadiusView extends Backbone.View
-    wrapper: $( '.search-radius-wrapper' )
-    use    : $( '#use_search_radius' )
-    slider : $( '#search-radius' )
-    input  : $( '#search_radius' )
-    label  : $( '.search-radius-label .radi' )
+    wrapper  : $( '.search-radius-wrapper' )
 
     defaults: {
       min: parseInt Plotter.settings.searchRadius.min 
@@ -186,19 +181,30 @@ jQuery ($) ->
     } 
 
     initialize: (options = {}) =>
-      @filters = options.filters;
+      @filters = options.filters
 
     render: =>
-      @slider.slider
-        value: @defaults.avg,
-        min: @defaults.min,
-        max: @defaults.max,
-        step: 1,
-        slide: (event, ui) =>
-          @input.val( ui.value );
-          @label.text( ui.value );
-        stop: (event, ui) =>
-          @filters.update()
+      # lame
+      val = @defaults.avg
+      min = @defaults.min
+      max = @defaults.max
+      filters = @filters
+
+      @wrapper.each () ->
+        ui     = $(@).find '.search-radius-slider > div'
+        input  = $(@).find '#search_radius'
+        label  = $(@).find '.search-radius-label .radi'
+
+        ui.slider
+          value: val
+          min: min
+          max: max
+          step: 1,
+          slide: (event, ui) =>
+            input.val ui.value
+            label.text ui.value
+          stop: (event, ui) =>
+            filters.update()
 
 
   class LocationsCollectionView extends Backbone.View
@@ -206,21 +212,38 @@ jQuery ($) ->
       @collection = options.collection
       @filters = options.filters
 
-      field = document.getElementById 'search_location'
+      fields = $( '.search_location > input')
 
-      if ! field then return
-  
-      @autocomplete = new google.maps.places.Autocomplete field 
+      if ! fields.length then return
 
       @filters.form.find( 'input, select' ).unbind 'change'
-      
-      # when a place is selected, add to the collection
-      google.maps.event.addListener @autocomplete, 'place_changed', @placeChanged
 
-      $( field ).keypress (e) ->
-        if e.which == 13
-          google.maps.event.trigger @autocomplete, 'place_changed'
-          false
+      # because i dont know what im doing 
+      filters = @filters
+      set     = @set
+
+      fields.each (i) ->
+        autocomplete = new google.maps.places.Autocomplete fields[i]
+
+        # when a place is selected, add to the collection
+        google.maps.event.addListener autocomplete, 'place_changed', ->
+          filters.shutdown()
+
+          place = autocomplete.getPlace()
+
+          if place.geometry? 
+            set(
+              address: place.formatted_address
+              lat: place.geometry.location.lat()
+              lng: place.geometry.location.lng()
+            )
+          else
+            set(address: place.name)
+
+        $( fields[i] ).keypress (e) ->
+          if e.which == 13
+            google.maps.event.trigger autocomplete, 'place_changed'
+            false
 
       # when a location is added to the collection, create a new model
       @listenTo(@collection, 'add', @render)
@@ -236,20 +259,6 @@ jQuery ($) ->
     generate: =>
       @set(address: @filters.address.val())
 
-    placeChanged: (place) =>
-      @filters.shutdown()
-
-      place = @autocomplete.getPlace()
-
-      if place.geometry? 
-        @set(
-          address:  place.formatted_address
-          lat: place.geometry.location.lat()
-          lng: place.geometry.location.lng()
-        )
-      else
-        @set(address: place.name)
-
     set: (atts) =>
       @collection.add(atts);
 
@@ -261,7 +270,7 @@ jQuery ($) ->
 
   class LocationView extends Backbone.View
     model: Location
-    
+
     initialize: (options = {} ) =>
       @filters = options.filters
 
@@ -281,9 +290,12 @@ jQuery ($) ->
           @filters.update()
 
     render: =>
-      @filters.lat.val @model.get( 'lat' ) 
-      @filters.lng.val @model.get( 'lng' )
-      @filters.address.val @model.get( 'address' )
+      model = @model
+      $( '.search_jobs').each ->
+        filters = $(@)
+        filters.find( '#search_lat' ).val model.get( 'lat' )
+        filters.find( '#search_lng' ).val model.get( 'lng' )
+        filters.find( '.search_location > input' ).val model.get( 'address' )
 
     geocode: =>
       @deferred = $.Deferred()
@@ -298,7 +310,7 @@ jQuery ($) ->
           @deferred.resolve results[0]
         else
           @deferred.reject()
-      
+
       @deferred.promise()
 
   class Location extends Backbone.Model
@@ -327,6 +339,7 @@ jQuery ($) ->
     clusterer: new MarkerClusterer null, [], {
       ignoreHidden: true,
     }
+    loaded: false
 
     initialize: (options = {}) =>
       @filters = options.filters
@@ -348,27 +361,32 @@ jQuery ($) ->
       $(document).on 'facetwp-loaded facetwp-refresh', (event) =>
         @markersCollectionView.load()
         plotter.loadedOnce = true
-
-
+    
   class MapCanvasView extends Backbone.View
     initialize: (options = {}) =>
       @map = options.map
       @filters = options.filters
 
       google.maps.event.addDomListener window, 'load', @canvas
-	
+
       $( '.job_listings-map-wrapper' ).on 'map-toggled', @resize
 
+      @canvas().done (obj) ->
+        if FWP? then FWP.refresh()
+      .always () ->
+
     canvas: =>
+      def = $.Deferred()
       @el = document.getElementById( 'job_listings-map-canvas' );
-      
-      if ! @el then return @loaded = true
-      
+
+      if ! @el then return def.reject()
+
       @settings = Plotter.settings.mapOptions
 
       @opts =
         zoom: parseInt @settings.zoom
         maxZoom: parseInt @settings.maxZoom
+        minZoom: parseInt @settings.maxZoomOut
         styles: @settings.styles
 
       if @settings.center
@@ -384,13 +402,14 @@ jQuery ($) ->
 
       google.maps.event.addListener @obj, 'click', @hideBubble 
       google.maps.event.addListener @obj, 'zoom_changed', @hideBubble
+      google.maps.event.addListenerOnce @obj, 'idle', ->
+        @loaded = true
+        def.resolve(@obj) 
 
       $(window).on 'resize', @resize
       @mapHeight()
 
-      @loaded = true
-
-      @obj
+      def.promise()
 
     mapHeight: =>
       if ! $( 'body' ).hasClass 'fixed-map' then return
@@ -446,7 +465,7 @@ jQuery ($) ->
         @obj.setCenter @opts.center
       else
         last = @filters.locationsCollection.last()
-        
+
         if ! _.isUndefined last
           @obj.setCenter new google.maps.LatLng( last.get( 'lat' ), last.get( 'lng' ) )
         else
@@ -549,7 +568,7 @@ jQuery ($) ->
         content: @template @model.toJSON()
         meta: @model.toJSON()
       }
-      
+
       @marker = new RichMarker @defaults;
       @model.set 'obj', @marker 
 
@@ -560,11 +579,11 @@ jQuery ($) ->
       if $(window).outerWidth() <= 992 then trigger = 'click'
 
       google.maps.event.addListener(@model.get( 'obj' ), trigger, @renderInfoBubble)
-      
+
     renderInfoBubble: =>
       if @map.infobubble.isOpen_ && @map.infobubble.anchor == @model.get( 'obj' )
         return
-        
+
       @map.infobubble.setContent( @templateInfoBubble( @model.toJSON() ) )
       @map.infobubble.open( @map.canvas.obj, @model.get( 'obj' ) )
 
@@ -593,7 +612,7 @@ jQuery ($) ->
 
   class MarkersCollection extends Backbone.Collection
     model: Marker
-	
+
 
   InfoBubble.prototype.getAnchorHeight_ = ->
     55

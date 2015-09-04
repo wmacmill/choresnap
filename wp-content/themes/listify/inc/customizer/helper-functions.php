@@ -55,6 +55,7 @@ function listify_get_theme_mod_defaults() {
 		'map-behavior-center' => '',
 		'map-behavior-zoom' => 3,
 		'map-behavior-max-zoom' => 17,
+		'map-behavior-max-zoom-out' => 3,
 		'map-behavior-search-min' => 0,
 		'map-behavior-search-max' => 100,
 		'map-behavior-search-default' => 50,

@@ -30,6 +30,10 @@ class Listify_Customizer_Controls_Nav extends Listify_Customizer_Controls {
 			)
 		);
 
+        if ( listify_has_integration( 'facetwp' ) ) {
+            unset( $this->controls[ 'nav-search' ] );
+        }
+
 		return $wp_customize;
 	}
 

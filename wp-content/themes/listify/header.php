@@ -46,12 +46,14 @@
 					</div>
 				</div>
 
+				<?php if ( ! listify_has_integration( 'facetwp' ) && listify_theme_mod( 'nav-search' ) ) : ?>
 				<div id="search-header" class="search-overlay">
 					<div class="container">
 						<?php locate_template( array( 'searchform-header.php', 'searchform.php' ), true, false ); ?>
 						<a href="#search-header" data-toggle="#search-header" class="ion-close search-overlay-toggle"></a>
 					</div>
 				</div>
+                <?php endif; ?>
 			</div>
 		</div>
 
@@ -78,7 +80,7 @@
 					?>
 				</div>
 
-				<?php if ( listify_theme_mod( 'nav-search' ) ) : ?>
+				<?php if ( ! listify_has_integration( 'facetwp' ) && listify_theme_mod( 'nav-search' ) ) : ?>
 					<a href="#search-navigation" data-toggle="#search-navigation" class="ion-search search-overlay-toggle"></a>
 
 					<div id="search-navigation" class="search-overlay">

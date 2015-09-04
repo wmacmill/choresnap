@@ -8,8 +8,7 @@
 global $job_manager;
 ?>
 
-<div class="single_job_listing" itemscope itemtype="http://schema.org/LocalBusiness" <?php echo apply_filters(
-'listify_job_listing_data', '', false ); ?>>
+<div class="single_job_listing" itemscope itemtype="http://schema.org/LocalBusiness" <?php echo apply_filters( 'listify_job_listing_data', '', false ); ?>>
 
 	<div <?php echo apply_filters( 'listify_cover', 'listing-cover content-single-job_listing-hero', array( 'size' => 'full' ) ); ?>>
 

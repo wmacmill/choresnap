@@ -27,7 +27,7 @@ class Listify_FacetWP_Template extends Listify_FacetWP {
 	public function term_link( $link, $term, $taxonomy ) {
         $facets = FWP()->helper->get_facets();
         $taxes  = $sources = array();
-        
+
         $permalink = FWP()->helper->get_setting( 'term_permalink', 'term_id' );
         $permalink_type = FWP()->helper->get_setting( 'permalink_type', 'hash' );
 

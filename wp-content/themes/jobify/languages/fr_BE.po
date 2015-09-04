@@ -11,10 +11,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jobify\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/support/theme/style\n"
-"POT-Creation-Date: 2015-04-21 00:52:17+00:00\n"
-"PO-Revision-Date: 2015-04-21 00:52+0000\n"
+"POT-Creation-Date: 2015-08-11 13:46:42+00:00\n"
+"PO-Revision-Date: 2015-08-11 13:46+0000\n"
 "Last-Translator: Spencer Finnell <spencerfinnell@gmail.com>\n"
-"Language-Team: French (Belgium) (http://www.transifex.com/projects/p/jobify/language/fr_BE/)\n"
+"Language-Team: French (Belgium) (http://www.transifex.com/astoundify/jobify/language/fr_BE/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -872,71 +872,45 @@ msgstr "Jobify - Accueil : Derniers CV"
 msgid "Number of resumes to show:"
 msgstr "Nombre de CV à montrer :"
 
-#: inc/tgmpa/class-tgm-plugin-activation.php:161
+#: inc/tgmpa/class-tgm-plugin-activation.php:333
 msgid "Install Required Plugins"
 msgstr "Installer les plugins nécessaires"
 
-#: inc/tgmpa/class-tgm-plugin-activation.php:162
+#: inc/tgmpa/class-tgm-plugin-activation.php:334
 msgid "Install Plugins"
 msgstr "Installer les plugins"
 
-#: inc/tgmpa/class-tgm-plugin-activation.php:163
+#: inc/tgmpa/class-tgm-plugin-activation.php:335
 msgid "Installing Plugin: %s"
 msgstr "Installation des Plugins: %s"
 
-#: inc/tgmpa/class-tgm-plugin-activation.php:164
-msgid "Something went wrong."
-msgstr "Une erreur s'est produite."
+#: inc/tgmpa/class-tgm-plugin-activation.php:336
+msgid "Something went wrong with the plugin API."
+msgstr ""
 
-#: inc/tgmpa/class-tgm-plugin-activation.php:165
+#: inc/tgmpa/class-tgm-plugin-activation.php:337
 msgid "This theme requires the following plugin: %1$s."
 msgid_plural "This theme requires the following plugins: %1$s."
 msgstr[0] "Ce thème a besoin du plugin suivant : %1$s."
 msgstr[1] "Ce thème a besoin des plugins suivants : %1$s."
 
-#: inc/tgmpa/class-tgm-plugin-activation.php:166
+#: inc/tgmpa/class-tgm-plugin-activation.php:342
 msgid "This theme recommends the following plugin: %1$s."
 msgid_plural "This theme recommends the following plugins: %1$s."
 msgstr[0] "Ce thème recommande le plugin suivant : %1$s."
 msgstr[1] "Ce thème recommande les plugins suivants : %1$s."
 
-#: inc/tgmpa/class-tgm-plugin-activation.php:167
+#: inc/tgmpa/class-tgm-plugin-activation.php:347
 msgid ""
-"Sorry, but you do not have the correct permissions to install the %s plugin."
-" Contact the administrator of this site for help on getting the plugin "
-"installed."
+"Sorry, but you do not have the correct permissions to install the %1$s "
+"plugin."
 msgid_plural ""
-"Sorry, but you do not have the correct permissions to install the %s "
-"plugins. Contact the administrator of this site for help on getting the "
-"plugins installed."
+"Sorry, but you do not have the correct permissions to install the %1$s "
+"plugins."
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/tgmpa/class-tgm-plugin-activation.php:168
-msgid "The following required plugin is currently inactive: %1$s."
-msgid_plural "The following required plugins are currently inactive: %1$s."
-msgstr[0] ""
-msgstr[1] ""
-
-#: inc/tgmpa/class-tgm-plugin-activation.php:169
-msgid "The following recommended plugin is currently inactive: %1$s."
-msgid_plural "The following recommended plugins are currently inactive: %1$s."
-msgstr[0] ""
-msgstr[1] ""
-
-#: inc/tgmpa/class-tgm-plugin-activation.php:170
-msgid ""
-"Sorry, but you do not have the correct permissions to activate the %s "
-"plugin. Contact the administrator of this site for help on getting the "
-"plugin activated."
-msgid_plural ""
-"Sorry, but you do not have the correct permissions to activate the %s "
-"plugins. Contact the administrator of this site for help on getting the "
-"plugins activated."
-msgstr[0] ""
-msgstr[1] ""
-
-#: inc/tgmpa/class-tgm-plugin-activation.php:171
+#: inc/tgmpa/class-tgm-plugin-activation.php:352
 msgid ""
 "The following plugin needs to be updated to its latest version to ensure "
 "maximum compatibility with this theme: %1$s."
@@ -946,200 +920,337 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/tgmpa/class-tgm-plugin-activation.php:172
-msgid ""
-"Sorry, but you do not have the correct permissions to update the %s plugin. "
-"Contact the administrator of this site for help on getting the plugin "
-"updated."
-msgid_plural ""
-"Sorry, but you do not have the correct permissions to update the %s plugins."
-" Contact the administrator of this site for help on getting the plugins "
-"updated."
+#: inc/tgmpa/class-tgm-plugin-activation.php:357
+msgid "There is an update available for: %1$s."
+msgid_plural "There are updates available for the following plugins: %1$s."
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/tgmpa/class-tgm-plugin-activation.php:173
+#: inc/tgmpa/class-tgm-plugin-activation.php:362
+msgid ""
+"Sorry, but you do not have the correct permissions to update the %1$s "
+"plugin."
+msgid_plural ""
+"Sorry, but you do not have the correct permissions to update the %1$s "
+"plugins."
+msgstr[0] ""
+msgstr[1] ""
+
+#: inc/tgmpa/class-tgm-plugin-activation.php:367
+msgid "The following required plugin is currently inactive: %1$s."
+msgid_plural "The following required plugins are currently inactive: %1$s."
+msgstr[0] ""
+msgstr[1] ""
+
+#: inc/tgmpa/class-tgm-plugin-activation.php:372
+msgid "The following recommended plugin is currently inactive: %1$s."
+msgid_plural "The following recommended plugins are currently inactive: %1$s."
+msgstr[0] ""
+msgstr[1] ""
+
+#: inc/tgmpa/class-tgm-plugin-activation.php:377
+msgid ""
+"Sorry, but you do not have the correct permissions to activate the %1$s "
+"plugin."
+msgid_plural ""
+"Sorry, but you do not have the correct permissions to activate the %1$s "
+"plugins."
+msgstr[0] ""
+msgstr[1] ""
+
+#: inc/tgmpa/class-tgm-plugin-activation.php:382
 msgid "Begin installing plugin"
 msgid_plural "Begin installing plugins"
 msgstr[0] "Démarrer l'installation du plugin"
 msgstr[1] "Démarrer l'installation des plugins"
 
-#: inc/tgmpa/class-tgm-plugin-activation.php:174
+#: inc/tgmpa/class-tgm-plugin-activation.php:387
+msgid "Begin updating plugin"
+msgid_plural "Begin updating plugins"
+msgstr[0] ""
+msgstr[1] ""
+
+#: inc/tgmpa/class-tgm-plugin-activation.php:392
 msgid "Begin activating plugin"
 msgid_plural "Begin activating plugins"
 msgstr[0] "Activer le plugin"
 msgstr[1] "Activer les plugins"
 
-#: inc/tgmpa/class-tgm-plugin-activation.php:175
+#: inc/tgmpa/class-tgm-plugin-activation.php:397
 msgid "Return to Required Plugins Installer"
 msgstr ""
 
-#: inc/tgmpa/class-tgm-plugin-activation.php:176
+#: inc/tgmpa/class-tgm-plugin-activation.php:398
 msgid "Return to the dashboard"
 msgstr "Revenir au tableau de board"
 
-#: inc/tgmpa/class-tgm-plugin-activation.php:177
-#: inc/tgmpa/class-tgm-plugin-activation.php:1953
+#: inc/tgmpa/class-tgm-plugin-activation.php:399
+#: inc/tgmpa/class-tgm-plugin-activation.php:3029
 msgid "Plugin activated successfully."
 msgstr "Plugin activé avec success"
 
-#: inc/tgmpa/class-tgm-plugin-activation.php:178
-#: inc/tgmpa/class-tgm-plugin-activation.php:1644
+#: inc/tgmpa/class-tgm-plugin-activation.php:400
+#: inc/tgmpa/class-tgm-plugin-activation.php:2832
 msgid "The following plugin was activated successfully:"
 msgstr "Les plugin suivant ont été activer avec success"
 
-#: inc/tgmpa/class-tgm-plugin-activation.php:179
+#: inc/tgmpa/class-tgm-plugin-activation.php:401
+msgid "No action taken. Plugin %1$s was already active."
+msgstr ""
+
+#: inc/tgmpa/class-tgm-plugin-activation.php:402
+msgid ""
+"Plugin not activated. A higher version of %s is needed for this theme. "
+"Please update the plugin."
+msgstr ""
+
+#: inc/tgmpa/class-tgm-plugin-activation.php:403
 msgid "All plugins installed and activated successfully. %1$s"
 msgstr "Tous les plugin ont été installer et activer avec success"
 
-#: inc/tgmpa/class-tgm-plugin-activation.php:180
+#: inc/tgmpa/class-tgm-plugin-activation.php:404
 msgid "Dismiss this notice"
 msgstr "Ne plus afficher"
 
-#: inc/tgmpa/class-tgm-plugin-activation.php:535
-#: inc/tgmpa/class-tgm-plugin-activation.php:2170
+#: inc/tgmpa/class-tgm-plugin-activation.php:405
+msgid "Please contact the administrator of this site for help."
+msgstr ""
+
+#: inc/tgmpa/class-tgm-plugin-activation.php:520
+msgid "This plugin needs to be updated to be compatible with your theme."
+msgstr ""
+
+#: inc/tgmpa/class-tgm-plugin-activation.php:521
+msgid "Update Required"
+msgstr ""
+
+#: inc/tgmpa/class-tgm-plugin-activation.php:635
+msgid "Set the parent_slug config variable instead."
+msgstr ""
+
+#: inc/tgmpa/class-tgm-plugin-activation.php:828
+#: inc/tgmpa/class-tgm-plugin-activation.php:3438
 msgid "Return to the Dashboard"
 msgstr "Revenir"
 
-#: inc/tgmpa/class-tgm-plugin-activation.php:1174
-msgid "Private Repository"
-msgstr "Dépôt privé "
+#: inc/tgmpa/class-tgm-plugin-activation.php:935
+msgid ""
+"The remote plugin package does not contain a folder with the desired slug "
+"and renaming did not work."
+msgstr ""
 
-#: inc/tgmpa/class-tgm-plugin-activation.php:1177
-msgid "Pre-Packaged"
-msgstr "Pre-packager"
+#: inc/tgmpa/class-tgm-plugin-activation.php:935
+#: inc/tgmpa/class-tgm-plugin-activation.php:938
+msgid ""
+"Please contact the plugin provider and ask them to package their plugin "
+"according to the WordPress guidelines."
+msgstr ""
 
-#: inc/tgmpa/class-tgm-plugin-activation.php:1182
-msgid "WordPress Repository"
-msgstr "Dépot WordPress"
+#: inc/tgmpa/class-tgm-plugin-activation.php:938
+msgid ""
+"The remote plugin package consists of more than one file, but the files are "
+"not packaged in a folder."
+msgstr ""
 
-#: inc/tgmpa/class-tgm-plugin-activation.php:1185
+#: inc/tgmpa/class-tgm-plugin-activation.php:2167
 msgid "Required"
 msgstr "Requis"
 
-#: inc/tgmpa/class-tgm-plugin-activation.php:1185
+#: inc/tgmpa/class-tgm-plugin-activation.php:2170
 msgid "Recommended"
 msgstr "Recommender "
 
-#: inc/tgmpa/class-tgm-plugin-activation.php:1188
+#: inc/tgmpa/class-tgm-plugin-activation.php:2186
+msgid "WordPress Repository"
+msgstr "Dépot WordPress"
+
+#: inc/tgmpa/class-tgm-plugin-activation.php:2189
+msgid "External Source"
+msgstr ""
+
+#: inc/tgmpa/class-tgm-plugin-activation.php:2192
+msgid "Pre-Packaged"
+msgstr "Pre-packager"
+
+#: inc/tgmpa/class-tgm-plugin-activation.php:2209
 msgid "Not Installed"
 msgstr "Non installé"
 
-#: inc/tgmpa/class-tgm-plugin-activation.php:1190
+#: inc/tgmpa/class-tgm-plugin-activation.php:2213
 msgid "Installed But Not Activated"
 msgstr "Installé mais pas activé"
 
-#: inc/tgmpa/class-tgm-plugin-activation.php:1295
-#: inc/tgmpa/class-tgm-plugin-activation.php:1407
-msgid "Install"
-msgstr "Installer"
+#: inc/tgmpa/class-tgm-plugin-activation.php:2215
+msgid "Active"
+msgstr ""
 
-#: inc/tgmpa/class-tgm-plugin-activation.php:1319
-#: inc/tgmpa/class-tgm-plugin-activation.php:1408
-msgid "Activate"
-msgstr "Activé"
+#: inc/tgmpa/class-tgm-plugin-activation.php:2221
+msgid "Required Update not Available"
+msgstr ""
 
-#: inc/tgmpa/class-tgm-plugin-activation.php:1370
+#: inc/tgmpa/class-tgm-plugin-activation.php:2224
+msgid "Requires Update"
+msgstr ""
+
+#: inc/tgmpa/class-tgm-plugin-activation.php:2227
+msgid "Update recommended"
+msgstr ""
+
+#: inc/tgmpa/class-tgm-plugin-activation.php:2283
+msgid "To Install <span class=\"count\">(%s)</span>"
+msgid_plural "To Install <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
+
+#: inc/tgmpa/class-tgm-plugin-activation.php:2286
+msgid "Update Available <span class=\"count\">(%s)</span>"
+msgid_plural "Update Available <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
+
+#: inc/tgmpa/class-tgm-plugin-activation.php:2289
+msgid "To Activate <span class=\"count\">(%s)</span>"
+msgid_plural "To Activate <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
+
+#: inc/tgmpa/class-tgm-plugin-activation.php:2379
+msgid "Installed version:"
+msgstr ""
+
+#: inc/tgmpa/class-tgm-plugin-activation.php:2387
+msgid "Minimum required version:"
+msgstr ""
+
+#: inc/tgmpa/class-tgm-plugin-activation.php:2399
+msgid "Available version:"
+msgstr ""
+
+#: inc/tgmpa/class-tgm-plugin-activation.php:2422
 msgid ""
-"No plugins to install or activate. <a href=\"%1$s\" title=\"Return to the "
-"Dashboard\">Return to the Dashboard</a>"
-msgstr "Aucun plugin à installer ou à activer"
+"No plugins to install, update or activate. <a href=\"%1$s\">Return to the "
+"Dashboard</a>"
+msgstr ""
 
-#: inc/tgmpa/class-tgm-plugin-activation.php:1386
+#: inc/tgmpa/class-tgm-plugin-activation.php:2436
 msgid "Plugin"
 msgstr "Plugin"
 
-#: inc/tgmpa/class-tgm-plugin-activation.php:1387
+#: inc/tgmpa/class-tgm-plugin-activation.php:2437
 msgid "Source"
 msgstr "Source"
 
-#: inc/tgmpa/class-tgm-plugin-activation.php:1388
+#: inc/tgmpa/class-tgm-plugin-activation.php:2438
 msgid "Type"
 msgstr "Type"
 
-#: inc/tgmpa/class-tgm-plugin-activation.php:1389
+#: inc/tgmpa/class-tgm-plugin-activation.php:2442
+msgid "Version"
+msgstr ""
+
+#: inc/tgmpa/class-tgm-plugin-activation.php:2443
 msgid "Status"
 msgstr "Status"
 
-#: inc/tgmpa/class-tgm-plugin-activation.php:1936
-msgid "Install package not available."
-msgstr "Package non installé"
+#: inc/tgmpa/class-tgm-plugin-activation.php:2570
+msgid "Upgrade message from the plugin author:"
+msgstr ""
 
-#: inc/tgmpa/class-tgm-plugin-activation.php:1937
-msgid "Downloading install package from <span class=\"code\">%s</span>&#8230;"
-msgstr "Téléchargement du package : <span class=\"code\">%s</span>&#8230;"
+#: inc/tgmpa/class-tgm-plugin-activation.php:2603
+msgid "Install"
+msgstr "Installer"
 
-#: inc/tgmpa/class-tgm-plugin-activation.php:1938
-msgid "Unpacking the package&#8230;"
-msgstr "Décompression du plugin&#8230;"
+#: inc/tgmpa/class-tgm-plugin-activation.php:2609
+msgid "Update"
+msgstr ""
 
-#: inc/tgmpa/class-tgm-plugin-activation.php:1939
-msgid "Installing the plugin&#8230;"
-msgstr "Activation du plugin&#8230;"
+#: inc/tgmpa/class-tgm-plugin-activation.php:2612
+msgid "Activate"
+msgstr "Activé"
 
-#: inc/tgmpa/class-tgm-plugin-activation.php:1940
-msgid "Plugin install failed."
-msgstr "Installation du plugin a échoué"
+#: inc/tgmpa/class-tgm-plugin-activation.php:2643
+msgid "No plugins were selected to be installed. No action taken."
+msgstr ""
 
-#: inc/tgmpa/class-tgm-plugin-activation.php:1941
-msgid "Plugin installed successfully."
-msgstr "Plugin installé avec success"
+#: inc/tgmpa/class-tgm-plugin-activation.php:2645
+msgid "No plugins were selected to be updated. No action taken."
+msgstr ""
 
-#: inc/tgmpa/class-tgm-plugin-activation.php:1952
+#: inc/tgmpa/class-tgm-plugin-activation.php:2681
+msgid "No plugins are available to be installed at this time."
+msgstr ""
+
+#: inc/tgmpa/class-tgm-plugin-activation.php:2683
+msgid "No plugins are available to be updated at this time."
+msgstr ""
+
+#: inc/tgmpa/class-tgm-plugin-activation.php:2788
+msgid "No plugins were selected to be activated. No action taken."
+msgstr ""
+
+#: inc/tgmpa/class-tgm-plugin-activation.php:2814
+msgid "No plugins are available to be activated at this time."
+msgstr ""
+
+#: inc/tgmpa/class-tgm-plugin-activation.php:3028
 msgid "Plugin activation failed."
 msgstr "Activation du plugin a échoué"
 
-#: inc/tgmpa/class-tgm-plugin-activation.php:2066
+#: inc/tgmpa/class-tgm-plugin-activation.php:3362
+msgid "Updating Plugin %1$s (%2$d/%3$d)"
+msgstr ""
+
+#: inc/tgmpa/class-tgm-plugin-activation.php:3364
+msgid "An error occurred while installing %1$s: <strong>%2$s</strong>."
+msgstr "Une erreur est survenue pendant l'installation %1$s: <strong>%2$s</strong>."
+
+#: inc/tgmpa/class-tgm-plugin-activation.php:3365
+msgid "The installation of %1$s failed."
+msgstr "L'installation de %1$s à échoué."
+
+#: inc/tgmpa/class-tgm-plugin-activation.php:3369
 msgid ""
 "The installation and activation process is starting. This process may take a"
 " while on some hosts, so please be patient."
 msgstr "L'installation et l'activation viennent de commencer. Ce processus peut prendre du temps"
 
-#: inc/tgmpa/class-tgm-plugin-activation.php:2067
+#: inc/tgmpa/class-tgm-plugin-activation.php:3370
 msgid "%1$s installed and activated successfully."
 msgstr "%1$s installé et activé avec success"
 
-#: inc/tgmpa/class-tgm-plugin-activation.php:2067
-#: inc/tgmpa/class-tgm-plugin-activation.php:2076
+#: inc/tgmpa/class-tgm-plugin-activation.php:3370
+#: inc/tgmpa/class-tgm-plugin-activation.php:3376
 msgid "Show Details"
 msgstr "Montrer les détails"
 
-#: inc/tgmpa/class-tgm-plugin-activation.php:2067
-#: inc/tgmpa/class-tgm-plugin-activation.php:2076
+#: inc/tgmpa/class-tgm-plugin-activation.php:3370
+#: inc/tgmpa/class-tgm-plugin-activation.php:3376
 msgid "Hide Details"
 msgstr "Masquer les détails"
 
-#: inc/tgmpa/class-tgm-plugin-activation.php:2068
+#: inc/tgmpa/class-tgm-plugin-activation.php:3371
 msgid "All installations and activations have been completed."
 msgstr "Toutes les installations et activations ont été achevés."
 
-#: inc/tgmpa/class-tgm-plugin-activation.php:2069
+#: inc/tgmpa/class-tgm-plugin-activation.php:3372
 msgid "Installing and Activating Plugin %1$s (%2$d/%3$d)"
 msgstr "Installation et Activation Plugin %1$s (%2$d/%3$d)"
 
-#: inc/tgmpa/class-tgm-plugin-activation.php:2073
+#: inc/tgmpa/class-tgm-plugin-activation.php:3375
 msgid ""
 "The installation process is starting. This process may take a while on some "
 "hosts, so please be patient."
 msgstr "L'installation est en cours. Ce processus peut prendre un certain temps chez certains utilisateurs , veuillez patienter s'il vous plaît."
 
-#: inc/tgmpa/class-tgm-plugin-activation.php:2074
-msgid "An error occurred while installing %1$s: <strong>%2$s</strong>."
-msgstr "Une erreur est survenue pendant l'installation %1$s: <strong>%2$s</strong>."
-
-#: inc/tgmpa/class-tgm-plugin-activation.php:2075
-msgid "The installation of %1$s failed."
-msgstr "L'installation de %1$s à échoué."
-
-#: inc/tgmpa/class-tgm-plugin-activation.php:2076
+#: inc/tgmpa/class-tgm-plugin-activation.php:3376
 msgid "%1$s installed successfully."
 msgstr "%1$s installé avec succès."
 
-#: inc/tgmpa/class-tgm-plugin-activation.php:2077
+#: inc/tgmpa/class-tgm-plugin-activation.php:3377
 msgid "All installations have been completed."
 msgstr "Toutes les installations sont achevés"
 
-#: inc/tgmpa/class-tgm-plugin-activation.php:2078
+#: inc/tgmpa/class-tgm-plugin-activation.php:3378
 msgid "Installing Plugin %1$s (%2$d/%3$d)"
 msgstr "Installation Plugin %1$s (%2$d/%3$d)"
 
@@ -1607,6 +1718,49 @@ msgstr "Description"
 msgctxt "login for submit label"
 msgid "Sign In"
 msgstr "S'inscrire"
+
+#: inc/tgmpa/class-tgm-plugin-activation.php:1116
+#: inc/tgmpa/class-tgm-plugin-activation.php:2828
+msgctxt "plugin A *and* plugin B"
+msgid "and"
+msgstr ""
+
+#: inc/tgmpa/class-tgm-plugin-activation.php:1881
+msgctxt "%s = version number"
+msgid "TGMPA v%s"
+msgstr ""
+
+#: inc/tgmpa/class-tgm-plugin-activation.php:2235
+msgctxt "%1$s = install status, %2$s = update status"
+msgid "%1$s, %2$s"
+msgstr ""
+
+#: inc/tgmpa/class-tgm-plugin-activation.php:2280
+msgctxt "plugins"
+msgid "All <span class=\"count\">(%s)</span>"
+msgid_plural "All <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
+
+#: inc/tgmpa/class-tgm-plugin-activation.php:2371
+msgctxt "as in: \"version nr unknown\""
+msgid "unknown"
+msgstr ""
+
+#: inc/tgmpa/class-tgm-plugin-activation.php:2491
+msgctxt "%2$s = plugin name in screen reader markup"
+msgid "Install %2$s"
+msgstr ""
+
+#: inc/tgmpa/class-tgm-plugin-activation.php:2495
+msgctxt "%2$s = plugin name in screen reader markup"
+msgid "Update %2$s"
+msgstr ""
+
+#: inc/tgmpa/class-tgm-plugin-activation.php:2500
+msgctxt "%2$s = plugin name in screen reader markup"
+msgid "Activate %2$s"
+msgstr ""
 
 #: inc/theme-customizer.php:47
 msgctxt "Theme customizer section title"

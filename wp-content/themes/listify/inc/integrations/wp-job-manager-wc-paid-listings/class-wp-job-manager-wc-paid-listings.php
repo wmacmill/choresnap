@@ -43,15 +43,13 @@ class Listify_WP_Job_Manager_WCPL extends listify_Integration {
 			return $url;
 		}
 
-		if ( 'before' == get_option( 'job_manager_paid_listings_flow' ) ) {
-			$url = add_query_arg( 'selected_package', $product->id, $submit );
-		}
+		$url = add_query_arg( 'selected_package', $product->id, $submit );
 
 		return esc_url( $url );
 	}
 
 	public function package_selection() {
-		if ( ! $_GET[ 'selected_package' ] ) {
+		if ( ! isset( $_GET[ 'selected_package' ] ) ) {
 			return;
 		}
 

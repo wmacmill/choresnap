@@ -126,8 +126,8 @@
 				'.job-manager-category-dropdown[multiple]',
 				'.job-manager-multiselect',
 				'.job-manager-chosen-select',
-				'#job_region',
-				'.intl-tel-mobile-select'
+				'.intl-tel-mobile-select',
+        '#job_region'
 			];
 
 			$( 'select' ).each(function() {
@@ -148,7 +148,7 @@
 				$(this).wrap( '<span class="select ' + existingClass + '-wrapper"></span>' );
 			});
 
-			$( '#job_listing_tax_mobile select' ).change(function(e) {
+			$( 'body:not(.facetwp) #job_listing_tax_mobile select' ).change(function(e) {
 				$( '#job_listing_tax_mobile' ).submit();
 			});
 		},

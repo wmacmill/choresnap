@@ -111,7 +111,7 @@
 
       FiltersView.prototype.use = $('#use_search_radius');
 
-      FiltersView.prototype.submit = $('.update_results');
+      FiltersView.prototype.submit = $('.job_filters').find('.update_results');
 
       FiltersView.prototype.initialize = function() {
         this.shutdown();
@@ -265,14 +265,6 @@
 
       RadiusView.prototype.wrapper = $('.search-radius-wrapper');
 
-      RadiusView.prototype.use = $('#use_search_radius');
-
-      RadiusView.prototype.slider = $('#search-radius');
-
-      RadiusView.prototype.input = $('#search_radius');
-
-      RadiusView.prototype.label = $('.search-radius-label .radi');
-
       RadiusView.prototype.defaults = {
         min: parseInt(Plotter.settings.searchRadius.min),
         max: parseInt(Plotter.settings.searchRadius.max),
@@ -287,22 +279,33 @@
       };
 
       RadiusView.prototype.render = function() {
-        return this.slider.slider({
-          value: this.defaults.avg,
-          min: this.defaults.min,
-          max: this.defaults.max,
-          step: 1,
-          slide: (function(_this) {
-            return function(event, ui) {
-              _this.input.val(ui.value);
-              return _this.label.text(ui.value);
-            };
-          })(this),
-          stop: (function(_this) {
-            return function(event, ui) {
-              return _this.filters.update();
-            };
-          })(this)
+        var filters, max, min, val;
+        val = this.defaults.avg;
+        min = this.defaults.min;
+        max = this.defaults.max;
+        filters = this.filters;
+        return this.wrapper.each(function() {
+          var input, label, ui;
+          ui = $(this).find('.search-radius-slider > div');
+          input = $(this).find('#search_radius');
+          label = $(this).find('.search-radius-label .radi');
+          return ui.slider({
+            value: val,
+            min: min,
+            max: max,
+            step: 1,
+            slide: (function(_this) {
+              return function(event, ui) {
+                input.val(ui.value);
+                return label.text(ui.value);
+              };
+            })(this),
+            stop: (function(_this) {
+              return function(event, ui) {
+                return filters.update();
+              };
+            })(this)
+          });
         });
       };
 
@@ -315,7 +318,6 @@
       function LocationsCollectionView() {
         this.render = __bind(this.render, this);
         this.set = __bind(this.set, this);
-        this.placeChanged = __bind(this.placeChanged, this);
         this.generate = __bind(this.generate, this);
         this.check = __bind(this.check, this);
         this.initialize = __bind(this.initialize, this);
@@ -323,24 +325,44 @@
       }
 
       LocationsCollectionView.prototype.initialize = function(options) {
-        var field;
+        var fields, filters, set;
         if (options == null) {
           options = {};
         }
         this.collection = options.collection;
         this.filters = options.filters;
-        field = document.getElementById('search_location');
-        if (!field) {
+        fields = $('.search_location > input');
+        if (!fields.length) {
           return;
         }
-        this.autocomplete = new google.maps.places.Autocomplete(field);
         this.filters.form.find('input, select').unbind('change');
-        google.maps.event.addListener(this.autocomplete, 'place_changed', this.placeChanged);
-        $(field).keypress(function(e) {
-          if (e.which === 13) {
-            google.maps.event.trigger(this.autocomplete, 'place_changed');
-            return false;
-          }
+        filters = this.filters;
+        set = this.set;
+        fields.each(function(i) {
+          var autocomplete;
+          autocomplete = new google.maps.places.Autocomplete(fields[i]);
+          google.maps.event.addListener(autocomplete, 'place_changed', function() {
+            var place;
+            filters.shutdown();
+            place = autocomplete.getPlace();
+            if (place.geometry != null) {
+              return set({
+                address: place.formatted_address,
+                lat: place.geometry.location.lat(),
+                lng: place.geometry.location.lng()
+              });
+            } else {
+              return set({
+                address: place.name
+              });
+            }
+          });
+          return $(fields[i]).keypress(function(e) {
+            if (e.which === 13) {
+              google.maps.event.trigger(autocomplete, 'place_changed');
+              return false;
+            }
+          });
         });
         this.listenTo(this.collection, 'add', this.render);
         return this.check();
@@ -356,22 +378,6 @@
         return this.set({
           address: this.filters.address.val()
         });
-      };
-
-      LocationsCollectionView.prototype.placeChanged = function(place) {
-        this.filters.shutdown();
-        place = this.autocomplete.getPlace();
-        if (place.geometry != null) {
-          return this.set({
-            address: place.formatted_address,
-            lat: place.geometry.location.lat(),
-            lng: place.geometry.location.lng()
-          });
-        } else {
-          return this.set({
-            address: place.name
-          });
-        }
       };
 
       LocationsCollectionView.prototype.set = function(atts) {
@@ -427,9 +433,15 @@
       };
 
       LocationView.prototype.render = function() {
-        this.filters.lat.val(this.model.get('lat'));
-        this.filters.lng.val(this.model.get('lng'));
-        return this.filters.address.val(this.model.get('address'));
+        var model;
+        model = this.model;
+        return $('.search_jobs').each(function() {
+          var filters;
+          filters = $(this);
+          filters.find('#search_lat').val(model.get('lat'));
+          filters.find('#search_lng').val(model.get('lng'));
+          return filters.find('.search_location > input').val(model.get('address'));
+        });
       };
 
       LocationView.prototype.geocode = function() {
@@ -510,6 +522,8 @@
         ignoreHidden: true
       });
 
+      MapView.prototype.loaded = false;
+
       MapView.prototype.initialize = function(options) {
         if (options == null) {
           options = {};
@@ -564,18 +578,26 @@
         this.map = options.map;
         this.filters = options.filters;
         google.maps.event.addDomListener(window, 'load', this.canvas);
-        return $('.job_listings-map-wrapper').on('map-toggled', this.resize);
+        $('.job_listings-map-wrapper').on('map-toggled', this.resize);
+        return this.canvas().done(function(obj) {
+          if (typeof FWP !== "undefined" && FWP !== null) {
+            return FWP.refresh();
+          }
+        }).always(function() {});
       };
 
       MapCanvasView.prototype.canvas = function() {
+        var def;
+        def = $.Deferred();
         this.el = document.getElementById('job_listings-map-canvas');
         if (!this.el) {
-          return this.loaded = true;
+          return def.reject();
         }
         this.settings = Plotter.settings.mapOptions;
         this.opts = {
           zoom: parseInt(this.settings.zoom),
           maxZoom: parseInt(this.settings.maxZoom),
+          minZoom: parseInt(this.settings.maxZoomOut),
           styles: this.settings.styles
         };
         if (this.settings.center) {
@@ -588,10 +610,13 @@
         this.createClusterer();
         google.maps.event.addListener(this.obj, 'click', this.hideBubble);
         google.maps.event.addListener(this.obj, 'zoom_changed', this.hideBubble);
+        google.maps.event.addListenerOnce(this.obj, 'idle', function() {
+          this.loaded = true;
+          return def.resolve(this.obj);
+        });
         $(window).on('resize', this.resize);
         this.mapHeight();
-        this.loaded = true;
-        return this.obj;
+        return def.promise();
       };
 
       MapCanvasView.prototype.mapHeight = function() {

@@ -247,16 +247,19 @@ function listify_scripts() {
 	wp_enqueue_script( 'listify', get_template_directory_uri() . '/js/app.min.js', $deps, 20141204, true );
 	wp_enqueue_script( 'salvattore', get_template_directory_uri() . '/js/vendor/salvattore.min.js', array(), '', true );
 
-	wp_localize_script( 'listify', 'listifySettings', array(
+	wp_localize_script( 'listify', 'listifySettings', apply_filters( 'listify_js_settings', array(
 		'ajaxurl' => admin_url( 'admin-ajax.php' ),
 		'homeurl' => home_url( '/' ),
 		'archiveurl' => get_post_type_archive_link( 'job_listing' ),
-		'is_job_manager_archive' => listify_is_job_manager_archive(),
+        'is_job_manager_archive' => listify_is_job_manager_archive(),
+        'megamenu' => array(
+            'taxonomy' => listify_theme_mod( 'nav-megamenu' ) 
+        ),
 		'l10n' => array(
 			'closed' => __( 'Closed', 'listify' ),
 			'timeFormat' => get_option( 'time_format' )
 		)
-	));
+	) ) );
 }
 add_action( 'wp_enqueue_scripts', 'listify_scripts' );
 
@@ -538,6 +541,8 @@ $integrations = apply_filters( 'listify_integrations', array(
 
 	'facetwp' => class_exists( 'FacetWP' ),
 	'jetpack' => defined( 'JETPACK__VERSION' ),
+	'polylang' => defined( 'POLYLANG_VERSION' ),
+
 	'ratings' => true
 ) );
 

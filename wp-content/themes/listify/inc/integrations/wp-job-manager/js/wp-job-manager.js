@@ -76,7 +76,7 @@
 		},
 
 		initSearch: function() {
-			$( '.search-overlay-toggle' ).click(function(e) {
+			$( '.search-overlay-toggle[data-toggle]' ).click(function(e) {
 				e.preventDefault();
 
 				$( $(this).data( 'toggle' ) )
@@ -115,12 +115,7 @@
 				}
 			});
 
-			if ( $( '.home .homepage-cover' ).hasClass( 'has-map' ) ) {
-				return;
-			}
-
 			if ( $( '.home' ).find( '.job_types' ) && ! $( '.home .job_types' ).is( ':visible' ) ) {
-				$( '.home .job_types' ).remove();
 				$( '.home input[name="filter_job_type[]"]' ).remove();
 			}
 		},

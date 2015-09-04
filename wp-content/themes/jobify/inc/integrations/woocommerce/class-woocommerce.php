@@ -7,7 +7,10 @@ class Jobify_WooCommerce {
 
 	public function __construct() {
 		add_action( 'after_setup_theme', array( $this, 'add_theme_support' ) );
-		add_action( 'widgets_init', array( $this, 'widgets_init' ) );
+
+        if ( defined( 'JOB_MANAGER_WCPL_VERSION' ) ) {
+    		add_action( 'widgets_init', array( $this, 'widgets_init' ) );
+        }
 
 		add_filter( 'woocommerce_show_page_title', '__return_false' );
 		add_filter( 'woocommerce_enqueue_styles', array( $this, 'enqueue_styles' ) );

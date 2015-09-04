@@ -47,13 +47,21 @@ class Listify_Customizer_Controls_Map_Behavior extends Listify_Customizer_Contro
 				'14', '15' => '15', '16' => '16', '17' => '17', '18' => '18' ),
 			),
 			'map-behavior-max-zoom' => array(
-				'label' => __( 'Max Zoom Level', 'listify' ),
+				'label' => __( 'Max Zoom In Level', 'listify' ),
 				'type' => 'select',
 				'choices' => array( '1' => '1', '2' => '2', '3' => '3', '4' =>
 				'4', '5' => '5', '6' => '6', '7' => '7', '8' => '8', '9' => '9',
 				'10' => '10', '11' => '11', '12' => '12', '13' => '13', '14' =>
 				'14', '15' => '15', '16' => '16', '17' => '17', '18' => '18' ),
 			),
+			'map-behavior-max-zoom-out' => array(
+				'label' => __( 'Max Zoom Out Level', 'listify' ),
+				'type' => 'select',
+				'choices' => array( '1' => '1', '2' => '2', '3' => '3', '4' =>
+				'4', '5' => '5', '6' => '6', '7' => '7', '8' => '8', '9' => '9',
+				'10' => '10', '11' => '11', '12' => '12', '13' => '13', '14' =>
+				'14', '15' => '15', '16' => '16', '17' => '17', '18' => '18' )
+			)
 		);
 		
 		if ( ! listify_has_integration( 'facetwp' ) ) {

@@ -131,7 +131,7 @@ class Listify_Widget_WCPL_Pricing_Table extends Listify_Widget {
 			),
 			'orderby' => 'menu_order',
 			'order' => 'asc',
-			'lang' => substr( get_locale(), 0, 2 )
+			'lang' => defined( 'ICL_LANGUAGE_CODE' ) ? ICL_LANGUAGE_CODE : substr( get_locale(), 0, 2 )
 		) ) );
 
 		return $packages;

@@ -241,6 +241,7 @@ class Listify_WP_Job_Manager_Map_Template extends listify_Integration {
 			'mapOptions' => array(
 				'zoom' => listify_theme_mod( 'map-behavior-zoom' ),
 				'maxZoom' => listify_theme_mod( 'map-behavior-max-zoom' ),
+				'maxZoomOut' => listify_theme_mod( 'map-behavior-max-zoom-out' ),
 				'gridSize' => listify_theme_mod( 'map-behavior-grid-size' ),
 			),
 			'searchRadius' => array(

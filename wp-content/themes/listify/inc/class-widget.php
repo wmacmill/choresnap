@@ -28,7 +28,7 @@ class Listify_Widget extends WP_Widget {
 			'customizer_support' => $this->customizer_support,
 		);
 
-		$this->WP_Widget( $this->widget_id, $this->widget_name, $widget_ops, $this->control_ops );
+		parent::__construct( $this->widget_id, $this->widget_name, $widget_ops, $this->control_ops );
 
 		add_action( 'save_post',    array( $this, 'flush_widget_cache' ) );
 		add_action( 'deleted_post', array( $this, 'flush_widget_cache' ) );

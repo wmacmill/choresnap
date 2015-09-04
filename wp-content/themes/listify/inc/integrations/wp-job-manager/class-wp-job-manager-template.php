@@ -51,7 +51,7 @@ class Listify_WP_Job_Manager_Template extends listify_Integration {
 		/**
 		 * Single Listing Item
 		 */
-		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+        add_action( 'listify_single_job_listing_meta', array( $this, 'enqueue_scripts' ) );
 
 		// attach custom data attributes
 		add_filter( 'listify_job_listing_data', array( $this, 'job_listing_data' ), 10, 2 );
@@ -139,8 +139,14 @@ class Listify_WP_Job_Manager_Template extends listify_Integration {
 	 */
 	public function template_include( $template ) {
 		$this->is_home = listify_is_widgetized_page();
+		$taxes = apply_filters( 'listify_job_listing_taxonomies', array(
+			'job_listing_category', 
+			'job_listing_type',
+			'job_listing_tag', 
+			'job_listing_region' 
+		) );
 
-		if ( is_tax( array( 'job_listing_category', 'job_listing_type', 'job_listing_tag', 'job_listing_region' ) ) ) {
+		if ( is_tax( $taxes ) ) {
 			$template = locate_template( array( 'archive-job_listing.php' ) );
 
 			if ( '' != $template ) {
@@ -371,7 +377,7 @@ class Listify_WP_Job_Manager_Template extends listify_Integration {
 			'depth' => 1,
 			'hierarchical' => true,
 			'name' => $taxonomy->name,
-			'walker' => new Listify_Walker_Category_Dropdown
+            'walker' => new Listify_Walker_Category_Dropdown
 		) );
 
 		$submenu =
@@ -395,14 +401,11 @@ class Listify_WP_Job_Manager_Template extends listify_Integration {
 			return;
 		}
 
-        global $listify_job_manager;
+        global $listify_job_manager, $post;
 
         $listify_job_manager->map->template->enqueue_scripts(true);
 
-		$job_id = isset( $_REQUEST[ 'job_id' ] ) ? esc_attr( $_REQUEST[ 'job_id' ] ) : 0;
-		$listing = get_post( $job_id );
-
-		$terms = get_the_terms( $listing->ID, listify_get_top_level_taxonomy() );
+		$terms = get_the_terms( $post->ID, listify_get_top_level_taxonomy() );
 		$term_id = null;
         $default_icon = apply_filters( 'listify_default_marker_icon', 'ion-information-circled' );
 
@@ -416,8 +419,8 @@ class Listify_WP_Job_Manager_Template extends listify_Integration {
         }
 
         $vars = array(
-            'lat' => $listing->geolocation_lat,
-            'lng' => $listing->geolocation_long,
+            'lat' => $post->geolocation_lat,
+            'lng' => $post->geolocation_long,
             'term' => $term,
             'icon' => $icon,
             'mapOptions' => array(

@@ -49,6 +49,8 @@ class Listify_WP_Job_Manager extends listify_Integration {
 
 		add_filter( 'job_manager_job_dashboard_columns', array( $this, 'job_manager_job_dashboard_columns' ) );
 		add_filter( 'job_manager_my_job_actions', array( $this, 'job_manager_my_job_actions' ) );
+
+        add_filter( 'job_manager_get_listings_custom_filter_rss_args', array( $this, 'job_manager_get_listings_custom_filter_rss_args' ) );
 	}
 
 	function remove_translations() {
@@ -185,6 +187,14 @@ class Listify_WP_Job_Manager extends listify_Integration {
 
 		return $actions;
 	}
+
+    public function job_manager_get_listings_custom_filter_rss_args( $args ) { 
+        if ( listify_theme_mod( 'categories-only' ) ) {
+            unset( $args[ 'job_types' ] );
+        }
+
+        return $args;
+    }
 
 }
 

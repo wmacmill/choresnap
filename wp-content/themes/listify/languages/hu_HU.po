@@ -1,18 +1,7 @@
 # Copyright (C) 2015 Astoundify
 # This file is distributed under the GNU General Public License.
 # Translators:
-# Adrien <adrienrolland.pro@gmail.com>, 2015
-# Benjamin Kesler <ben@powebco.com>, 2014
-# Creabilis <contact@creabilis.com>, 2015
-# Jordan <j.temim@gmail.com>, 2015
-# koureissi <cacedicam@gmail.com>, 2015
-# Laurent DRAPEAU <drapeau.l@gmail.com>, 2015
-# Lazlo <lazlo.1337@gmail.com>, 2014-2015
-# nicolasleon <nicolas@omnitic.com>, 2014
-# Rachid <rachid.braymi@gmail.com>, 2015
-# Rudy Mence <agencegood@yahoo.fr>, 2015
-# Spencer Finnell <spencerfinnell@gmail.com>, 2015
-# Spencer Finnell <spencerfinnell@gmail.com>, 2015
+# Egon Ghiczy <team@wespewebdesign.hu>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Listify\n"
@@ -20,251 +9,251 @@ msgstr ""
 "POT-Creation-Date: 2015-08-12 14:57:14+00:00\n"
 "PO-Revision-Date: 2015-08-12 14:57+0000\n"
 "Last-Translator: Spencer Finnell <spencerfinnell@gmail.com>\n"
-"Language-Team: French (France) (http://www.transifex.com/astoundify/listify/language/fr_FR/)\n"
+"Language-Team: Hungarian (Hungary) (http://www.transifex.com/astoundify/listify/language/hu_HU/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: fr_FR\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Language: hu_HU\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: grunt-wp-i18n 0.4.9\n"
 
 #: 404.php:12
 msgid "Oops! That page can&rsquo;t be found."
-msgstr "D&eacute;sol&eacute;, cette page n'a pas &eacute;t&eacute; trouv&eacute;e."
+msgstr "Sajnos az oldal nem található!"
 
 #: archive.php:22
 msgid "Author: %s"
-msgstr "Auteur: %s"
+msgstr "Szerző: %s"
 
 #: archive.php:25
 msgid "Day: %s"
-msgstr "Jour: %s"
+msgstr "Nap: %s"
 
 #: archive.php:28
 msgid "Month: %s"
-msgstr "Mois: %s"
+msgstr "Hónap: %s"
 
 #: archive.php:31
 msgid "Year: %s"
-msgstr "Année: %s"
+msgstr "Év: %s"
 
 #: archive.php:34
 msgid "Asides"
-msgstr "Digressions"
+msgstr "Elkülönített részek"
 
 #: archive.php:37
 msgid "Galleries"
-msgstr "Galeries"
+msgstr "Galériák"
 
 #: archive.php:40
 msgid "Images"
-msgstr "Images"
+msgstr "Képek"
 
 #: archive.php:43
 msgid "Videos"
-msgstr "Vid&eacute;os"
+msgstr "Videók"
 
 #: archive.php:46
 msgid "Quotes"
-msgstr "Citations"
+msgstr "Idézetek"
 
 #: archive.php:49
 msgid "Links"
-msgstr "Liens"
+msgstr "Linkek"
 
 #: archive.php:52
 msgid "Statuses"
-msgstr "Statut"
+msgstr "Státusz"
 
 #: archive.php:55
 msgid "Audios"
-msgstr "Audios"
+msgstr "Hangok"
 
 #: archive.php:58
 msgid "Chats"
-msgstr "Chats"
+msgstr "Chat"
 
 #: archive.php:61 sidebar.php:16
 msgid "Archives"
-msgstr "Archives"
+msgstr "Arhívum"
 
 #: author.php:34
 msgid "%d Listed"
-msgstr "%d List&eacute;"
+msgstr "%d Lista"
 
 #: author.php:40
 #: inc/integrations/wp-job-manager-bookmarks/class-wp-job-manager-bookmarks.php:43
 msgid "%d Favorite"
 msgid_plural "%d Favorites"
-msgstr[0] "%d Favori"
-msgstr[1] "%d Favoris"
+msgstr[0] "%d Kedvencek"
+msgstr[1] "%d Kedvencek"
 
 #: author.php:58
 msgid "About Me"
-msgstr "A propos"
+msgstr "Rólunk"
 
 #: author.php:70
 msgid "%s's Listings (%d)"
-msgstr "%s's Listings (%d)"
+msgstr "%s's Találat (%d)"
 
 #: author.php:115
 msgid ""
 "%s's\n"
 "\t\t\t\t\t\tFavorites (%d)"
-msgstr "%s's\n\t\t\t\t\t\tFavoris (%d)"
+msgstr "%s's\n⇥⇥⇥⇥⇥⇥Kedvencek (%d)"
 
 #: author.php:152
 msgid "Recent Blog Posts"
-msgstr "D&eacute;rniers articles du blog"
+msgstr "Friss blogbejegyzések"
 
 #: author.php:171 inc/customizer/controls/class-controls-labels.php:30
 #: inc/integrations/woocommerce/class-woocommerce.php:128
 msgid "Social Profiles"
-msgstr "R&eacute;seaux sociaux"
+msgstr "Közösségi oldalak"
 
 #: comments.php:26
 msgid "Sort By"
-msgstr "Trier par"
+msgstr "Sorrend"
 
 #: comments.php:48
 msgid "Comment navigation"
-msgstr "Navigation dans les commentaires"
+msgstr "Hozzászólás navigáció"
 
 #: comments.php:49
 msgid "&larr; Older Comments"
-msgstr "&larr; Anciens commentaires"
+msgstr "&larr; Korábbi hozzászólások"
 
 #: comments.php:50
 msgid "Newer Comments &rarr;"
-msgstr "Commentaires r&eacute;cents &rarr;"
+msgstr "Újabb hozzászólások &rarr;"
 
 #: comments.php:60
 msgid "Comments are closed."
-msgstr "Les commentaires sont cl&ocirc;tur&eacute;s."
+msgstr "Hozzászólások lezárva."
 
 #: comments.php:66
 msgid "Publish Review"
-msgstr "Publier votre avis"
+msgstr "Szólj hozzá"
 
 #: comments.php:66 comments.php:71
 msgid "Publish Reply"
-msgstr "Publier votre commentaire"
+msgstr "Ossza meg válaszát"
 
 #: comments.php:72 comments.php:76
 msgid "Leave a Reply"
-msgstr "Laisser un commentaire"
+msgstr "Válaszoljon"
 
 #: comments.php:76
 msgid "Leave a Review"
-msgstr "Laisser un avis"
+msgstr "Írja le véleményét"
 
 #: content-badge-claimed.php:8 popup-content-verified-listing.php:1
 msgid "Verified Listing"
-msgstr "Cette page est g&eacute;r&eacute;e par le propri&eacute;taire de l'&eacute;tablissement"
+msgstr "Teljes lista"
 
 #: content-job_listing-attachment.php:13
 msgid "View Image"
-msgstr "Voir l'image"
+msgstr "Nézze meg a képet"
 
 #: content-job_listing-attachment.php:16 content.php:42
 msgid "0 Comments"
-msgstr "0 Commentaires"
+msgstr "0 Hozzászólás"
 
 #: content-job_listing-attachment.php:16 content.php:42
 msgid "1 Comment"
-msgstr "1 Commentaire"
+msgstr "1 Hozzászólás"
 
 #: content-job_listing-attachment.php:16 content.php:42
 msgid "% Comments"
-msgstr "% Commentaires"
+msgstr "% Hozzászólás"
 
 #: content-no-jobs-found.php:11
 msgid ""
 "Perhaps try revising your search or <a href=\"%s\">create a listing</a> "
 "instead!"
-msgstr "Veuillez modifier vos crit&egrave;res de recherche ou  <a href=\"%s\">ajouter facilement un &eacute;tablissement.</a>"
+msgstr "Próbalkozzon új kereséssel, vagy <a href=\"%s\">hozzon létre egy listát</a> helyette!"
 
 #: content-none.php:15
 msgid "Ready to publish your first post? <a href=\"%1$s\">Get started here</a>."
-msgstr "&Ecirc;tes-vous pr&ecirc;t &agrave; publier votre premier article? <a href=\"%1$s\">Commencez ici</a>."
+msgstr "Készen áll az első bejegyzése közzétételére? <a href=\"%1$s\">Kezdje el itt</a>."
 
 #: content-none.php:19
 msgid ""
 "Sorry, but nothing matched your search terms. Please try again with some "
 "different keywords."
-msgstr "D&eacute;sol&eacute;, aucun r&eacute;sultat n a &eacute;t&eacute; trouv&eacute;. Veuillez modifier vos crit&egrave;res de recherche et r&eacute;essayer."
+msgstr "Sajnáljuk, de semmi sem felelt meg a keresési feltételeknek. Kérjük, próbálja meg újra más keresőszóval."
 
 #: content-none.php:24
 msgid ""
 "It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps "
 "searching can help."
-msgstr "Il semble que la page que vous recherchez ait été déplacée ou n'existe plus, Veuillez effectuer une nouvelle recherche:\n(Pour rechercher un &eacute;tablissement <a title=\"\" href=\"/\">Cliquer ici</a>)"
+msgstr "Úgy tűnik, hogy &rsquo; t megtalálta, amit &rsquo; keres. Talán a keresés segíthet."
 
 #: content-single-job_listing-gallery-overview.php:30
 #: single-job_listing-gallery.php:52
 msgid "No images found."
-msgstr "Aucune image trouv&eacute;e."
+msgstr "Nincsenek képek."
 
 #: content-single-job_listing-gallery-overview.php:33
 msgid "Why not add your own?"
-msgstr "Cliquez pour en ajouter."
+msgstr "Miért nem adja hozzá a sajátját?"
 
 #: content-single-job_listing.php:57
 msgid "Listing Location"
-msgstr "Emplacement"
+msgstr "Hirdetés helye"
 
 #: content-single-job_listing.php:70 inc/class-page-settings.php:56
 #: inc/class-strings.php:381
 msgid "Video"
-msgstr "Vid&eacute;o"
+msgstr "Videó"
 
 #: content-single-job_listing.php:80
 msgid "Listing Description"
-msgstr "Description de l'&eacute;tablissement"
+msgstr "Hirdetés leírása"
 
 #: content.php:66
 msgid "Read More"
-msgstr "En savoir plus"
+msgstr "Olvasson tovább"
 
 #: functions.php:55
 msgid "Primary Menu (header)"
-msgstr "Menu principal (header)"
+msgstr "Elsődleges menü (fejléc)"
 
 #: functions.php:56
 msgid "Secondary Menu"
-msgstr "Menu secondaire"
+msgstr "Másodlagos menü"
 
 #: functions.php:57
 msgid "Tertiary Menu"
-msgstr "Menu tertiaire"
+msgstr "Harmadlagos menü"
 
 #: functions.php:58
 msgid "Social Menu (footer)"
-msgstr "Menu social (pied de page)"
+msgstr "Közösségi ikonok (lábléc)"
 
 #: functions.php:104
 msgid "Sidebar"
-msgstr "Barre lat&eacute;rale"
+msgstr "Oldalsáv"
 
 #: functions.php:114
 msgid "Homepage"
-msgstr "Page d&apos;accueil"
+msgstr "Főoldal"
 
 #: functions.php:115
 msgid "Widgets that appear on the \"Homepage\" Page Template"
-msgstr "Les widgets qui apparaissent sur la page d'accueil "
+msgstr "Widgetek jelennek meg a \"Főoldal\" oldalon"
 
 #: functions.php:125
 msgid "Footer Column 1 (wide)"
-msgstr "Bas de page 1 (Large)"
+msgstr "Lábléc 1. oszlop"
 
 #: functions.php:135
 msgid "Footer Column 2"
-msgstr "Bas de page 2"
+msgstr "Lábléc 2. oszlop"
 
 #: functions.php:145
 msgid "Footer Column 3"
-msgstr "Bas de page 3"
+msgstr "Lábléc 3. oszlop"
 
 #: functions.php:259
 #: inc/integrations/wp-job-manager/class-wp-job-manager-business-hours.php:103
@@ -272,54 +261,54 @@ msgstr "Bas de page 3"
 #: inc/integrations/wp-job-manager/widgets/class-widget-job_listing-business-hours.php:98
 #: inc/integrations/wp-job-manager/widgets/class-widget-job_listing-business-hours.php:99
 msgid "Closed"
-msgstr "Fermé"
+msgstr "Zárva"
 
 #: image.php:29 single-job_listing-gallery.php:22
 msgid "Back to %s"
-msgstr "Retour &agrave; %s"
+msgstr "Vissza %s"
 
 #: inc/class-navigation.php:47
 msgid "Guest"
-msgstr "Invit&eacute;"
+msgstr "Látogató"
 
 #: inc/class-page-settings.php:23
 msgid "Page Settings"
-msgstr "Param&egrave;tres de la page"
+msgstr "Oldal bellításai"
 
 #: inc/class-page-settings.php:37
 msgid "Show tertiary navigation bar"
-msgstr "Afficher la barre de navigation tertiaire"
+msgstr "Mutassa a felsőfokú navigáziós sávot"
 
 #: inc/class-page-settings.php:41
 msgid "Hero Style"
-msgstr "Style Hero"
+msgstr "Hős stílus"
 
 #: inc/class-page-settings.php:46 inc/class-widget.php:270
 #: inc/customizer/controls/class-controls-labels.php:26
 #: inc/customizer/controls/class-controls-nav.php:29
 msgid "None"
-msgstr "Aucun"
+msgstr "Egyik sem"
 
 #: inc/class-page-settings.php:51
 msgid "Featured Image"
-msgstr "Image &agrave; la une"
+msgstr "Kiemelt kép"
 
 #: inc/class-page-settings.php:61
 #: inc/integrations/wp-job-manager/map/class-wp-job-manager-map-template.php:305
 msgid "Map"
-msgstr "Carte"
+msgstr "Térkép"
 
 #: inc/class-setup.php:17
 msgid "Install Required &amp; Recommended Plugins"
-msgstr "Installer les plugins recommand&eacute;s."
+msgstr "Telepítse a szükséges &amp; ajánlott pluginokat"
 
 #: inc/class-setup.php:40 inc/class-tgm-plugin-activation.php:302
 msgid "Install Plugins"
-msgstr "Installer plugins"
+msgstr "Bővítmények telepítése"
 
 #: inc/class-setup.php:49
 msgid "Import Demo Content"
-msgstr "Importer le contenu de d&eacute;mo"
+msgstr "Importálja a demo tartalmat"
 
 #: inc/class-setup.php:52
 msgid ""
@@ -328,22 +317,22 @@ msgid ""
 "manually set up all of your own content. <strong>If you choose not to import"
 " the demo content you need to make sure you manually create all necessary "
 "page templates for your website.</strong>"
-msgstr "L'installation du contenu factice n'est pas n&eacute;cessaire pour pouvoir utiliser ce th&egrave;me. Cependant cela vous permet d'importer toutes les pages, les articles, les widgets et la configuration de votre site sans avoir &agrave; le faire manuellement. &lt;strong&gt; Si vous pr&eacute;f&eacute;rez l&rsquo;installer manuellement, veuillez vous assurer de suivre attentivement les instructions. &lt;/ strong&gt;"
+msgstr "A demo tartalom telepítése nem szükséges.A demo bemutatja a teljes tartalmat anélkül, hogy manuálisan létrehozza az összes tartalmat. <strong>Ha nem importálja a demo tartalmat, győzödjön meg róla, hogy létre tudja-e hozni a szükséges oldalakat a weboldalán.</strong>."
 
 #: inc/class-setup.php:53
 msgid ""
 "The Listify theme package includes multiple demo content .XML files. This is what you will\n"
 "\t\t\t\t\tupload to the WordPress importer. Depending on the plugins you have activated or the intended use of your\n"
 "\t\t\t\t\twebsite you may not need to upload all .XML files."
-msgstr "Le th&egrave;me Listify inclut de nombreux fichiers .XML contenant du contenu de d&eacute;mo. C&apos;est ce que vous allez uploader gr&acirc;ce &agrav; Wordpress Importer. Selon les plugins que vous avez activ&eacute; ou selon le but de votre\nsite, vous n'aurez pas besoin d&apos;uploader tous les fichiers XML."
+msgstr "A Listify sabloncsomag tartalmazza a demo tartalmat .xml fájlokat. Ez az, amit fel kell\n⇥⇥⇥⇥⇥feltöltsön a WordPress importőre. Attól függően, hogy a bővítményt már aktiválta, vagy rendeltetésszerű használta\n⇥⇥⇥⇥⇥weboldalhoz adott esetben nincs szükség feltölteni az összes .xml fájlt."
 
 #: inc/class-setup.php:59
 msgid "Begin Importing Content"
-msgstr "D&eacute;marrer l'importation du contenu"
+msgstr "Kezdje meg a tartalom importálását"
 
 #: inc/class-setup.php:68
 msgid "Import Widgets"
-msgstr "Importer les widgets"
+msgstr "Widgetek importálása"
 
 #: inc/class-setup.php:71
 msgid ""
@@ -351,274 +340,274 @@ msgid ""
 "allows you to quickly match the same settings found on our theme demo. If "
 "you do not import the widgets you can manually manage your widgets just like"
 " a standard WordPress widget area."
-msgstr "L&rsquo;importation des widgets de d&eacute;monstration n'est pas n&eacute;cessaire pour pouvoir utiliser ce th&egrave;me. Il permet simplement d'avoir les m&ecirc;mes r&eacute;glages trouv&eacute;s sur notre d&eacute;mo. Si vous pr&eacute;f&eacute;rez ne pas importer les widgets, vous pouvez les g&eacute;rer manuellement comme les autres widgets."
+msgstr "A demo widget nem szükséges a sablonhoz. Egyszerűen lehetővé teszi, hogy gyorsan megfeleljen a demo sablonban található beállításoknak. Ha nem importálja a widgetet akkor kézzel kezelhető a widget, mint a szabványos WordPress widget terület."
 
 #: inc/class-setup.php:74
 msgid "Begin Importing Widgets"
-msgstr "D&eacute;marrer l'importation des widgets"
+msgstr "Kezdje meg a widgetek importálását"
 
 #: inc/class-setup.php:81
 msgid "Setup Menus"
-msgstr "R&eacute;glages des menus"
+msgstr "Menük beállítása"
 
 #: inc/class-setup.php:83
 msgid ""
 "Make sure you create and assign your menus to the menu locations found in "
 "the theme. This is required to use the custom mega menu dropdown, account "
 "item, and more."
-msgstr "Assurez-vous de cr&eacute;er vos menus et n'oubliez pas de leur affecter un emplacement. Ceci est n&eacute;cessaire pour pouvoir utiliser le Mega menu et les autres &eacute;l&eacute;ments du menu."
+msgstr "Győződjön meg róla, hogy hozzon létre, és hozzá a menük a menüjükben található a témát. Erre azért van szükség, hogy használja az egyénreszabott gördülő mega menüt, tételnél,  és több."
 
 #: inc/class-setup.php:85
 msgid "Manage Menus"
-msgstr "Gestion des menus"
+msgstr "Menü kezelés"
 
 #: inc/class-setup.php:99
 msgid "Setup Static Homepage"
-msgstr "Configurer la page d'accueil statique"
+msgstr "Statikus Főoldal beállítása"
 
 #: inc/class-setup.php:101
 msgid ""
 "In order to display custom widgets on your homepage you must first assign your static\n"
 "\t\t\t\t\tpage in the WordPress settings. You can also set which page will display your blog posts. If you have\n"
 "\t\t\t\t\timported the theme demo content you&#39;ll want to set the page called \"Search Your City\" as your homepage."
-msgstr "Afin d'afficher des widgets personnalis&eacute;s sur votre page d'accueil vous devez d'abord param&eacute;trer l'accueil de votre site avec le contenu d'une page statique. Vous pouvez &eacute;galamment d&eacute;finir la page qui g&eacute;rera vos articles de blog."
+msgstr "Ahhoz, hogy megjelenjen widgetek a honlapján először  hozzá kell rendelni a statikus\n⇥⇥⇥⇥⇥oldalt a WordPress beállításokban. Beállíthatja azt is, hogy az oldalon láthatóak legyenek a blogbejegyzések. Ha van\n⇥⇥⇥⇥⇥importált demo sablon tartalma&#39, majd beállíthatja  az oldalt úgynevezett \"Keresés a városodban\", mint a kezdőlap."
 
 #: inc/class-setup.php:105
 msgid "Reading Settings"
-msgstr "Options de lecture"
+msgstr "Olvasási beállítások"
 
 #: inc/class-setup.php:113
 msgid "Setup Widgets"
-msgstr "Configuration des widgets"
+msgstr "Widgetek beállítása"
 
 #: inc/class-setup.php:116
 msgid ""
 "Manage your widgets to control what displays on your homepage, listing "
 "pages, standard pages, and more."
-msgstr "G&eacute;rer les widgets afin de contr&ocirc;ler ce qui s'affiche sur votre page d&apos;accueil, les listings, les pages standards et plus."
+msgstr "Kezelje  a widgeteket, hogy ellenőrizzék, hogy jelenítse meg a honlapján az oldalakat felsorolja, szabványos oldal, és így tovább."
 
 #: inc/class-setup.php:117
 msgid "Manage Widgets"
-msgstr "G&eacute;rer les widgets"
+msgstr "Widgetek kezelése"
 
 #: inc/class-setup.php:124 inc/class-setup.php:127
 msgid "Customize"
-msgstr "Personnaliser"
+msgstr "Testreszabás"
 
 #: inc/class-setup.php:126
 msgid ""
 "Manage the appearance and behavior of various theme components with the live"
 " customizer."
-msgstr "G&eacute;rer l&apos;apparence et le comportement des diff&eacute;rents composants du th&egrave; gr&acirc;ce au live customizer."
+msgstr "Kezelje a megjelenését és működését a különböző tematikus elemeknek,  mint  testreszabás."
 
 #: inc/class-setup.php:137
 msgid "Get Involved"
-msgstr "Participer"
+msgstr "Vegyen részt"
 
 #: inc/class-setup.php:138
 msgid ""
 "Help improve Listify by submitting a rating and helping to translate the "
 "theme to as many languages as possible!"
-msgstr "Aidez-nous &agrav; am&eacute;liorer Listify en soumettant une note et en nous aidant &agrav; traduire le th&egrav;me en plusieurs langues."
+msgstr "Küldjön értékelést a Listify-ről, és segítse lefordítani, hogy minél több nyelven elérhető legyen"
 
 #: inc/class-setup.php:153
 msgid "Listify Setup"
-msgstr "Options Listify"
+msgstr "Listify beállítása"
 
 #: inc/class-setup.php:153
 msgid "Setup Guide"
-msgstr "Guide d&apos;installation"
+msgstr "Üzembe helyezési útmutató"
 
 #: inc/class-setup.php:272
 msgid "Completed!"
-msgstr "Termin&eacute;!"
+msgstr "Elkészült"
 
 #: inc/class-setup.php:274
 msgid "Incomplete"
-msgstr "Incomplet"
+msgstr "Hiányos"
 
 #: inc/class-setup.php:281
 msgid "You can read more and watch helpful video tutorials below:"
-msgstr "Vous pouvez en savoir plus et regarder des tutoriels vidéo utiles ci-dessous:"
+msgstr "Olvasson többet és nézze   meg a bemutató videókat:"
 
 #: inc/class-setup.php:307
 msgid "Welcome to Listify %s"
-msgstr "Bienvenu sur Listify %s"
+msgstr "Welcome to Listify %s"
 
 #: inc/class-setup.php:308
 msgid ""
 "The last directory you will ever buy.\n"
 "\tUse the steps below to finish setting up your new website. If you have more questions\n"
 "\tplease <a href=\"%s\">review the documentation</a>."
-msgstr "Le dernier annuaire que vous devrez acheter. \nSuivez les instructions suivantes afin de compl&eacute;ter l&apos;installation de votre site. Si vous avez d&apos;autres questions\nmerci de <a href=\"%s\">vous r&eacute;f&eacute;rer &agrav; la documentation</a>."
+msgstr "A legújabb katalógus, amit valaha venni szeretett volna.\n⇥Használja az alábbi lépéseket  az új honlap beállítás befejezéséhez. Ha több kérdésed van\n⇥kérünk <a href=\"%s\"> olvasd át a dokumentációját </a>."
 
 #: inc/class-setup.php:319
 msgid "Documentation"
-msgstr "Documentation"
+msgstr "Dokumentáció"
 
 #: inc/class-setup.php:320
 msgid "Submit a Support Ticket"
-msgstr "Contacter le support "
+msgstr "Adja meg a Support Ticketjét"
 
 #: inc/class-strings.php:141
 msgid "%s Category"
-msgstr "Cat&eacute;gories"
+msgstr "%s Kategória"
 
 #: inc/class-strings.php:145 inc/class-strings.php:149
 msgid "%s Categories"
-msgstr "%s Cat&eacute;gories"
+msgstr "%s Kategóriák"
 
 #: inc/class-strings.php:153
 msgid "%s-category"
-msgstr "%s-category"
+msgstr "%s-Kategória"
 
 #: inc/class-strings.php:158 inc/class-strings.php:568
 msgid "%s Type"
-msgstr "%s Type"
+msgstr "%s Típus"
 
 #: inc/class-strings.php:162 inc/class-strings.php:166
 msgid "%s Types"
-msgstr "%s Types"
+msgstr "%s Típusok"
 
 #: inc/class-strings.php:170
 msgid "%s-type"
-msgstr "%s-type"
+msgstr "%s-típus"
 
 #: inc/class-strings.php:175
 msgid "%s will be shown if within ANY selected category"
-msgstr "%s appara&icirc;tront s'il sont &agrave; l'int&eacute;rieur de la cat&eacute;gorie selectionn&eacute;e"
+msgstr "% s lesz látható, ha bármely  kategóriából választ"
 
 #: inc/class-strings.php:179
 msgid "%s will be shown if within ALL selected categories"
-msgstr "%s appara&icirc;tront s'il sont &agrave; l'int&eacute;rieur des cat&eacute;gories selectionn&eacute;es"
+msgstr "% s lesz látható, ha a kategóriákból választ"
 
 #: inc/class-strings.php:183
 msgid "Contact Email"
-msgstr "Adresse email de contact"
+msgstr "Email"
 
 #: inc/class-strings.php:184
 msgid "Contact URL"
-msgstr "Adresse Web"
+msgstr "URL"
 
 #: inc/class-strings.php:185
 msgid "Contact email/URL"
-msgstr "Adresse email/URL"
+msgstr "Email/URL"
 
 #: inc/class-strings.php:186
 msgid "Listing filled?"
-msgstr "Listing compl&eacute;t&eacute;?"
+msgstr "HIrdetés kitöltve?"
 
 #: inc/class-strings.php:187
 msgid "A video about your listing"
-msgstr "Vid&eacute;o de pr&eacute;sentation"
+msgstr "Videó az Ön hirdetéséről"
 
 #: inc/class-strings.php:190
 msgid "%s Submission"
-msgstr "%s Soumission"
+msgstr "%s Benyújtása"
 
 #: inc/class-strings.php:194
 msgid "Submit %s Form Page"
-msgstr "Enregistrer le Formulaire %s"
+msgstr "Küldje el  %s az oldal űrlapját"
 
 #: inc/class-strings.php:198
 msgid "%s Dashboard Page"
-msgstr "Tableau de bord de %s"
+msgstr "%s Kezelőpult odal"
 
 #: inc/class-strings.php:202
 msgid "%s Page"
-msgstr "%s Page"
+msgstr "%s Oldal"
 
 #: inc/class-strings.php:207
 msgid "Add a %s via the back-end"
-msgstr "Ajouter un %s via le back-end"
+msgstr "Hozzáadás a% s  a back-end segítségével "
 
 #: inc/class-strings.php:211
 msgid "Add a %s via the front-end"
-msgstr "Ajouter un %s via le front-end"
+msgstr "Hozzáadás a% s a front-end segítségével "
 
 #: inc/class-strings.php:215
 msgid "Find out more about the front-end %s submission form"
-msgstr "En savoir plus sur le formulaire de soumission %s (Front-End)"
+msgstr "Tudjon meg többet a front-end% s jelentkezési lapról"
 
 #: inc/class-strings.php:219
 msgid "View submitted %s listings"
-msgstr "Afficher les %s envoy&eacute;s"
+msgstr "Megtekintése a benyújtott% s hirdetéseknek"
 
 #: inc/class-strings.php:223
 msgid "Add the [jobs] shortcode to a page to list %s"
-msgstr "Ajouter le shortcode [jobs] &agrave; la liste de la page %s"
+msgstr "Adja meg az [jobs] shortcode az oldalhoz a listához %s"
 
 #: inc/class-strings.php:227
 msgid "View the %s dashboard"
-msgstr "Afficher le tableau de bord du %s"
+msgstr "Tekintse meg %s a vezérlőpultot"
 
 #: inc/class-strings.php:231
 msgid "Find out more about the front-end %s dashboard"
-msgstr "En savoir plus sur le tableau de bord (Front-End) %s"
+msgstr "Tudjon meg többet a front-end %s vezrélőpultról"
 
 #: inc/class-strings.php:235
 msgid "Company name"
-msgstr "Nom de la soci&eacute;t&eacute;"
+msgstr "Cégnév"
 
 #: inc/class-strings.php:236
 msgid "Company website"
-msgstr "Site internet de la soci&eacute;t&eacute;"
+msgstr "A cég weboldala"
 
 #: inc/class-strings.php:237
 msgid "Company tagline"
-msgstr "Slogan de la soci&eacute;t&eacute;"
+msgstr "Cég szlogen"
 
 #: inc/class-strings.php:238
 msgid "Brief description about the company"
-msgstr "Br&egrave;ve description de la soci&eacute;t&eacute;"
+msgstr "Rövid leírás a cégről"
 
 #: inc/class-strings.php:239
 msgid "Company Twitter"
-msgstr "Compte Twitter de la soci&eacute;t&eacute;"
+msgstr "Cége a Twitteren"
 
 #: inc/class-strings.php:240
 msgid "Company logo"
-msgstr "Logo de la soci&eacute;t&eacute;"
+msgstr "Céglogó"
 
 #: inc/class-strings.php:241
 msgid "URL to the company logo"
-msgstr "URL du logo de la soci&eacute;t&eacute;"
+msgstr "URL a céglogóhoz"
 
 #: inc/class-strings.php:242
 msgid "Company video"
-msgstr "Vid&eacute;o de la soci&eacute;t&eacute;"
+msgstr "Video a cégről"
 
 #: inc/class-strings.php:244
 msgid "WP Job Manager Add-ons"
-msgstr "Extensions WP Job Manager"
+msgstr "WP Job Manager kiegszítők"
 
 #: inc/class-strings.php:245
 msgid "Settings"
-msgstr "Param&egrave;tres"
+msgstr "Beállítások"
 
 #: inc/class-strings.php:246
 msgid "Add-ons"
-msgstr "Add-ons"
+msgstr "Kiegészítők"
 
 #: inc/class-strings.php:247
 msgid "Approve %s"
-msgstr "Approuver %s"
+msgstr "Jóváhagy %s"
 
 #: inc/class-strings.php:248
 msgid "Expire %s"
-msgstr "Expire %s"
+msgstr "Lejár %s"
 
 #: inc/class-strings.php:249
 msgid "%s approved"
-msgstr "%s approuv&eacute;"
+msgstr "%s jóváhagyott"
 
 #: inc/class-strings.php:250
 msgid "%s expired"
-msgstr "%s expir&eacute;"
+msgstr "%s lejárt"
 
 #: inc/class-strings.php:251
 msgid "Select category"
-msgstr "S&eacute;lectionnez la cat&eacute;gorie"
+msgstr "Válasszon kategóriát"
 
 #: inc/class-strings.php:252 inc/class-strings.php:358
 #: inc/customizer/controls/class-controls-as-seen-on.php:17
@@ -626,39 +615,39 @@ msgstr "S&eacute;lectionnez la cat&eacute;gorie"
 #: inc/customizer/controls/class-controls-markers.php:14
 #: inc/integrations/wp-job-manager/widgets/class-widget-home-term-lists.php:40
 msgid "Title"
-msgstr "Titre, nom de l'&eacute;tablissement"
+msgstr "Jogcím"
 
 #: inc/class-strings.php:253
 msgid "%s updated. View"
-msgstr "%s mise &agrave; jour. Afficher"
+msgstr "%s frissítve. Megtekintés"
 
 #: inc/class-strings.php:254
 msgid "Custom field updated."
-msgstr "Champ personnalis&eacute; mis &agrave; jour."
+msgstr "Egyedi mező frissítve."
 
 #: inc/class-strings.php:255
 msgid "Custom field deleted."
-msgstr "Champ personnalis&eacute; supprim&eacute;."
+msgstr "Egyedi mező törölve."
 
 #: inc/class-strings.php:256
 msgid "%s updated."
-msgstr "%s mise &agrave; jour."
+msgstr "%s feltöltve"
 
 #: inc/class-strings.php:257
 msgid "%s restored to revision from %s"
-msgstr "Poste restaur&eacute; &agrave; la r&eacute;vision de %s"
+msgstr "%stól vissza %s ig"
 
 #: inc/class-strings.php:258
 msgid "%s published. View"
-msgstr "Publi&eacute;. Afficher"
+msgstr "%s közzétéve. Megnézem"
 
 #: inc/class-strings.php:259
 msgid "%s saved."
-msgstr "%s sauvegard&eacute;."
+msgstr "%s mentve."
 
 #: inc/class-strings.php:260
 msgid "%s submitted. Preview"
-msgstr "%s envoy&eacute;. Aper&ccedil;u"
+msgstr "%s elküldve. Megtekintés"
 
 #: inc/class-strings.php:261
 msgid "M j, Y @ G:i"
@@ -666,39 +655,39 @@ msgstr "M j, Y @ G:i"
 
 #: inc/class-strings.php:262
 msgid "%s draft updated. Preview"
-msgstr "%s brouillon mise &agrave; jour. Aper&ccedil;u"
+msgstr "%s vázlat frissítve. Megtekintés"
 
 #: inc/class-strings.php:263 inc/class-tgm-plugin-activation.php:2391
 msgid "Type"
-msgstr "Type"
+msgstr "Típus"
 
 #: inc/class-strings.php:264
 msgid "Posted"
-msgstr "Publi&eacute;"
+msgstr "Közzétéve"
 
 #: inc/class-strings.php:265
 msgid "Expires"
-msgstr "Expire"
+msgstr "Lejárat ideje"
 
 #: inc/class-strings.php:266
 msgid "Categories"
-msgstr "Cat&eacute;gories"
+msgstr "Kategóriák"
 
 #: inc/class-strings.php:267
 msgid "Featured?"
-msgstr "Mettre en avant ?"
+msgstr "Kiemeli?"
 
 #: inc/class-strings.php:268
 msgid "Filled?"
-msgstr "Rempli?"
+msgstr "Kitöltve"
 
 #: inc/class-strings.php:269 inc/class-tgm-plugin-activation.php:2396
 msgid "Status"
-msgstr "Statut"
+msgstr "Állapot"
 
 #: inc/class-strings.php:270
 msgid "Actions"
-msgstr "Actions"
+msgstr "Művelet"
 
 #: inc/class-strings.php:271
 msgid "ID: %d"
@@ -706,400 +695,400 @@ msgstr "ID: %d"
 
 #: inc/class-strings.php:272
 msgid "M j, Y"
-msgstr "M j, A"
+msgstr "M j, Y"
 
 #: inc/class-strings.php:273
 msgid "by a guest"
-msgstr "par un invit&eacute;"
+msgstr "egy vendég által"
 
 #: inc/class-strings.php:274
 msgid "by %s"
-msgstr "par %s"
+msgstr "szerint %s"
 
 #: inc/class-strings.php:275
 msgid "Approve"
-msgstr "Approuver"
+msgstr "Jóváhagy"
 
 #: inc/class-strings.php:276
 msgid "View"
-msgstr "Afficher"
+msgstr "Megtekintés"
 
 #: inc/class-strings.php:277
 msgid "Edit"
-msgstr "Modifier"
+msgstr "Változtatás"
 
 #: inc/class-strings.php:278
 msgid "Delete"
-msgstr "Supprimer"
+msgstr "Törlés"
 
 #: inc/class-strings.php:279
 msgid "Listings Per Page"
-msgstr "Listings par page"
+msgstr "Hirdetések oldalanként"
 
 #: inc/class-strings.php:280
 msgid "How many listings should be shown per page by default?"
-msgstr "Par d&eacute;faut, combien de listings doivent-&ecirc;tre affich&eacute;s par page?"
+msgstr "Hány hirdetést szeretne oldalanként látni?"
 
 #: inc/class-strings.php:281
 msgid "Filled Positions"
-msgstr "Les postes pourvus"
+msgstr "Kitöltött pozíciók"
 
 #: inc/class-strings.php:282
 msgid "Hide filled positions"
-msgstr "Masquer les poste pourvus"
+msgstr "Kitöltött állapotok elrejtése"
 
 #: inc/class-strings.php:283
 msgid "If enabled, filled positions will be hidden."
-msgstr "Si activ&eacute;, les postes pourvus seront masqu&eacute;s."
+msgstr "Ha engedélyezi, a kitöltött állapotok rejtve lesznek."
 
 #: inc/class-strings.php:284
 msgid "Enable categories for listings"
-msgstr "Activer les cat&eacute;gories pour les listings"
+msgstr "Engedélyezze a kategóriák listáját"
 
 #: inc/class-strings.php:285
 msgid "Multi-select Categories"
-msgstr "Multi-cochage des cat&eacute;gories"
+msgstr "Több lehetőség kategóriákon belül"
 
 #: inc/class-strings.php:286
 msgid "Enable category multiselect by default"
-msgstr "Activer le multi-cochage de cat&eacute;gories par d&eacute;faut"
+msgstr "Engedélyezze a kategóriában a több lehetőséget alapértelmezésként"
 
 #: inc/class-strings.php:287
 msgid "Category Filter Type"
-msgstr "Type de filtre pour les cat&eacute;gories"
+msgstr "Kategória szűrő típusa"
 
 #: inc/class-strings.php:288
 msgid "Account Required"
-msgstr "Un compte est requis "
+msgstr "Fiók szükséges"
 
 #: inc/class-strings.php:289
 msgid "Submitting listings requires an account"
-msgstr "Ajouter des listings n&eacute;cessite un compte"
+msgstr "Fiók létrehozásával igényelhet hirdetést"
 
 #: inc/class-strings.php:290
 msgid "Account Creation"
-msgstr "Cr&eacute;ation de compte"
+msgstr "Fiók létrehozása"
 
 #: inc/class-strings.php:291
 msgid "Allow account creation"
-msgstr "Autoriser la cr&eacute;ation de comptes"
+msgstr "Fiók létrehozásának engedélyezése"
 
 #: inc/class-strings.php:292
 msgid "Account Role"
-msgstr "R&ocirc;le du compte"
+msgstr "Fiók szerepe"
 
 #: inc/class-strings.php:293
 msgid "Approval Required"
-msgstr "Approbation requise"
+msgstr "Jóváhagyás szükséges"
 
 #: inc/class-strings.php:294
 msgid "New submissions require admin approval"
-msgstr "Les nouvelles inscriptions doivent pr&eacute;alablement &ecirc;tre approuv&eacute;es par un administrateur"
+msgstr "Az új beküldésekre az admin jóváhagyása szükséges"
 
 #: inc/class-strings.php:295
 msgid "If enabled, new submissions will be inactive, pending admin approval."
-msgstr "Si actif, les nouvelles soumissions seront inactives, en attente d&apos;approbation de l&apos;administrateur."
+msgstr "Ha engedélyezi az  új beküldés inaktív lesz, az admin jóváhagyásáig."
 
 #: inc/class-strings.php:296
 msgid "Allow Pending Edits"
-msgstr "Autoriser les modifications en attente"
+msgstr "Lehetővé teszi a függőben lévő szerkesztéseket"
 
 #: inc/class-strings.php:297
 msgid "Submissions awaiting approval can be edited"
-msgstr "Les soumissions en attente d&apos;approbation peuvent &ecirc;tre &eacute;dit&eacute;es"
+msgstr "A jóváhagyásra váró beküldéseket lehet szerkeszteni"
 
 #: inc/class-strings.php:298
 msgid "Listing Duration"
-msgstr "Dur&eacute;e d'apparition"
+msgstr "A hirdetés időtartama"
 
 #: inc/class-strings.php:299
 msgid "Contact Method"
-msgstr "M&eacute;thode de contact"
+msgstr "Kapcsolat módja"
 
 #: inc/class-strings.php:300
 msgid "Choose the contact method for listings."
-msgstr "Choisissez la méthode &acirc; de contact pour les listings."
+msgstr "Válassza ki a hirdetés kapcsolati módját."
 
 #: inc/class-strings.php:301
 msgid "Email address or website URL"
-msgstr "Adresse e-mail ou URL du site Web"
+msgstr "Email cím vagy weboldal URL"
 
 #: inc/class-strings.php:302
 msgid "Email addresses only"
-msgstr "Des adresses email uniquement"
+msgstr "Csak Email cím"
 
 #: inc/class-strings.php:303
 msgid "Website URLs only"
-msgstr "URL de site Web uniquement"
+msgstr "Csak weboldal URL"
 
 #: inc/class-strings.php:304
 msgid "Pages"
-msgstr "Pages"
+msgstr "Oldalak"
 
 #: inc/class-strings.php:305
 msgid "Settings successfully saved"
-msgstr "Param&egrave;tres sauvegard&eacute;s avec succ&egrave;s"
+msgstr "Beállítások mentése sikerült"
 
 #: inc/class-strings.php:306
 msgid "--no page--"
-msgstr "--pas de page--"
+msgstr "--nincs oldal--"
 
 #: inc/class-strings.php:307
 msgid "Select a page…"
-msgstr "S&eacute;lectionnez une page..."
+msgstr "Oldal kiválasztása ..."
 
 #: inc/class-strings.php:308
 msgid "Save Changes"
-msgstr "Enregistrer les modifications"
+msgstr "Változtatás mentése"
 
 #: inc/class-strings.php:309
 msgid "Setup"
-msgstr "Installation"
+msgstr "Beállít"
 
 #: inc/class-strings.php:310
 msgid "Skip this step"
-msgstr "Passer cette &eacute;tape"
+msgstr "Ugorja át ezt a lépést"
 
 #: inc/class-strings.php:311
 msgid "All Done!"
-msgstr "Tout est r&eacute;gl&eacute; !"
+msgstr "Minden elkészült!"
 
 #: inc/class-strings.php:312 job-filters-flat.php:32 job-filters-flat.php:33
 msgid "Location"
-msgstr "Situation"
+msgstr "Hol?"
 
 #: inc/class-strings.php:313
 msgid "e.g. \"London\""
-msgstr "Veuillez saisir une adresse"
+msgstr "pl. Kecskemét"
 
 #: inc/class-strings.php:314
 msgid "Leave this blank if the location is not important"
-msgstr "Laissez ce champ vide si l'emplacement n'est pas important"
+msgstr "Hagyja üresen, ha a hely nem fontos,"
 
 #: inc/class-strings.php:315
 msgid "URL or email which applicants use to apply"
-msgstr "URL ou email permettant aux candidats de postuler"
+msgstr "URL vagy e-mail alkalmazást használja"
 
 #: inc/class-strings.php:316
 msgid "URL to the company video"
-msgstr "URL de la vid&eacute;o de la soci&eacute;t&eacute;"
+msgstr "Cég bemutató videó URL-je"
 
 #: inc/class-strings.php:317
 msgid "Position filled?"
-msgstr "poste pourvu?"
+msgstr "Pozíció kitöltve?"
 
 #: inc/class-strings.php:318
 msgid "Feature this listing?"
-msgstr "Mettre en avant ce listing ?"
+msgstr "Jellemzi a hirdetést?"
 
 #: inc/class-strings.php:319
 msgid "yyyy-mm-dd"
-msgstr "aaaa-mm-jj"
+msgstr "Év-hónap-nap"
 
 #: inc/class-strings.php:320
 msgid "Posted by"
-msgstr "Publi&eacute; par"
+msgstr "Posztolta"
 
 #: inc/class-strings.php:321
 msgid "%s Data"
-msgstr "Donn&eacute;es de %s"
+msgstr "Dátummal"
 
 #: inc/class-strings.php:322
 msgid "Use file"
-msgstr "Utiliser un fichier"
+msgstr "Használjuk a Fájlt"
 
 #: inc/class-strings.php:323
 #: inc/integrations/wp-job-manager/class-wp-job-manager-gallery.php:362
 msgid "Upload"
-msgstr "Uploader"
+msgstr "Feltöltés"
 
 #: inc/class-strings.php:324
 msgid "Add file"
-msgstr "Ajouter un fichier"
+msgstr "Fájl hozzáadása"
 
 #: inc/class-strings.php:325
 msgid "Guest user"
-msgstr "Invit&eacute;"
+msgstr "Guest felhasználó"
 
 #: inc/class-strings.php:326
 msgid "Showing %s"
-msgstr "Pr&eacute;sentant %s"
+msgstr "Mutat %s"
 
 #: inc/class-strings.php:327
 msgid "Showing all %s"
-msgstr "R&eacute;sultats de la cat&eacute;gorie: %s"
+msgstr "Mindent mutat %s"
 
 #: inc/class-strings.php:328
 msgid "located in &ldquo;%s&rdquo;"
-msgstr "Situ&eacute; dans &ldquo;%s&rdquo;"
+msgstr "Található &ldquo;%s&rdquo;"
 
 #: inc/class-strings.php:329
 msgid "No results found"
-msgstr "Aucun r&eacute;sultat "
+msgstr "Nincs találat"
 
 #: inc/class-strings.php:330
 msgid "Query limit reached"
-msgstr "Limite de requ&ecirc;te atteinte"
+msgstr "Elérte a lekérdezési limitet"
 
 #: inc/class-strings.php:331
 msgid "Geocoding error"
-msgstr "Erreur de g&eacute;olocalisation"
+msgstr "Földrajzi kódolási hiba"
 
 #: inc/class-strings.php:332
 msgid "Employer"
-msgstr "Employeur"
+msgstr "Munkáltató"
 
 #: inc/class-strings.php:333
 msgid "Search %s"
-msgstr "Rechercher %s"
+msgstr "Keresés"
 
 #: inc/class-strings.php:334
 msgid "All %s"
-msgstr "Tous les %s"
+msgstr "Összes %s"
 
 #: inc/class-strings.php:335
 msgid "Parent %s"
-msgstr "Parent %s"
+msgstr "Szülő %s"
 
 #: inc/class-strings.php:336
 msgid "Parent %s:"
-msgstr "Parent %s:"
+msgstr "Szülő %s:"
 
 #: inc/class-strings.php:337
 msgid "Edit %s"
-msgstr "Modifier le %s"
+msgstr "Változtat %s"
 
 #: inc/class-strings.php:338
 msgid "Update %s"
-msgstr "Mettre &agrave; jour %s"
+msgstr "Frissítés %s"
 
 #: inc/class-strings.php:339
 msgid "Add New %s"
-msgstr "Ajouter un nouveau %s"
+msgstr "Új hozzáadása %s"
 
 #: inc/class-strings.php:340
 msgid "New %s Name"
-msgstr "Nouveau nom pour %s"
+msgstr "Új %s név"
 
 #: inc/class-strings.php:341
 msgid "Add New"
-msgstr "Ajouter un nouveau"
+msgstr "Új hozzáadása"
 
 #: inc/class-strings.php:342
 msgid "Add %s"
-msgstr "Confirmer"
+msgstr "Hozzáadás %s"
 
 #: inc/class-strings.php:343
 msgid "New %s"
-msgstr "Nouveau %s"
+msgstr "Új %s"
 
 #: inc/class-strings.php:344
 msgid "View %s"
-msgstr "Afficher %s"
+msgstr "Nézet %s"
 
 #: inc/class-strings.php:345 inc/class-strings.php:560
 msgid "No %s found"
-msgstr "Aucun %s trouv&eacute;(s)"
+msgstr "Nem %s talált"
 
 #: inc/class-strings.php:346
 msgid "No %s found in trash"
-msgstr "Pas de %s trouv&eacute; dans la corbeille"
+msgstr " Nem %s talált a szemétben"
 
 #: inc/class-strings.php:347
 msgid "This is where you can create and manage %s."
-msgstr "C'est ici que vous pouvez cr&eacute;er et g&eacute;r&eacute;s vos postes."
+msgstr "Ez az, ahol létrehozni és kezelni lehet %s."
 
 #: inc/class-strings.php:349
 msgid "Expired"
-msgstr "Expir&eacute;"
+msgstr "Lejárt"
 
 #: inc/class-strings.php:350
 msgid "Expired (%s)"
-msgstr "Expir&eacute; (%s)"
+msgstr " Lejárt (%s)"
 
 #: inc/class-strings.php:352
 msgid "Invalid ID"
-msgstr "ID invalide"
+msgstr "Nem megfelelő ID"
 
 #: inc/class-strings.php:353
 msgid "This position has already been filled"
-msgstr "Le poste est d&eacute;j&agrave; pourvu"
+msgstr "Ez a pozíció már fel van töltve"
 
 #: inc/class-strings.php:354
 msgid "%s has been filled"
-msgstr "%s a &eacute;t&eacute; rempli"
+msgstr "%s már kitöltve"
 
 #: inc/class-strings.php:355
 msgid "This position is not filled"
-msgstr "Cet intitul&eacute; n'a pas &eacute;t&eacute; rempli"
+msgstr "Ez a pozíció nincs kitöltve"
 
 #: inc/class-strings.php:356
 msgid "%s has been marked as not filled"
-msgstr "%s a &eacute;t&eacute; marqu&eacute; comme non rempli"
+msgstr "%s meg lett jelölve, mert nem töltötte ki"
 
 #: inc/class-strings.php:357
 msgid "%s has been deleted"
-msgstr "%s a &eacute;t&eacute; effac&eacute;"
+msgstr "%s törölve lett"
 
 #: inc/class-strings.php:359
 msgid "Date Posted"
-msgstr "Date de cr&eacute;ation"
+msgstr "A feladás dátuma"
 
 #: inc/class-strings.php:360
 msgid "Date Expires"
-msgstr "Date d'expiration"
+msgstr "Lejárat dátuma"
 
 #: inc/class-strings.php:361
 msgid "Load More %s"
-msgstr "Afficher plus de r&eacute;sultats"
+msgstr "Még több"
 
 #: inc/class-strings.php:362
 msgid "Recent %s"
-msgstr "%s récents"
+msgstr "Legutóbbi %s"
 
 #: inc/class-strings.php:363
 msgid "Keyword"
-msgstr "Mots-cl&eacute;s"
+msgstr "Keresőszó"
 
 #: inc/class-strings.php:364
 msgid "Number of listings to show"
-msgstr "Nombre de listings &agrave; afficher"
+msgstr "Hirdetések számának megmutatása"
 
 #: inc/class-strings.php:365
 msgid "Invalid listing"
-msgstr "Listing invalide"
+msgstr "Érvénytelen hirdetések"
 
 #: inc/class-strings.php:366
 msgid "Save changes"
-msgstr "Enregistrer les modifications"
+msgstr "Változások mentése"
 
 #: inc/class-strings.php:367
 msgid "Your changes have been saved."
-msgstr "Vos changements ont &eacute;t&eacute; enregistr&eacute;s."
+msgstr "A változtatások mentése megtörtént."
 
 #: inc/class-strings.php:368
 msgid "View →"
-msgstr "Afficher →"
+msgstr "Megtekintés →"
 
 #: inc/class-strings.php:369
 msgid "Submit Details"
-msgstr "Soumettre les d&eacute;tails"
+msgstr "Beküldés adatai"
 
 #: inc/class-strings.php:370 inc/class-strings.php:431
 msgid "Preview"
-msgstr "Aper&ccedil;u"
+msgstr "Megtekintés"
 
 #: inc/class-strings.php:371
 msgid "Done"
-msgstr "Fait"
+msgstr "Kész"
 
 #: inc/class-strings.php:372
 msgid "you@yourdomain.com"
-msgstr "vous@votredomaine.com"
+msgstr "info@domain.hu"
 
 #: inc/class-strings.php:373
 msgid "Application URL"
-msgstr "URL de candidature"
+msgstr "URL alkalmazása"
 
 #: inc/class-strings.php:374
 msgid "http://"
@@ -1107,40 +1096,40 @@ msgstr "http://"
 
 #: inc/class-strings.php:375
 msgid "Enter an email address or website URL"
-msgstr "Saisissez une adresse e-mail ou URL du site Web"
+msgstr "Adja meg az email címét, vagy a weboldal URL-jét"
 
 #: inc/class-strings.php:376
 #: inc/customizer/controls/class-controls-call-to-action.php:24
 msgid "Description"
-msgstr "Description"
+msgstr "Leírás"
 
 #: inc/class-strings.php:377
 msgid "Enter the name of the company"
-msgstr "Entrez le nom de la soci&eacute;t&eacute;"
+msgstr "Adja meg a cég nevét"
 
 #: inc/class-strings.php:378
 msgid "Website"
-msgstr "Site web"
+msgstr "Weboldal"
 
 #: inc/class-strings.php:379
 msgid "Tagline"
-msgstr "Slogan"
+msgstr "Toldaléksor"
 
 #: inc/class-strings.php:380
 msgid "Briefly describe your company"
-msgstr "D&eacute;crivez bri&egrav;vement votre soci&eacute;t&eacute;"
+msgstr "Röviden írja le cégét"
 
 #: inc/class-strings.php:382
 msgid "A link to a video about your company"
-msgstr "Saisissez le lien de la vid&eacute;o"
+msgstr "Linkelje be a cég bemutató videóját"
 
 #: inc/class-strings.php:383
 msgid "Twitter username"
-msgstr "Pseudo Twitter"
+msgstr " Felhasználó neve a Twitteren"
 
 #: inc/class-strings.php:384
 msgid "@yourcompany"
-msgstr "@votresoci&eacute;t&eacute;"
+msgstr "@cége"
 
 #: inc/class-strings.php:385
 msgid "Logo"
@@ -1148,423 +1137,423 @@ msgstr "Logo"
 
 #: inc/class-strings.php:386
 msgid "%s is a required field"
-msgstr "%s est un champ obligatoire"
+msgstr "%s mező kitöltése kötelező"
 
 #: inc/class-strings.php:387
 msgid "%s is invalid"
-msgstr "%s est invalide"
+msgstr "%s érvénytelen"
 
 #: inc/class-strings.php:388
 msgid "Please enter a valid contact email address"
-msgstr "Veuillez saisir une adresse email valide"
+msgstr "Adjon meg egy érvényes e-mail címet"
 
 #: inc/class-strings.php:389
 msgid "Please enter a valid application URL"
-msgstr "Veuillez saisir une URL de candidature valide"
+msgstr "Adjon meg egy érvényes URL alkalmazást"
 
 #: inc/class-strings.php:390
 msgid "Please enter a valid contact email address or URL"
-msgstr "Veuillez saisir une adresse email ou URL valide"
+msgstr "Adjon meg egy érvényes e-mail címet, vagy URL-t"
 
 #: inc/class-strings.php:391
 msgid "You must be signed in to post a new listing."
-msgstr "Vous devez &ecirc;tre connect&eacute; pour ajouter un nouveau  listing."
+msgstr "Be kell jelentkeznie, hogy megoszthassa az új hirdetést."
 
 #: inc/class-strings.php:392
 msgid "Submit Listing"
-msgstr "Confirmer"
+msgstr "Hirdetés feladása"
 
 #: inc/class-strings.php:393
 msgid "Edit listing"
-msgstr "Modifier le listing"
+msgstr "Változtatja a hirdetést"
 
 #: inc/class-strings.php:394
 msgid "\\%s\\ (filetype %s) needs to be one of the following file types: %s"
-msgstr "\"%s\" doit &ecirc;tre un des types de fichier suivants : %s"
+msgstr "\\%s\\ (fájltípus %s) az alábbi fájltípusok közt kell lennie: %s"
 
 #: inc/class-strings.php:395
 msgid "Your account"
-msgstr "Votre compte"
+msgstr "Az Ön fiókja"
 
 #: inc/class-strings.php:396
 msgid "You are currently signed in as %s."
-msgstr "Vous &ecirc;tes actuellement connect&eacute; comme &eacute;tant %s."
+msgstr "Ön jelenleg bejelentkezett a% s."
 
 #: inc/class-strings.php:397
 msgid "Sign out"
-msgstr "D&eacute;connexion"
+msgstr "Kijelentkezés"
 
 #: inc/class-strings.php:398
 msgid "Have an account?"
-msgstr "Vous avez d&eacute;j&agrave; un compte?"
+msgstr "Van már fiókja?"
 
 #: inc/class-strings.php:399
 msgid "Sign in"
-msgstr "Se connecter"
+msgstr "Bejelentkezés"
 
 #: inc/class-strings.php:400
 msgid "optionally"
-msgstr "optionnel"
+msgstr "opcionálisan"
 
 #: inc/class-strings.php:401
 msgid "You must sign in to create a new listing."
-msgstr "Vous devez vous connecter pour ajouter un nouveau listing."
+msgstr "Bejelentkezés szükséges a hirdetés létrehozásához."
 
 #: inc/class-strings.php:402
 msgid "Your email"
-msgstr "Votre e-mail"
+msgstr "Email címe"
 
 #: inc/class-strings.php:403
 msgid "(optional)"
-msgstr "(optionnel)"
+msgstr "nem kötelező"
 
 #: inc/class-strings.php:404 inc/template-tags.php:265
 msgid "%s ago"
-msgstr "Il y a %s"
+msgstr "%s óta"
 
 #: inc/class-strings.php:405
 msgid "No more results found."
-msgstr "Aucun r&eacute;sultat trouv&eacute;"
+msgstr "Nincs több találat."
 
 #: inc/class-strings.php:406
 msgid "Posted %s ago"
-msgstr "Publi&eacute; il y a %s"
+msgstr "Közzétéve %s óta"
 
 #: inc/class-strings.php:407
 msgid "This position has been filled"
-msgstr "Cet intitul&eacute; a &eacute;t&eacute; rempli"
+msgstr "Ez a pozíció kitöltve"
 
 #: inc/class-strings.php:408
 msgid "This listing has expired"
-msgstr "Ce listing a expir&eacute;"
+msgstr "Ez a hirdetés lejárt"
 
 #: inc/class-strings.php:409
 msgid "remove"
-msgstr "Supprimer"
+msgstr "eltávolít"
 
 #: inc/class-strings.php:410
 msgid "or"
-msgstr "ou"
+msgstr "vagy"
 
 #: inc/class-strings.php:411
 msgid "Maximum file size: %s."
-msgstr "Taille maximale du fichier: %s."
+msgstr "Maximum file méret: %s"
 
 #: inc/class-strings.php:412
 msgid "Apply using webmail:"
-msgstr "Postuler par webmail:"
+msgstr "Alkalmazza a webmailt:"
 
 #: inc/class-strings.php:413
 msgid ""
 "To contact this listing owner please visit the following URL: <a "
 "href=\\\"%1$s\\\" target=\\\"_blank\\\">%1$s %rarr;</a>"
-msgstr "Pour contacter le propri&eacute;taire/g&eacute;rant, veuillez cliquer sur ce lien: <a href=\\\"%1$s\\\" target=\\\"_blank\\\">%1$s %rarr;</a>"
+msgstr "Ha kapcsolatba szeretne lépni a hirdetés tulajdonosával látogasson el a következő URL-re: <a href=\\\"%1$s\\\" target=\\\"_blank\\\">% 1 $ s% rarr; </a>"
 
 #: inc/class-strings.php:416
 msgid "Contact %s"
-msgstr "Contacter %s"
+msgstr "Kapcsolat %s"
 
 #: inc/class-strings.php:420
 msgid "You need to be signed in to manage your listings."
-msgstr "Vous devez &ecirc;tre connect&eacute; pour g&eacute;rer vos  listings."
+msgstr "Be kell bejelentkeznie, hogy kezelje a hirdetést."
 
 #: inc/class-strings.php:421
 msgid "You do not have any active listings."
-msgstr "Vous n'avez aucun listing active."
+msgstr "Önnek nincs aktív hirdetése."
 
 #: inc/class-strings.php:422
 msgid "Mark not filled"
-msgstr "Marquer comme non pourvu"
+msgstr "A márkát nem töltötte ki"
 
 #: inc/class-strings.php:423
 msgid "Mark filled"
-msgstr "Marquer comme pourvu"
+msgstr "A márka kitöltve"
 
 #: inc/class-strings.php:424
 msgid "Relist"
-msgstr "Relister"
+msgstr "Újra listázva"
 
 #: inc/class-strings.php:425 job-filters-flat.php:27 job-filters-flat.php:28
 msgid "Keywords"
-msgstr "Mots-cl&eacute;s"
+msgstr "Keresés"
 
 #: inc/class-strings.php:426 job-filters-flat.php:37
 msgid "Category"
-msgstr "Cat&eacute;gorie"
+msgstr "Kategóriák"
 
 #: inc/class-strings.php:427 job-filters-flat.php:38
 msgid "Any category"
-msgstr "Toutes les cat&eacute;gories"
+msgstr "Minden kategória"
 
 #: inc/class-strings.php:428
 msgid "Company Details"
-msgstr "D&eacute;tails de la soci&eacute;t&eacute;"
+msgstr "Cég adatok"
 
 #: inc/class-strings.php:429
 msgid "%s submitted successfully. Your listing will be visible once approved."
-msgstr "%s Ajout&eacute; avec succ&egrave;s. Votre listing sera visible une fois approuv&eacute;."
+msgstr "%s sikeresen elküldve. Adatai láthatóak lesznek a jóváhagyása után."
 
 #: inc/class-strings.php:430
 msgid "Draft"
-msgstr "Brouillon"
+msgstr "Vázlat"
 
 #: inc/class-strings.php:432
 msgid "Pending approval"
-msgstr "En attente d'approbation"
+msgstr "Elbírálás alatt"
 
 #: inc/class-strings.php:433
 msgid "Pending payment"
-msgstr "Paiement en attente"
+msgstr "A kifizetés függőben"
 
 #: inc/class-strings.php:434 inc/class-tgm-plugin-activation.php:2168
 msgid "Active"
-msgstr "Active"
+msgstr "Aktív"
 
 #: inc/class-strings.php:435
 #: inc/integrations/facetwp/includes/proximity.php:48
 msgid "Reset"
-msgstr "R&eacute;initialiser"
+msgstr "Újrakezd"
 
 #: inc/class-strings.php:436
 msgid "RSS"
-msgstr "RSS"
+msgstr "RRS"
 
 #: inc/class-strings.php:437
 msgid "Your email address isn’t correct."
-msgstr "Votre adresse email n'est pas valide."
+msgstr "Email címe nem helyes."
 
 #: inc/class-strings.php:438
 msgid "This email is already registered, please choose another one."
-msgstr "Cette adresse email est d&eacute;j&agrav; utilis&eacute;e, merci d&apos;en utiliser une autre."
+msgstr "Ez az email már regisztrálva van, válasszon másikat."
 
 #: inc/class-strings.php:439
 msgid "Choose a category&hellip;"
-msgstr "Choisissez une cat&eacute;gorie&hellip;"
+msgstr "Válasszon kategóriát&hellip;"
 
 #: inc/class-strings.php:440
 msgid "Inactive"
-msgstr "inactif"
+msgstr "Inaktív"
 
 #: inc/class-strings.php:441
 msgid "Application via \\%s\\ listing on %s"
-msgstr "Candidature au poste de \"%s\" paru sur le site %s"
+msgstr "Alkalmazás segítségével \\%s\\ felsorolja %s"
 
 #: inc/class-strings.php:442
 msgid "Anywhere"
-msgstr "N'importe o&ugrave;"
+msgstr "Bárhol"
 
 #: inc/class-strings.php:443
 msgid "Are you sure you want to delete this listing?"
-msgstr "&Ecirc;tes-vous s&ucirc;r de vouloir supprimer ce listing?"
+msgstr "Biztosan törölni szeretné ezt a hirdetést?"
 
 #: inc/class-strings.php:444
 msgid ""
 "Your listings are shown in the table below. Expired listings will be "
 "automatically removed after 30 days."
-msgstr "Vos listings sont list&eacute;s dans le tableau ci-dessous. Les listings expir&eacute;s seront retir&eacute;s apr&egrave;s 30 jours."
+msgstr "Az Ön hirdetései alábbi táblázatban látható. Lejárt hirdetések automatikusan törlődnek 30 nap után."
 
 #: inc/class-strings.php:445
 msgid ""
 "If you don&rsquo;t have an account you can %screate one below by entering "
 "your email address. A password will be automatically emailed to you."
-msgstr "Si vous n'avez pas encore de compte, vous avez la possibilit&eacute; d'en cr&eacute;er un en saisissant votre adresse mail. Un mot de passe va &ecirc;tre g&eacute;n&eacute;r&eacute; et envoy&eacute; automatiquement par email."
+msgstr "Ha nem tud belépni a fiókjába a jelszót automatikusan elküldjük Önnek."
 
 #: inc/class-strings.php:446
 msgid ""
 "To contact this listing owner please visit the following URL: <a "
 "href=\"%1$s\" target=\"_blank\">%1$s &rarr;</a>"
-msgstr "Pour contacter le propri&eacute;taire/g&eacute;rant, veuillez suivre le lien suivant: <a href=\\\"%1$s\\\" target=\\\"_blank\\\">%1$s &rarr;</a>"
+msgstr "A hirdetés tulajdonosának elérhetőségeihez, kérem látogasson el a következő URL: <a href=\"%1$s\" target=\"_blank\">%1$s &rarr;</a>"
 
 #: inc/class-strings.php:447
 msgid ""
 "To contact this listing <strong>email your details to</strong> <a "
 "class=\"job_application_email\" href=\"mailto:%1$s%2$s\">%1$s</a>"
-msgstr "Pour contacter le propri&eacute;taire/g&eacute;rant, veuillez envoyer un email &agrave; l'adresse suivante:<a class=\"job_application_email\" href=\"mailto:%1$s%2$s\">%1$s</a>"
+msgstr "A hirdetés elérhetősége <strong>küldjön e-mailt az adataival</strong> <a class=\"job_application_email\" href=\"mailto:%1$s%2$s\">%1$s</a>"
 
 #: inc/class-strings.php:451 inc/class-strings.php:455
 msgid "%s Tags"
-msgstr "Mots-cl&eacute;s"
+msgstr "%s Címkék"
 
 #: inc/class-strings.php:459
 msgid "%s-tag"
-msgstr "%s-mot-cle"
+msgstr "%s-címke"
 
 #: inc/class-strings.php:463
 msgid ""
 "Choose some tags, such as required skills available features, for this "
 "listing."
-msgstr "S&eacute;lectionner les Mots-Cl&eacute;s qui correspondent &agrave; votre activit&eacute;: exemple: H&ocirc;tel 5 &eacute;toiles, wifi gratuit..."
+msgstr "Válasszon címkéket, mint  tulajdonságok, melyek jellemzőek hirdetésére."
 
 #: inc/class-strings.php:464
 msgid "Filter by tag:"
-msgstr "Filtrer les r&eacute;sultats:"
+msgstr "Szűrés címkék szerint:"
 
 #: inc/class-strings.php:465
 msgid "tagged"
-msgstr "Avec:"
+msgstr "címkézett"
 
 #: inc/class-strings.php:466
 msgid "Listings will be shown if within ALL chosen tags"
-msgstr "Les listes seront affichés si tous les tags ont été choisis"
+msgstr "Hirdetésnél látható lesz minden kiválasztott címke"
 
 #: inc/class-strings.php:467
 msgid "Listings will be shown if within ANY chosen tags"
-msgstr "Les listes seront affichés si aucun  tags n'est choisis"
+msgstr "Hirdetésnél látható lesz bármelyik kiválasztott címke"
 
 #: inc/class-strings.php:470
 msgid "Maximum %s Tags"
-msgstr "%s Mots-cl&eacute;s maximum"
+msgstr "Maximum %s címke"
 
 #: inc/class-strings.php:476
 msgid "%s Regions"
-msgstr "Emplacements"
+msgstr "%s Megye"
 
 #: inc/class-strings.php:480 inc/class-strings.php:572
 msgid "%s Region"
-msgstr "Emplacement"
+msgstr "%s Megye"
 
 #: inc/class-strings.php:484
 msgid "%s-region"
-msgstr "%s-emplacement"
+msgstr "%s-megye"
 
 #: inc/class-strings.php:488
 msgid "Display a list of %s regions."
-msgstr "Afficher une liste de %s emplacements."
+msgstr "Jelenítsen meg egy listát %s megyék szerint."
 
 #: inc/class-strings.php:493
 msgid "Choose a package before entering %s details"
-msgstr "Choisir le forfait avant l'inscription"
+msgstr "Válasszon egy csomagot belépés előtt %s részletek"
 
 #: inc/class-strings.php:494
 msgid "Choose a package after entering %s details"
-msgstr "Choisir le forfait apr&egrave;s l'inscription"
+msgstr "Válasszon egy csomagot belépés után %s részletek"
 
 #: inc/class-strings.php:495
 msgid "Choose a package"
-msgstr "Nos formules"
+msgstr "Válasszon csomagot"
 
 #: inc/class-strings.php:496
 msgid "Purchase Package:"
-msgstr "Choisissez une formule"
+msgstr "Csomag vásárlás"
 
 #: inc/class-strings.php:497
 msgid "Listing Details &rarr;"
-msgstr "Continuer &rarr;"
+msgstr "Hirdetési adatok &rarr;"
 
 #: inc/class-strings.php:499
 msgid "%s listing posted out of %d"
-msgstr "%s listing post&eacute; sur %d"
+msgstr "%s Hirdetés közzététele %d"
 
 #: inc/class-strings.php:500
 msgid "%s listings posted out of %d"
-msgstr "%s listings publi&eacute;s sur %d"
+msgstr "%s Hirdetések közzététele %d"
 
 #: inc/class-strings.php:503
 msgid "%s listing posted"
-msgstr "%s &eacute;tablissement post&eacute;"
+msgstr "%s kiküldött hirdetés"
 
 #: inc/class-strings.php:504
 msgid "%s listings posted"
-msgstr "%s &eacute;tablissements post&eacute;s"
+msgstr "%s kiküldött hirdetések"
 
 #: inc/class-strings.php:507
 msgid "%s for %s listing"
-msgstr "%s pour %s listing"
+msgstr "%s fel %s vettük"
 
 #: inc/class-strings.php:508
 msgid "%s for %s listings"
-msgstr "%s pour %s listings"
+msgstr "%s fel %s vettük"
 
 #: inc/class-strings.php:511
 msgid "%s Package"
-msgstr "%s Forfait"
+msgstr "%s Csomag"
 
 #: inc/class-strings.php:515
 msgid "%s Package Subscription"
-msgstr "%s Plan d'abonnement"
+msgstr "%s Csomag leírása"
 
 #: inc/class-strings.php:519
 msgid "%s Listing"
-msgstr "%s Listing"
+msgstr "%s Hirdetés"
 
 #: inc/class-strings.php:523
 msgid "%s limit"
-msgstr "Nombre de %s"
+msgstr "%s limit"
 
 #: inc/class-strings.php:527
 msgid "%s duration"
-msgstr "%s dur&eacute;e"
+msgstr "%s időtartam"
 
 #: inc/class-strings.php:531
 msgid "The number of days that the %s will be active"
-msgstr "Nombre de jours avant l'expiration de l'abonnement"
+msgstr "Ön %s napig aktív"
 
 #: inc/class-strings.php:535
 msgid "Feature %s?"
-msgstr "Mettre en avant %s?"
+msgstr "Jellemzők %s?"
 
 #: inc/class-strings.php:539
 msgid "Feature this %s -- it will be styled differently and sticky."
-msgstr "Mise en avant du %s -- La mise en avant garantit une visibilit&eacute; optimale et multiplie le taux de consultation."
+msgstr "Jellemzi ezt %s - akkor  más stílusú lesz és maradandó."
 
 #: inc/class-strings.php:543
 msgid "My %s Packages"
-msgstr "Mes %s Offres"
+msgstr "Én %s csomagom"
 
 #: inc/class-strings.php:547
 msgid "%s Remaining"
-msgstr "%s restants"
+msgstr "%s Fennmaradó"
 
 #: inc/class-strings.php:552
 msgid "#%d Payment Update"
-msgstr "#%d Mise &agrave; jour de paiement"
+msgstr "#%d Fizetés frissítése"
 
 #: inc/class-strings.php:555
 msgid "Results for your \"%s\" alert:"
-msgstr "R&eacute;sultats de vos alertes pour \"%s\":"
+msgstr "Találatok a \"%s\" értesítése:"
 
 #: inc/class-strings.php:556
 msgid "Results Matching \"%s"
-msgstr "Les r&eacute;sultats correspondant aux \"%s\""
+msgstr "Megfelelő találatok \"%s"
 
 #: inc/class-strings.php:557
 msgid ""
 "No results were found matching your search. Login to your account to change "
 "your alert criteria"
-msgstr "D&eacute;sol&eacute;, aucun r&eacute;sultat ne correspond &agrave; vos crit&egrave;res de recherche. Connectez-vous pour modifier vos alertes"
+msgstr "Nincs megfelelő találat a keresésére. Jelentkezzen be a fiókjába, hogy megváltoztassa a értesítési kritériumokat"
 
 #: inc/class-strings.php:558
 msgid "This alert will automatically stop sending after %s."
-msgstr "Les alertes seront automatiquement d&eacute;sactiv&eacute;es apr&egrave;s %s."
+msgstr "Ez az értesítés automatikusan leáll küldését követően %s."
 
 #: inc/class-strings.php:564
 msgid "Optionally add a keyword to match %s against"
-msgstr " Ajoutez &eacute;ventuellement des mots-cl&eacute;s pour correspondance %s avec"
+msgstr "Esetleg adjon egy kulcsszót, hogy megfeleljen %s szemben"
 
 #: inc/class-strings.php:576
 msgid "Any %s type"
-msgstr "Tout type de %s"
+msgstr "Mind a %s típus"
 
 #: inc/class-strings.php:580
 msgid "%s Type:"
-msgstr "%s Type:"
+msgstr "%s Típus"
 
 #: inc/class-strings.php:583
 msgid ""
 "Your alerts are shown in the table below. The alerts will be sent to %s."
-msgstr "Retrouvez toutes vos alertes dans le tableau ci-dessous. Les alertes seront envoy&eacute;es &agrave; %s."
+msgstr "Értesítések jelennek meg alábbi táblázatban. A riasztásokat küldjük %s."
 
 #: inc/class-strings.php:584
 msgid "Alert me of %s like this"
-msgstr " Envoyez-moi des alertes comme %s"
+msgstr "Értesítést kérek %s, mint ez"
 
 #: inc/class-tgm-plugin-activation.php:301
 msgid "Install Required Plugins"
-msgstr "Installation des plugins requis"
+msgstr "Szükséges telepíteni a bővítményeket"
 
 #: inc/class-tgm-plugin-activation.php:303
 msgid "Installing Plugin: %s"
-msgstr "Installation du plugin: %s"
+msgstr "Bővítmények telepítése: %s"
 
 #: inc/class-tgm-plugin-activation.php:304
 msgid "Something went wrong with the plugin API."
@@ -1573,14 +1562,14 @@ msgstr ""
 #: inc/class-tgm-plugin-activation.php:305
 msgid "This theme requires the following plugin: %1$s."
 msgid_plural "This theme requires the following plugins: %1$s."
-msgstr[0] "Ce th&egrave;me n&eacute;cessite le plugin suivant: %1$s."
-msgstr[1] "Ce th&egrave;me n&eacute;cessite les plugins suivants: %1$s."
+msgstr[0] "A sablon a következő bővítményeket igényli: %1$s."
+msgstr[1] "A sablon a következő bővítményeket igényli: %1$s."
 
 #: inc/class-tgm-plugin-activation.php:310
 msgid "This theme recommends the following plugin: %1$s."
 msgid_plural "This theme recommends the following plugins: %1$s."
-msgstr[0] "Ce th&egrave;me recommande le plugins suivant: %1$s.: %1$s."
-msgstr[1] "Ce th&egrave;me recommande les plugins suivants: %1$s."
+msgstr[0] "A sablon a következő bővítményeket ajánlja: %1$s."
+msgstr[1] "A sablon a következő bővítményeket ajánlja: %1$s."
 
 #: inc/class-tgm-plugin-activation.php:315
 msgid ""
@@ -1599,8 +1588,8 @@ msgid ""
 msgid_plural ""
 "The following plugins need to be updated to their latest version to ensure "
 "maximum compatibility with this theme: %1$s."
-msgstr[0] "Le plugin suivant doit &ecirc;tre mis &agrave; jour afin d'assurer une compatibilit&eacute; maximale avec ce th&egrave;me:%1$s."
-msgstr[1] "Les plugins suivants doivent &ecirc;tre mis &agrave; jour afin d'assurer une compatibilit&eacute; maximale avec ce th&egrave;me:%1$s"
+msgstr[0] "A következő bővítményt frissíteni kell, hogy a legújabb változattal  a maximális kompatibilitás érdekében segítse a sablon működését: %1$s."
+msgstr[1] "A következő bővítményt frissíteni kell, hogy a legújabb változattal  a maximális kompatibilitás érdekében segítse a sablon működését: %1$s."
 
 #: inc/class-tgm-plugin-activation.php:325
 msgid "There is an update available for: %1$s."
@@ -1621,14 +1610,14 @@ msgstr[1] ""
 #: inc/class-tgm-plugin-activation.php:335
 msgid "The following required plugin is currently inactive: %1$s."
 msgid_plural "The following required plugins are currently inactive: %1$s."
-msgstr[0] "Le plugin requis:%1$s est inactif"
-msgstr[1] "Les plugins requis %1$s sont inactifs"
+msgstr[0] "A következő kötelező bővítmények jelenleg inaktívak: %1$s."
+msgstr[1] "A következő kötelező bővítmények jelenleg inaktívak: %1$s."
 
 #: inc/class-tgm-plugin-activation.php:340
 msgid "The following recommended plugin is currently inactive: %1$s."
 msgid_plural "The following recommended plugins are currently inactive: %1$s."
-msgstr[0] "Le plugin recommandé: %1$s est inactif"
-msgstr[1] "Les plugins recommand&eacute;s: %1$s sont inactifs"
+msgstr[0] "A következő ajánlott bővítmény jelenleg inaktív: %1$s."
+msgstr[1] "A következő ajánlott bővítmény jelenleg inaktív: %1$s."
 
 #: inc/class-tgm-plugin-activation.php:345
 msgid ""
@@ -1643,8 +1632,8 @@ msgstr[1] ""
 #: inc/class-tgm-plugin-activation.php:350
 msgid "Begin installing plugin"
 msgid_plural "Begin installing plugins"
-msgstr[0] "Commencer l'installation du plugin"
-msgstr[1] "Commencer l'installation des plugins"
+msgstr[0] "Kezdje a bővítmények aktiválását"
+msgstr[1] "Kezdje a bővítmények telepítését"
 
 #: inc/class-tgm-plugin-activation.php:355
 msgid "Begin updating plugin"
@@ -1655,26 +1644,26 @@ msgstr[1] ""
 #: inc/class-tgm-plugin-activation.php:360
 msgid "Begin activating plugin"
 msgid_plural "Begin activating plugins"
-msgstr[0] "Commencer l'activation du plugin"
-msgstr[1] "Commencer l'activation des plugins"
+msgstr[0] "kezdje a bővítmény aktiválását"
+msgstr[1] "Kezdje a bővítmény aktiválását"
 
 #: inc/class-tgm-plugin-activation.php:365
 msgid "Return to Required Plugins Installer"
-msgstr "Retour &agrave; l'installateur de plugins requis"
+msgstr "Vissza a kötelező bővítmény telepítéséhez"
 
 #: inc/class-tgm-plugin-activation.php:366
 msgid "Return to the dashboard"
-msgstr "Retour au tableau de bord"
+msgstr "Vissza a kezelőpultra"
 
 #: inc/class-tgm-plugin-activation.php:367
 #: inc/class-tgm-plugin-activation.php:2957
 msgid "Plugin activated successfully."
-msgstr "Plugin install&eacute; avec succ&egrave;s."
+msgstr "A bővítmény sikeresen aktiválva."
 
 #: inc/class-tgm-plugin-activation.php:368
 #: inc/class-tgm-plugin-activation.php:2785
 msgid "The following plugin was activated successfully:"
-msgstr "Le plugin suivant a bien &eacute;t&eacute; activ&eacute;:"
+msgstr "Az alábbi bővítmény sikeresen aktiválta:"
 
 #: inc/class-tgm-plugin-activation.php:369
 msgid "No action taken. Plugin %1$s was already active."
@@ -1688,11 +1677,11 @@ msgstr ""
 
 #: inc/class-tgm-plugin-activation.php:371
 msgid "All plugins installed and activated successfully. %1$s"
-msgstr "Tous les plugins ont &eacute;t&eacute; install&eacute;s et activ&eacute;s avec succ&egrave;s. %1$s"
+msgstr "Minden bővítményt sikeresen telepítette és aktiválta. %1$s"
 
 #: inc/class-tgm-plugin-activation.php:372
 msgid "Dismiss this notice"
-msgstr "Ignorer ce message"
+msgstr "Utasítsa el ezt az értesítést"
 
 #: inc/class-tgm-plugin-activation.php:373
 msgid "Please contact the administrator of this site for help."
@@ -1713,7 +1702,7 @@ msgstr ""
 #: inc/class-tgm-plugin-activation.php:796
 #: inc/class-tgm-plugin-activation.php:3362
 msgid "Return to the Dashboard"
-msgstr "Retour au tableau de bord"
+msgstr "Vissza a kezelőfelületre "
 
 #: inc/class-tgm-plugin-activation.php:903
 msgid ""
@@ -1736,15 +1725,15 @@ msgstr ""
 
 #: inc/class-tgm-plugin-activation.php:2120
 msgid "Required"
-msgstr "Requis"
+msgstr "Kötelező"
 
 #: inc/class-tgm-plugin-activation.php:2123
 msgid "Recommended"
-msgstr "Recommand&eacute;"
+msgstr "Javasolt"
 
 #: inc/class-tgm-plugin-activation.php:2139
 msgid "WordPress Repository"
-msgstr "WordPress Repository"
+msgstr "WordPress adattár"
 
 #: inc/class-tgm-plugin-activation.php:2142
 msgid "External Source"
@@ -1752,15 +1741,15 @@ msgstr ""
 
 #: inc/class-tgm-plugin-activation.php:2145
 msgid "Pre-Packaged"
-msgstr "Pre-Packag&eacute;"
+msgstr "Pre-Packaged"
 
 #: inc/class-tgm-plugin-activation.php:2162
 msgid "Not Installed"
-msgstr "Non install&eacute;"
+msgstr "Nincs telepítve"
 
 #: inc/class-tgm-plugin-activation.php:2166
 msgid "Installed But Not Activated"
-msgstr "Install&eacute; mais pas activ&eacute;"
+msgstr "Telepített, de nem aktív"
 
 #: inc/class-tgm-plugin-activation.php:2174
 msgid "Required Update not Available"
@@ -1812,11 +1801,11 @@ msgstr ""
 
 #: inc/class-tgm-plugin-activation.php:2389
 msgid "Plugin"
-msgstr "Plugin"
+msgstr "Bővítmény"
 
 #: inc/class-tgm-plugin-activation.php:2390
 msgid "Source"
-msgstr "Source"
+msgstr "Forrás"
 
 #: inc/class-tgm-plugin-activation.php:2395
 msgid "Version"
@@ -1828,7 +1817,7 @@ msgstr ""
 
 #: inc/class-tgm-plugin-activation.php:2556
 msgid "Install"
-msgstr "Installer"
+msgstr "Telepítés"
 
 #: inc/class-tgm-plugin-activation.php:2562
 msgid "Update"
@@ -1836,7 +1825,7 @@ msgstr ""
 
 #: inc/class-tgm-plugin-activation.php:2565
 msgid "Activate"
-msgstr "Activer"
+msgstr "Aktív"
 
 #: inc/class-tgm-plugin-activation.php:2596
 msgid "No plugins were selected to be installed. No action taken."
@@ -1864,7 +1853,7 @@ msgstr ""
 
 #: inc/class-tgm-plugin-activation.php:2956
 msgid "Plugin activation failed."
-msgstr "L'activation du plugin a &eacute;chou&eacute;."
+msgstr "Bővítmény aktiválása nem sikerült."
 
 #: inc/class-tgm-plugin-activation.php:3286
 msgid "Updating Plugin %1$s (%2$d/%3$d)"
@@ -1872,317 +1861,317 @@ msgstr ""
 
 #: inc/class-tgm-plugin-activation.php:3288
 msgid "An error occurred while installing %1$s: <strong>%2$s</strong>."
-msgstr "Une erreur est apparue lors de l'installation de: %1$s: <strong>%2$s</strong>."
+msgstr "Hiba történt a telepítéskor %1$s: <strong>%2$s</strong>."
 
 #: inc/class-tgm-plugin-activation.php:3289
 msgid "The installation of %1$s failed."
-msgstr "L'installation de %1$s a &eacute;chou&eacute;."
+msgstr "A telepítés %1$s nem sikerült."
 
 #: inc/class-tgm-plugin-activation.php:3293
 msgid ""
 "The installation and activation process is starting. This process may take a"
 " while on some hosts, so please be patient."
-msgstr "D&eacute;marrage de l'installation et de l'activation. Son d&eacute;roulement, selon l'h&ocirc;te, peut prendre un certain temps. Veuillez patienter..."
+msgstr "A telepítés és aktiválás folyamata elkezdődött. Ez a folyamat eltarthat egy darabig ezért kérjük, legyen türelemmel."
 
 #: inc/class-tgm-plugin-activation.php:3294
 msgid "%1$s installed and activated successfully."
-msgstr "%1$s a bien &eacute;t&eacute; install&eacute; et activ&eacute;."
+msgstr "%1$s A telepítés és aktiválás sikerült."
 
 #: inc/class-tgm-plugin-activation.php:3294
 #: inc/class-tgm-plugin-activation.php:3300
 msgid "Show Details"
-msgstr "Afficher les d&eacute;tails"
+msgstr "Mutasd a részleteket"
 
 #: inc/class-tgm-plugin-activation.php:3294
 #: inc/class-tgm-plugin-activation.php:3300
 msgid "Hide Details"
-msgstr "Cacher les d&eacute;tails"
+msgstr "Részletek elrejtése"
 
 #: inc/class-tgm-plugin-activation.php:3295
 msgid "All installations and activations have been completed."
-msgstr "Toutes les installations et activations ont &eacute;t&eacute; effectu&eacute;es."
+msgstr "Minden telepítés és aktiválás befejeződött."
 
 #: inc/class-tgm-plugin-activation.php:3296
 msgid "Installing and Activating Plugin %1$s (%2$d/%3$d)"
-msgstr "Installation et activation du plugin %1$s (%2$d/%3$d)"
+msgstr "A bővítmény telepítése és aktiválása  %1$s (%2$d/%3$d)"
 
 #: inc/class-tgm-plugin-activation.php:3299
 msgid ""
 "The installation process is starting. This process may take a while on some "
 "hosts, so please be patient."
-msgstr "D&eacute;marrage de l'installation. Son d&eacute;roulement, selon l'h&ocirc;te, peut prendre un certain temps. Veuillez patienter..."
+msgstr "A telepítési folyamat elindul. Ez a folyamat eltarthat egy darabig, ezért kérjük, legyen türelemmel."
 
 #: inc/class-tgm-plugin-activation.php:3300
 msgid "%1$s installed successfully."
-msgstr "%1$s a bien &eacute;t&eacute; install&eacute;."
+msgstr "%1$s telepítése sikeresen befejeződött"
 
 #: inc/class-tgm-plugin-activation.php:3301
 msgid "All installations have been completed."
-msgstr "Toutes les installations sont termin&eacute;es."
+msgstr "Az összes telepítés elkészült"
 
 #: inc/class-tgm-plugin-activation.php:3302
 msgid "Installing Plugin %1$s (%2$d/%3$d)"
-msgstr "Installation du plugin %1$s (%2$d/%3$d)"
+msgstr "Bővítmény telepítése %1$s (%2$d/%3$d)"
 
 #: inc/class-widget.php:242 inc/widgets/class-widget-home-features.php:64
 msgid "Choose Image"
-msgstr "Choisissez une image"
+msgstr "Válasszon képet"
 
 #: inc/class-widgetized-pages.php:23
 msgid "Page: %s"
-msgstr "Page: %s"
+msgstr "Oldal: %s"
 
 #: inc/class-widgetized-pages.php:24
 msgid "Widgets that appear on the \"%s\" page."
-msgstr "Widgets qui apparaissent sur la page \"%s\"."
+msgstr "A widgetek megjelennek a \"%s\" oldalon."
 
 #: inc/customizer/class-customizer-panels.php:16
 msgid "General"
-msgstr "G&eacute;n&eacute;ral"
+msgstr "Általános"
 
 #: inc/customizer/class-customizer-panels.php:20
 msgid "Appearance"
-msgstr "Apparence"
+msgstr "Megjelenés"
 
 #: inc/customizer/class-customizer-panels.php:23
 msgid "Colors & Scheme"
-msgstr "Mod&egrave;le de couleurs"
+msgstr "Színek & sémák"
 
 #: inc/customizer/class-customizer-panels.php:24
 msgid ""
 "Choose a color scheme and continue to\n"
 "\t\t\t\t\t\tcustomize based on your brand. Certain schemes use the\n"
 "\t\t\t\t\t\tcolors differently so be sure to experiment!"
-msgstr "S&eacute;lectionner un modele de couleur, personnaliser votre site en fonction de vos besoins."
+msgstr "Válasszon egy színsémát, és továbbra is\n⇥⇥⇥⇥⇥⇥testreszabhatja a márka  alapján. Egyes rendszerek használata a\n⇥⇥⇥⇥⇥⇥színeket másképp mutatja, így biztosabb kísérletezni!"
 
 #: inc/customizer/class-customizer-panels.php:29
 msgid "Menus & Navigation"
-msgstr "Menus & Navigation"
+msgstr "Menük & Navigáció"
 
 #: inc/customizer/class-customizer-panels.php:32
 msgid "Header & Logo"
-msgstr "En-t&ecirc;te &amp; Logo"
+msgstr "Fejléc & logó"
 
 #: inc/customizer/class-customizer-panels.php:37
 msgid "Footer Area"
-msgstr "Pied de page"
+msgstr "Lábléc területe"
 
 #: inc/customizer/class-customizer-panels.php:40
 msgid "Call to Action"
-msgstr "Appel &agrave; l'action"
+msgstr "Cselekedjen"
 
 #: inc/customizer/class-customizer-panels.php:43
 msgid "As Seen On"
-msgstr "On parle de nous"
+msgstr "Partnereink"
 
 #: inc/customizer/class-customizer-panels.php:46
 msgid "Copyright"
-msgstr "Copyright"
+msgstr "Másolás"
 
 #: inc/customizer/class-customizer-panels.php:111
 msgid "Homepage Display"
-msgstr "Affichage de la page d&apos;accueil"
+msgstr "Főoldal megjelenítés"
 
 #: inc/customizer/controls/class-controls-as-seen-on.php:20
 msgid "Logos"
-msgstr "Logos"
+msgstr "Logók"
 
 #: inc/customizer/controls/class-controls-call-to-action.php:17
 msgid "Display this section"
-msgstr "Afficher cette section"
+msgstr "Ezt a részt megjeleníteni"
 
 #: inc/customizer/controls/class-controls-call-to-action.php:28
 msgid "Button Label"
-msgstr "Nom du bouton"
+msgstr "Button Label"
 
 #: inc/customizer/controls/class-controls-call-to-action.php:31
 msgid "Button Link"
-msgstr "Lien du bouton"
+msgstr "Button Link "
 
 #: inc/customizer/controls/class-controls-call-to-action.php:34
 msgid "Button Subtext"
-msgstr "Sous-titre du bouton"
+msgstr "Button Subtext"
 
 #: inc/customizer/controls/class-controls-colors.php:23
 #: inc/integrations/wp-job-manager/map/customizer/class-customizer-controls-map-appearance.php:19
 msgid "Color Scheme"
-msgstr "Mod&egrave;le de couleurs"
+msgstr "Színösszeállítás"
 
 #: inc/customizer/controls/class-controls-colors.php:29
 msgid "Header Background Color"
-msgstr "Couleur de fond de l&apos;en-tecirc;te"
+msgstr "Fejléc háttér színe"
 
 #: inc/customizer/controls/class-controls-colors.php:33
 msgid "Navigation Text Color"
-msgstr "Couleur du texte du menu"
+msgstr "Menügombok színe"
 
 #: inc/customizer/controls/class-controls-colors.php:37
 msgid "Link Text Color"
-msgstr "Couleur du lien"
+msgstr "Linkelt szöveg színe"
 
 #: inc/customizer/controls/class-controls-colors.php:41
 msgid "Body Text Color"
-msgstr "Couleur du texte"
+msgstr "Body Text színe"
 
 #: inc/customizer/controls/class-controls-colors.php:45
 msgid "Primary Color"
-msgstr "Couleur principale"
+msgstr "Alapszín"
 
 #: inc/customizer/controls/class-controls-colors.php:49
 msgid "Accent Color"
-msgstr "Couleur d'accent"
+msgstr "Kiemelőszín"
 
 #: inc/customizer/controls/class-controls-colors.php:53
 msgid "\"As Seen On\" Background Color"
-msgstr "Couleur d'arri&egrave;re-plan \"On parle de nous\""
+msgstr "\"Partnereink\"  háttérszíne"
 
 #: inc/customizer/controls/class-controls-colors.php:57
 msgid "Footer Widgets Background Color"
-msgstr "Couleur d'arri&egrave;re-plan des widgets (Bas de page)"
+msgstr "Lábléc widgettek háttérszíne"
 
 #: inc/customizer/controls/class-controls-colors.php:61
 msgid "Footer Background Color"
-msgstr "Couleur de fond du pied de page"
+msgstr "Lábléc háttérszíne"
 
 #: inc/customizer/controls/class-controls-copyright.php:17
 #: inc/customizer/controls/class-controls-listing-archive.php:33
 msgid "Display Style"
-msgstr "Style d&apos;affichage"
+msgstr "Megjelenítési stílus"
 
 #: inc/customizer/controls/class-controls-copyright.php:20
 msgid "Dark"
-msgstr "Fonc&eacute;"
+msgstr "Sötét"
 
 #: inc/customizer/controls/class-controls-copyright.php:21
 msgid "Transparent"
-msgstr "Transparent"
+msgstr "Átlátszó"
 
 #: inc/customizer/controls/class-controls-copyright.php:25
 msgid "Copyright Text"
-msgstr "Texte du copyright"
+msgstr "Szöveg másolása"
 
 #: inc/customizer/controls/class-controls-header_image.php:17
 msgid "Fixed Header"
-msgstr "En-t&ecirc;te fixe"
+msgstr "Fix fejléc"
 
 #: inc/customizer/controls/class-controls-labels.php:17
 msgid "Singular Label"
-msgstr "Label singulier"
+msgstr "Egyedüli címke"
 
 #: inc/customizer/controls/class-controls-labels.php:20
 msgid "Plural Label"
-msgstr "Label pluriel"
+msgstr "Több címke"
 
 #: inc/customizer/controls/class-controls-labels.php:23
 msgid "Base Country"
-msgstr "Pays"
+msgstr "Bázis ország"
 
 #: inc/customizer/controls/class-controls-labels.php:25
 msgid "This controls autocomplete priority, distance units, and more."
-msgstr "Ceci contr&ocirc;le la saisie semi-automatique, l'unit&eacute; de distance et autres..."
+msgstr "Ez szabályozza automatikus kiegészítésben elsőbbségként, távolság mértékegységét, és így tovább."
 
 #: inc/customizer/controls/class-controls-labels.php:32
 msgid ""
 "If associated with a listing the fields will appear on the submission form"
-msgstr "En cas d'association avec un listing, les champs apparaîtront dans le formulaire de soumission"
+msgstr "Ha társította a listával a mezőket, meg fog jelenni űrlap formájában "
 
 #: inc/customizer/controls/class-controls-labels.php:34
 msgid "Associate with listing"
-msgstr "li&eacute; au listing"
+msgstr "Társítás a hirdetéssel"
 
 #: inc/customizer/controls/class-controls-labels.php:35
 msgid "Associate with user"
-msgstr "li&eacute; &agrave; l'utilisateur"
+msgstr "Társítás a felhasználóval"
 
 #: inc/customizer/controls/class-controls-labels.php:39
 msgid "Use \"directory\" submission fields"
-msgstr "Utiliser les champs orient&eacute;s \"annuaire\" lors de la soumission"
+msgstr "Használja a \"cégkatalógus\" benyújtása mezőt"
 
 #: inc/customizer/controls/class-controls-labels.php:43
 msgid "Use categories only"
-msgstr "Utilisez les cat&eacute;gories uniquement"
+msgstr "Használja a csak a kategóriákat"
 
 #: inc/customizer/controls/class-controls-labels.php:45
 msgid ""
 "Categories will be used to create map markers, and types will\n"
 "\t\t\t\tbe hidden from all other areas. Categories must be enabled in Listings > Settings.\n"
 "\t\t\t\t<br /><br />Refresh this page in your browser after saving."
-msgstr "Les cat&eacute;gories sont utilis&eacute;es pour cr&eacute;eer des pointeurs sur la carte alors que les types seront\ncach&eacute;s aux autres endroits. Les cat&eacute;gories doivent &ecirc;tre activ&eacute;es dans le menu Listings > Param&egrav;tres.\n<br /><br />Rafra&icirc;chissez cette page dans votre navigateur apr&egrav;s avoir sauvegard&eacute;."
+msgstr "Kategóriákban használja a térképen a jelölést és típusokat\n⇥⇥⇥⇥elrejthető minden más területtől. Kategóriában engedélyeznie kell a hirdetést> Beállítások.\n⇥⇥⇥⇥<br /><br />Frissítse ezt az oldalt az Ön böngészőjében mentés után."
 
 #: inc/customizer/controls/class-controls-listing-archive.php:17
 msgid "Display"
-msgstr "Afficher"
+msgstr "Kijelző"
 
 #: inc/customizer/controls/class-controls-listing-archive.php:20
 msgid "Results Only"
-msgstr "R&eacute;sultats seulement"
+msgstr "Csak eredményeket"
 
 #: inc/customizer/controls/class-controls-listing-archive.php:21
 msgid "Map + Results"
-msgstr "Carte + R&eacute;sultats"
+msgstr "Térkép + Eredmények"
 
 #: inc/customizer/controls/class-controls-listing-archive.php:25
 msgid "Map Position"
-msgstr "Position de la carte"
+msgstr "Térkép pozíció"
 
 #: inc/customizer/controls/class-controls-listing-archive.php:28
 msgid "Side (fixed)"
-msgstr "C&ocirc;t&eacute; (fixe)"
+msgstr "Oldal (fix)"
 
 #: inc/customizer/controls/class-controls-listing-archive.php:29
 #: inc/integrations/facetwp/class-facetwp.php:147
 msgid "Top"
-msgstr "Top"
+msgstr "Fent"
 
 #: inc/customizer/controls/class-controls-listing-archive.php:36
 msgid "Grid"
-msgstr "Grille"
+msgstr "Grid"
 
 #: inc/customizer/controls/class-controls-listing-archive.php:37
 msgid "List"
-msgstr "Liste"
+msgstr "Lista"
 
 #: inc/customizer/controls/class-controls-listing-archive.php:52
 #: inc/customizer/controls/class-controls-map-behavior.php:93
 #: inc/customizer/controls/class-controls-marker-appearance.php:49
 msgid "Default"
-msgstr "Par d%eacute;faut"
+msgstr "Alapbeállítás"
 
 #: inc/customizer/controls/class-controls-map-behavior.php:17
 msgid "Google Maps API Key (optional)"
-msgstr "Google Maps API Key (Optionnel)"
+msgstr "Google Maps API Key (opcionális)"
 
 #: inc/customizer/controls/class-controls-map-behavior.php:20
 msgid "Info Bubble Trigger"
-msgstr "D&eacute;clencheur d'info-bulle"
+msgstr "Info Bubble Trigger"
 
 #: inc/customizer/controls/class-controls-map-behavior.php:23
 msgid "Hover"
-msgstr "Survol"
+msgstr "Hover"
 
 #: inc/customizer/controls/class-controls-map-behavior.php:24
 msgid "Click"
-msgstr "Clic"
+msgstr "Klick"
 
 #: inc/customizer/controls/class-controls-map-behavior.php:28
 msgid "Use Clusters"
-msgstr "Utiliser les clusters"
+msgstr "Használja a custereket "
 
 #: inc/customizer/controls/class-controls-map-behavior.php:32
 msgid "Cluster Grid Size (px)"
-msgstr "Taille des clusters (pixel)"
+msgstr "Cluster Rács méret (px)"
 
 #: inc/customizer/controls/class-controls-map-behavior.php:35
 msgid "Autofit on load"
-msgstr "Ajuster automatiquement lors du chargement"
+msgstr "Automatikus méretezés betöltéskor"
 
 #: inc/customizer/controls/class-controls-map-behavior.php:39
 msgid "Default Center Coordinate"
-msgstr "Coordonn&eacute;es par d&eacute;faut "
+msgstr "Központi koordináta alapbeállítása "
 
 #: inc/customizer/controls/class-controls-map-behavior.php:42
 msgid "Default Zoom Level"
-msgstr "Niveau de zoom par d&eacute;faut"
+msgstr "Alapértelmezett nagyítás"
 
 #: inc/customizer/controls/class-controls-map-behavior.php:50
 msgid "Max Zoom In Level"
@@ -2194,201 +2183,201 @@ msgstr ""
 
 #: inc/customizer/controls/class-controls-map-behavior.php:71
 msgid "Search Radius Min (%s)"
-msgstr "Rayon de recherche min (%s)"
+msgstr "Keresési sugár Min (%s)"
 
 #: inc/customizer/controls/class-controls-map-behavior.php:75
 msgid "Search Radius Max (%s)"
-msgstr "Rayon de recherche maximum (%s)"
+msgstr "Keresési sugár max (%s)"
 
 #: inc/customizer/controls/class-controls-map-behavior.php:79
 msgid "Search Radius Default (%s)"
-msgstr "Rayon de recherche par defaut (%s)"
+msgstr "Keresési sugár alapbeállítása (%s)"
 
 #: inc/customizer/controls/class-controls-marker-appearance.php:28
 msgid "%s Icon Class"
-msgstr "%s Icon Class"
+msgstr "%s Ikon kategória"
 
 #: inc/customizer/controls/class-controls-marker-appearance.php:33
 msgid "%s Marker Color"
-msgstr "%s: Couleur du pointeur"
+msgstr "%s Jelző színe"
 
 #: inc/customizer/controls/class-controls-nav.php:19
 msgid "Display cart icon"
-msgstr "Afficher l&apos;ic&ocirc;ne du panier"
+msgstr "Kosár ikon megjelenítése"
 
 #: inc/customizer/controls/class-controls-nav.php:23
 msgid "Display search icon"
-msgstr "Afficher l'ic&ocirc;ne de recherche"
+msgstr "Keresés ikon megjelenítése"
 
 #: inc/customizer/controls/class-controls-nav.php:27
 msgid "Secondary Mega Menu Taxonomy"
-msgstr "Taxinomie du mega menu secondaire"
+msgstr "Másodlagos Mega Menü Rendszer"
 
 #: inc/customizer/helper-functions.php:33
 msgid "Listing"
-msgstr "Listing"
+msgstr "Hirdetés"
 
 #: inc/customizer/helper-functions.php:34
 msgid "Listings"
-msgstr "Listings"
+msgstr "Hirdetések"
 
 #: inc/customizer/helper-functions.php:65
 msgid "Copyright %s &copy; %s. All Rights Reserved"
-msgstr "Copyright %s &copy; %s. Tous droits r&eacute;serv&eacute;s"
+msgstr "Copyright %s &copy; %s. All Rights Reserved"
 
 #: inc/extras.php:35
 msgid "Page %s"
-msgstr "Page %s"
+msgstr "Oldal  %s"
 
 #: inc/integrations/facetwp/class-facetwp-proximity.php:55
 msgid "Distance"
-msgstr "Distance"
+msgstr "Távolság"
 
 #: inc/integrations/facetwp/class-facetwp-template.php:130
 #: inc/integrations/wp-job-manager/class-wp-job-manager-template.php:895
 #: sidebar-shop-archive.php:23
 msgid "Toggle Filters"
-msgstr "Basculer entre filtres"
+msgstr "Szűrő váltás"
 
 #: inc/integrations/facetwp/class-facetwp.php:143
 msgid "FacetWP Filter Position"
-msgstr "Position du filtre FacetWP"
+msgstr "FinomítottWP szűrő pozíció"
 
 #: inc/integrations/facetwp/class-facetwp.php:146
 msgid "Side"
-msgstr "C&ocirc;t&eacute;"
+msgstr "Oldal"
 
 #: inc/integrations/facetwp/class-facetwp.php:152
 msgid "FacetWP Filters"
-msgstr "Filtres FacetWP"
+msgstr "FinomítottWP szúrő"
 
 #: inc/integrations/facetwp/class-facetwp.php:153
 msgid ""
 "A comma (,) separated list of FacetWP facet slugs. The order they appear "
 "here will be the order they appear on your website."
-msgstr "Liste de facets s&eacute;par&eacute;s par une (virgule)."
+msgstr "A comma (,) separated list of FacetWP facet slugs. The order they appear here will be the order they appear on your website."
 
 #: inc/integrations/facetwp/includes/proximity.php:10
 msgid "Proximity"
-msgstr "Proximit&eacut;"
+msgstr "Környéke"
 
 #: inc/integrations/facetwp/includes/proximity.php:33
 msgid "Enter location"
-msgstr "Veuillez saisir une adresse"
+msgstr "Adja meg hol keres"
 
 #: inc/integrations/facetwp/includes/proximity.php:47
 msgid "Apply"
-msgstr "Appliquer"
+msgstr "Alkalmaz"
 
 #: inc/integrations/facetwp/includes/proximity.php:208
 msgid "Unit of measurement"
-msgstr "Unit&eacute; de mesure"
+msgstr "Mértékegység"
 
 #: inc/integrations/facetwp/includes/proximity.php:212
 msgid "Miles"
-msgstr "Miles"
+msgstr "Mérföld"
 
 #: inc/integrations/facetwp/includes/proximity.php:213
 msgid "Kilometers"
-msgstr "kilom&egrave;tres"
+msgstr "Kilóméter"
 
 #: inc/integrations/jetpack/class-jetpack-share.php:47
 msgid "Share"
-msgstr "Partager"
+msgstr "Megosztás"
 
 #: inc/integrations/ratings/class-comments.php:11
 msgid "Newest First"
-msgstr "Le plus r&eacute;cent en premier"
+msgstr "Legújabb"
 
 #: inc/integrations/ratings/class-comments.php:12
 msgid "Oldest First"
-msgstr "Le plus ancien en premier"
+msgstr "Legrégebbi"
 
 #: inc/integrations/ratings/class-comments.php:13
 msgid "Rating (High-Low)"
-msgstr "Score (Desc.)"
+msgstr "Értékelés (magas-alacsony)"
 
 #: inc/integrations/ratings/class-comments.php:14
 msgid "Rating (Low-High)"
-msgstr "Score (Asc.)"
+msgstr "Értékelés (alacsony-magas)"
 
 #: inc/integrations/ratings/class-rating-listing.php:12
 msgid "%s Review"
 msgid_plural "%s Reviews"
-msgstr[0] "%s  Avis"
-msgstr[1] "%s Avis"
+msgstr[0] "%s Vélemény"
+msgstr[1] "%s Vélemény"
 
 #: inc/integrations/ratings/class-ratings.php:54
 msgid "Your Rating"
-msgstr "Votre score"
+msgstr "Az Ön értékelése"
 
 #: inc/integrations/ratings/class-ratings.php:120
 msgid "<span itemprop=\"reviewCount\">%d</span> Review"
 msgid_plural "<span itemprop=\"reviewCount\">%d</span> Reviews"
-msgstr[0] "<span itemprop=\"reviewCount\">%d</span> Avis"
-msgstr[1] "<span itemprop=\"reviewCount\">%d</span> Avis"
+msgstr[0] "<span itemprop=\"reviewCount\">%d</span> Vélemények"
+msgstr[1] "<span itemprop=\"reviewCount\">%d</span> Vélemények"
 
 #: inc/integrations/ratings/class-ratings.php:134
 #: inc/integrations/wp-job-manager-reviews/class-wp-job-manager-reviews.php:75
 msgid "%d Star"
 msgid_plural "%d Stars"
-msgstr[0] "%d Début"
-msgstr[1] "%d &Eacute;toiles"
+msgstr[0] "%d Csillag"
+msgstr[1] "%d Csillag"
 
 #: inc/integrations/woocommerce/class-woocommerce-template.php:93
 msgid "Item"
 msgid_plural "Items"
-msgstr[0] "&eacute;l&eacute;ment"
-msgstr[1] "&eacute;l&eacute;ments"
+msgstr[0] "Adatok"
+msgstr[1] "Adatok"
 
 #: inc/integrations/woocommerce/class-woocommerce.php:53
 msgid "Product Sidebar"
-msgstr "Sidebar Produit"
+msgstr "Termék Oldalsáv"
 
 #: inc/integrations/woocommerce/class-woocommerce.php:62
 msgid "Shop Sidebar"
-msgstr "Shop Sidebar"
+msgstr "Shop Oldalsáv"
 
 #: inc/integrations/woocommerce/class-woocommerce.php:100
 msgid "Twitter URL"
-msgstr "URL Twitter"
+msgstr "Twitter URL"
 
 #: inc/integrations/woocommerce/class-woocommerce.php:101
 msgid "Facebook URL"
-msgstr "URL Facebook"
+msgstr "Facebook URL"
 
 #: inc/integrations/woocommerce/class-woocommerce.php:102
 msgid "Google+ URL"
-msgstr "URL Google+"
+msgstr "Google+ URL"
 
 #: inc/integrations/woocommerce/class-woocommerce.php:103
 msgid "Pinterest URL"
-msgstr "URL Pinterest"
+msgstr "Pinterest URL"
 
 #: inc/integrations/woocommerce/class-woocommerce.php:104
 msgid "LinkedIn URL"
-msgstr "URL LinkedIn"
+msgstr "LinkedIn URL"
 
 #: inc/integrations/woocommerce/class-woocommerce.php:105
 msgid "GitHub URL"
-msgstr "URL GitHub"
+msgstr "GitHub URL"
 
 #: inc/integrations/woocommerce/class-woocommerce.php:106
 msgid "Instagram URL"
-msgstr "URL Instagram"
+msgstr "Instagram URL"
 
 #: inc/integrations/woocommerce/class-woocommerce.php:117
 #: inc/integrations/woocommerce/class-woocommerce.php:120
 msgid "Biography"
-msgstr "Biographie"
+msgstr "Biógráfia"
 
 #: inc/integrations/woocommerce/widgets/class-widget-job_listing-social-profiles.php:13
 msgid "Display the social profiles of the listing author"
-msgstr "Afficher les profils de l&apos;auteur sur les r&eacute;seaux sociaux"
+msgstr "A hirdetés írójának közösségi oldalai "
 
 #: inc/integrations/woocommerce/widgets/class-widget-job_listing-social-profiles.php:15
 msgid "Listify - Listing: Social Profiles"
-msgstr "Listify - Listing: Profils sur les r&eaucte;seaux sociaux"
+msgstr "Listify- hirdetés: Közösségi oldalak"
 
 #: inc/integrations/woocommerce/widgets/class-widget-job_listing-social-profiles.php:20
 #: inc/integrations/woocommerce-bookings/widgets/class-widget-job_listing-bookings.php:20
@@ -2412,7 +2401,7 @@ msgstr "Listify - Listing: Profils sur les r&eaucte;seaux sociaux"
 #: inc/widgets/class-widget-home-features.php:25
 #: inc/widgets/class-widget-home-features.php:158
 msgid "Title:"
-msgstr "Titre:"
+msgstr "Beosztás:"
 
 #: inc/integrations/woocommerce/widgets/class-widget-job_listing-social-profiles.php:25
 #: inc/integrations/woocommerce-bookings/widgets/class-widget-job_listing-bookings.php:25
@@ -2426,211 +2415,211 @@ msgstr "Titre:"
 #: inc/integrations/wp-job-manager-products/widgets/class-widget-job_listing-products.php:25
 #: inc/widgets/class-widget-ad.php:25
 msgid "Icon:"
-msgstr "Icone:"
+msgstr "Ikon:"
 
 #: inc/integrations/woocommerce-bookings/widgets/class-widget-job_listing-bookings.php:13
 msgid "Display the booking form for the linked bookable product."
-msgstr "Afficher le formulaire de r&eacute;servation pour le produit correspondant."
+msgstr "Foglalási űrlap megtekintése a linkelt foglalásokról."
 
 #: inc/integrations/woocommerce-bookings/widgets/class-widget-job_listing-bookings.php:15
 msgid "Listify - Listing: Bookings"
-msgstr "Listify - Listing: R&eacute;servations"
+msgstr "Listify - Hirdetés: Foglalás"
 
 #: inc/integrations/woocommerce-bookings/widgets/class-widget-job_listing-bookings.php:46
 msgid "Book Now"
-msgstr "R&eacute;server maintenant"
+msgstr "Foglalás most"
 
 #: inc/integrations/wp-job-manager/class-walker-category.php:28
 msgid "View all listings filed under %s"
-msgstr "Voir tous les listings class&eacut;s sous %s"
+msgstr "Az összes hirdetés megtekintése a közzététel szerint %s"
 
 #: inc/integrations/wp-job-manager/class-walker-category.php:57
 msgid "Feed for all posts filed under %s"
-msgstr "Feed pour tous les posts class&eacute;s sous %s"
+msgstr "Hírlevél mindenkinek a közzétett hozzászólások szerint %s"
 
 #: inc/integrations/wp-job-manager/class-wp-job-manager-business-hours.php:45
 #: inc/integrations/wp-job-manager/class-wp-job-manager-business-hours.php:117
 #: inc/integrations/wp-job-manager/class-wp-job-manager-writepanels.php:13
 #: sidebar-single-job_listing.php:57
 msgid "Hours of Operation"
-msgstr "Horaires d&apos;ouverture"
+msgstr "Nyitva tartás"
 
 #: inc/integrations/wp-job-manager/class-wp-job-manager-claim.php:53
 #: inc/integrations/wp-job-manager-claim-listing/class-wp-job-manager-claim-listing.php:44
 msgid "Claim Listing"
-msgstr "Revendiquer"
+msgstr "Igényelt hirdetés"
 
 #: inc/integrations/wp-job-manager/class-wp-job-manager-claim.php:56
 msgid "Claim \"%s\""
-msgstr "Revendiquer \"%s\""
+msgstr "Igény \"%s\""
 
 #: inc/integrations/wp-job-manager/class-wp-job-manager-claim.php:71
 msgid "Claimed:"
-msgstr "D&eacute;j&agrave; revendiqu&eacute;:"
+msgstr "Igényelt"
 
 #: inc/integrations/wp-job-manager/class-wp-job-manager-claim.php:73
 msgid "The owner has been verified"
-msgstr "Le propri&eacute;taire a &eacute;t&eacute; v&eacute;rifi&eacute;"
+msgstr "A tulajdonos ellenőrzése megtörtént"
 
 #: inc/integrations/wp-job-manager/class-wp-job-manager-customizer.php:16
 msgid "Labels & Behavior"
-msgstr "Labels & Comportement"
+msgstr "Címkék és működés"
 
 #: inc/integrations/wp-job-manager/class-wp-job-manager-customizer.php:19
 #: inc/integrations/wp-job-manager/map/class-wp-job-manager-map-template.php:305
 msgid "Results"
-msgstr "R&eacute;sultats"
+msgstr "Eredmények"
 
 #: inc/integrations/wp-job-manager/class-wp-job-manager-customizer.php:22
 msgid "Marker Appearance"
-msgstr "Apparence du marqueur"
+msgstr "Jelző megjelenése"
 
 #: inc/integrations/wp-job-manager/class-wp-job-manager-customizer.php:25
 msgid "Map Appearance"
-msgstr "Apparence de la carte"
+msgstr "Térkép megjelenése"
 
 #: inc/integrations/wp-job-manager/class-wp-job-manager-customizer.php:28
 msgid "Map Settings"
-msgstr "Paramètres de la carte"
+msgstr "Térkép beállítások"
 
 #: inc/integrations/wp-job-manager/class-wp-job-manager-gallery.php:70
 msgid "Add Photos"
-msgstr "Ajouter des photos"
+msgstr "Adjon hozzá fényképeket"
 
 #: inc/integrations/wp-job-manager/class-wp-job-manager-gallery.php:122
 msgid "No images selected."
-msgstr "Aucune image s&eacute;lectionn&eacute;e"
+msgstr "Nincs kép kiválasztva."
 
 #: inc/integrations/wp-job-manager/class-wp-job-manager-gallery.php:243
 msgid "%s Gallery"
-msgstr "%s Galerie"
+msgstr "%s Galéria"
 
 #: inc/integrations/wp-job-manager/class-wp-job-manager-gallery.php:269
 msgid "Manage gallery images"
-msgstr "G&eacute;rer la galerie photo"
+msgstr "Képgaléria kezelése"
 
 #: inc/integrations/wp-job-manager/class-wp-job-manager-gallery.php:270
 msgid "Clear gallery"
-msgstr "Vider galerie"
+msgstr "Tiszta galéria"
 
 #: inc/integrations/wp-job-manager/class-wp-job-manager-gallery.php:359
 #: popup-content-single-job_listing-add-photo.php:18
 msgid "Add Images to Gallery"
-msgstr "Ajouter des images &agrave; la galerie"
+msgstr "Adjon képet a galériához"
 
 #: inc/integrations/wp-job-manager/class-wp-job-manager-gallery.php:360
 msgid "Add to gallery"
-msgstr "Ajouter &agrave; la galerie"
+msgstr "Adja a galériához"
 
 #: inc/integrations/wp-job-manager/class-wp-job-manager-gallery.php:361
 msgid "Delete image"
-msgstr "Effacer l&apos;image"
+msgstr "Kép törlése"
 
 #: inc/integrations/wp-job-manager/class-wp-job-manager-gallery.php:363
 msgid "Select this"
-msgstr "S&eacute;lectionner"
+msgstr "Válassza ki ezt"
 
 #: inc/integrations/wp-job-manager/class-wp-job-manager-submission.php:77
 msgid "Phone Number"
-msgstr "Num&eacute;ro de t&eacute;l&eacute;phone"
+msgstr "Telefonszám"
 
 #: inc/integrations/wp-job-manager/class-wp-job-manager-submission.php:90
 msgid "Company phone"
-msgstr "Num&eacute;ro de t&eacute;l&eacute;phone"
+msgstr "Cég telefonszáma"
 
 #: inc/integrations/wp-job-manager/class-wp-job-manager-submission.php:101
 msgid "Cover Image"
-msgstr "Photo de couverture"
+msgstr "Borítókép"
 
 #: inc/integrations/wp-job-manager/class-wp-job-manager-submission.php:120
 msgid "Gallery Images"
-msgstr "Galerie photos"
+msgstr "Képgaléria"
 
 #: inc/integrations/wp-job-manager/class-wp-job-manager-submission.php:149
 msgid "Company %s"
-msgstr "%s"
+msgstr "Cég %s"
 
 #: inc/integrations/wp-job-manager/class-wp-job-manager-template.php:308
 msgid "%s Archives - Sidebar"
-msgstr "%s Archives - Sidebar"
+msgstr "%s Archívumok - Oldalsáv"
 
 #: inc/integrations/wp-job-manager/class-wp-job-manager-template.php:317
 msgid "Single %s - Main Content"
-msgstr "%s simple - Contenu principal"
+msgstr "Egyetlen %s - Főtartalom"
 
 #: inc/integrations/wp-job-manager/class-wp-job-manager-template.php:326
 msgid "Single %s - Sidebar"
-msgstr "%s simple - barre lat&eacute;rale"
+msgstr "Egyetlen %s - Oldalsáv"
 
 #: inc/integrations/wp-job-manager/class-wp-job-manager-template.php:353
 msgid "Browse %s"
-msgstr "%s"
+msgstr "Böngésszen %s"
 
 #: inc/integrations/wp-job-manager/class-wp-job-manager-template.php:370
 msgid "Select a %s"
-msgstr "Sélectionner %s"
+msgstr "Szűrés %s"
 
 #: inc/integrations/wp-job-manager/class-wp-job-manager-template.php:388
 msgid "View All"
-msgstr "Afficher tout"
+msgstr "Összes megtekintése"
 
 #: inc/integrations/wp-job-manager/class-wp-job-manager-template.php:729
 msgid "Submit a Review"
-msgstr "Ajouter un avis"
+msgstr "Vélemény elküldése"
 
 #: inc/integrations/wp-job-manager/class-wp-job-manager-template.php:790
 msgid "Filter by type:"
-msgstr "Filtrer par type"
+msgstr "Szűrés típus szerint"
 
 #: inc/integrations/wp-job-manager/class-wp-job-manager-template.php:812
 msgid "Loading..."
-msgstr "Chargement..."
+msgstr "Töltés..."
 
 #: inc/integrations/wp-job-manager/class-wp-job-manager-template.php:878
 msgid "<span class=\"results-found\">%s</span> Results Found"
-msgstr "<span class=\"results-found\">%s</span> R&eacute;sultats trouv&eacute;s"
+msgstr "<span class=\"results-found\">%s</span> Találat a következőre"
 
 #: inc/integrations/wp-job-manager/map/class-wp-job-manager-map-template.php:326
 msgid "Radius: <span class=\"radi\">%s</span> %s"
-msgstr "Rayon <span class=\"radi\">%s</span> %s"
+msgstr "Sugár: <span class=\"radi\">%s</span> %s"
 
 #: inc/integrations/wp-job-manager/map/class-wp-job-manager-map-template.php:366
 msgid "within a %d %s radius"
-msgstr "Dans un rayon de %d %s"
+msgstr "belül %d %s sugár"
 
 #: inc/integrations/wp-job-manager/map/customizer/class-customizer-controls-map-appearance.php:23
 msgid ""
 "Some color schemes may show/hide extra information. Please <a href=\"#\">read\n"
 "\t\t\t\tmore</a> about creating a custom scheme."
-msgstr "Certains sch&eacute;mas de couleurs peuvent afficher/cacher quelques informations suppl&eacute;mentaires. Pour en savoir plus sur la cr&eacute;ation d'un mod&egrave;le personnalis&eacute;. <a href=\"#\">cliquez ici</a>"
+msgstr "Néhány színséma megjeleníthet / elrejthet extra információkat. Kérjük, <a href=\"#\"> olvasson\n⇥⇥⇥⇥többet</a> az egyéni séma létrehozásáról."
 
 #: inc/integrations/wp-job-manager/services/class-wp-job-manager-service-guestful.php:7
 msgid "Book with Guestful"
-msgstr "R&eacuteserver avec Guestful"
+msgstr "Foglaljon a Guestful -on keresztül"
 
 #: inc/integrations/wp-job-manager/services/class-wp-job-manager-service-opentable.php:7
 msgid "Book with OpenTable"
-msgstr "R&eacuteserver avec OpenTable"
+msgstr "Foglaljon az OpenTable-n keresztül"
 
 #: inc/integrations/wp-job-manager/services/class-wp-job-manager-service-resurva.php:7
 msgid "Book with Resurva"
-msgstr "R&eacute;server avec Resurva"
+msgstr "Foglaljon a Resuva -n keresztül"
 
 #: inc/integrations/wp-job-manager/templates/form-fields/business-hours-field.php:18
 msgid "Open"
-msgstr "Ouverture"
+msgstr "Nyitva tartás"
 
 #: inc/integrations/wp-job-manager/templates/form-fields/business-hours-field.php:19
 msgid "Close"
-msgstr "Fermeture"
+msgstr "Zárva"
 
 #: inc/integrations/wp-job-manager/widgets/class-widget-home-map-listings.php:13
 msgid "Display a map and results of listings"
-msgstr "Afficher la carte et les résultats des listings"
+msgstr "A térkép és a hirdetési találatok megjelenítése"
 
 #: inc/integrations/wp-job-manager/widgets/class-widget-home-map-listings.php:15
 msgid "Listify - Page: Map"
-msgstr "Listify - Page: Carte"
+msgstr "Listify - Oldal: Térkép"
 
 #: inc/integrations/wp-job-manager/widgets/class-widget-home-map-listings.php:25
 #: inc/integrations/wp-job-manager/widgets/class-widget-home-recent-listings.php:25
@@ -2641,119 +2630,119 @@ msgstr "Listify - Page: Carte"
 #: inc/widgets/class-widget-home-features.php:30
 #: inc/widgets/class-widget-home-features.php:168
 msgid "Description:"
-msgstr "D&eacute;scription:"
+msgstr "Leírás:"
 
 #: inc/integrations/wp-job-manager/widgets/class-widget-home-map-listings.php:30
 msgid "Display results"
-msgstr "Afficher les r&eacute;sultats"
+msgstr "A találatok megjelenítése"
 
 #: inc/integrations/wp-job-manager/widgets/class-widget-home-map-listings.php:38
 msgid "Number of listings per page:"
-msgstr "Nombre de listings par page:"
+msgstr "Hírdetések száma egy oldalon"
 
 #: inc/integrations/wp-job-manager/widgets/class-widget-home-recent-listings.php:13
 msgid "Display a grid of recent or featured listings"
-msgstr "Afficher une grille des &eacute;tablissements &agrave; la une"
+msgstr "A legfrissebb, vagy a kiemelt hirdetések megjelenítése"
 
 #: inc/integrations/wp-job-manager/widgets/class-widget-home-recent-listings.php:15
 msgid "Listify - Page: Recent Listings"
-msgstr "Listify - Page: &Eacute;tablissements r&eacute;cents"
+msgstr "Listify - Oldal: Legfrissebb hirdetések"
 
 #: inc/integrations/wp-job-manager/widgets/class-widget-home-recent-listings.php:30
 msgid "Show only featured listings"
-msgstr "Afficher les &eacute;tablissements &agrave; la une seulement"
+msgstr "Csak a kiemelt hirdetések megtekintése"
 
 #: inc/integrations/wp-job-manager/widgets/class-widget-home-recent-listings.php:38
 #: inc/integrations/wp-job-manager/widgets/class-widget-job_listing-gallery-slider.php:31
 #: inc/integrations/wp-job-manager/widgets/class-widget-job_listing-gallery.php:31
 msgid "Number to show:"
-msgstr "Nombre &agrave; afficher:"
+msgstr "Megjelenítendő szám:"
 
 #: inc/integrations/wp-job-manager/widgets/class-widget-home-search-listings.php:15
 msgid "Display a search form to search listings"
-msgstr "Afficher un formulaire de recherche pour trouver des listings"
+msgstr "Keresési űrlap megjelenítése a részletes kereséséhez"
 
 #: inc/integrations/wp-job-manager/widgets/class-widget-home-search-listings.php:17
 msgid "Listify - Page: Search Listings"
-msgstr "Listify - Page: Rechercher des listings"
+msgstr "Listify - Oldal:  Hirdetés keresés"
 
 #: inc/integrations/wp-job-manager/widgets/class-widget-home-search-listings.php:35
 msgid "Facets:"
-msgstr "Facets:"
+msgstr "Szempontok:"
 
 #: inc/integrations/wp-job-manager/widgets/class-widget-home-search-listings.php:100
 #: searchform-header.php:12 searchform.php:12
 msgid "Search"
-msgstr "Recherche"
+msgstr "Keresés"
 
 #: inc/integrations/wp-job-manager/widgets/class-widget-home-tabbed-listings.php:21
 msgid "Display a tabbed layout of listing types"
-msgstr "Afficher un layout avec tabs contenant les types de listings"
+msgstr "Címkék megjelenítése a hirdetési típusok elrendezése szerint"
 
 #: inc/integrations/wp-job-manager/widgets/class-widget-home-tabbed-listings.php:23
 msgid "Listify - Page: Tabbed Listings"
-msgstr "Listify - Page: Listings avec Tabs"
+msgstr "Listify - Oldal: Hirdetések ablak fülei "
 
 #: inc/integrations/wp-job-manager/widgets/class-widget-home-tabbed-listings.php:36
 msgid "Number per tab:"
-msgstr "Nombre par onglet:"
+msgstr "Címkék száma:"
 
 #: inc/integrations/wp-job-manager/widgets/class-widget-home-tabbed-listings.php:41
 msgid "Use Featured listings"
-msgstr "Utiliser les listings mis en avant"
+msgstr "Használja a kiemelt hirdetéseket"
 
 #: inc/integrations/wp-job-manager/widgets/class-widget-home-tabbed-listings.php:44
 msgid "Types to Feature:"
-msgstr "Types à mettre avant:"
+msgstr "Jellemzők típusa:"
 
 #: inc/integrations/wp-job-manager/widgets/class-widget-home-tabbed-listings.php:87
 msgid "See More"
-msgstr "Voir plus"
+msgstr "Megnézem"
 
 #: inc/integrations/wp-job-manager/widgets/class-widget-home-taxonomy-image-grid.php:10
 msgid "Display a grid of images for a certain taxonomy"
-msgstr "Afficher une grille d'images pour une certaine taxinomie"
+msgstr "Képek megjelenítése osztályzás szerint"
 
 #: inc/integrations/wp-job-manager/widgets/class-widget-home-taxonomy-image-grid.php:12
 msgid "Listify - Page: Image Grid"
-msgstr "Listify - Page: Grille d&apos;images"
+msgstr "Listify - Oldal: Kép ráccsal"
 
 #: inc/integrations/wp-job-manager/widgets/class-widget-home-taxonomy-image-grid.php:26
 #: inc/integrations/wp-job-manager/widgets/class-widget-home-term-lists.php:45
 msgid "Taxonomy:"
-msgstr "Taxinomie"
+msgstr "Rendezés"
 
 #: inc/integrations/wp-job-manager/widgets/class-widget-home-taxonomy-image-grid.php:37
 msgid "Number of terms to show:"
-msgstr "Nombre d'&eacute;l&eacute;ments &agrave; afficher"
+msgstr "Kifejezések száma a megjelenítéshez:"
 
 #: inc/integrations/wp-job-manager/widgets/class-widget-home-taxonomy-image-grid.php:42
 msgid "Term IDs: (optional)"
-msgstr "Conditions IDs: (optionel)"
+msgstr "Kifejezés ID: (nem kötelező)"
 
 #: inc/integrations/wp-job-manager/widgets/class-widget-home-term-lists.php:10
 msgid "Display lists of listings associated with terms of a given taxonomy."
-msgstr "Afficher une liste de listings associ&eacute;e &egrav; certains termes pour une taxinomie donn&eacute;e."
+msgstr "Hirdetések listájához kapcsolódó kifejezések egy adott rendszer szerin megjeleníteni."
 
 #: inc/integrations/wp-job-manager/widgets/class-widget-home-term-lists.php:12
 msgid "Listify - Page: Term Lists"
-msgstr "Listify - Page: Liste des termes"
+msgstr "Listify - Oldal: Kifejezések listája"
 
 #: inc/integrations/wp-job-manager/widgets/class-widget-home-term-lists.php:31
 msgid "Number per list"
-msgstr "Nombre par liste"
+msgstr "Szám hirdetésenként"
 
 #: inc/integrations/wp-job-manager/widgets/class-widget-home-term-lists.php:34
 msgid "Order By:"
-msgstr "Trier par:"
+msgstr "Rendezés:"
 
 #: inc/integrations/wp-job-manager/widgets/class-widget-home-term-lists.php:38
 msgid "Date"
-msgstr "Date"
+msgstr "Dátum"
 
 #: inc/integrations/wp-job-manager/widgets/class-widget-home-term-lists.php:39
 msgid "Featured"
-msgstr "&Agrave; la une"
+msgstr "Kiemelt"
 
 #: inc/integrations/wp-job-manager/widgets/class-widget-home-term-lists.php:41
 msgid "ID"
@@ -2761,149 +2750,149 @@ msgstr "ID"
 
 #: inc/integrations/wp-job-manager/widgets/class-widget-home-term-lists.php:53
 msgid "Use only featured listings"
-msgstr "Utiliser uniquement les listings mis en avant"
+msgstr "Csak kiemelt hirdetések"
 
 #: inc/integrations/wp-job-manager/widgets/class-widget-home-term-lists.php:124
 msgid "More"
-msgstr "Plus"
+msgstr "Tovább"
 
 #: inc/integrations/wp-job-manager/widgets/class-widget-job_listing-author.php:13
 msgid "Display the listing's author"
-msgstr "Afficher l&apos;auteur du listing"
+msgstr "Mutassa a hiredetés szerzőjét"
 
 #: inc/integrations/wp-job-manager/widgets/class-widget-job_listing-author.php:15
 msgid "Listify - Listing: Author"
-msgstr "Listify - Listing: Auteur"
+msgstr "Listify - Hirdetés: Szerző"
 
 #: inc/integrations/wp-job-manager/widgets/class-widget-job_listing-author.php:20
 msgid "Descriptor:"
-msgstr "Description:"
+msgstr "Készítette:"
 
 #: inc/integrations/wp-job-manager/widgets/class-widget-job_listing-author.php:25
 msgid "Show biography"
-msgstr "Afficher la biographie"
+msgstr "Mutassa a biógráfiát"
 
 #: inc/integrations/wp-job-manager/widgets/class-widget-job_listing-business-hours.php:13
 msgid "Display the business hours of the listing."
-msgstr "Afficher les horaires d'ouverture."
+msgstr "Mutassa a hirdető nyitva tartását"
 
 #: inc/integrations/wp-job-manager/widgets/class-widget-job_listing-business-hours.php:15
 msgid "Listify - Listing: Business Hours"
-msgstr "Listify - Listing: Heures d'&apos;ouverture"
+msgstr "Listify - hirdetés: Nyitvatartási idő"
 
 #: inc/integrations/wp-job-manager/widgets/class-widget-job_listing-comments.php:13
 msgid "Display the listing comments."
-msgstr "Afficher les commentaires du listing"
+msgstr "A hirdető hozzászólásnak megjelenítése."
 
 #: inc/integrations/wp-job-manager/widgets/class-widget-job_listing-comments.php:15
 msgid "Listify - Listing: Reviews"
-msgstr "Listify - Listing: Avis"
+msgstr "Listify - HIrdetés: Vélemények"
 
 #: inc/integrations/wp-job-manager/widgets/class-widget-job_listing-content.php:13
 msgid "Display the listing description."
-msgstr "Afficher la description du listing"
+msgstr "Mutassa a hirdetés leírását."
 
 #: inc/integrations/wp-job-manager/widgets/class-widget-job_listing-content.php:15
 msgid "Listify - Listing: Description"
-msgstr "Listify - Listing: Description"
+msgstr "Listify - Listing: Leírás"
 
 #: inc/integrations/wp-job-manager/widgets/class-widget-job_listing-gallery-slider.php:13
 msgid "Display a gallery of images and thumbnails."
-msgstr "Afficher une galerie d'images sous forme de vignettes."
+msgstr "Mutassa a képgalériát és a bélyegképet"
 
 #: inc/integrations/wp-job-manager/widgets/class-widget-job_listing-gallery-slider.php:15
 msgid "Listify - Listing: Photo Gallery Slider"
-msgstr "Listify - Listing: Galerie photos - Slider"
+msgstr "Listify - Hirdetés: Képgaléria slider"
 
 #: inc/integrations/wp-job-manager/widgets/class-widget-job_listing-gallery.php:13
 msgid "Display the listing photo gallery."
-msgstr "Afficher la galerie photo"
+msgstr "Mutassa a hirdetés képgalériáját."
 
 #: inc/integrations/wp-job-manager/widgets/class-widget-job_listing-gallery.php:15
 msgid "Listify - Listing: Photo Gallery"
-msgstr "Listify - Listing: Galerie photo"
+msgstr "Listify - Hirdetés: Képgaléria"
 
 #: inc/integrations/wp-job-manager/widgets/class-widget-job_listing-map.php:13
 msgid "Display the listing location and contact details."
-msgstr "Afficher l&apos;emplacement et les informations de contact"
+msgstr "Mutassa a hirdetés helyét és a elérhetőségeit."
 
 #: inc/integrations/wp-job-manager/widgets/class-widget-job_listing-map.php:15
 msgid "Listify - Listing: Map & Contact Details"
-msgstr "Listify - Listing: Carte et informations de contact"
+msgstr "Listify - Hirdetés: Térkép és Elérhetőségek"
 
 #: inc/integrations/wp-job-manager/widgets/class-widget-job_listing-map.php:20
 msgid "Display map"
-msgstr "Afficher la carte"
+msgstr "Mutassa a térképet"
 
 #: inc/integrations/wp-job-manager/widgets/class-widget-job_listing-map.php:25
 msgid "Display address"
-msgstr "Afficher l&apos;adresse"
+msgstr "Mutassa a címet"
 
 #: inc/integrations/wp-job-manager/widgets/class-widget-job_listing-map.php:30
 msgid "Display phone number"
-msgstr "Afficher le num&eacute;ro de t&eacute;l&eacute;phone"
+msgstr "Mutassa  a telefonszámot"
 
 #: inc/integrations/wp-job-manager/widgets/class-widget-job_listing-map.php:35
 msgid "Display website"
-msgstr "Afficher le site internet"
+msgstr "Mutassa a weboldalt"
 
 #: inc/integrations/wp-job-manager/widgets/class-widget-job_listing-tags.php:17
 msgid "Display the listing tags."
-msgstr "Afficher les tags"
+msgstr "Mutassa a hirdetés címkéit"
 
 #: inc/integrations/wp-job-manager/widgets/class-widget-job_listing-tags.php:19
 msgid "Listify - Listing: Tags"
-msgstr "Listify - Listing: Tags"
+msgstr "Listify - Hiredetés: Címkék"
 
 #: inc/integrations/wp-job-manager/widgets/class-widget-job_listing-video.php:13
 msgid "Display the listing video."
-msgstr "Afficher la vid&eacute;o"
+msgstr "Mutassa a hirdetés videóját"
 
 #: inc/integrations/wp-job-manager/widgets/class-widget-job_listing-video.php:15
 msgid "Listify - Listing: Video"
-msgstr "Listify - Listing: Vid&eacute;o"
+msgstr "Listify - Hiredetés: Videó"
 
 #: inc/integrations/wp-job-manager-products/widgets/class-widget-job_listing-products-main.php:13
 msgid "Display the listings products (main content)"
-msgstr "Afficher les produits des listings (Contenu principal)"
+msgstr "Mutasd meg a hirdetők termékeit (fő tartalom)"
 
 #: inc/integrations/wp-job-manager-products/widgets/class-widget-job_listing-products-main.php:15
 msgid "Listify - Listing: Products (Content)"
-msgstr "Listify - Listing: Produits (Contenu)"
+msgstr "Listify - Hirdetés: Termék (tartalom)"
 
 #: inc/integrations/wp-job-manager-products/widgets/class-widget-job_listing-products-main.php:19
 msgid "This widget has no options"
-msgstr "Ce widget ne comporte pas d'options"
+msgstr "Ez a witget nem lehetséges"
 
 #: inc/integrations/wp-job-manager-products/widgets/class-widget-job_listing-products.php:13
 msgid "Display the listings products (sidebar)"
-msgstr "Afficher les produits des listings (Barre latérale)"
+msgstr "Mutassa a hirdetés termékeit (oldalsáv)"
 
 #: inc/integrations/wp-job-manager-products/widgets/class-widget-job_listing-products.php:15
 msgid "Listify - Listing: Products (Sidebar)"
-msgstr "Listify - Listing: Produits (Barre latérale)"
+msgstr "Listify - Hirdetés: Termékek (oldalsáv)"
 
 #: inc/integrations/wp-job-manager-reviews/class-wp-job-manager-reviews.php:64
 msgid "<span itemprop=\"reviewCount\">%1$d</span> Review"
 msgid_plural "<span itemprop=\"reviewCount\">%d</span> Reviews"
-msgstr[0] "<span itemprop=\"reviewCount\">%d</span> Avis"
-msgstr[1] "<span itemprop=\"reviewCount\">%d</span> Avis"
+msgstr[0] "<span itemprop=\"reviewCount\">%d</span> Vélemények"
+msgstr[1] "<span itemprop=\"reviewCount\">%d</span> Vélemények"
 
 #: inc/integrations/wp-job-manager-wc-paid-listings/widgets/class-widget-pricing-table.php:13
 msgid "Display the pricing packages available for listings"
-msgstr "Afficher les prix des diff&eacute;rents packages disponibles pour les listings"
+msgstr "Díjcsomagok megmutatása"
 
 #: inc/integrations/wp-job-manager-wc-paid-listings/widgets/class-widget-pricing-table.php:15
 msgid "Listify - Page: Pricing Table"
-msgstr "Listify - Page: Tableau de prix"
+msgstr "Listify - Oldal: Ártáblázat"
 
 #: inc/integrations/wp-job-manager-wc-paid-listings/widgets/class-widget-pricing-table.php:96
 msgid "Get Started Now"
-msgstr "Commencer maintenant"
+msgstr "Kezdje el most"
 
 #: inc/template-tags.php:244
 msgid "Listing Owner"
-msgstr "Propri&eacute;taire du listing"
+msgstr "A hirdetés tulajdonosa"
 
 #: inc/template-tags.php:252
 msgid "<span class=\"ion-edit\"></span>"
@@ -2911,148 +2900,148 @@ msgstr "<span class=\"ion-edit\"></span>"
 
 #: inc/template-tags.php:256
 msgid "Your comment is awaiting moderation."
-msgstr "Votre commentaire est en attente de validation."
+msgstr "A hozzászólás moderálásra vár."
 
 #: inc/template-tags.php:298
 msgid "Post navigation"
-msgstr "Navigation dans les posts"
+msgstr "Hozzászólás navigáció"
 
 #: inc/widgets/class-widget-ad.php:13
 msgid "Display an advertisement"
-msgstr "Afficher une publicit&eacute;"
+msgstr "Megjeleníthető egy hirdetés"
 
 #: inc/widgets/class-widget-ad.php:15
 msgid "Listify - Standard: Advertisement"
-msgstr "Listify - Standard: Publicit&eacute;"
+msgstr "Listify - Standard: Reklám"
 
 #: inc/widgets/class-widget-ad.php:31
 msgid "Ad Code:"
-msgstr "Code publicit&eacute;:"
+msgstr "Adjon Kódot:"
 
 #: inc/widgets/class-widget-ad.php:36
 msgid "Remove box around widget"
-msgstr "Enlever la box autour des widgets"
+msgstr "Távolítsa el doboz körül a widgetet"
 
 #: inc/widgets/class-widget-home-feature-callout.php:13
 msgid "Display a full-width \"feature\" callout"
-msgstr "Afficher un \"feature callout\" sur toute la largeur"
+msgstr "Tteljes szélességű \"funkció\" megjelenítése széljegyzetként"
 
 #: inc/widgets/class-widget-home-feature-callout.php:15
 msgid "Listify - Page: Feature Callout"
-msgstr "Listify - Page: Fonction l&eacute;gende"
+msgstr "Listify - Oldal: Jellemző széljegyzetben"
 
 #: inc/widgets/class-widget-home-feature-callout.php:23
 msgid "Text Align:"
-msgstr "Alignement du texte:"
+msgstr "Szöveg igazítása"
 
 #: inc/widgets/class-widget-home-feature-callout.php:25
 msgid "Left"
-msgstr "Gauche"
+msgstr "Bal"
 
 #: inc/widgets/class-widget-home-feature-callout.php:26
 msgid "Right"
-msgstr "Droite"
+msgstr "Jobb"
 
 #: inc/widgets/class-widget-home-feature-callout.php:27
 msgid "Center (cover only)"
-msgstr "Centr&eacute; (cover seulement)"
+msgstr "Közép ( csak a borító )"
 
 #: inc/widgets/class-widget-home-feature-callout.php:33
 msgid "Image Style:"
-msgstr "Style de l'image"
+msgstr "Kép stilús"
 
 #: inc/widgets/class-widget-home-feature-callout.php:35
 msgid "Cover"
-msgstr "Couverture"
+msgstr "Borító"
 
 #: inc/widgets/class-widget-home-feature-callout.php:36
 msgid "Pull Out"
-msgstr "Retirer"
+msgstr "Kiemel"
 
 #: inc/widgets/class-widget-home-feature-callout.php:42
 msgid "Image Position:"
-msgstr "Position de l'image"
+msgstr "Kép pozíció"
 
 #: inc/widgets/class-widget-home-feature-callout.php:44
 msgid "Left Top"
-msgstr "En haut &agrave; gauche"
+msgstr "Balra fent"
 
 #: inc/widgets/class-widget-home-feature-callout.php:45
 msgid "Left Center"
-msgstr "Au milieu &agrave; gauche"
+msgstr "Balra középen"
 
 #: inc/widgets/class-widget-home-feature-callout.php:46
 msgid "Left Bottom"
-msgstr "En bas &agrave; gauche"
+msgstr "Balra alul"
 
 #: inc/widgets/class-widget-home-feature-callout.php:47
 msgid "Right Top"
-msgstr "En haut &agrave; droite"
+msgstr "Jobbra fent"
 
 #: inc/widgets/class-widget-home-feature-callout.php:48
 msgid "Right Center"
-msgstr "Au milieu &agrave; droite"
+msgstr "Jobbra középen"
 
 #: inc/widgets/class-widget-home-feature-callout.php:49
 msgid "Right Bottom"
-msgstr "En bas &agrave; droite"
+msgstr "Jobbra alul"
 
 #: inc/widgets/class-widget-home-feature-callout.php:50
 #: inc/widgets/class-widget-home-feature-callout.php:53
 msgid "Center Top"
-msgstr "Center Top"
+msgstr "Középen fent"
 
 #: inc/widgets/class-widget-home-feature-callout.php:51
 msgid "Center Center"
-msgstr "Center Center"
+msgstr "Közép közép"
 
 #: inc/widgets/class-widget-home-feature-callout.php:52
 msgid "Center Bottom"
-msgstr "Center Bottom"
+msgstr "Középen alul"
 
 #: inc/widgets/class-widget-home-feature-callout.php:59
 msgid "Use transparent overlay"
-msgstr "Utiliser un recouvrement transparent"
+msgstr "Átlátszó borító használata"
 
 #: inc/widgets/class-widget-home-feature-callout.php:64
 msgid "Add standard spacing above/below widget"
-msgstr "Ajouter un espace au dessous/au dessus des widgets"
+msgstr "Szabvány távolság felül/alul a widgeteknél "
 
 #: inc/widgets/class-widget-home-feature-callout.php:69
 msgid "Text Color:"
-msgstr "Couleur du texte:"
+msgstr "Szöveg színe"
 
 #: inc/widgets/class-widget-home-feature-callout.php:74
 msgid "Background Color:"
-msgstr "Couleur d'arri&egrave;re-plan"
+msgstr "Háttérszín"
 
 #: inc/widgets/class-widget-home-feature-callout.php:84
 msgid "Content:"
-msgstr "Contenu:"
+msgstr "Tartalom"
 
 #: inc/widgets/class-widget-home-feature-callout.php:90
 msgid "Image:"
-msgstr "Image:"
+msgstr "Kép:"
 
 #: inc/widgets/class-widget-home-features.php:15
 msgid "Display top features about your site"
-msgstr "Afficher les principaux avantages de votre site"
+msgstr "Főbb jellemzők megjelenítése a weboldaláról"
 
 #: inc/widgets/class-widget-home-features.php:17
 msgid "Listify - Page: Features"
-msgstr "Listify - Page: Avantages"
+msgstr "Listify - oldal: Jellemzők"
 
 #: inc/widgets/class-widget-home-features.php:65
 msgid "Use Image"
-msgstr "Utiliser image"
+msgstr "Használjon képet"
 
 #: inc/widgets/class-widget-home-features.php:151
 msgid "Add Feature"
-msgstr "Ajouter un avantage"
+msgstr "Jellemzők hozzáadása"
 
 #: inc/widgets/class-widget-home-features.php:163
 msgid "Media:"
-msgstr "Media"
+msgstr "Média"
 
 #: job-filters-flat.php:49
 msgid ""
@@ -3062,40 +3051,40 @@ msgstr ""
 
 #: page-templates/template-home.php:95
 msgid "Recent  Listings"
-msgstr "Listings r&eacute;cents"
+msgstr "Legfrissebb hirdetések"
 
 #: page-templates/template-home.php:96
 msgid "Take a look at what's been recently added."
-msgstr "Voyez ce qui a &eacute;t&eacute; r&eacute;cemment ajout&eacute;."
+msgstr "Tekintse meg a nemrégiben hozzáadottakat."
 
 #: popup-content-single-job_listing-add-photo.php:13
 msgid "Upload Images"
-msgstr "Ajouter des images"
+msgstr "Kép feltöltés"
 
 #: popup-content-verified-listing.php:3
 msgid "This listing is being maintained by its rightful owner."
-msgstr "Cette page est g&eacute;r&eacute;e par le propri&eacute;taire de l'&eacute;tablissement"
+msgstr "Ezt a hirdetést is fenntartják a jogos tulajdonosának."
 
 #: product-searchform.php:11 searchform-header.php:11 searchform-header.php:12
 #: searchform.php:11 searchform.php:13
 msgid "Search for:"
-msgstr "Rechercher:"
+msgstr "Keresés "
 
 #: sidebar-archive-job_listing.php:17
 msgid "Toggle Sidebar"
-msgstr "Activer/D&eacute;sactiver la barre lat&eacute;rale"
+msgstr "Váltás az oldalsávra"
 
 #: sidebar-single-job_listing.php:25
 msgid "%s Owner"
-msgstr "%s Propri&eacute;taire"
+msgstr "%s Tulajdonos"
 
 #: sidebar-single-job_listing.php:34
 msgid "Photo Gallery"
-msgstr "Galerie photos"
+msgstr "Képgaléria"
 
 #: sidebar-single-job_listing.php:46
 msgid "Listing Information"
-msgstr "Information du listing"
+msgstr "Hirdetői információ"
 
 #: sidebar.php:23
 msgid "Meta"
@@ -3111,7 +3100,7 @@ msgstr "http://astoundify.com/themes/listify"
 
 #. Description of the plugin/theme
 msgid "The last directory theme you will ever buy."
-msgstr "Le dernier annuaire que vous ach&egrav;terez."
+msgstr "A legútóbbi cégkatalógus, amit valaha vásárlni szeretett volna"
 
 #. Author of the plugin/theme
 msgid "Astoundify"
@@ -3123,43 +3112,43 @@ msgstr "http://astoundify.com"
 
 #. Template Name of the plugin/theme
 msgid "Page: Listings"
-msgstr "Page: Listings"
+msgstr "Oldal: Hirdetések"
 
 #. Template Name of the plugin/theme
 msgid "Layout: Full Width (Boxless)"
-msgstr "Disposition: Pleine largeur (Boxless)"
+msgstr "Elrendezés: Teljes szélesség (Boxless)"
 
 #. Template Name of the plugin/theme
 msgid "Layout: Full Width"
-msgstr "Disposition: Pleine largeur"
+msgstr "Elrendezés: Teljes szélesség "
 
 #. Template Name of the plugin/theme
 msgid "Page: Home (Slider)"
-msgstr "Page: Accueil (Slider)"
+msgstr "Oldal: Főoldal (Slider)"
 
 #. Template Name of the plugin/theme
 msgid "Page: Home (Visual Composer)"
-msgstr "Page: Accueil (Visual Composer)"
+msgstr "Oldal: Főoldal (Visual Composer)"
 
 #. Template Name of the plugin/theme
 msgid "Page: Home"
-msgstr "Page: Accueil"
+msgstr "Oldal: Főoldal"
 
 #. Template Name of the plugin/theme
 msgid "Page: Plans and Pricing"
-msgstr "Page: Prix et plans tarifaires"
+msgstr "Oldal: Csomagok & Árak"
 
 #. Template Name of the plugin/theme
 msgid "Layout: Sidebar Left"
-msgstr "Disposition: Barre lat&eacute;rale &agrave; gauche"
+msgstr "Elrendezés: Oldalsáv Balra"
 
 #. Template Name of the plugin/theme
 msgid "Layout: Centered Single Column"
-msgstr "Disposition: Une seule colonne centr&eacute;e"
+msgstr "Elrendezés: középen egy sávban"
 
 #. Template Name of the plugin/theme
 msgid "Page: Widgetized"
-msgstr "Page: Widg&eacute;tis&eacute;"
+msgstr "Oldal: Widgetekkel"
 
 #: archive.php:28
 msgctxt "monthly archives date format"
@@ -3178,7 +3167,7 @@ msgstr "Y"
 #: functions.php:172
 msgctxt "Montserrat font: on or off"
 msgid "on"
-msgstr "on"
+msgstr "bekapcsol"
 
 #: inc/class-strings.php:135
 msgctxt ""
@@ -3242,22 +3231,22 @@ msgstr ""
 #: inc/integrations/wp-job-manager/class-wp-job-manager-gallery.php:10
 msgctxt "gallery endpoint slug"
 msgid "gallery"
-msgstr "galerie"
+msgstr "galéria"
 
 #: inc/integrations/wp-job-manager/class-wp-job-manager-template.php:806
 msgctxt "search filters submit"
 msgid "Update %s"
-msgstr "Rechercher"
+msgstr "Frissítés %s"
 
 #: inc/integrations/wp-job-manager/class-wp-job-manager-template.php:809
 msgctxt "search filters submit"
 msgid "Search %s"
-msgstr "Rechercher"
+msgstr "Keresés %s"
 
 #: inc/template-tags.php:189
 msgctxt "noun"
 msgid "Menu"
-msgstr "Menu"
+msgstr "Menü"
 
 #: index.php:19 single.php:12
 msgctxt "blog page title"

@@ -14,7 +14,7 @@
 		bindEvents: function() {
 			var self = this;
 
-			this.cache.$document.on( 'ready', function() {
+			$(document).on( 'ready', function() {
 				self.megamenu();
 				self.sorting();
 			});
@@ -25,6 +25,21 @@
 				window.location.hash = '';
 				window.location.href = $(this).attr( 'href' );
 				window.location.reload();
+			});
+
+			$( 'body.facetwp #job_listing_tax_mobile select' ).change(function(e) {
+        if ( ! FWP.length ) {
+          return;
+        }
+        var selected = $(this).find( ':selected' ).val();
+
+				if ('get' == FWP.permalink_type) {
+					var url = listifySettings.archiveurl + '?' + listifySettings.megamenu.facet + '=' + selected;
+				} else {
+				  var url = listifySettings.archiveurl + '#!/' + listifySettings.megamenu.facet + '=' + selected;
+				}
+
+        window.location.href = url;
 			});
 		},
 

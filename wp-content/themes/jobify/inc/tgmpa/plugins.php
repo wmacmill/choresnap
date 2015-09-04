@@ -80,11 +80,6 @@ function jobify_register_required_plugins() {
 			'required'  => false,
 		),
 		array(
-			'name'      => 'Soliloquy Lite',
-			'slug'      => 'soliloquy-lite',
-			'required'  => false,
-		),
-		array(
 			'name'      => 'Testimonials',
 			'slug'      => 'testimonials-by-woothemes',
 			'required'  => false,
