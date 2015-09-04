@@ -6,7 +6,7 @@
  * Logger service
  *
  * @author   Timo Reith <timo@ifeelweb.de>
- * @version  $Id: Logger.php 389 2015-06-04 19:10:34Z timoreithde $
+ * @version  $Id: Logger.php 401 2015-08-21 20:24:18Z timoreithde $
  */ 
 class Psn_Module_Logger_Service_Logger implements Psn_Notification_Service_Interface
 {
@@ -58,13 +58,16 @@ class Psn_Module_Logger_Service_Logger implements Psn_Notification_Service_Inter
 
     protected function _writeRuleMatchEntry()
     {
-        $info = __('Rule settings', 'psn_log') . ":\n";
+        $info = __('Rule settings', 'psn_log') . "\n";
+        $info .= '---------------------------------' . "\n";
+
         $info .= __('Rule name', 'psn') . ': ' . $this->_rule->get('name') . "\n";
         $info .= __('Post type', 'psn') . ': ' . $this->_rule->get('posttype') . "\n";
         $info .= __('Status before', 'psn') . ': ' . $this->_rule->get('status_before') . "\n";
-        $info .= __('Status after', 'psn') . ': ' . $this->_rule->get('status_after') . "\n";
+        $info .= __('Status after', 'psn') . ': ' . $this->_rule->get('status_after') . "\n\n";
 
-        $info .= __('Placeholder details', 'psn_log') . ":\n\n";
+        $info .= __('Placeholder details', 'psn_log') . "\n";
+        $info .= '---------------------------------' . "\n";
 
         if ($this->_pm->getOptionsManager()->getOption('psn_log_array_details')) {
             $placeholders = $this->_replacer->getReplacementsFullyLoaded();

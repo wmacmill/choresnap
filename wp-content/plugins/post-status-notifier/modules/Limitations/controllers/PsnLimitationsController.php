@@ -3,51 +3,19 @@
  * Index controller
  *
  * @author   Timo Reith <timo@ifeelweb.de>
- * @version  $Id: PsnLimitationsController.php 353 2014-12-14 16:55:04Z timoreithde $
+ * @version  $Id: PsnLimitationsController.php 400 2015-08-18 20:15:45Z timoreithde $
  * @package  IfwPsn_Wp
  */
-class Limitations_PsnLimitationsController extends PsnApplicationController
+class Limitations_PsnLimitationsController extends PsnModelBindingController
 {
     /**
-     * DB model class name
+     * @param $action
      */
-    const MODEL = 'Psn_Module_Limitations_Model_Limitations';
-
-    /**
-     * @var string
-     */
-    protected $_itemPostId = 'limitation';
-
-
-
-    /**
-     * (non-PHPdoc)
-     * @see IfwPsn_Vendor_Zend_Controller_Action::preDispatch()
-     */
-    public function preDispatch()
+    public function handleBulkAction($action)
     {
-        if ($this->_request->getActionName() == 'index') {
-
-            $this->enqueueScripts();
-
-            if (isset($_POST['action']) && $_POST['action'] != '-1') {
-                $action = $this->_request->getPost('action');
-            } elseif (isset($_POST['action2']) && $_POST['action2'] != '-1') {
-                $action = $this->_request->getPost('action2');
-            } else {
-                $action = false;
-            }
-
-            if ( $action == 'delete' && is_array($this->_request->getPost($this->_itemPostId)) ) {
-                // bulk action delete
-                $this->_bulkDelete($this->_request->getPost($this->_itemPostId));
-
-            } else if ( $action == 'clear' ) {
-                // bulk action clear
-                IfwPsn_Wp_ORM_Model::factory(self::MODEL)->delete_many();
-                $this->_gotoIndex();
-            }
-
+        if ( $action == 'clear' ) {
+            IfwPsn_Wp_ORM_Model::factory($this->getModelName())->delete_many();
+            $this->gotoIndex();
         }
     }
 
@@ -55,8 +23,7 @@ class Limitations_PsnLimitationsController extends PsnApplicationController
     {
         if ($this->_request->getActionName() == 'index') {
             require_once $this->_pm->getPathinfo()->getRootLib() . 'IfwPsn/Wp/Plugin/Screen/Option/PerPage.php';
-
-            $this->_perPage = new IfwPsn_Wp_Plugin_Screen_Option_PerPage($this->_pm, __('Items per page', 'ifw'), 'psn_logs_per_page');
+            $this->_perPage = new IfwPsn_Wp_Plugin_Screen_Option_PerPage($this->_pm, __('Items per page', 'ifw'), $this->getModelMapper()->getPerPageId($this->getPluginAbbr() . '_'));
         }
     }
 
@@ -71,39 +38,37 @@ class Limitations_PsnLimitationsController extends PsnApplicationController
         $help = new IfwPsn_Wp_Plugin_Menu_Help($this->_pm);
         $help->setTitle(__('Limitations', 'psn_lmt'))
             ->setHelp($this->_getHelpText())
-            ->setSidebar($this->_getHelpSidebar())
+            ->setSidebar($this->_getHelpSidebar('log.html'))
             ->load();
 
-        $listTable = new Psn_Module_Limitations_ListTable_Limitations($this->_pm);
-        $listTable->setItemsPerPage($this->_perPage->getOption());
-
-        $this->view->listTable = $listTable;
+        $this->_initListTable();
+        $this->view->listTable = $this->_listTable;
     }
 
     /**
      * Deletes a rule
      */
-    public function deleteAction()
-    {
-        $tplId = (int)$this->_request->get('id');
-
-        $item = IfwPsn_Wp_ORM_Model::factory(self::MODEL)->find_one((int)$this->_request->get('id'));
-        $item->delete();
-
-        $this->_gotoIndex();
-    }
+//    public function deleteAction()
+//    {
+//        $tplId = (int)$this->_request->get('id');
+//
+//        $item = IfwPsn_Wp_ORM_Model::factory($this->getModelName())->find_one((int)$this->_request->get('id'));
+//        $item->delete();
+//
+//        $this->gotoIndex();
+//    }
 
     /**
      * @param array $items
      */
-    protected function _bulkDelete(array $items)
-    {
-        foreach($items as $id) {
-            IfwPsn_Wp_ORM_Model::factory(self::MODEL)->find_one((int)$id)->delete();
-        }
-
-        $this->_gotoIndex();
-    }
+//    protected function _bulkDelete(array $items)
+//    {
+//        foreach($items as $id) {
+//            IfwPsn_Wp_ORM_Model::factory($this->getModelName())->find_one((int)$id)->delete();
+//        }
+//
+//        $this->gotoIndex();
+//    }
 
     /**
      *
@@ -116,22 +81,6 @@ class Limitations_PsnLimitationsController extends PsnApplicationController
             __('Log', 'psn_log'));
     }
 
-    /**
-     *
-     * @return string
-     */
-    protected function _getHelpSidebar()
-    {
-        $sidebar = '<p><b>' . __('For more information:', 'ifw') . '</b></p>';
-        $sidebar .= sprintf('<p><a href="%s" target="_blank">' . __('Plugin homepage', 'ifw') . '</a></p>',
-            $this->_pm->getEnv()->getHomepage());
-        if (!empty($this->_pm->getConfig()->plugin->docUrl)) {
-            $sidebar .= sprintf('<p><a href="%s" target="_blank">' . __('Documentation', 'ifw') . '</a></p>',
-                $this->_pm->getConfig()->plugin->docUrl);
-        }
-        return $sidebar;
-    }
-
     public function enqueueScripts()
     {
         IfwPsn_Wp_Proxy_Script::loadAdmin('jquery');
@@ -141,7 +90,35 @@ class Limitations_PsnLimitationsController extends PsnApplicationController
         IfwPsn_Wp_Proxy_Style::loadAdmin('wp-jquery-ui-dialog');
     }
 
-    protected function _gotoIndex()
+    /**
+     * @return string
+     */
+    public function getModelName()
+    {
+        return 'Psn_Module_Limitations_Model_Limitations';
+    }
+
+    /**
+     * @return IfwPsn_Wp_Model_Mapper_Abstract
+     */
+    public function getModelMapper()
+    {
+        return Psn_Module_Limitations_Model_Mapper_Limitations::getInstance();
+    }
+
+    /**
+     * @return IfwPsn_Wp_Plugin_ListTable_Abstract
+     */
+    public function getListTable()
+    {
+        return new Psn_Module_Limitations_ListTable_Limitations($this->_pm);
+    }
+
+    /**
+     * Redirects to index page
+     * @return mixed
+     */
+    public function gotoIndex()
     {
         $this->_gotoRoute('limitations', 'index', 'post-status-notifier', array('mod' => 'limitations'));
     }

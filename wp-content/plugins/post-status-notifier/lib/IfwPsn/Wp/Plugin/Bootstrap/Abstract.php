@@ -6,7 +6,7 @@
  * Abstract Bootstrap
  *
  * @author   Timo Reith <timo@ifeelweb.de>
- * @version  $Id: Abstract.php 416 2015-04-19 21:53:46Z timoreithde $
+ * @version  $Id: Abstract.php 456 2015-08-21 21:29:41Z timoreithde $
  */
 require_once dirname(__FILE__) . '/Interface.php';
 
@@ -196,6 +196,7 @@ abstract class IfwPsn_Wp_Plugin_Bootstrap_Abstract implements IfwPsn_Wp_Plugin_B
 
             // it's an access to the plugin settings and no AJAX request
             // start the admin application
+            ifw_raise_memory_limit();
             require_once $this->_pm->getPathinfo()->getRootLib() . '/IfwPsn/Wp/Plugin/Application.php';
 
             $this->_application = IfwPsn_Wp_Plugin_Application::factory($this->_pm);

@@ -8,7 +8,7 @@
 <?php endif; ?>
 <h3><?php _e('Mail queue: Scheduled items', 'psn_def'); ?></h3>
 <div id="mailqueue_actions">
-    <a href="<?php echo $this->url(array('page' => $this->pm->getPathinfo()->getDirname(), 'controller' => 'deferredsending', 'mod' => 'deferredsending', 'action' => 'run'), 'requestVars', true) ?>" id="mailqueue_run" class="button button-primary"><?php _e('Run mail queue now!', 'psn_def'); ?></a>
+    <a href="<?php echo $this->url(array('page' => $this->pm->getPathinfo()->getDirname(), 'controller' => 'deferredsending', 'mod' => 'deferredsending', 'action' => 'run', 'nonce' => wp_create_nonce('mailqueue-run')), 'requestVars', true) ?>" id="mailqueue_run" class="button button-primary"><?php _e('Run mail queue now!', 'psn_def'); ?></a>
     <a href="javascript:void(0);" class="ifw-wp-icon-help" id="mailqueue_run_help_toggle"></a>
     <p id="mailqueue_run_help" style="display: none;"><?php printf(__('Hit the button to send the next %d scheduled emails.', 'psn_def'), $this->pm->getOption('psn_deferred_sending_max_amount')); ?></p>
 </div>

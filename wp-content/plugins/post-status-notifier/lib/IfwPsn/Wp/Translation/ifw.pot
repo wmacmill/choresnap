@@ -161,7 +161,7 @@ msgstr ""
 msgid "Your WordPress version is not supported. Please upgrade to at least version %s"
 msgstr ""
 
-msgid "Performing test"
+msgid "Test"
 msgstr ""
 
 msgid "Result"
@@ -276,4 +276,22 @@ msgid "Learn how to extend %s"
 msgstr ""
 
 msgid "General"
+msgstr ""
+
+msgid "Reason"
+msgstr ""
+
+msgid "Items have been deleted successfully"
+msgstr ""
+
+msgid "Item %s has been deleted successfully"
+msgstr ""
+
+msgid "Item could not be deleted"
+msgstr ""
+
+msgid "Item %s has been copied successfully"
+msgstr ""
+
+msgid "Item %s could not be copied"
 msgstr ""

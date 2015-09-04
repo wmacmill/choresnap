@@ -6,7 +6,7 @@
  *
  *
  * @author   Timo Reith <timo@ifeelweb.de>
- * @version  $Id: Request.php 433 2015-06-21 21:39:19Z timoreithde $
+ * @version  $Id: Request.php 448 2015-07-31 21:52:57Z timoreithde $
  */
 abstract class IfwPsn_Wp_Ajax_Request
 {
@@ -69,11 +69,12 @@ abstract class IfwPsn_Wp_Ajax_Request
      */
     final public function actionCallback()
     {
-        if (!check_ajax_referer($this->_getNonceName(), 'nonce', false)) {
+        if (empty($this->action) || !check_ajax_referer($this->_getNonceName(), 'nonce', false)) {
             // invalid nonce
             $response = new IfwPsn_Wp_Ajax_Response_Json(false, array('html' => ''), 'invalid request');
             trigger_error(sprintf('invalid nonce for ajax request %s', $this->action));
         } else {
+            ifw_raise_memory_limit();
             $response = $this->getResponse();
         }
 

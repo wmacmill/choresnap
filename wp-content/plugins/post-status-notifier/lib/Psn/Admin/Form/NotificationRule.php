@@ -3,7 +3,7 @@
  *
  *
  * @author      Timo Reith <timo@ifeelweb.de>
- * @version     $Id: NotificationRule.php 366 2015-04-03 21:12:05Z timoreithde $
+ * @version     $Id: NotificationRule.php 400 2015-08-18 20:15:45Z timoreithde $
  * @copyright   Copyright (c) ifeelweb.de
  * @package     Psn_Admin
  */
@@ -58,7 +58,7 @@ class Psn_Admin_Form_NotificationRule extends IfwPsn_Zend_Form
             'label'          => __('Rule name', 'psn'),
             'description'    => __('Name of the rule', 'psn'),
             'required'       => true,
-            'filters'        => array('StringTrim', 'StripTags'),
+            'filters'        => array(new IfwPsn_Zend_Filter_SanitizeTextField()),
             'maxlength'      => 80,
             'validators'     => $_GET['appaction'] == 'create' ? array(new Psn_Admin_Form_Validate_Max()) : array(),
             'decorators'     => $this->getFieldDecorators(),
@@ -82,7 +82,7 @@ class Psn_Admin_Form_NotificationRule extends IfwPsn_Zend_Form
         $postType
             ->setLabel(__('Post type', 'psn'))
             ->setDecorators($this->getFieldDecorators())
-            ->setFilters(array('StringTrim', 'StripTags'))
+            ->setFilters(array(new IfwPsn_Zend_Filter_SanitizeTextField()))
             ->addMultiOptions($postTypeOptions)
             ->setOrder(20);
         $this->addElement($postType);
@@ -111,7 +111,7 @@ class Psn_Admin_Form_NotificationRule extends IfwPsn_Zend_Form
         $statusBefore
             ->setLabel(__('Status before', 'psn'))
             ->setDecorators($this->getFieldDecorators())
-            ->setFilters(array('StringTrim', 'StripTags'))
+            ->setFilters(array(new IfwPsn_Zend_Filter_SanitizeTextField()))
             ->addMultiOptions($statusValues)
             ->setOrder(30);
         $this->addElement($statusBefore);
@@ -123,7 +123,7 @@ class Psn_Admin_Form_NotificationRule extends IfwPsn_Zend_Form
         $statusAfter
             ->setLabel(__('Status after', 'psn'))
             ->setDecorators($this->getFieldDecorators())
-            ->setFilters(array('StringTrim', 'StripTags'))
+            ->setFilters(array(new IfwPsn_Zend_Filter_SanitizeTextField()))
             //->setValidators(array(new Psn_Admin_Form_Validate_StatusTransition()))
             ->addMultiOptions($statusValues)
             ->setOrder(40);

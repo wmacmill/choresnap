@@ -6,7 +6,7 @@
  * Ajax Metabox
  *
  * @author   Timo Reith <timo@ifeelweb.de>
- * @version  $Id: Ajax.php 433 2015-06-21 21:39:19Z timoreithde $
+ * @version  $Id: Ajax.php 446 2015-07-30 21:57:38Z timoreithde $
  * @package  IfwPsn_Wp_Plugin_Admin_Menu_Metabox
  */
 require_once dirname(__FILE__) . '/Abstract.php';
@@ -66,7 +66,7 @@ abstract class IfwPsn_Wp_Plugin_Metabox_Ajax extends IfwPsn_Wp_Plugin_Metabox_Ab
 
                 // since 2.8 ajaxurl is always defined in the admin header and points to admin-ajax.php
                 if (typeof ajaxurl == 'undefined') {
-                    var ajaxurl = '<?php echo network_admin_url('admin-ajax.php'); ?>';
+                    var ajaxurl = '<?php echo admin_url('admin-ajax.php'); ?>';
                 }
 
                 var data = {

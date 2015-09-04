@@ -1,26 +1,10 @@
 <?php
 /**
  * @author   Timo Reith <timo@ifeelweb.de>
- * @version  $Id: Limitations.php 353 2014-12-14 16:55:04Z timoreithde $
+ * @version  $Id: Limitations.php 403 2015-08-21 20:40:03Z timoreithde $
  */ 
 class Psn_Module_Limitations_ListTable_Limitations extends IfwPsn_Wp_Plugin_ListTable_Abstract
 {
-    /**
-     *
-     */
-    public function __construct(IfwPsn_Wp_Plugin_Manager $pm, $options = array())
-    {
-        $args = array('singular' => 'limitation', 'plural' => 'limitations');
-        if (!empty($options)) {
-            $args = array_merge($args, $options);
-        }
-        $data = new Psn_Module_Limitations_ListTable_Data_Limitations();
-
-        parent::__construct($args, $data, $pm);
-
-        IfwPsn_Wp_Proxy_Action::add($this->_wpActionPrefix . 'after_display', array($this, 'afterDisplay'));
-    }
-
     /**
      * @return string
      */
@@ -50,6 +34,14 @@ class Psn_Module_Limitations_ListTable_Limitations extends IfwPsn_Wp_Plugin_List
     }
 
     /**
+     * @return string
+     */
+    public function get_default_primary_column_name()
+    {
+        return 'rule_name';
+    }
+    
+    /**
      * @return array
      */
     public function getSortableColumns()
@@ -75,7 +67,11 @@ class Psn_Module_Limitations_ListTable_Limitations extends IfwPsn_Wp_Plugin_List
         if (!$this->isMetaboxEmbedded()) {
             //Build row actions
             $actions = array();
-            $actions['delete'] = sprintf('<a href="?page=%s&mod=limitations&controller=limitations&appaction=delete&id=%s" class="delConfirm">'. __('Delete', 'psn') .'</a>', $_REQUEST['page'], $item['id']);
+            $actions['delete'] = sprintf('<a href="?page=%s&mod=limitations&controller=limitations&appaction=delete&nonce=%s&id=%s" class="delConfirm">'. __('Delete', 'psn') .'</a>',
+                $_REQUEST['page'],
+                wp_create_nonce( IfwPsn_Zend_Controller_ModelBinding::getDeleteNonceAction($this->getModelMapper()->getSingular(), $item['id']) ),
+                $item['id']
+            );
 
             //Return the title contents
             $result = sprintf('%1$s%2$s',
@@ -93,26 +89,31 @@ class Psn_Module_Limitations_ListTable_Limitations extends IfwPsn_Wp_Plugin_List
      * @param $items
      * @return string
      */
-    public function getColumnType($items)
+    public function getColumnPostTitle($items)
     {
-        $result = '';
+        return htmlentities($items['post_title']);
+    }
 
-        switch((int)$items['type']) {
-            case Psn_Module_HtmlMails_Model_MailTemplates::TYPE_PLAIN_TEXT:
-                $value = __('Plain text', 'psn_htm');
-                break;
-            case Psn_Module_HtmlMails_Model_MailTemplates::TYPE_HTML:
-                $value = 'HTML';
-                break;
-            default:
-                $value = '';
-        }
+    /**
+     * Custom column handling
+     *
+     * @param $items
+     * @return string
+     */
+    public function getColumnRuleName($items)
+    {
+        return htmlentities($items['rule_name']);
+    }
 
-        if (!empty($value)) {
-            $result = $value;
-        }
-
-        return $result;
+    /**
+     * Custom column handling
+     *
+     * @param $items
+     * @return string
+     */
+    public function getColumnStatusAfter($items)
+    {
+        return htmlentities($items['status_after']);
     }
 
     /**
@@ -144,7 +145,7 @@ class Psn_Module_Limitations_ListTable_Limitations extends IfwPsn_Wp_Plugin_List
 
         if (!$this->isMetaboxEmbedded()) {
             $actions = array(
-                'delete' => __('Delete'),
+                'bulk_delete' => __('Delete'),
                 'clear' => __('Clear'),
             );
         }
@@ -186,5 +187,29 @@ class Psn_Module_Limitations_ListTable_Limitations extends IfwPsn_Wp_Plugin_List
         </script>
         <?php
         endif;
+    }
+
+    /**
+     * @return string
+     */
+    public function getModelName()
+    {
+        return 'Psn_Module_Limitations_Model_Limitations';
+    }
+
+    /**
+     * @return IfwPsn_Wp_Model_Mapper_Interface
+     */
+    public function getModelMapper()
+    {
+        return Psn_Module_Limitations_Model_Mapper_Limitations::getInstance();
+    }
+
+    /**
+     * @return Psn_Module_Limitations_ListTable_Data_Limitations
+     */
+    public function getData()
+    {
+        return new Psn_Module_Limitations_ListTable_Data_Limitations();
     }
 }

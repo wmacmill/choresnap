@@ -6,7 +6,7 @@
  * 
  *
  * @author    Timo Reith <timo@ifeelweb.de>
- * @version   $Id: WooCommerce.php 429 2015-05-25 14:02:06Z timoreithde $
+ * @version   $Id: WooCommerce.php 447 2015-07-31 16:57:37Z timoreithde $
  * @package   
  */ 
 class IfwPsn_Wp_Plugin_Update_Api_WooCommerce extends IfwPsn_Wp_Plugin_Update_Api_Abstract
@@ -42,9 +42,14 @@ class IfwPsn_Wp_Plugin_Update_Api_WooCommerce extends IfwPsn_Wp_Plugin_Update_Ap
         // slug
         $pluginSlug = $this->_pm->getSlugFilenamePath();
 
-        if (!isset($args->slug) || ($args->slug != $pluginSlug)) {
-            return false;
+        if (!isset($args->slug) || ($args->slug != $this->_pm->getSlug())) {
+            // IMPORTANT:
+            // this plugin is not responsible for this request
+            // return def to not break other plugins
+            return $def;
         }
+
+        $result = '';
 
         // Get the current version
         $plugin_info = get_site_transient('update_plugins');
@@ -94,9 +99,9 @@ class IfwPsn_Wp_Plugin_Update_Api_WooCommerce extends IfwPsn_Wp_Plugin_Update_Ap
                 $this->_pm->getLogger()->debug(' --- Plugin info check response --- ');
                 $this->_pm->getLogger()->debug(var_export($response, true));
             }
-
-            return $result;
         }
+
+        return $result;
     }
 
     /**

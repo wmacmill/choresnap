@@ -3,7 +3,7 @@
  * Premium Smtp module
  *
  * @author   Timo Reith <timo@ifeelweb.de>
- * @version  $Id: bootstrap.php 333 2014-11-08 00:16:07Z timoreithde $
+ * @version  $Id: bootstrap.php 405 2015-08-24 22:17:41Z timoreithde $
  */
 class Psn_Smtp_Bootstrap extends IfwPsn_Wp_Module_Bootstrap_Abstract
 {
@@ -183,7 +183,9 @@ class Psn_Smtp_Bootstrap extends IfwPsn_Wp_Module_Bootstrap_Abstract
             ->addField(new IfwPsn_Wp_Options_Field_Text(
                 'smtp_port',
                 __('SMTP port', 'psn_smtp'),
-                __('Sets the SMTP port. If left blank, default is 25.', 'psn_smtp')
+                __('Sets the SMTP port. If left blank, default is 25.', 'psn_smtp'), array(
+                    'sanitizer' => 'number'
+                )
             ))
             ->addField(new IfwPsn_Wp_Options_Field_Text(
                 'smtp_secure',
@@ -208,7 +210,9 @@ class Psn_Smtp_Bootstrap extends IfwPsn_Wp_Module_Bootstrap_Abstract
             ->addField(new IfwPsn_Wp_Options_Field_Text(
                 'smtp_timeout',
                 __('Timeout', 'psn_smtp'),
-                __('Sets the SMTP server timeout in seconds. (Default is 10).', 'psn_smtp')
+                __('Sets the SMTP server timeout in seconds. (Default is 10).', 'psn_smtp'), array(
+                    'sanitizer' => 'number'
+                )
             ))
             ->addField(new IfwPsn_Wp_Options_Field_Text(
                 'smtp_helo',

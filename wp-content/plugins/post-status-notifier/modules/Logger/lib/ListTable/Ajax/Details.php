@@ -6,7 +6,7 @@
  * 
  *
  * @author   Timo Reith <timo@ifeelweb.de>
- * @version  $Id: Details.php 394 2015-06-21 21:40:04Z timoreithde $
+ * @version  $Id: Details.php 404 2015-08-21 20:44:28Z timoreithde $
  */ 
 class Psn_Module_Logger_ListTable_Ajax_Details extends IfwPsn_Wp_Ajax_Request
 {
@@ -24,29 +24,34 @@ class Psn_Module_Logger_ListTable_Ajax_Details extends IfwPsn_Wp_Ajax_Request
 
         $extra = $log->get('extra');
 
-        echo '<div class="log-detail-dialog">';
+        $output = '';
+
+        $output .=  '<div class="log-detail-dialog">';
         if (strpos($extra, '{') === 0) {
             $extra = html_entity_decode($extra);
             $extra = json_decode($extra, true);
-            echo '<p><b>TO:</b><br>' . $extra['to'] . '<br>';
-            echo '<p><b>Headers:</b><br>';
+            $output .= '<p><b>TO:</b><br>' . htmlentities($extra['to']) . '<br>';
+            $output .= '<p><b>Headers:</b><br>';
             foreach ($extra['headers'] as $header) {
-                echo htmlentities($header) . '<br>';
+                $output .= htmlentities($header) . '<br>';
             }
-            echo '</p>';
-            echo '<p><b>Subject:</b><br>' . $extra['subject'] . '</p>';
+            $output .= '</p>';
+            $output .= '<p><b>Subject:</b><br>' . htmlentities($extra['subject']) . '</p>';
 
             $message = $extra['message'];
             if (isset($extra['html']) && $extra['html'] == false) {
                 $message = nl2br($extra['message']);
             }
 
-            echo '<b>Text:</b><div class="log-detail-text">' . $message . '</div>';
+            $output .= '<b>Text:</b><div class="log-detail-text">' . htmlentities($message) . '</div>';
 
         } else {
-            echo nl2br(htmlspecialchars($log->get('extra')));
+            $output .= nl2br(htmlspecialchars($log->get('extra')));
         }
-        echo '<div>';
+        $output .= '<div>';
+
+        echo $output;
+
         exit;
     }
 }

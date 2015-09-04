@@ -6,7 +6,7 @@
  * 
  *
  * @author   Timo Reith <timo@ifeelweb.de>
- * @version  $Id: Form.php 388 2015-02-06 17:51:34Z timoreithde $
+ * @version  $Id: Form.php 450 2015-08-12 21:53:07Z timoreithde $
  */ 
 class IfwPsn_Zend_Form extends IfwPsn_Vendor_Zend_Form
 {
@@ -58,7 +58,15 @@ class IfwPsn_Zend_Form extends IfwPsn_Vendor_Zend_Form
         if ($this->hasNonce()) {
             $this->removeElement(self::NONCE_KEY);
         }
-        return parent::getValues();
+        $values = parent::getValues();
+
+        // sanitize values
+        foreach ($values as $k => $v) {
+            $v = IfwPsn_Util_Parser_Html::sanitize($v);
+            $values[$k] = $v;
+        }
+
+        return $values;
     }
 
     /**

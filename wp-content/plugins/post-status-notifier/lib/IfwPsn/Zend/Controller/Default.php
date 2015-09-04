@@ -6,7 +6,7 @@
  * 
  *
  * @author   Timo Reith <timo@ifeelweb.de>
- * @version  $Id: Default.php 380 2015-01-08 23:22:59Z timoreithde $
+ * @version  $Id: Default.php 453 2015-08-16 20:09:58Z timoreithde $
  */ 
 class IfwPsn_Zend_Controller_Default extends IfwPsn_Vendor_Zend_Controller_Action
 {
@@ -232,6 +232,16 @@ class IfwPsn_Zend_Controller_Default extends IfwPsn_Vendor_Zend_Controller_Actio
     }
 
     /**
+     * @param $page
+     * @param null $action
+     * @param null $extra
+     */
+    public function gotoPage($page, $action = null, $extra = null)
+    {
+        $this->_gotoPage($page, $action, $extra);
+    }
+
+    /**
      * @return IfwPsn_Wp_Admin_Notices
      * @deprecated
      */
@@ -295,4 +305,43 @@ class IfwPsn_Zend_Controller_Default extends IfwPsn_Vendor_Zend_Controller_Actio
      */
     public function onLoad()
     {}
+
+    /**
+     * @param string $docUrl
+     * @return string
+     */
+    protected function _getHelpSidebar($docUrl = '')
+    {
+        $sidebar = '<p><b>' . __('For more information:', 'ifw') . '</b></p>';
+        $sidebar .= sprintf('<p><a href="%s" target="_blank">' . __('Plugin homepage', 'ifw') . '</a></p>',
+            $this->_pm->getEnv()->getHomepage());
+
+        if (!empty($this->_pm->getConfig()->plugin->docUrl)) {
+            $sidebar .= sprintf('<p><a href="%s" target="_blank">' . __('Documentation', 'ifw') . '</a></p>',
+                $this->_pm->getConfig()->plugin->docUrl . $docUrl);
+        }
+
+        return $sidebar;
+    }
+
+    /**
+     * @param $action
+     * @param string $key
+     * @return bool
+     */
+    protected function _verifyNonce($action, $key = 'nonce')
+    {
+        return wp_verify_nonce($this->_request->get($key), $action);
+    }
+
+    /**
+     * @param string $name
+     * @param array $arguments
+     */
+    public function __call($name, $arguments)
+    {
+        $controller = $this->_request->get('controller');
+        $controller = esc_attr(($controller));
+        IfwPsn_Wp_Proxy_Action::doAction($this->_pm->getAbbrLower() . '_'. $controller .'_action-' . str_replace('Action', '', $name), $this, $arguments);
+    }
 }

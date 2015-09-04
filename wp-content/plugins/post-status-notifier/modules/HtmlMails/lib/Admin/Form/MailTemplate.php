@@ -6,7 +6,7 @@
  *
  *
  * @author   Timo Reith <timo@ifeelweb.de>
- * @version  $Id: MailTemplate.php 359 2015-01-10 20:48:25Z timoreithde $
+ * @version  $Id: MailTemplate.php 400 2015-08-18 20:15:45Z timoreithde $
  */
 class Psn_Module_HtmlMails_Admin_Form_MailTemplate extends IfwPsn_Zend_Form
 {
@@ -42,7 +42,7 @@ class Psn_Module_HtmlMails_Admin_Form_MailTemplate extends IfwPsn_Zend_Form
             'label'          => __('Name', 'psn_htm'),
             'description'    => __('Internal identifier', 'psn_htm'),
             'required'       => true,
-            'filters'        => array('StringTrim', 'StripTags'),
+            'filters'        => array(new IfwPsn_Zend_Filter_SanitizeTextField()),
             'maxlength'      => 80,
 //            'validators'     => $_GET['appaction'] == 'create' ? array(new Psn_Admin_Form_Validate_Max()) : array(),
             'decorators'     => $this->getFieldDecorators(),
@@ -53,7 +53,7 @@ class Psn_Module_HtmlMails_Admin_Form_MailTemplate extends IfwPsn_Zend_Form
             'label'          => __('Mail type', 'psn_htm'),
             'id'             => 'type',
             'required'       => true,
-            'filters'        => array('StringTrim', 'HtmlEntities'),
+            'filters'        => array(new IfwPsn_Zend_Filter_SanitizeTextField()),
             'decorators'     => $this->getFieldDecorators(),
             'multiOptions'=>array(
                 '0' => array('label' => __('Plain text', 'psn_htm')),

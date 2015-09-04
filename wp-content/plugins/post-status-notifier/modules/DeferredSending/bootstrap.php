@@ -3,7 +3,7 @@
  * Premium DeferredSending module
  *
  * @author   Timo Reith <timo@ifeelweb.de>
- * @version  $Id: bootstrap.php 394 2015-06-21 21:40:04Z timoreithde $
+ * @version  $Id: bootstrap.php 405 2015-08-24 22:17:41Z timoreithde $
  */
 class Psn_DeferredSending_Bootstrap extends IfwPsn_Wp_Module_Bootstrap_Abstract
 {
@@ -160,7 +160,10 @@ class Psn_DeferredSending_Bootstrap extends IfwPsn_Wp_Module_Bootstrap_Abstract
             sprintf(
                 __('Determines how many emails should be processed on each mail queue run (Integer, default: 10).<br>Read the <a href="%s" target="_blank">manual page</a> for an example.', 'psn_def'),
                 'http://docs.ifeelweb.de/post-status-notifier/mailqueue.html#max-amount'
-                )
+                ),
+            array(
+                'sanitizer' => 'number'
+            )
         ));
 
         if (!$this->_pm->hasOption('psn_deferred_sending_recurrence')) {
@@ -195,6 +198,7 @@ class Psn_DeferredSending_Bootstrap extends IfwPsn_Wp_Module_Bootstrap_Abstract
             __('Determines how often the mail queue should try to send an email in case of an error (Integer, default: 10).', 'psn_def'),
             array(
                 'maxlength' => 2,
+                'sanitizer' => 'number'
             )
         ));
 

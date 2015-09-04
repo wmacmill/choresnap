@@ -2,7 +2,7 @@
 /**
  *
  * @author   Timo Reith <timo@ifeelweb.de>
- * @version  $Id: PsnApplicationController.php 359 2015-01-10 20:48:25Z timoreithde $
+ * @version  $Id: PsnApplicationController.php 397 2015-08-16 20:09:46Z timoreithde $
  */
 class PsnApplicationController extends IfwPsn_Zend_Controller_Default
 {
@@ -34,5 +34,32 @@ class PsnApplicationController extends IfwPsn_Zend_Controller_Default
         $nav = new Psn_Admin_Navigation($this->_pm);
 
         $this->_navigation = $nav->getNavigation();
+    }
+
+    /**
+     * @param $identifier
+     * @param $headline
+     * @param $helpUrl
+     * @param $actionUrl
+     * @return string
+     * @throws IfwPsn_Wp_Plugin_Exception
+     */
+    public static function getImportForm($identifier, $headline, $helpUrl, $actionUrl)
+    {
+        $helpText = sprintf(__('Need help? <a href="%s" target="_blank">Check the docs</a>.', 'psn'), IfwPsn_Wp_Plugin_Manager::getInstance('Psn')->getConfig()->plugin->docUrl . $helpUrl);
+
+        $options = array(
+            'headline' => $headline,
+            'help_text' => $helpText,
+            'action_url' => $actionUrl,
+            'import_file_label' => __('Import file', 'psn'),
+            'import_file_description' => __('Please select a valid .xml export file.', 'psn'),
+            'import_prefix_label' => __('Import prefix (optional)', 'psn'),
+            'import_prefix_description' => __('Prepend this text to imported items names to identify them.', 'psn'),
+            'wait_text_headline' => __('Processing file', 'psn'),
+            'wait_text_description' => __('Please wait while the export file is being processed ...', 'psn'),
+        );
+
+        return IfwPsn_Wp_Data_Importer::getForm(IfwPsn_Wp_Plugin_Manager::getInstance('Psn'), $identifier, $options);
     }
 }

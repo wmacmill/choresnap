@@ -3,39 +3,20 @@
  * Rules controller
  *
  * @author   Timo Reith <timo@ifeelweb.de>
- * @version  $$Id: PsnRulesController.php 379 2015-04-24 17:08:17Z timoreithde $$
+ * @version  $$Id: PsnRulesController.php 397 2015-08-16 20:09:46Z timoreithde $$
  * @package  IfwPsn_Wp
  */
-class PsnRulesController extends PsnApplicationController
+class PsnRulesController extends PsnModelBindingController
 {
-    /**
-     * DB model class name
-     */
-    const MODEL = 'Psn_Model_Rule';
-
-    /**
-     * @var string
-     */
-    protected $_itemPostId = 'rule';
-
     /**
      * @var IfwPsn_Zend_Form
      */
     protected $_form;
-
-    /**
-     * @var array
-     */
-    protected $_exportOptions = array(
-        'item_name_plural' => 'rules',
-        'item_name_singular' => 'rule',
-        'filename' => 'PSN_rules_export_%s'
-    );
-
-    /**
-     * @var IfwPsn_Wp_Plugin_Screen_Option_PerPage
-     */
-    protected $_perPage;
+//
+//    /**
+//     * @var IfwPsn_Wp_Plugin_Screen_Option_PerPage
+//     */
+//    protected $_perPage;
 
 
 
@@ -45,29 +26,21 @@ class PsnRulesController extends PsnApplicationController
      */
     public function preDispatch()
     {
-        if ($this->_request->getActionName() == 'index') {
+        parent::preDispatch();
+    }
 
-            if (isset($_POST['action']) && $_POST['action'] != '-1') {
-                $action = $this->_request->getPost('action');
-            } elseif (isset($_POST['action2']) && $_POST['action2'] != '-1') {
-                $action = $this->_request->getPost('action2');
-            } else {
-                $action = false;
-            }
+    /**
+     * @param $action
+     */
+    public function handleBulkAction($action)
+    {
+        if ( $action == 'deactivate' && is_array( $this->_request->getPost($this->getSingular()) ) ) {
+            // bulk action deactivate
+            $this->_bulkDeactivate($this->_request->getPost($this->getSingular()));
 
-            if ( $action == 'delete' && is_array($this->_request->getPost($this->_itemPostId)) ) {
-                // bulk action delete
-                $this->_bulkDelete($this->_request->getPost($this->_itemPostId));
-            } else if ( $action == 'deactivate' && is_array($this->_request->getPost($this->_itemPostId)) ) {
-                // bulk action deactivate
-                $this->_bulkDeactivate($this->_request->getPost($this->_itemPostId));
-            } else if ( $action == 'activate' && is_array($this->_request->getPost($this->_itemPostId)) ) {
-                // bulk action activate
-                $this->_bulkActivate($this->_request->getPost($this->_itemPostId));
-            } else if ( $action == 'export' && is_array($this->_request->getPost($this->_itemPostId)) ) {
-                // bulk action export
-                $this->_bulkExport($this->_request->getPost($this->_itemPostId));
-            }
+        } else if ( $action == 'activate' && is_array( $this->_request->getPost($this->getSingular()) ) ) {
+            // bulk action activate
+            $this->_bulkActivate( $this->_request->getPost($this->getSingular()) );
         }
     }
 
@@ -75,7 +48,7 @@ class PsnRulesController extends PsnApplicationController
     {
         if ($this->_request->getActionName() == 'index') {
             require_once $this->_pm->getPathinfo()->getRootLib() . 'IfwPsn/Wp/Plugin/Screen/Option/PerPage.php';
-            $this->_perPage = new IfwPsn_Wp_Plugin_Screen_Option_PerPage($this->_pm, __('Items per page', 'ifw'), 'psn_rules_per_page');
+            $this->_perPage = new IfwPsn_Wp_Plugin_Screen_Option_PerPage($this->_pm, __('Items per page', 'ifw'), $this->getModelMapper()->getPerPageId($this->getPluginAbbr() . '_'));
         }
     }
 
@@ -95,16 +68,14 @@ class PsnRulesController extends PsnApplicationController
         $help = new IfwPsn_Wp_Plugin_Menu_Help($this->_pm);
         $help->setTitle(__('Rules', 'psn'))
             ->setHelp($this->_getDefaultHelpText())
-            ->setSidebar($this->_getHelpSidebar())
+            ->setSidebar($this->_getHelpSidebar('rules.html'))
             ->load();
 
         // init list table
         require_once $this->_pm->getPathinfo()->getRootLib() . 'Psn/Admin/ListTable/Rules.php';
+        $this->_initListTable();
+        $this->view->listTable = $this->_listTable;
 
-        $listTable = new Psn_Admin_ListTable_Rules($this->_pm);
-        $listTable->setItemsPerPage($this->_perPage->getOption());
-
-        $this->view->listTable = $listTable;
         $this->view->langCreateNewRule = __('Create new rule', 'psn');
         $this->view->isPremium = $this->_pm->isPremium();
 
@@ -130,7 +101,7 @@ class PsnRulesController extends PsnApplicationController
             } elseif ($this->_form->isValid($this->_request->getPost())) {
 
                 // request is valid, save the rule
-                $rule = IfwPsn_Wp_ORM_Model::factory(self::MODEL)->create($this->_getFormValues());
+                $rule = IfwPsn_Wp_ORM_Model::factory($this->getModelName())->create($this->_getFormValues());
                 $rule->save();
 
                 $this->getAdminNotices()->persistUpdated(
@@ -385,58 +356,6 @@ class PsnRulesController extends PsnApplicationController
     }
 
     /**
-     * Deletes a rule
-     */
-    public function deleteAction()
-    {
-        if (!wp_verify_nonce($this->_request->get('nonce'), 'rule-delete-' . $this->_request->get('id'))) {
-            $this->getAdminNotices()->persistError(__('Invalid access.', 'psn'));
-            $this->_gotoIndex();
-        }
-
-        IfwPsn_Wp_ORM_Model::factory(self::MODEL)->find_one((int)$this->_request->get('id'))->delete();
-
-        $this->_gotoIndex();
-    }
-
-    /**
-     * Copies a rule
-     */
-    public function copyAction()
-    {
-        IfwPsn_Wp_ORM_Model::duplicate(self::MODEL, $this->_request->get('id'), array('values_callback' => array($this, 'copyCallback')));
-
-        $this->_gotoIndex();
-    }
-
-    /**
-     * @param $values
-     * @return mixed
-     */
-    public function copyCallback($values)
-    {
-        if ($this->_pm->getOptionsManager()->getOption('psn_deactivate_copied_rules') !== null) {
-            $values['active'] = 0;
-        }
-        return $values;
-    }
-
-    /**
-     * Imports rules
-     */
-    public function importAction()
-    {
-        $items = $this->_getImportedItems($_FILES['importfile']['tmp_name'], $this->_exportOptions['item_name_singular']);
-
-        $result = IfwPsn_Wp_ORM_Model::import(self::MODEL, $items, array(
-            'item_callback' => array($this, 'importItemCallback'),
-            'prefix' => esc_attr($this->_request->get('import_prefix'))
-        ));
-
-        $this->_gotoIndex();
-    }
-
-    /**
      * @param $item
      * @internal param $values
      * @return mixed
@@ -453,42 +372,12 @@ class PsnRulesController extends PsnApplicationController
     }
 
     /**
-     *
-     */
-    public function exportAction()
-    {
-        $this->_export($this->_request->get('id'));
-    }
-
-    /**
-     * @param $rules
-     */
-    protected function _export($rules)
-    {
-        $options = $this->_exportOptions;
-        $options['filename'] = sprintf($options['filename'], date('Y-m-d_H_i_s'));
-
-        IfwPsn_Wp_ORM_Model::export(self::MODEL, $rules, $options);
-    }
-
-    /**
-     * @param array $rules
-     */
-    protected function _bulkDelete(array $rules)
-    {
-        foreach($rules as $ruleId) {
-            $rule = IfwPsn_Wp_ORM_Model::factory(self::MODEL)->find_one((int)$ruleId);
-            $rule->delete();
-        }
-    }
-
-    /**
      * @param array $rules
      */
     protected function _bulkDeactivate(array $rules)
     {
         foreach($rules as $ruleId) {
-            $rule = IfwPsn_Wp_ORM_Model::factory(self::MODEL)->find_one((int)$ruleId);
+            $rule = IfwPsn_Wp_ORM_Model::factory($this->getModelName())->find_one((int)$ruleId);
             $rule->active = 0;
             $rule->save();
         }
@@ -499,9 +388,9 @@ class PsnRulesController extends PsnApplicationController
         $id = (int)$this->_request->get('id');
 
         if (wp_verify_nonce($this->_request->get('_wpnonce'), 'activate' . $id)) {
-            $rule = IfwPsn_Wp_ORM_Model::factory(self::MODEL)->find_one($id);
+            $rule = IfwPsn_Wp_ORM_Model::factory($this->getModelName())->find_one($id);
 
-            $ruleModelClass = self::MODEL;
+            $ruleModelClass = $this->getModelName();
             if ($rule instanceof $ruleModelClass) {
                 $rule->active = 1;
                 $rule->save();
@@ -516,9 +405,9 @@ class PsnRulesController extends PsnApplicationController
         $id = (int)$this->_request->get('id');
 
         if (wp_verify_nonce($this->_request->get('_wpnonce'), 'deactivate' . $id)) {
-            $rule = IfwPsn_Wp_ORM_Model::factory(self::MODEL)->find_one($id);
+            $rule = IfwPsn_Wp_ORM_Model::factory($this->getModelName())->find_one($id);
 
-            $ruleModelClass = self::MODEL;
+            $ruleModelClass = $this->getModelName();
             if ($rule instanceof $ruleModelClass) {
                 $rule->active = 0;
                 $rule->save();
@@ -534,18 +423,10 @@ class PsnRulesController extends PsnApplicationController
     protected function _bulkActivate($rules)
     {
         foreach($rules as $ruleId) {
-            $rule = IfwPsn_Wp_ORM_Model::factory(self::MODEL)->find_one((int)$ruleId);
+            $rule = IfwPsn_Wp_ORM_Model::factory($this->getModelName())->find_one((int)$ruleId);
             $rule->active = 1;
             $rule->save();
         }
-    }
-
-    /**
-     * @param array $items
-     */
-    protected function _bulkExport($items)
-    {
-        $this->_export($items);
     }
 
     /**
@@ -561,16 +442,34 @@ class PsnRulesController extends PsnApplicationController
     /**
      * @return string
      */
-    protected function _getHelpSidebar()
+    public function getModelName()
     {
-        $sidebar = '<p><b>' . __('For more information:', 'ifw') . '</b></p>';
-        $sidebar .= sprintf('<p><a href="%s" target="_blank">' . __('Plugin homepage', 'ifw') . '</a></p>',
-            $this->_pm->getEnv()->getHomepage());
-        if (!empty($this->_pm->getConfig()->plugin->docUrl)) {
-            $sidebar .= sprintf('<p><a href="%s" target="_blank">' . __('Documentation', 'ifw') . '</a></p>',
-            $this->_pm->getConfig()->plugin->docUrl);
-        }
-        return $sidebar;
+        return 'Psn_Model_Rule';
+    }
+
+    /**
+     * @return IfwPsn_Wp_Model_Mapper_Abstract
+     */
+    public function getModelMapper()
+    {
+        return Psn_Model_Mapper_Rule::getInstance();
+    }
+
+    /**
+     * @return IfwPsn_Wp_Plugin_ListTable_Abstract
+     */
+    public function getListTable()
+    {
+        return new Psn_Admin_ListTable_Rules($this->_pm);
+    }
+
+    /**
+     * Redirects to index page
+     * @return mixed
+     */
+    public function gotoIndex()
+    {
+        $this->_gotoRoute('rules');
     }
 
 }

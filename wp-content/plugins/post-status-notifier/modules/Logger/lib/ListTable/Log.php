@@ -1,7 +1,7 @@
 <?php
 /**
  * @author   Timo Reith <timo@ifeelweb.de>
- * @version  $Id: Log.php 394 2015-06-21 21:40:04Z timoreithde $
+ * @version  $Id: Log.php 403 2015-08-21 20:40:03Z timoreithde $
  */ 
 class Psn_Module_Logger_ListTable_Log extends IfwPsn_Wp_Plugin_ListTable_Abstract
 {
@@ -10,18 +10,7 @@ class Psn_Module_Logger_ListTable_Log extends IfwPsn_Wp_Plugin_ListTable_Abstrac
      */
     public function __construct(IfwPsn_Wp_Plugin_Manager $pm, $options = array())
     {
-        $args = array('singular' => 'log', 'plural' => 'logs');
-        if (!empty($options)) {
-            $args = array_merge($args, $options);
-        }
-
-        require_once dirname(__FILE__) . '/Data/Log.php';
-
-        $data = new Psn_Module_Logger_ListTable_Data_Log();
-
-
-        parent::__construct($args, $data, $pm);
-
+        parent::__construct($pm, $options);
 
         if ($this->isAjax()) {
             require_once dirname(__FILE__) . '/../Metabox/Logs.php';
@@ -31,8 +20,6 @@ class Psn_Module_Logger_ListTable_Log extends IfwPsn_Wp_Plugin_ListTable_Abstrac
                 $metaBox->getAjaxRequest()->getAction(),
                 $metaBox->getAjaxRequest()->getNonce()));
         }
-
-        IfwPsn_Wp_Proxy_Action::add($this->_wpActionPrefix . 'after_display', array($this, 'afterDisplay'));
     }
 
     /**
@@ -62,6 +49,14 @@ class Psn_Module_Logger_ListTable_Log extends IfwPsn_Wp_Plugin_ListTable_Abstrac
         }
 
         return $columns;
+    }
+
+    /**
+     * @return string
+     */
+    public function get_default_primary_column_name()
+    {
+        return 'message';
     }
 
     /** (non-PHPdoc)
@@ -153,7 +148,7 @@ class Psn_Module_Logger_ListTable_Log extends IfwPsn_Wp_Plugin_ListTable_Abstrac
 
             //Return the title contents
             $result = sprintf('%1$s%2$s',
-                /*$1%s*/ $items['message'],
+                /*$1%s*/ htmlentities($items['message']),
                 /*$2%s*/ $this->row_actions($actions)
             );
         } else {
@@ -272,5 +267,30 @@ class Psn_Module_Logger_ListTable_Log extends IfwPsn_Wp_Plugin_ListTable_Abstrac
         </script>
         <?php
         endif;
+    }
+
+    /**
+     * @return string
+     */
+    public function getModelName()
+    {
+        return 'Psn_Module_Logger_Model_Log';
+    }
+
+    /**
+     * @return IfwPsn_Wp_Model_Mapper_Interface
+     */
+    public function getModelMapper()
+    {
+        return Psn_Module_Logger_Model_Mapper_Log::getInstance();
+    }
+
+    /**
+     * @return Psn_Module_Logger_ListTable_Data_Log
+     */
+    public function getData()
+    {
+        require_once dirname(__FILE__) . '/Data/Log.php';
+        return new Psn_Module_Logger_ListTable_Data_Log();
     }
 }

@@ -6,7 +6,7 @@
  * Option which will not be displayed on options page
  *
  * @author   Timo Reith <timo@ifeelweb.de>
- * @version  $Id: External.php 304 2014-07-27 17:29:16Z timoreithde $
+ * @version  $Id: External.php 458 2015-08-24 22:17:27Z timoreithde $
  */
 require_once dirname(__FILE__) . '/../Field.php';
 
@@ -26,10 +26,10 @@ class IfwPsn_Wp_Options_Field_External extends IfwPsn_Wp_Options_Field
         if (is_array($value)) {
             $html = '';
             foreach ($value as $val) {
-                $html .= '<input type="hidden" id="'. $id .'" name="'. $name .'[]" value="'. $val .'" />';
+                $html .= '<input type="hidden" id="'. $id .'" name="'. $name .'[]" value="'. esc_attr($val) .'" />';
             }
         } else {
-            $html = '<input type="hidden" id="'. $id .'" name="'. $name .'" value="'. $value .'" />';
+            $html = '<input type="hidden" id="'. $id .'" name="'. $name .'" value="'. esc_attr($value) .'" />';
         }
 
         echo $html;

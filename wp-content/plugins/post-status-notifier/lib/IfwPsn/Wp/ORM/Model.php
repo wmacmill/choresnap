@@ -6,9 +6,9 @@
  *
  *
  * @author   Timo Reith <timo@ifeelweb.de>
- * @version  $Id: Model.php 428 2015-05-03 20:33:25Z timoreithde $
+ * @version  $Id: Model.php 443 2015-07-25 15:32:39Z timoreithde $
  */
-class IfwPsn_Wp_ORM_Model extends IfwPsn_Wp_ORM_ModelParis
+abstract class IfwPsn_Wp_ORM_Model extends IfwPsn_Wp_ORM_ModelParis
 {
     /**
      * Checks if table exists
@@ -102,11 +102,20 @@ class IfwPsn_Wp_ORM_Model extends IfwPsn_Wp_ORM_ModelParis
     }
 
     /**
+     * @param string $nameCol
+     * @return string
+     */
+    public function getName($nameCol = 'name')
+    {
+        return $this->get($nameCol);
+    }
+
+    /**
      * @return mixed
      */
-    public function getSanitizedName()
+    public function getSanitizedName($nameCol = 'name')
     {
-        $name = $this->get('name');
+        $name = $this->get($nameCol);
         $name = str_replace(' ', '_', $name);
         $name = preg_replace("/[^a-zA-Z0-9_]+/", "", $name);
         return $name;
@@ -157,9 +166,15 @@ class IfwPsn_Wp_ORM_Model extends IfwPsn_Wp_ORM_ModelParis
             if (!empty($prefix)) {
                 $item[$nameCol] = $prefix . $item[$nameCol];
             }
-            // if a items callback is set, call it
+            // if item callback is set, call it
             if (isset($options['item_callback']) && is_callable($options['item_callback'])) {
                 $item = call_user_func($options['item_callback'], $item);
+            } elseif (isset($options['item_callback']) && is_array($options['item_callback'])) {
+                foreach ($options['item_callback'] as $item_callback) {
+                    if (is_callable($item_callback)) {
+                        $item = call_user_func($item_callback, $item);
+                    }
+                }
             }
 
             $params = array();
@@ -215,11 +230,20 @@ class IfwPsn_Wp_ORM_Model extends IfwPsn_Wp_ORM_ModelParis
         } else {
             $itemNameSingular = 'item';
         }
-        if (isset($options['filename'])) {
+
+        if (count($items) > 1 && isset($options['filename_bundle'])) {
+            $filename = $options['filename_bundle'];
+        } elseif (count($items) == 1 && isset($options['filename'])) {
             $filename = $options['filename'];
         } else {
             $filename = 'Export_'. date('Y-m-d_H_i_s');
         }
+
+//        if (isset($options['filename'])) {
+//            $filename = $options['filename'];
+//        } else {
+//            $filename = 'Export_'. date('Y-m-d_H_i_s');
+//        }
 
         $result = "<$itemNamePlural>\n";
 
@@ -258,5 +282,4 @@ class IfwPsn_Wp_ORM_Model extends IfwPsn_Wp_ORM_ModelParis
         echo $xml->asXML();
         exit;
     }
-
 }

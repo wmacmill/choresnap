@@ -3,7 +3,7 @@
  * Premium module
  *
  * @author   Timo Reith <timo@ifeelweb.de>
- * @version  $Id: bootstrap.php 380 2015-04-24 21:15:00Z timoreithde $
+ * @version  $Id: bootstrap.php 397 2015-08-16 20:09:46Z timoreithde $
  */
 class Psn_Premium_Bootstrap extends IfwPsn_Wp_Module_Bootstrap_Abstract
 {
@@ -89,25 +89,26 @@ class Psn_Premium_Bootstrap extends IfwPsn_Wp_Module_Bootstrap_Abstract
     public function addGlobalCallbacks()
     {
         IfwPsn_Wp_Proxy_Filter::addPlugin($this->_pm, 'is_premium', array($this, 'setPremium'));
-        IfwPsn_Wp_Proxy_Filter::addPlugin($this->_pm, 'max_rules', array($this, 'unsetMaxRules'));
 
-        add_action('psn_add_feature', array($this, 'addFeature'));
+        add_action('psn_add_feature', array($this, 'addFeatures'));
     }
 
     /**
+     * Load premium features
+     *
      * @param Psn_Feature_Loader $loader
      */
-    public function addFeature(Psn_Feature_Loader $loader)
+    public function addFeatures(Psn_Feature_Loader $loader)
     {
         require_once $this->getPathinfo()->getRootLib() . '/Mandrill/Feature.php';
         $loader->addFeature(new Psn_Module_Premium_Mandrill_Feature($this->_pm, $this));
+
+        require_once $this->getPathinfo()->getRootLib() . '/Features/Rules.php';
+        $loader->addFeature(new Psn_Module_Premium_Features_Rules($this->_pm, $this));
     }
 
     public function addPluginCallbacks()
     {
-        IfwPsn_Wp_Proxy_Filter::addPlugin($this->_pm, 'rules_bulk_actions', array($this, 'addBulkActions'));
-        IfwPsn_Wp_Proxy_Filter::addPlugin($this->_pm, 'rules_col_name_actions', array($this, 'addColNameActions'));
-
         IfwPsn_Wp_Proxy_Action::add('psn-service-metabox-col3', array($this, 'addServiceCol3Metabox'));
         IfwPsn_Wp_Proxy_Action::add('PsnServiceController_init', array($this, 'initPsnController'));
         IfwPsn_Wp_Proxy_Action::add('PsnOptionsController_init', array($this, 'initPsnController'));
@@ -148,34 +149,6 @@ class Psn_Premium_Bootstrap extends IfwPsn_Wp_Module_Bootstrap_Abstract
     public function unsetMaxRules($max)
     {
         return 0;
-    }
-
-    /**
-     * @param $actions
-     * @return mixed
-     */
-    public function addBulkActions($actions)
-    {
-        $actions['export'] = __('Export', 'psn');
-        return $actions;
-    }
-
-    /**
-     * @param $data
-     * @return mixed
-     */
-    public function addColNameActions($data)
-    {
-        $actions = $data['actions'];
-        $item = $data['item'];
-
-        $newActions = array();
-        $newActions['edit'] = $actions['edit'];
-        $newActions['copy'] = sprintf('<a href="?page=%s&controller=rules&appaction=copy&id=%s" class="copyConfirm">'. __('Copy', 'psn') .'</a>', $_REQUEST['page'], $item['id']);
-        $newActions['export'] = sprintf('<a href="?page=%s&controller=rules&appaction=export&id=%s">'. __('Export', 'psn') .'</a>', $_REQUEST['page'], $item['id']);
-        $newActions['delete'] = $actions['delete'];
-
-        return array('actions' => $newActions);
     }
 
     /**

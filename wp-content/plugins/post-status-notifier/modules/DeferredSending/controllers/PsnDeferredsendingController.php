@@ -3,27 +3,13 @@
  * Index controller
  *
  * @author   Timo Reith <timo@ifeelweb.de>
- * @version  $Id: PsnDeferredsendingController.php 337 2014-11-09 14:27:46Z timoreithde $
+ * @version  $Id: PsnDeferredsendingController.php 400 2015-08-18 20:15:45Z timoreithde $
  * @package  IfwPsn_Wp
  */
 require_once 'PsnDeferredsendingAbstractController.php';
 
 class DeferredSending_PsnDeferredsendingController extends DeferredSending_PsnDeferredsendingAbstractController
 {
-    /**
-     * DB model class name
-     */
-    protected $_modelName = 'Psn_Module_DeferredSending_Model_MailQueue';
-
-    protected $_perPageName = 'psn_mailqueue_per_page';
-
-    /**
-     * @var string
-     */
-    protected $_itemPostId = 'mailqueue';
-
-
-
     /**
      * 
      */
@@ -33,13 +19,11 @@ class DeferredSending_PsnDeferredsendingController extends DeferredSending_PsnDe
         $help = new IfwPsn_Wp_Plugin_Menu_Help($this->_pm);
         $help->setTitle(__('Mail queue', 'psn_def'))
             ->setHelp($this->_getHelpText())
-            ->setSidebar($this->_getHelpSidebar())
+            ->setSidebar($this->_getHelpSidebar('mailqueue.html'))
             ->load();
 
-        $listTable = new Psn_Module_DeferredSending_ListTable_MailQueue($this->_pm);
-        $listTable->setItemsPerPage($this->_perPage->getOption());
-
-        $this->view->listTable = $listTable;
+        $this->_initListTable();
+        $this->view->listTable = $this->_listTable;
 
         if ($this->_pm->hasOption('psn_deferred_sending_log_sent')) {
             $this->view->isLog = true;
@@ -52,50 +36,14 @@ class DeferredSending_PsnDeferredsendingController extends DeferredSending_PsnDe
 
     public function runAction()
     {
+        if ( !$this->_verifyNonce('mailqueue-run') ) {
+            $this->getAdminNotices()->persistError(__('Invalid access.', 'psn'));
+            $this->gotoIndex();
+        }
+
         Psn_Module_DeferredSending_Mailqueue_Handler::getInstance()->run();
 
-        $this->_gotoIndex();
-    }
-
-    /**
-     * Imports templates
-     */
-    public function importAction()
-    {
-        $items = $this->_getImportedItems($_FILES['importfile']['tmp_name'], $this->_exportOptions['item_name_singular']);
-
-        $result = IfwPsn_Wp_ORM_Model::import($this->_modelName, $items, array(
-            'prefix' => esc_attr($this->_request->get('import_prefix'))
-        ));
-
-        $this->_gotoIndex();
-    }
-
-    /**
-     *
-     */
-    public function exportAction()
-    {
-        $this->_export($this->_request->get('id'));
-    }
-
-    /**
-     * @param array $items
-     */
-    protected function _bulkExport($items)
-    {
-        $this->_export($items);
-    }
-
-    /**
-     * @param $rules
-     */
-    protected function _export($rules)
-    {
-        $options = $this->_exportOptions;
-        $options['filename'] = sprintf($options['filename'], date('Y-m-d_H_i_s'));
-
-        IfwPsn_Wp_ORM_Model::export($this->_modelName, $rules, $options);
+        $this->gotoIndex();
     }
 
     /**
@@ -108,24 +56,36 @@ class DeferredSending_PsnDeferredsendingController extends DeferredSending_PsnDe
             'http://docs.ifeelweb.de/post-status-notifier/mailqueue.html',
             __('Mailqueue', 'psn_def'));
     }
-    
+
     /**
-     *
      * @return string
      */
-    protected function _getHelpSidebar()
+    public function getModelName()
     {
-        $sidebar = '<p><b>' . __('For more information:', 'ifw') . '</b></p>';
-        $sidebar .= sprintf('<p><a href="%s" target="_blank">' . __('Plugin homepage', 'ifw') . '</a></p>', 
-            $this->_pm->getEnv()->getHomepage());
-        if (!empty($this->_pm->getConfig()->plugin->docUrl)) {
-            $sidebar .= sprintf('<p><a href="%s" target="_blank">' . __('Documentation', 'ifw') . '</a></p>',
-                $this->_pm->getConfig()->plugin->docUrl);
-        }
-        return $sidebar;
+        return 'Psn_Module_DeferredSending_Model_MailQueue';
     }
 
-    protected function _gotoIndex()
+    /**
+     * @return IfwPsn_Wp_Model_Mapper_Abstract
+     */
+    public function getModelMapper()
+    {
+        return Psn_Module_DeferredSending_Model_Mapper_MailQueue::getInstance();
+    }
+
+    /**
+     * @return IfwPsn_Wp_Plugin_ListTable_Abstract
+     */
+    public function getListTable()
+    {
+        return new Psn_Module_DeferredSending_ListTable_MailQueue($this->_pm);
+    }
+
+    /**
+     * Redirects to index page
+     * @return mixed
+     */
+    public function gotoIndex()
     {
         $this->_gotoRoute('deferredsending', 'index', 'post-status-notifier', array('mod' => 'deferredsending'));
     }

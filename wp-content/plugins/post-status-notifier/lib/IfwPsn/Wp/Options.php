@@ -6,7 +6,7 @@
  * Options
  *
  * @author   Timo Reith <timo@ifeelweb.de>
- * @version  $Id: Options.php 414 2015-04-12 14:44:06Z timoreithde $
+ * @version  $Id: Options.php 458 2015-08-24 22:17:27Z timoreithde $
  */
 class IfwPsn_Wp_Options
 {
@@ -84,6 +84,7 @@ class IfwPsn_Wp_Options
     {
         require_once $this->_pm->getPathinfo()->getRootLib() . '/IfwPsn/Wp/Proxy/Action.php';
         IfwPsn_Wp_Proxy_Action::addAdminInit(array($this, 'register'));
+        add_filter('pre_update_option_' . $this->_pageId, array($this, 'sanitizeFields'), 10, 2);
     }
 
     /**
@@ -164,6 +165,52 @@ class IfwPsn_Wp_Options
     }
 
     /**
+     * Default sanitizer
+     *
+     * @param $new
+     * @param $old
+     * @return mixed
+     */
+    public function sanitizeFields($new, $old)
+    {
+        $customSanitizer = array();
+
+        foreach ($this->_sections as $priority) {
+            foreach ($priority as $section) {
+
+                if (!$section->hasFields()) {
+                    continue;
+                }
+
+                /**
+                 * @var $field IfwPsn_Wp_Options_Field
+                 */
+                foreach ($section->getFields() as $field) {
+                    if ($field->hasSanitizer()) {
+                        $customSanitizer[$field->getId()] = $field->getSanitizer();
+                    }
+                }
+            }
+        }
+
+        foreach ($new as $k => $v) {
+            $fieldName = str_replace($this->_fieldPrefix, '', $k);
+
+            if (array_key_exists($fieldName, $customSanitizer)) {
+                if (is_callable($customSanitizer[$fieldName])) {
+                    $new[$k] = call_user_func($customSanitizer[$fieldName], $v);
+                } elseif ($customSanitizer[$fieldName] == 'number') {
+                    $new[$k] = preg_replace('/[^\d]/', '', $v);
+                }
+            } else {
+                $new[$k] = sanitize_text_field($v);
+            }
+        }
+
+        return $new;
+    }
+
+    /**
      * Renders the options form
      */
     public function render($pageId = null)
@@ -216,7 +263,7 @@ class IfwPsn_Wp_Options
 
         if ($this->hasOption($id)) {
             $options = IfwPsn_Wp_Proxy::getOption($this->_pageId);
-            $result = $options[$this->getOptionRealId($id)];
+            $result = htmlspecialchars_decode($options[$this->getOptionRealId($id)]);
         }
 
         return $result;
