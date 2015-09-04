@@ -74,7 +74,7 @@ class WC_Paid_Listings_Orders {
 			return;
 		}
 		foreach ( $order->get_items() as $item ) {
-			$product = get_product( $item['product_id'] );
+			$product = wc_get_product( $item['product_id'] );
 
 			if ( $product->is_type( array( 'job_package', 'resume_package', 'job_package_subscription', 'resume_package_subscription' ) ) && $order->customer_user ) {
 

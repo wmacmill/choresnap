@@ -6,7 +6,7 @@
  * Options field
  *
  * @author   Timo Reith <timo@ifeelweb.de>
- * @version  $Id: Field.php 317 2014-08-04 18:57:24Z timoreithde $
+ * @version  $Id: Field.php 458 2015-08-24 22:17:27Z timoreithde $
  */
 abstract class IfwPsn_Wp_Options_Field
 {
@@ -122,6 +122,22 @@ abstract class IfwPsn_Wp_Options_Field
     public function hasPageId()
     {
         return !empty($this->_pageId);
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasSanitizer()
+    {
+        return isset($this->_params['sanitizer']);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSanitizer()
+    {
+        return $this->_params['sanitizer'];
     }
 
     /**

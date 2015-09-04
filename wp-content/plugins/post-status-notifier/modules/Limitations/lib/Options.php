@@ -4,7 +4,7 @@
  *
  * @author    Timo Reith <timo@ifeelweb.de>
  * @copyright Copyright (c) 2014 ifeelweb.de
- * @version   $Id: Options.php 373 2015-04-12 14:50:24Z timoreithde $
+ * @version   $Id: Options.php 405 2015-08-24 22:17:41Z timoreithde $
  * @package
  */
 
@@ -71,11 +71,12 @@ class Psn_Module_Limitations_Options
         $limitationsOptions->addField(new IfwPsn_Wp_Options_Field_Text(
             'global_limitations_count',
             __('Limit count', 'psn_lmt'),
-            __('Set the limit count. Numeric. Default: 1', 'psn_lmt')
+            __('Set the limit count. Numeric. Default: 1', 'psn_lmt'), array(
+                'sanitizer' => 'number'
+            )
         ));
 
         $this->_pm->getBootstrap()->getOptions()->addSection($limitationsOptions, 100);
     }
-
 }
  

@@ -38,7 +38,10 @@ if (!function_exists('ifw_debug')) {
             } else {
                 $output .= $var;
             }
-            error_log($output);
+            //error_log($output);
+            $output .= PHP_EOL;
+
+            file_put_contents(WP_CONTENT_DIR . DIRECTORY_SEPARATOR . 'debug.log', $output, FILE_APPEND);
 
             if ($backtrace) {
                 $backtrace = array_reverse(debug_backtrace());
@@ -112,6 +115,25 @@ if (!function_exists('ifw_unserialize_recursive')) {
     }
 }
 
+if (!function_exists('ifw_serialize_array_values')) {
+
+    /**
+     * @param $arr
+     * @return array
+     */
+    function ifw_serialize_array_values ($arr) {
+
+        if (is_array($arr)) {
+            foreach ($arr as $k => $v) {
+                sort($v);
+                $arr[$k] = serialize($v);
+            }
+        }
+
+        return $arr;
+    }
+}
+
 if (!function_exists('ifw_array_search_recursive_key')) {
 
     /**
@@ -131,6 +153,32 @@ if (!function_exists('ifw_array_search_recursive_key')) {
         }
 
         return null;
+    }
+}
+
+if (!function_exists('ifw_array_search_key_value')) {
+
+    /**
+     * @param $array
+     * @param $key
+     * @param $value
+     * @return array
+     */
+    function ifw_array_search_key_value($array, $key, $value)
+    {
+        $results = array();
+
+        if (is_array($array)) {
+            if (isset($array[$key]) && $array[$key] == $value) {
+                $results[] = $array;
+            }
+
+            foreach ($array as $subarray) {
+                $results = array_merge($results, ifw_array_search_key_value($subarray, $key, $value));
+            }
+        }
+
+        return $results;
     }
 }
 
@@ -266,5 +314,46 @@ if (!function_exists('ifw_log_rotate')) {
         fclose($handle);
 
         return true;
+    }
+}
+
+if (!function_exists('ifw_is_empty')) {
+    function ifw_is_empty($var) {
+        return empty($var);
+    }
+}
+
+if (!function_exists('ifw_is_not_empty')) {
+    function ifw_is_not_empty($var) {
+        return !empty($var);
+    }
+}
+
+if (!function_exists('ifw_raise_memory_limit')) {
+    function ifw_raise_memory_limit($from = 64, $to = 128) {
+
+        $memory_limit = ifw_return_bytes(ini_get('memory_limit'));
+        if ($memory_limit <= ($from * 1024 * 1024)) {
+            // Memory insufficient
+            ini_set('memory_limit', $to . 'M');
+        }
+    }
+}
+
+if (!function_exists('ifw_return_bytes')) {
+    function ifw_return_bytes($val) {
+        $val = trim($val);
+        $last = strtolower($val[strlen($val)-1]);
+        switch($last) {
+            // The 'G' modifier is available since PHP 5.1.0
+            case 'g':
+                $val *= 1024;
+            case 'm':
+                $val *= 1024;
+            case 'k':
+                $val *= 1024;
+        }
+
+        return $val;
     }
 }

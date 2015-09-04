@@ -3,30 +3,11 @@
  * Index controller
  *
  * @author   Timo Reith <timo@ifeelweb.de>
- * @version  $Id: PsnHtmlmailsController.php 381 2015-04-24 21:50:20Z timoreithde $
+ * @version  $Id: PsnHtmlmailsController.php 398 2015-08-17 21:50:58Z timoreithde $
  * @package  IfwPsn_Wp
  */
-class Htmlmails_PsnHtmlmailsController extends PsnApplicationController
+class Htmlmails_PsnHtmlmailsController extends PsnModelBindingController
 {
-    /**
-     * DB model class name
-     */
-    const MODEL = 'Psn_Module_HtmlMails_Model_MailTemplates';
-
-    /**
-     * @var string
-     */
-    protected $_itemPostId = 'htmlmail';
-
-    /**
-     * @var array
-     */
-    protected $_exportOptions = array(
-        'item_name_plural' => 'mail_templates',
-        'item_name_singular' => 'mail_template',
-        'filename' => 'PSN_mail_templates_export_%s'
-    );
-
     /**
      * @var IfwPsn_Zend_Form
      */
@@ -40,34 +21,13 @@ class Htmlmails_PsnHtmlmailsController extends PsnApplicationController
      */
     public function preDispatch()
     {
-        if ($this->_request->getActionName() == 'index') {
-
-            $this->enqueueScripts();
-
-            if (isset($_POST['action']) && $_POST['action'] != '-1') {
-                $action = $this->_request->getPost('action');
-            } elseif (isset($_POST['action2']) && $_POST['action2'] != '-1') {
-                $action = $this->_request->getPost('action2');
-            } else {
-                $action = false;
-            }
-
-            if ( $action == 'delete' && is_array($this->_request->getPost($this->_itemPostId)) ) {
-                // bulk action delete
-                $this->_bulkDelete($this->_request->getPost($this->_itemPostId));
-
-            } else if ( $action == 'export' && is_array($this->_request->getPost($this->_itemPostId)) ) {
-                // bulk action export
-                $this->_bulkExport($this->_request->getPost($this->_itemPostId));
-            }
-
-        }
+        parent::preDispatch();
     }
 
     public function onBootstrap()
     {
         if ($this->_request->getActionName() == 'index') {
-            $this->_perPage = new IfwPsn_Wp_Plugin_Screen_Option_PerPage($this->_pm, __('Items per page', 'ifw'), 'psn_mailtemplates_per_page');
+            $this->_perPage = new IfwPsn_Wp_Plugin_Screen_Option_PerPage($this->_pm, __('Items per page', 'ifw'), $this->getModelMapper()->getPerPageId($this->getPluginAbbr() . '_'));
         }
     }
 
@@ -80,13 +40,12 @@ class Htmlmails_PsnHtmlmailsController extends PsnApplicationController
         $help = new IfwPsn_Wp_Plugin_Menu_Help($this->_pm);
         $help->setTitle(__('Mail templates', 'psn_htm'))
             ->setHelp($this->_getHelpText())
-            ->setSidebar($this->_getHelpSidebar())
+            ->setSidebar($this->_getHelpSidebar('mail_templates.html'))
             ->load();
 
-        $listTable = new Psn_Module_HtmlMails_ListTable_MailTemplates($this->_pm);
-        $listTable->setItemsPerPage($this->_perPage->getOption());
+        $this->_initListTable();
 
-        $this->view->listTable = $listTable;
+        $this->view->listTable = $this->_listTable;
     }
 
     /**
@@ -101,18 +60,18 @@ class Htmlmails_PsnHtmlmailsController extends PsnApplicationController
             if (!$this->_form->isValidNonce()) {
 
                 $this->getAdminNotices()->persistError(__('Invalid access.', 'psn'));
-                $this->_gotoIndex();
+                $this->gotoIndex();
 
             } elseif ($this->_form->isValid($this->_request->getPost())) {
 
                 // request is valid, save the rule
-                $rule = IfwPsn_Wp_ORM_Model::factory(self::MODEL)->create($this->_form->removeNonceAndGetValues());
+                $rule = IfwPsn_Wp_ORM_Model::factory($this->getModelName())->create($this->_form->removeNonceAndGetValues());
                 $rule->save();
 
                 $this->getAdminNotices()->persistUpdated(
                     sprintf(__('Mail template "%s" has been saved successfully.', 'psn_htm'), $rule->get('name')));
 
-                $this->_gotoIndex();
+                $this->gotoIndex();
             }
         }
 
@@ -128,7 +87,7 @@ class Htmlmails_PsnHtmlmailsController extends PsnApplicationController
 
         $id = (int)$this->_request->get('id');
 
-        $template = IfwPsn_Wp_ORM_Model::factory(self::MODEL)->find_one($id);
+        $template = IfwPsn_Wp_ORM_Model::factory($this->getModelName())->find_one($id);
         $templateNameBefore = $template->get('name');
 
 
@@ -139,7 +98,7 @@ class Htmlmails_PsnHtmlmailsController extends PsnApplicationController
             if (!$this->_form->isValidNonce()) {
 
                 $this->getAdminNotices()->persistError(__('Invalid access.', 'psn'));
-                $this->_gotoIndex();
+                $this->gotoIndex();
 
             } elseif ($this->_form->isValid($this->_request->getPost())) {
 
@@ -159,42 +118,17 @@ class Htmlmails_PsnHtmlmailsController extends PsnApplicationController
     }
 
     /**
-     * Deletes a rule
+     * @param IfwPsn_Wp_ORM_Model $item
+     * @return bool|IfwPsn_Wp_ORM_Model
      */
-    public function deleteAction()
+    public function deleteCallback(IfwPsn_Wp_ORM_Model $item)
     {
-        $tplId = (int)$this->_request->get('id');
-
-        if (!wp_verify_nonce($this->_request->get('nonce'), 'tpl-delete-' . $this->_request->get('id'))) {
-            $this->getAdminNotices()->persistError(__('Invalid access.', 'psn'));
-            $this->_gotoIndex();
+        if ($this->_isTemplateInUse($item->get('id'))) {
+            $this->getAdminNotices()->persistError(__('Mail template could not be deleted. It is still in use by a notification rule.', 'psn_htm'));
+            $item  = false;
         }
 
-        if (!$this->_isTemplateInUse($tplId)) {
-            $rule = IfwPsn_Wp_ORM_Model::factory(self::MODEL)->find_one((int)$this->_request->get('id'));
-            $rule->delete();
-        } else {
-            $this->getAdminNotices()->persistError(
-                __('Mail template could not be deleted. It is still in use by a notification rule.', 'psn_htm')
-            );
-        }
-        $this->_gotoIndex();
-    }
-
-    /**
-     * @param array $items
-     */
-    protected function _bulkDelete(array $items)
-    {
-        foreach($items as $tplId) {
-            if (!$this->_isTemplateInUse($tplId)) {
-                IfwPsn_Wp_ORM_Model::factory(self::MODEL)->find_one((int)$tplId)->delete();
-            } else {
-                $this->getAdminNotices()->persistError(
-                    __('Some mail templates could not be deleted. They are still in use by a notification rule.', 'psn_htm')
-                );
-            }
-        }
+        return $item;
     }
 
     /**
@@ -217,21 +151,7 @@ class Htmlmails_PsnHtmlmailsController extends PsnApplicationController
      */
     public function copyAction()
     {
-        $id = (int)$this->_request->get('id');
-
-        if (IfwPsn_Wp_ORM_Model::duplicate(self::MODEL, $id)) {
-
-            $model = IfwPsn_Wp_ORM_Model::factory(self::MODEL)->find_one($id);
-            $this->getAdminNotices()->persistUpdated(
-                sprintf(__('Email template "%s" copied successfully.', 'psn_htm'), $model->get('name'))
-            );
-        } else {
-            $this->getAdminNotices()->persistError(
-                __('Sorry, could not copy email template.', 'psn_htm')
-            );
-        }
-
-        $this->_gotoIndex();
+        $this->handleCopy();
     }
 
     /**
@@ -239,13 +159,7 @@ class Htmlmails_PsnHtmlmailsController extends PsnApplicationController
      */
     public function importAction()
     {
-        $items = $this->_getImportedItems($_FILES['importfile']['tmp_name'], $this->_exportOptions['item_name_singular']);
-
-        $result = IfwPsn_Wp_ORM_Model::import(self::MODEL, $items, array(
-            'prefix' => esc_attr($this->_request->get('import_prefix'))
-        ));
-
-        $this->_gotoIndex();
+        $this->handleImport();
     }
 
     /**
@@ -253,7 +167,9 @@ class Htmlmails_PsnHtmlmailsController extends PsnApplicationController
      */
     public function exportAction()
     {
-        $this->_export($this->_request->get('id'));
+        $this->handleExport( (int)$this->getRequest()->get('id'));
+
+        $this->gotoIndex();
     }
 
     /**
@@ -261,20 +177,14 @@ class Htmlmails_PsnHtmlmailsController extends PsnApplicationController
      */
     protected function _bulkExport($items)
     {
-        $this->_export($items);
+        $this->handleExport($items);
+
+        $this->gotoIndex();
     }
 
     /**
-     * @param $rules
+     * Initialize common form settings
      */
-    protected function _export($rules)
-    {
-        $options = $this->_exportOptions;
-        $options['filename'] = sprintf($options['filename'], date('Y-m-d_H_i_s'));
-
-        IfwPsn_Wp_ORM_Model::export(self::MODEL, $rules, $options);
-    }
-
     protected function _initFormView()
     {
         $mod = $this->_pm->getBootstrap()->getModuleManager()->getModule('psn_mod_htm');
@@ -314,7 +224,6 @@ class Htmlmails_PsnHtmlmailsController extends PsnApplicationController
     }
 
     /**
-     *
      * @return string
      */
     protected function _getHelpText()
@@ -324,22 +233,6 @@ class Htmlmails_PsnHtmlmailsController extends PsnApplicationController
             __('Mail templates', 'psn_htm'));
     }
     
-    /**
-     *
-     * @return string
-     */
-    protected function _getHelpSidebar()
-    {
-        $sidebar = '<p><b>' . __('For more information:', 'ifw') . '</b></p>';
-        $sidebar .= sprintf('<p><a href="%s" target="_blank">' . __('Plugin homepage', 'ifw') . '</a></p>', 
-            $this->_pm->getEnv()->getHomepage());
-        if (!empty($this->_pm->getConfig()->plugin->docUrl)) {
-            $sidebar .= sprintf('<p><a href="%s" target="_blank">' . __('Documentation', 'ifw') . '</a></p>',
-                $this->_pm->getConfig()->plugin->docUrl);
-        }
-        return $sidebar;
-    }
-
     public function enqueueScripts()
     {
         IfwPsn_Wp_Proxy_Script::loadAdmin('jquery-ui-dialog');
@@ -348,6 +241,39 @@ class Htmlmails_PsnHtmlmailsController extends PsnApplicationController
     }
 
     protected function _gotoIndex()
+    {
+        $this->gotoIndex();
+    }
+
+    /**
+     * @return string
+     */
+    public function getModelName()
+    {
+        return 'Psn_Module_HtmlMails_Model_MailTemplates';
+    }
+
+    /**
+     * @return IfwPsn_Wp_Model_Mapper_Abstract
+     */
+    public function getModelMapper()
+    {
+        return Psn_Module_HtmlMails_Model_Mapper_MailTemplates::getInstance();
+    }
+
+    /**
+     * @return IfwPsn_Wp_Plugin_ListTable_Abstract
+     */
+    public function getListTable()
+    {
+        return new Psn_Module_HtmlMails_ListTable_MailTemplates($this->_pm);
+    }
+
+    /**
+     * Redirects to index page
+     * @return mixed
+     */
+    public function gotoIndex()
     {
         $this->_gotoRoute('htmlmails', 'index', 'post-status-notifier', array('mod' => 'htmlmails'));
     }

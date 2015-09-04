@@ -199,8 +199,8 @@ msgstr ""
 "Deine WordPress Version wird nicht unterstützt. Bitte aktualisiere "
 "mindestens auf Version %s"
 
-msgid "Performing test"
-msgstr "Test durchführen"
+msgid "Test"
+msgstr "Test"
 
 msgid "Result"
 msgstr "Ergebnis"
@@ -339,4 +339,7 @@ msgid "Learn how to extend %s"
 msgstr ""
 
 msgid "General"
+msgstr ""
+
+msgid "Reason"
 msgstr ""

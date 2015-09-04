@@ -6,7 +6,7 @@
  * 
  *
  * @author    Timo Reith <timo@ifeelweb.de>
- * @version   $Id: Notices.php 382 2015-01-10 20:47:51Z timoreithde $
+ * @version   $Id: Notices.php 449 2015-08-09 21:33:19Z timoreithde $
  * @package   
  */ 
 class IfwPsn_Wp_Admin_Notices 
@@ -60,6 +60,38 @@ class IfwPsn_Wp_Admin_Notices
 
         if ($persist) {
             $this->_persist($this->_notices);
+        }
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasMessage()
+    {
+        return count($this->_notices) > 0;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasErrorMessage()
+    {
+        foreach ($this->_notices as $notice) {
+            if ($notice['type'] == 'error') {
+                return true;
+            }
+        }
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasUpdatedMessage()
+    {
+        foreach ($this->_notices as $notice) {
+            if ($notice['type'] == 'updated') {
+                return true;
+            }
         }
     }
 

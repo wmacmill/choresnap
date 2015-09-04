@@ -6,7 +6,7 @@
  * WP_List_Table Abstract
  *
  * @author   Timo Reith <timo@ifeelweb.de>
- * @version  $Id: Abstract.php 410 2015-03-28 12:39:11Z timoreithde $
+ * @version  $Id: Abstract.php 441 2015-07-19 20:49:11Z timoreithde $
  * @package  IfwPsn_Wp
  */
 
@@ -61,20 +61,24 @@ abstract class IfwPsn_Wp_Plugin_ListTable_Abstract extends WP_List_Table
      * @var bool
      */
     protected $_ajax = false;
-    
-    
+
+
     /**
-     * 
-     * @param array $args
-     * @param IfwPsn_Wp_Plugin_ListTable_Data_Interface $data
+     * @param IfwPsn_Wp_Plugin_Manager $pm
+     * @param array $options
+     * @throws Exception
      */
-    public function __construct($args = array(),
-                                IfwPsn_Wp_Plugin_ListTable_Data_Interface $data,
-                                IfwPsn_Wp_Plugin_Manager $pm)
+    public function __construct(IfwPsn_Wp_Plugin_Manager $pm, $options = array())
     {
+        $args = array_merge(array(
+            'singular' => $this->getModelMapper()->getSingular(),
+            'plural' => $this->getModelMapper()->getPlural()
+        ), $options);
+
         $this->_setOptions($args);
+
         parent::__construct($this->_options);
-        $this->_data = $data;
+
         $this->_pm = $pm;
 
         $this->_init();
@@ -100,12 +104,23 @@ abstract class IfwPsn_Wp_Plugin_ListTable_Abstract extends WP_List_Table
     protected function _init()
     {
         $this->_id = $this->getId();
+
+        $data = $this->getData();
+        if (!($data instanceof IfwPsn_Wp_Plugin_ListTable_Data_Interface)) {
+            throw new Exception('Invalid list table data object');
+        }
+        $this->_data = $data;
+
         $this->_wpActionPrefix = $this->_pm->getAbbrLower() . '_listtable_' . $this->_id . '_';
 
         if (isset($this->_options['ajax']) && $this->_options['ajax'] == true) {
             IfwPsn_Wp_Proxy_Action::add($this->_wpActionPrefix . 'after_display', array($this, 'loadAjaxScript'));
         }
         IfwPsn_Wp_Proxy_Action::add($this->_wpActionPrefix . 'after_display', array($this, 'loadScriptReplaceSearchBox'));
+
+        if (method_exists($this, 'afterDisplay')) {
+            IfwPsn_Wp_Proxy_Action::add($this->_wpActionPrefix . 'after_display', array($this, 'afterDisplay'));
+        }
     }
 
     /**
@@ -295,6 +310,13 @@ abstract class IfwPsn_Wp_Plugin_ListTable_Abstract extends WP_List_Table
     abstract public function getId();
     abstract public function getColumns();
     abstract public function getSortableColumns();
+    abstract public function getModelName();
+
+    /**
+     * @return IfwPsn_Wp_Model_Mapper_Interface
+     */
+    abstract public function getModelMapper();
+    abstract public function getData();
 
     /**
      * @return array

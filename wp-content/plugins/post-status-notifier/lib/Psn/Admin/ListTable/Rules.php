@@ -3,28 +3,35 @@
  *
  *
  * @author      Timo Reith <timo@ifeelweb.de>
- * @version     $Id: Rules.php 359 2015-01-10 20:48:25Z timoreithde $
+ * @version     $Id: Rules.php 403 2015-08-21 20:40:03Z timoreithde $
  * @copyright   Copyright (c) ifeelweb.de
  * @package     Psn_Admin
  */
 class Psn_Admin_ListTable_Rules extends IfwPsn_Wp_Plugin_ListTable_Abstract
 {
     /**
-     *
+     * @return string
      */
-    public function __construct(IfwPsn_Wp_Plugin_Manager $pm, $options = array())
+    public function getModelName()
     {
-        $args = array('singular' => 'Rule', 'plural' => 'Rules');
-        if (!empty($options)) {
-            $args = array_merge($args, $options);
-        }
+        return 'Psn_Model_Rule';
+    }
 
+    /**
+     * @return IfwPsn_Wp_Model_Mapper_Interface
+     */
+    public function getModelMapper()
+    {
+        return Psn_Model_Mapper_Rule::getInstance();
+    }
+
+    /**
+     * @return Psn_Admin_ListTable_Data_Rules
+     */
+    public function getData()
+    {
         require_once dirname(__FILE__) . '/Data/Rules.php';
-        $data = new Psn_Admin_ListTable_Data_Rules();
-
-        parent::__construct($args, $data, $pm);
-
-        IfwPsn_Wp_Proxy_Action::add($this->_wpActionPrefix . 'after_display', array($this, 'afterDisplay'));
+        return new Psn_Admin_ListTable_Data_Rules();
     }
 
     /**
@@ -57,6 +64,14 @@ class Psn_Admin_ListTable_Rules extends IfwPsn_Wp_Plugin_ListTable_Abstract
         }
 
         return $columns;
+    }
+
+    /**
+     * @return string
+     */
+    public function get_default_primary_column_name()
+    {
+        return 'name';
     }
 
     /** (non-PHPdoc)
@@ -109,7 +124,7 @@ class Psn_Admin_ListTable_Rules extends IfwPsn_Wp_Plugin_ListTable_Abstract
      */
     public function getColumnPosttype($items)
     {
-        $posttype = $items['posttype'];
+        $posttype = htmlentities($items['posttype']);
 
         switch($posttype) {
             case 'all':
@@ -176,7 +191,7 @@ class Psn_Admin_ListTable_Rules extends IfwPsn_Wp_Plugin_ListTable_Abstract
      */
     public function getColumnStatusBefore($items)
     {
-        return $this->_getStatusLabel($items['status_before']);
+        return htmlentities($this->_getStatusLabel($items['status_before']));
     }
 
     /**
@@ -186,7 +201,7 @@ class Psn_Admin_ListTable_Rules extends IfwPsn_Wp_Plugin_ListTable_Abstract
      */
     public function getColumnStatusAfter($items)
     {
-        return $this->_getStatusLabel($items['status_after']);
+        return htmlentities($this->_getStatusLabel($items['status_after']));
     }
 
     /**
@@ -222,14 +237,14 @@ class Psn_Admin_ListTable_Rules extends IfwPsn_Wp_Plugin_ListTable_Abstract
      */
     public function getColumnName($item)
     {
-        $result = $item['name'];
+        $result = htmlentities($item['name']);
 
         if (!$this->isMetaboxEmbedded()) {
             //Build row actions
             $actions = array();
             $actions['edit'] = sprintf('<a href="?page=%s&controller=rules&appaction=edit&id=%s">'. __('Edit', 'psn') .'</a>', $_REQUEST['page'], $item['id']);
             $actions['delete'] = sprintf('<a href="?page=%s&controller=rules&appaction=delete&id=%s&nonce=%s" class="delConfirm">'. __('Delete', 'psn') .'</a>',
-                $_REQUEST['page'], $item['id'], wp_create_nonce('rule-delete-' . $item['id']));
+                $_REQUEST['page'], $item['id'], wp_create_nonce( IfwPsn_Zend_Controller_ModelBinding::getDeleteNonceAction($this->getModelMapper()->getSingular(), $item['id']) ));
 
             $actionsFilter = IfwPsn_Wp_Proxy_Filter::apply('psn_rules_col_name_actions', array('actions' => $actions, 'item' => $item));
 
@@ -271,7 +286,7 @@ class Psn_Admin_ListTable_Rules extends IfwPsn_Wp_Plugin_ListTable_Abstract
 
         if (!$this->isMetaboxEmbedded()) {
             $actions = array(
-                'delete' => __('Delete'),
+                'bulk_delete' => __('Delete'),
                 'activate' => __('Activate', 'psn'),
                 'deactivate' => __('Deactivate', 'psn'),
             );

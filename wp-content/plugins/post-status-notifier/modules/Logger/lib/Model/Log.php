@@ -6,7 +6,7 @@
  * 
  *
  * @author   Timo Reith <timo@ifeelweb.de>
- * @version  $Id: Log.php 51 2013-05-26 13:08:25Z timoreithde $
+ * @version  $Id: Log.php 397 2015-08-16 20:09:46Z timoreithde $
  */ 
 class Psn_Module_Logger_Model_Log extends IfwPsn_Wp_Plugin_Logger_Model
 {
@@ -15,5 +15,20 @@ class Psn_Module_Logger_Model_Log extends IfwPsn_Wp_Plugin_Logger_Model
      */
     public static $_table = 'psn_log';
 
+    /**
+     * @return string
+     */
+    public static function getSingular()
+    {
+        return 'log';
+    }
+
+    /**
+     * @return string
+     */
+    public static function getPlural()
+    {
+        return 'logs';
+    }
 }
 

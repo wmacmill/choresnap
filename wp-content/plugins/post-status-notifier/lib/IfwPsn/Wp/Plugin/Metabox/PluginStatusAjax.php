@@ -6,7 +6,7 @@
  * 
  *
  * @author   Timo Reith <timo@ifeelweb.de>
- * @version  $Id: PluginStatusAjax.php 433 2015-06-21 21:39:19Z timoreithde $
+ * @version  $Id: PluginStatusAjax.php 451 2015-08-13 21:22:52Z timoreithde $
  */ 
 class IfwPsn_Wp_Plugin_Metabox_PluginStatusAjax extends IfwPsn_Wp_Ajax_Request
 {
@@ -57,7 +57,7 @@ class IfwPsn_Wp_Plugin_Metabox_PluginStatusAjax extends IfwPsn_Wp_Ajax_Request
 
         if ($this->_iframeSrc !== null) {
             $iframeSrc = $this->_iframeSrc;
-        } elseif (strpos($this->_pm->getConfig()->plugin->optionsPage, 'options-general.php') !== false) {  
+        } elseif (strpos($this->_pm->getConfig()->plugin->optionsPage, 'options-general.php') !== false) {
             $iframeSrc = IfwPsn_Wp_Proxy_Admin::getUrl() . IfwPsn_Wp_Proxy_Admin::getMenuUrl($this->_pm, 'selftest');
         } else {
             $iframeSrc = IfwPsn_Wp_Proxy_Admin::getAdminPageUrl($this->_pm, $this->_pm->getAbbrLower() . '_selftest', $this->_pm->getAbbrLower() . '_selftest');
@@ -77,9 +77,9 @@ class IfwPsn_Wp_Plugin_Metabox_PluginStatusAjax extends IfwPsn_Wp_Ajax_Request
         $context['timestamp'] = $timestamp;
         $status = $this->_pm->getBootstrap()->getSelftester()->getStatus();
 
-        if ($status === true) {
+        if ($status === true || $status == '1') {
             $context['status'] = 'true';
-        } elseif ($status === false) {
+        } elseif ($status === false || $status == '0') {
             $context['status'] = 'false';
         } else {
             $context['status'] = 'null';

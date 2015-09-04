@@ -1,27 +1,10 @@
 <?php
 /**
  * @author   Timo Reith <timo@ifeelweb.de>
- * @version  $Id: MailTemplates.php 359 2015-01-10 20:48:25Z timoreithde $
+ * @version  $Id: MailTemplates.php 401 2015-08-21 20:24:18Z timoreithde $
  */ 
 class Psn_Module_HtmlMails_ListTable_MailTemplates extends IfwPsn_Wp_Plugin_ListTable_Abstract
 {
-    /**
-     *
-     */
-    public function __construct(IfwPsn_Wp_Plugin_Manager $pm, $options = array())
-    {
-        $args = array('singular' => 'htmlmail', 'plural' => 'htmlmails');
-        if (!empty($options)) {
-            $args = array_merge($args, $options);
-        }
-        $data = new Psn_Module_HtmlMails_ListTable_Data_MailTemplates();
-
-
-        parent::__construct($args, $data, $pm);
-
-        IfwPsn_Wp_Proxy_Action::add($this->_wpActionPrefix . 'after_display', array($this, 'afterDisplay'));
-    }
-
     /**
      * @return string
      */
@@ -95,16 +78,21 @@ class Psn_Module_HtmlMails_ListTable_MailTemplates extends IfwPsn_Wp_Plugin_List
      */
     public function getColumnName($item)
     {
-        $result = $item['name'];
+        $result = htmlentities($item['name']);
 
         if (!$this->isMetaboxEmbedded()) {
             //Build row actions
             $actions = array();
             $actions['edit'] = sprintf('<a href="?page=%s&mod=htmlmails&controller=htmlmails&appaction=edit&id=%s">'. __('Edit', 'psn') .'</a>', $_REQUEST['page'], $item['id']);
-            $actions['copy'] = sprintf('<a href="?page=%s&mod=htmlmails&controller=htmlmails&appaction=copy&id=%s" class="copyConfirm">'. __('Copy', 'psn') .'</a>', $_REQUEST['page'], $item['id']);
+            $actions['copy'] = sprintf('<a href="?page=%s&mod=htmlmails&controller=htmlmails&appaction=copy&nonce=%s&id=%s" class="copyConfirm">'. __('Copy', 'psn') .'</a>',
+                $_REQUEST['page'],
+                wp_create_nonce(IfwPsn_Zend_Controller_ModelBinding::getCopyNonceAction($this->getModelMapper()->getSingular(), $item['id'])),
+                $item['id']);
             $actions['export'] = sprintf('<a href="?page=%s&mod=htmlmails&controller=htmlmails&appaction=export&id=%s">'. __('Export', 'psn') .'</a>', $_REQUEST['page'], $item['id']);
             $actions['delete'] = sprintf('<a href="?page=%s&mod=htmlmails&controller=htmlmails&appaction=delete&id=%s&nonce=%s" class="delConfirm">'. __('Delete', 'psn') .'</a>',
-                $_REQUEST['page'], $item['id'], wp_create_nonce('tpl-delete-' . $item['id']));
+                $_REQUEST['page'],
+                $item['id'],
+                wp_create_nonce( IfwPsn_Zend_Controller_ModelBinding::getDeleteNonceAction($this->getModelMapper()->getSingular(), $item['id']) ));
 
             //Return the title contents
             $result = sprintf('%1$s%2$s',
@@ -145,8 +133,8 @@ class Psn_Module_HtmlMails_ListTable_MailTemplates extends IfwPsn_Wp_Plugin_List
 
         if (!$this->isMetaboxEmbedded()) {
             $actions = array(
-                'delete' => __('Delete'),
-                'export' => __('Export', 'psn'),
+                'bulk_delete' => __('Delete'),
+                'bulk_export' => __('Export', 'psn'),
             );
         }
 
@@ -187,5 +175,26 @@ class Psn_Module_HtmlMails_ListTable_MailTemplates extends IfwPsn_Wp_Plugin_List
         </script>
         <?php
         endif;
+    }
+
+    public function getModelName()
+    {
+        return 'Psn_Module_HtmlMails_Model_MailTemplates';
+    }
+
+    /**
+     * @return IfwPsn_Wp_Model_Mapper_Interface
+     */
+    public function getModelMapper()
+    {
+        return Psn_Module_HtmlMails_Model_Mapper_MailTemplates::getInstance();
+    }
+
+    /**
+     * @return Psn_Module_HtmlMails_ListTable_Data_MailTemplates
+     */
+    public function getData()
+    {
+        return new Psn_Module_HtmlMails_ListTable_Data_MailTemplates();
     }
 }

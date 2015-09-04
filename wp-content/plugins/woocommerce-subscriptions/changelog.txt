@@ -1,5 +1,11 @@
 *** WooCommerce Subscriptions Changelog ***
 
+2015.08.28 - version 1.5.30
+ * Fix: redundant pricing elements in subtotal and cart widget totals
+ * Fix: never given an additional free trials when renewing a cancelled subscription
+ * Fix: always set an end date for the a switched subscription
+ * Fix: don't copy over download permissions meta from initial order to renewal order/s
+
 2015.07.28 - version 1.5.29
  * Tweak: WooCommerce v2.4 compatibility
  * Tweak: improve Javascript show/hide field logic on Edit Product to make it easier for 3rd party extensions to work with Subscriptions

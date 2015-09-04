@@ -6,7 +6,7 @@
  * 
  *
  * @author    Timo Reith <timo@ifeelweb.de>
- * @version   $Id: AdminComments.php 393 2015-02-17 22:53:26Z timoreithde $
+ * @version   $Id: AdminComments.php 451 2015-08-13 21:22:52Z timoreithde $
  * @package   
  */ 
 class IfwPsn_Util_Parser_AdminComments 
@@ -39,11 +39,19 @@ class IfwPsn_Util_Parser_AdminComments
         //array_push(self::$_allowedTags, $tag);
     }
 
+    public static function sanitize($text)
+    {
+        return htmlentities(strip_tags(html_entity_decode($text), implode('', self::getAllowedTags())));
+    }
+
     /**
      * @param $text
+     * @return mixed|string
      */
     public static function parse($text)
     {
-        return nl2br(strip_tags(html_entity_decode($text), implode('', self::getAllowedTags())));
+        $result =  nl2br(strip_tags(html_entity_decode($text), implode('', self::getAllowedTags())));
+        $result = IfwPsn_Util_Parser_Html::sanitize($result);
+        return $result;
     }
 }

@@ -4,7 +4,7 @@
  *
  * @author    Timo Reith <timo@ifeelweb.de>
  * @copyright Copyright (c) 2014 ifeelweb.de
- * @version   $Id: Handler.php 388 2015-05-26 18:44:33Z timoreithde $
+ * @version   $Id: Handler.php 400 2015-08-18 20:15:45Z timoreithde $
  * @package
  */
 
@@ -39,7 +39,6 @@ class Psn_Admin_Options_Handler
         require_once $this->_pm->getPathinfo()->getRootLib() . '/IfwPsn/Wp/Options/Field/Select.php';
 
         $this->_addOptions();
-
     }
 
     protected function _addOptions()

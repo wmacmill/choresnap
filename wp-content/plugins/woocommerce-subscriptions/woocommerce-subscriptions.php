@@ -5,7 +5,7 @@
  * Description: Sell products and services with recurring payments in your WooCommerce Store.
  * Author: Prospress Inc.
  * Author URI: http://prospress.com/
- * Version: 1.5.29
+ * Version: 1.5.30
  *
  * Copyright 2015 Prospress, Inc.  (email : freedoms@prospress.com)
  *
@@ -99,7 +99,7 @@ class WC_Subscriptions {
 
 	public static $text_domain = 'deprecated-use-woocommerce-subscriptions-string';
 
-	public static $version = '1.5.29';
+	public static $version = '1.5.30';
 
 	private static $total_subscription_count = null;
 
@@ -155,6 +155,8 @@ class WC_Subscriptions {
 		add_filter( 'action_scheduler_queue_runner_batch_size', __CLASS__ . '::action_scheduler_multisite_batch_size' );
 
 		add_action( 'in_plugin_update_message-' . plugin_basename( __FILE__ ), __CLASS__ . '::update_notice', 10, 2 );
+
+		add_action( 'admin_notices', __CLASS__ . '::show_downgrade_notice' );
 	}
 
 	/**
@@ -1473,6 +1475,22 @@ class WC_Subscriptions {
 		$update_notice .= '</div> ';
 
 		echo wp_kses_post( $update_notice );
+	}
+
+	/**
+	 * Send notice to store admins if they have previously updated Subscriptions to 2.0 and back to v1.5.n.
+	 *
+	 * @since 2.0
+	 */
+	public static function show_downgrade_notice() {
+		if ( version_compare( get_option( WC_Subscriptions_Admin::$option_prefix . '_active_version', '0' ), '2.0', '>=' ) ) {
+
+			echo '<div class="update-nag">';
+			echo sprintf( __( 'Warning! You are running version %s of WooCommerce Subscriptions plugin code but your database has been upgraded to Subscriptions version 2.0. This will cause major problems on your store.', 'woocommerce-subscriptions' ), self::$version ) . '<br />';
+			echo sprintf( __( 'Please upgrade the WooCommerce Subscriptions plugin to version 2.0 or newer immediately. If you need assistance, after upgrading to Subscriptions v2.0, please %sopen a support ticket%s.', 'woocommerce-subscriptions' ), '<a href="https://www.woothemes.com/my-account/create-a-ticket/">', '</a>' );
+			echo '</div> ';
+
+		}
 	}
 
 	/* Deprecated Functions */

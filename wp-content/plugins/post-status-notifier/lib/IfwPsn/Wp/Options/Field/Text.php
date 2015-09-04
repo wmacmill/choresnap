@@ -6,7 +6,7 @@
  * Options field text
  *
  * @author   Timo Reith <timo@ifeelweb.de>
- * @version  $Id: Text.php 350 2014-11-22 20:32:42Z timoreithde $
+ * @version  $Id: Text.php 458 2015-08-24 22:17:27Z timoreithde $
  */
 require_once dirname(__FILE__) . '/../Field.php';
 
@@ -33,7 +33,7 @@ class IfwPsn_Wp_Options_Field_Text extends IfwPsn_Wp_Options_Field
             $extra .= sprintf('maxlength="%s" ', (int)$this->_params['maxlength']);
         }
 
-        $html = '<input type="text" autocomplete="off" id="'. $id .'" name="'. $name .'" value="'. $options->getOption($this->_id) .'" '. $extra .' />';
+        $html = '<input type="text" autocomplete="off" id="'. $id .'" name="'. $name .'" value="'. esc_attr($options->getOption($this->_id)) .'" '. $extra .' />';
         if (!empty($this->_params['error'])) {
             $html .= '<br><p class="error"> '  . $this->_params['error'] . '</p>';
         }

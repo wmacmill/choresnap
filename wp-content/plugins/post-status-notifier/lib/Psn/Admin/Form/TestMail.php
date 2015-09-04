@@ -3,7 +3,7 @@
  *
  *
  * @author      Timo Reith <timo@ifeelweb.de>
- * @version     $Id: TestMail.php 202 2014-04-27 11:56:32Z timoreithde $
+ * @version     $Id: TestMail.php 400 2015-08-18 20:15:45Z timoreithde $
  * @copyright   Copyright (c) ifeelweb.de
  * @package     Psn_Admin
  */
@@ -50,6 +50,7 @@ class Psn_Admin_Form_TestMail extends IfwPsn_Zend_Form
             ->setOrder(40);
         $this->addElement($recipient);
 
+        $this->setNonce('psn-form-test-mail');
 
         // Add the submit button
         $this->addElement('submit', 'submit', array(

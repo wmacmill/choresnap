@@ -1,27 +1,10 @@
 <?php
 /**
  * @author   Timo Reith <timo@ifeelweb.de>
- * @version  $Id: MailQueue.php 394 2015-06-21 21:40:04Z timoreithde $
+ * @version  $Id: MailQueue.php 403 2015-08-21 20:40:03Z timoreithde $
  */ 
 class Psn_Module_DeferredSending_ListTable_MailQueue extends IfwPsn_Wp_Plugin_ListTable_Abstract
 {
-    /**
-     *
-     */
-    public function __construct(IfwPsn_Wp_Plugin_Manager $pm, $options = array())
-    {
-        $args = array('singular' => 'mailqueue', 'plural' => 'mailqueues');
-        if (!empty($options)) {
-            $args = array_merge($args, $options);
-        }
-        $data = new Psn_Module_DeferredSending_ListTable_Data_MailQueue();
-
-
-        parent::__construct($args, $data, $pm);
-
-        IfwPsn_Wp_Proxy_Action::add($this->_wpActionPrefix . 'after_display', array($this, 'afterDisplay'));
-    }
-
     /**
      * @return string
      */
@@ -53,6 +36,14 @@ class Psn_Module_DeferredSending_ListTable_MailQueue extends IfwPsn_Wp_Plugin_Li
     }
 
     /**
+     * @return string
+     */
+    public function get_default_primary_column_name()
+    {
+        return 'subject';
+    }
+
+    /**
      * @return array
      */
     public function getSortableColumns()
@@ -75,7 +66,7 @@ class Psn_Module_DeferredSending_ListTable_MailQueue extends IfwPsn_Wp_Plugin_Li
      */
     public function getColumnTo($item)
     {
-        $result = $item['to'];
+        $result = htmlentities($item['to']);
 
         if (strlen($result) > 200) {
             $result = substr($result, 0, 200) . ' ... ';
@@ -92,16 +83,17 @@ class Psn_Module_DeferredSending_ListTable_MailQueue extends IfwPsn_Wp_Plugin_Li
      */
     public function getColumnSubject($item)
     {
-        $result = $item['subject'];
+        $result = htmlentities($item['subject']);
 
         if (!$this->isMetaboxEmbedded()) {
             //Build row actions
-            $actions = array();
             $actions = array(
                 'details' => sprintf('<a href="#%s" class="loadDetails">'. __('Show details', 'psn') .'</a>', $item['id']),
             );
-//            $actions['export'] = sprintf('<a href="?page=%s&mod=htmlmails&controller=htmlmails&appaction=export&id=%s">'. __('Export', 'psn') .'</a>', $_REQUEST['page'], $item['id']);
-            $actions['delete'] = sprintf('<a href="?page=%s&mod=deferredsending&controller=deferredsending&appaction=delete&id=%s" class="delConfirm">'. __('Delete', 'psn') .'</a>', $_REQUEST['page'], $item['id']);
+            $actions['delete'] = sprintf('<a href="?page=%s&mod=deferredsending&controller=deferredsending&appaction=delete&nonce=%s&id=%s" class="delConfirm">'. __('Delete', 'psn') .'</a>',
+                $_REQUEST['page'],
+                wp_create_nonce(IfwPsn_Zend_Controller_ModelBinding::getDeleteNonceAction($this->getModelMapper()->getSingular(), $item['id'])),
+                $item['id']);
 
             //Return the title contents
             $result = sprintf('%1$s%2$s',
@@ -164,9 +156,8 @@ class Psn_Module_DeferredSending_ListTable_MailQueue extends IfwPsn_Wp_Plugin_Li
 
         if (!$this->isMetaboxEmbedded()) {
             $actions = array(
-                'delete' => __('Delete'),
+                'bulk_delete' => __('Delete'),
                 'reset' => __('Reset (delete all)', 'psn_def'),
-                //'export' => __('Export', 'psn'),
             );
         }
 
@@ -250,5 +241,29 @@ class Psn_Module_DeferredSending_ListTable_MailQueue extends IfwPsn_Wp_Plugin_Li
         </script>
         <?php
         endif;
+    }
+
+    /**
+     * @return string
+     */
+    public function getModelName()
+    {
+        return 'Psn_Module_DeferredSending_Model_MailQueue';
+    }
+
+    /**
+     * @return IfwPsn_Wp_Model_Mapper_Interface
+     */
+    public function getModelMapper()
+    {
+        return Psn_Module_DeferredSending_Model_Mapper_MailQueue::getInstance();
+    }
+
+    /**
+     * @return Psn_Module_DeferredSending_ListTable_Data_MailQueue
+     */
+    public function getData()
+    {
+        return new Psn_Module_DeferredSending_ListTable_Data_MailQueue();
     }
 }

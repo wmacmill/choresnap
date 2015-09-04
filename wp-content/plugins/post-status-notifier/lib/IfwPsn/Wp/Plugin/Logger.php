@@ -7,7 +7,7 @@
  *
  * @author    Timo Reith <timo@ifeelweb.de>
  * @copyright Copyright (c) ifeelweb.de
- * @version   $Id: Logger.php 350 2014-11-22 20:32:42Z timoreithde $
+ * @version   $Id: Logger.php 454 2015-08-17 21:50:47Z timoreithde $
  * @package   IfwPsn_Wp_Plugin
  */
 require_once dirname(__FILE__) . '/../../Vendor/Zend/Log.php';
@@ -236,7 +236,6 @@ class IfwPsn_Wp_Plugin_Logger extends IfwPsn_Vendor_Zend_Log
     /**
      * Only supported by IfwPsn_Zend_Log_Writer_WpDb
      * @param array $options
-     * @internal param int $priority
      */
     public function clear($options = array())
     {

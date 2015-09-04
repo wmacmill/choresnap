@@ -3,7 +3,7 @@
  * Premium TO loop module
  *
  * @author   Timo Reith <timo@ifeelweb.de>
- * @version  $Id: bootstrap.php 377 2015-04-24 16:29:15Z timoreithde $
+ * @version  $Id: bootstrap.php 405 2015-08-24 22:17:41Z timoreithde $
  */
 class Psn_ToLoop_Bootstrap extends IfwPsn_Wp_Module_Bootstrap_Abstract
 {
@@ -86,7 +86,9 @@ class Psn_ToLoop_Bootstrap extends IfwPsn_Wp_Module_Bootstrap_Abstract
             'psn_to_loop_timelimit',
             __('TO loop timeout', 'psn_tol'),
             sprintf( __('If you are using the "One email per TO recipient" option, you may want to adjust the PHP maximum execution time limit value here. In seconds. It will only be used before the TO loop starts. Has no effect if PHP safe mode is active. If set to 0 (zero), no time limit is imposed. Use with caution! Default is 30 depending on your server configuration. See <a href="%s" target="_blank">PHP manual</a>', 'psn_tol'),
-                'http://de3.php.net/manual/en/function.set-time-limit.php')
+                'http://de3.php.net/manual/en/function.set-time-limit.php'), array(
+                'sanitizer' => 'number'
+            )
         ));
     }
 

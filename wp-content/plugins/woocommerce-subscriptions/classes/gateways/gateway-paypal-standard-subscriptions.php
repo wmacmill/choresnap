@@ -748,8 +748,9 @@ class WC_PayPal_Standard_Subscriptions {
 				$paypal_args['src'] = 1;
 
 				if ( $subscription_installments > 0 ) {
-					if ( $sign_up_fee > 0 && $subscription_trial_length == 0 ) // An initial period is being used to charge a sign-up fee
+					if ( ( $sign_up_fee > 0 || $initial_payment != $price_per_period ) && $subscription_trial_length == 0 ) { // An initial period is being used to charge a sign-up fee
 						$subscription_installments--;
+					}
 
 					$paypal_args['srt'] = $subscription_installments;
 

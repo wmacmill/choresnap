@@ -6,7 +6,7 @@
  * 
  *
  * @author    Timo Reith <timo@ifeelweb.de>
- * @version   $Id: Envato.php 429 2015-05-25 14:02:06Z timoreithde $
+ * @version   $Id: Envato.php 447 2015-07-31 16:57:37Z timoreithde $
  * @package   
  */ 
 class IfwPsn_Wp_Plugin_Update_Api_Envato extends IfwPsn_Wp_Plugin_Update_Api_Abstract
@@ -44,7 +44,10 @@ class IfwPsn_Wp_Plugin_Update_Api_Envato extends IfwPsn_Wp_Plugin_Update_Api_Abs
         $plugin_slug = $this->_pm->getSlug();
 
         if (!isset($args->slug) || ($args->slug != $plugin_slug)) {
-            return false;
+            // IMPORTANT:
+            // this plugin is not responsible for this request
+            // return def to not break other plugins
+            return $def;
         }
 
         // Get the current version

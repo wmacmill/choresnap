@@ -22,6 +22,11 @@ class WC_Paid_Listings_Subscriptions {
 	 * Constructor
 	 */
 	public function __construct() {
+		if ( class_exists( 'WC_Subscriptions_Synchroniser' ) && method_exists( 'WC_Subscriptions_Synchroniser', 'save_subscription_meta' ) ) {
+			add_action( 'woocommerce_process_product_meta_job_package_subscription', 'WC_Subscriptions_Synchroniser::save_subscription_meta', 10 );
+			add_action( 'woocommerce_process_product_meta_resume_package_subscription', 'WC_Subscriptions_Synchroniser::save_subscription_meta', 10 );
+		}
+		add_filter( 'woocommerce_subscriptions_renewal_order_meta', array( $this, 'renewal_order_meta' ), 10, 4 );
 		add_filter( 'woocommerce_is_subscription', array( $this, 'woocommerce_is_subscription' ), 10, 2 );
 		add_action( 'wp_trash_post', array( $this, 'wp_trash_post' ) );
 		add_action( 'untrash_post', array( $this, 'untrash_post' ) );
@@ -36,12 +41,27 @@ class WC_Paid_Listings_Subscriptions {
 	}
 
 	/**
+	 * Stop certain meta coming across when renewing from cancelled.
+	 * @return array
+	 */
+	public function renewal_order_meta( $order_meta, $order_id, $renewal_order_id, $new_order_role ) {
+		if ( 'parent' === $new_order_role ) {
+			foreach( $order_meta as $key => $meta_item ) {
+				if ( '_wc_paid_listings_packages_processed' === $meta_item['meta_key'] ) {
+					unset( $order_meta[ $key ] );
+				}
+			}
+		}
+		return $order_meta;
+	}
+
+	/**
 	 * Is this a subscription product?
 	 * @return bool
 	 */
 	public function woocommerce_is_subscription( $is_subscription, $product_id ) {
-		$product = get_product( $product_id );
-		if ( $product->is_type( array( 'job_package_subscription', 'resume_package_subscription' ) ) ) {
+		$product = wc_get_product( $product_id );
+		if ( $product && $product->is_type( array( 'job_package_subscription', 'resume_package_subscription' ) ) ) {
 			$is_subscription = true;
 		}
 		return $is_subscription;
@@ -249,7 +269,7 @@ class WC_Paid_Listings_Subscriptions {
 		$user_package = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wcpl_user_packages WHERE user_id = %d AND order_id = %d AND product_id = %d;", $user_id, $old_subscription['order_id'], $old_subscription['product_id'] ) );
 
 		if ( $user_package ) {
-			$switching_to_package = get_product( $new_subscription['product_id'] );
+			$switching_to_package = wc_get_product( $new_subscription['product_id'] );
 
 			// If invalid, abort
 			if ( ! $switching_to_package->is_type( array( 'job_package', 'resume_package', 'job_package_subscription', 'resume_package_subscription' ) ) ) {

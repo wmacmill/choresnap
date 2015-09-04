@@ -4,7 +4,7 @@
  *
  * @author    Timo Reith <timo@ifeelweb.de>
  * @copyright Copyright (c) 2014 ifeelweb.de
- * @version   $Id: RecipientsList.php 217 2014-05-02 20:33:20Z timoreithde $
+ * @version   $Id: RecipientsList.php 400 2015-08-18 20:15:45Z timoreithde $
  * @package
  */
 
@@ -42,7 +42,7 @@ class Psn_Module_Recipients_Admin_Form_RecipientsList extends IfwPsn_Zend_Form
             'label'          => __('Name', 'psn_rec'),
             'description'    => __('Internal identifier', 'psn_rec'),
             'required'       => true,
-            'filters'        => array('StringTrim', 'StripTags'),
+            'filters'        => array(new IfwPsn_Zend_Filter_SanitizeTextField()),
             'maxlength'      => 80,
             'decorators'     => $this->getFieldDecorators(),
             'order'          => 10
@@ -58,6 +58,8 @@ class Psn_Module_Recipients_Admin_Form_RecipientsList extends IfwPsn_Zend_Form
             'decorators'     => $this->getFieldDecorators(),
             'order'          => 30
         ));
+
+        $this->setNonce('psn-form-recipientslist');
 
         // Add the submit button
         $this->addElement('submit', 'submit', array(

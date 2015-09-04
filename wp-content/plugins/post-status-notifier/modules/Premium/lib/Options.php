@@ -6,7 +6,7 @@
  * 
  *
  * @author   Timo Reith <timo@ifeelweb.de>
- * @version  $Id: Options.php 383 2015-04-26 19:52:22Z timoreithde $
+ * @version  $Id: Options.php 405 2015-08-24 22:17:41Z timoreithde $
  */ 
 class Psn_Module_Premium_Options 
 {
@@ -89,7 +89,8 @@ class Psn_Module_Premium_Options
             str_replace(array('<', '>'), array('&lt;', '&gt;'), __('Format: Sender Name <sender@domain.com>', 'psn_prm')) . '<br>' .
             __('Default', 'psn_rec') . ': ' . str_replace(array('<', '>'), array('&lt;', '&gt;'), IfwPsn_Wp_Proxy_Blog::getDefaultEmailFrom()),
             array(
-                'placeholder' => 'Sender Name <sender@domain.com>'
+                'placeholder' => 'Sender Name <sender@domain.com>',
+                'sanitizer' => 'esc_attr'
             )
         ));
 

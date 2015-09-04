@@ -6,9 +6,9 @@
  * 
  *
  * @author   Timo Reith <timo@ifeelweb.de>
- * @version  $Id: Model.php 368 2014-12-19 18:10:19Z timoreithde $
+ * @version  $Id: Model.php 438 2015-07-14 20:54:16Z timoreithde $
  */ 
-class IfwPsn_Wp_Plugin_Logger_Model extends IfwPsn_Wp_ORM_Model
+abstract class IfwPsn_Wp_Plugin_Logger_Model extends IfwPsn_Wp_ORM_Model
 {
     /**
      * @var array

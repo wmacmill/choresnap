@@ -3,7 +3,7 @@
  * Service controller
  *
  * @author   Timo Reith <timo@ifeelweb.de>
- * @version  $$Id: PsnServiceController.php 373 2015-04-12 14:50:24Z timoreithde $$
+ * @version  $$Id: PsnServiceController.php 400 2015-08-18 20:15:45Z timoreithde $$
  * @package  IfwPsn_Wp
  */
 class PsnServiceController extends PsnApplicationController
@@ -59,6 +59,11 @@ class PsnServiceController extends PsnApplicationController
      */
     public function sendTestMailAction()
     {
+        if (!$this->_verifyNonce('psn-form-test-mail')) {
+            $this->getAdminNotices()->persistError(__('Invalid access.', 'psn'));
+            $this->_gotoIndex();
+        }
+
         $this->_email = new IfwPsn_Wp_Email();
 
         $subject = sprintf(__('Test Email from %s', 'psn'), $this->_pm->getEnv()->getName());

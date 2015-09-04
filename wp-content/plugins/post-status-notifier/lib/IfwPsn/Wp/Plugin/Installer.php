@@ -7,7 +7,7 @@
  *
  * @author    Timo Reith <timo@ifeelweb.de>
  * @copyright Copyright (c) ifeelweb.de
- * @version   $Id: Installer.php 425 2015-05-01 10:16:36Z timoreithde $
+ * @version   $Id: Installer.php 456 2015-08-21 21:29:41Z timoreithde $
  * @package   IfwPsn_Wp_Plugin
  */
 class IfwPsn_Wp_Plugin_Installer
@@ -69,6 +69,8 @@ class IfwPsn_Wp_Plugin_Installer
     {
         $this->registerActivation();
 
+        ifw_raise_memory_limit();
+
         // add default activation commands
         require_once $this->_pm->getPathinfo()->getRootLib() . 'IfwPsn/Wp/Plugin/Installer/Command/ActivationPresentVersion.php';
 
@@ -84,6 +86,8 @@ class IfwPsn_Wp_Plugin_Installer
     {
         self::$_uninstall[$this->_pm->getPathinfo()->getFilenamePath()] = array();
         $this->registerUninstall();
+
+        ifw_raise_memory_limit();
 
         // add default uninstall commands
         require_once $this->_pm->getPathinfo()->getRootLib() . 'IfwPsn/Wp/Plugin/Installer/Command/UninstallDeleteLog.php';

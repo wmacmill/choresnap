@@ -6,7 +6,7 @@
  * 
  *
  * @author    Timo Reith <timo@ifeelweb.de>
- * @version   $Id: Importer.php 428 2015-05-03 20:33:25Z timoreithde $
+ * @version   $Id: Importer.php 452 2015-08-15 21:28:58Z timoreithde $
  * @package   
  */ 
 class IfwPsn_Wp_Data_Importer 
@@ -70,6 +70,7 @@ class IfwPsn_Wp_Data_Importer
             $nodeNameSingular = $this->_xmlOptions['item_name_singular'];
         }
 
+
         $items = $this->_getItems($xml, $nodeNameSingular);
 
         if (count($items) == 0) {
@@ -111,8 +112,12 @@ class IfwPsn_Wp_Data_Importer
                     $tmpItem[(string)$col[$itemNameCol]] = (string)$col;
                 } else {
                     foreach (get_object_vars($col) as $colVar => $colVal) {
+
                         if (is_array($colVal) && !empty($colVal)) {
                             $tmpItem[$colVar] = $colVal;
+                        }
+                        elseif (is_a($colVal, 'SimpleXMLElement') && !empty($colVal)) {
+                            $tmpItem[$colVar] = array($colVal);
                         }
                     }
                 }
@@ -132,6 +137,31 @@ class IfwPsn_Wp_Data_Importer
     public function getError()
     {
         return $this->_error;
+    }
+
+    /**
+     * @param IfwPsn_Wp_Plugin_Manager $pm
+     * @param $identifier
+     * @param array $options
+     * @return string
+     */
+    public static function getForm(IfwPsn_Wp_Plugin_Manager $pm, $identifier, $options = array())
+    {
+        $context = array(
+            'identifier' => $identifier,
+            'headline' => $options['headline'],
+            'help_text' => $options['help_text'],
+            'action_url' => $options['action_url'],
+            'import_file_label' => $options['import_file_label'],
+            'import_file_description' => $options['import_file_description'],
+            'import_prefix_label' => $options['import_prefix_label'],
+            'import_prefix_description' => $options['import_prefix_description'],
+            'wait_text_headline' => $options['wait_text_headline'],
+            'wait_text_description' => $options['wait_text_description'],
+            'nonce' => wp_create_nonce(IfwPsn_Zend_Controller_ModelBinding::getImportNonceAction($identifier))
+        );
+
+        return IfwPsn_Wp_Tpl::getFilesytemInstance($pm)->render('import_form.html.twig', $context);
     }
 }
  

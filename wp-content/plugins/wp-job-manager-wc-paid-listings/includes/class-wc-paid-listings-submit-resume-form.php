@@ -76,11 +76,12 @@ class WP_Job_Manager_WCPL_Submit_Resume_Form {
 	 */
 	public static function get_packages() {
 		return get_posts( array(
-			'post_type'      => 'product',
-			'posts_per_page' => -1,
-			'order'          => 'asc',
-			'orderby'        => 'menu_order',
-			'tax_query'      => array(
+			'post_type'        => 'product',
+			'posts_per_page'   => -1,
+			'order'            => 'asc',
+			'orderby'          => 'menu_order',
+			'suppress_filters' => false,
+			'tax_query'        => array(
 				array(
 					'taxonomy' => 'product_type',
 					'field'    => 'slug',
@@ -241,14 +242,14 @@ class WP_Job_Manager_WCPL_Submit_Resume_Form {
 				return new WP_Error( 'error', __( 'Invalid Package', 'wp-job-manager-wc-paid-listings' ) );
 			}
 		} else {
-			$package = get_product( $package_id );
+			$package = wc_get_product( $package_id );
 
 			if ( ! $package->is_type( 'resume_package' ) && ! $package->is_type( 'resume_package_subscription' ) ) {
 				return new WP_Error( 'error', __( 'Invalid Package', 'wp-job-manager-wc-paid-listings' ) );
 			}
 
 			// Don't let them buy the same subscription twice
-			if ( class_exists( 'WC_Subscriptions' ) && is_user_logged_in() && 'package' === $package->package_subscription_type ) {
+			if ( class_exists( 'WC_Subscriptions' ) && is_user_logged_in() && $package->is_type( 'resume_package_subscription' ) && 'package' === $package->package_subscription_type ) {
 				$user_subscriptions = WC_Subscriptions_Manager::get_users_subscriptions( get_current_user_id() );
 				foreach ( $user_subscriptions as $user_subscription ) {
 					if ( $user_subscription['product_id'] == $package_id ) {
@@ -285,7 +286,7 @@ class WP_Job_Manager_WCPL_Submit_Resume_Form {
 
 			return true;
 		} else {
-			$package = get_product( $package_id );
+			$package = wc_get_product( $package_id );
 
 			// Give resume the package attributes
 			update_post_meta( $resume_id, '_featured', $package->is_featured() ? 1 : 0 );

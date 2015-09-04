@@ -39,7 +39,7 @@ function wc_paid_listings_get_user_package( $package_id ) {
 function wc_paid_listings_give_user_package( $user_id, $product_id, $order_id = 0 ) {
 	global $wpdb;
 
-	$package = get_product( $product_id );
+	$package = wc_get_product( $product_id );
 
 	if ( ! $package->is_type( 'job_package' ) && ! $package->is_type( 'resume_package' ) && ! $package->is_type( 'job_package_subscription' ) && ! $package->is_type( 'resume_package_subscription' ) ) {
 		return false;
