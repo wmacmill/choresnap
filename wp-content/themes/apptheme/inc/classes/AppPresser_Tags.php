@@ -318,7 +318,7 @@ class AppPresser_Tags {
 			self::$title = sprintf( __( '%s', 'apptheme' ), '<span>' . get_the_date( 'Y' ) . '</span>' );
 
 		elseif ( is_404() ) :
-			self::$title = __( 'Oops! We can&rsquo;t find what you&rsquo;re looking for.', 'apptheme' );
+			self::$title = __( 'Missing', 'apptheme' );
 
 		elseif ( is_search() ) :
 			self::$title = sprintf( __( 'Search: %s', 'apptheme' ), '<span>' . get_search_query() . '</span>' );
@@ -327,7 +327,7 @@ class AppPresser_Tags {
 			self::$title = single_post_title( '', false );
 
 		else :
-			self::$title = __( 'Archives', 'apptheme' );
+			self::$title = get_bloginfo( 'name' );
 		endif;
 
 		if ( $echo )

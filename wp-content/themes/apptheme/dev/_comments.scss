@@ -180,3 +180,10 @@ footer.comment-meta {
 	color: #777;
 	background-color: transparent;
 }
+
+@media ( max-width: 300px ) {
+	.appp-below-post .fa {
+	 display: block;
+	 float: none;
+	}
+ }

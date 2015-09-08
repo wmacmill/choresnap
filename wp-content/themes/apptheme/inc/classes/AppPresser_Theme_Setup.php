@@ -21,7 +21,7 @@ if ( ! class_exists( 'AppPresser_Theme_Setup' ) ) {
 		/**
 		 * The current version of this theme
 		 */
-		const VERSION    = '2.0.0';
+		const VERSION    = '2.0.1';
 	
 	}
 }
