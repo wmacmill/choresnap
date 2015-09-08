@@ -134,23 +134,6 @@
 		app.backhref = app.woo && app.woo.is_shop ? app.woo.shop_url : app.appp.home_url;
 
 		app.$.body
-			// @TODO make right panel work for version 1.x
-			// .on( 'click', '.app-panel .back-btn', function(event) {
-			// 	event.preventDefault();
-			// 	$('html').removeClass('open-panel');
-
-			// 	app.log('goback', app.backhref );
-
-			// 	app.change_url();
-
-			// 	// Delay to keep panel from going blank while sliding
-			// 	setTimeout( function(){
-			// 		$('.item-content #main').remove();
-			// 		// Hide app panel to prevent transition bug
-			// 		$('.app-panel').hide();
-			// 	}, 500);
-
-			// })
 			.on('click', '.ajaxify, .ajaxify a, .blog .post a, li.previous a, li.next a, .entry-meta a, .entry-title a, .page-links a, .comment-author a, .woocommerce-pagination a, a.wc-forward, .bbp-forum-title a, #bbpress-forums a, a.item-link, .appp-below-post a', function(event) {
 				var $self = $(this);
 
@@ -303,25 +286,34 @@
 			alert( l10n.offline );
 		}, false);
 
-		// For iscroll - fixes scrolling problem on Android 2.3
-		// var myScroll;
-		// function loaded() {
-		// 	setTimeout(function () {
-		// 		myScroll = new iScroll('main');
-		// 	}, 100);
-		// }
-		// window.addEventListener('load', loaded, false);
+		// Swipe to go forward/back
+		if( typeof Hammer == "function" && window.appp.can_ajax ) {
 
-		// var addEvent = function addEvent(element, eventName, func) {
-		// 	if (element.addEventListener) {
-		// 		return element.addEventListener(eventName, func, false);
-		// 	} else if (element.attachEvent) {
-		// 		return element.attachEvent("on" + eventName, func);
-		// 	}
-		// };
-		// addEvent(document.getElementById('nav-left-open'), 'click', function(){
-		// 	snapper.open('left');
-		// });
+			// This doesn't work with a jQuery selector
+			var hammerel = document.getElementById('main');
+	
+			var apppTouch = new Hammer( hammerel );
+			
+		    apppTouch.on('swipe', function(ev) {
+			    
+			    var nextLink = $('.appp-below-post a[rel="next"]').attr('href');
+				var prevLink = $('.appp-below-post a[rel="prev"]').attr('href');
+			
+			    if( ev.deltaX >= 100 ) {
+				    
+				    if(prevLink) {
+				    	apppresser.loadAjaxContent( prevLink );
+				    }
+				    
+			    } else if( ev.deltaX <= -100 ) {
+
+				    if(nextLink) {
+				    	apppresser.loadAjaxContent( nextLink );
+				    }
+			    }
+			});
+
+		}
 
 	}
 
@@ -894,7 +886,11 @@
 	 * Ajax comment modal
 	 */
 
-	$( 'body' )
+	if( $('body').hasClass('logged-in') ) {
+		$('.ajax-comment-form-author, .ajax-comment-form-email, .ajax-comment-form-url').hide();
+	}
+
+	$('body')
 
 	.on('click' , '.comment-reply-link', function() {
 		// get the comment id from href
@@ -917,11 +913,34 @@
 		var comment_email = $('.ajax-comment-form-email #email').val();
 		var comment = $('.ajax-comment-form-comment #comment').val();
 		var comment_parent = $('#ajax-comment-parent').val();
+		var logged_in = $('body').hasClass('logged-in');
 
-		// if name, email, or comment empty, show error
-		if( !comment_author || !comment_email || !comment ) {
-			statusdiv.html('<p class="ajax-error" >Please fill out required fields.</p>');
-			return false;
+		if(logged_in) {
+
+			$('.ajax-comment-form-author, .ajax-comment-form-email, .ajax-comment-form-url').hide();
+
+			var commentData = {
+				comment_post_ID: $('#commentform #comment_post_ID').val(),
+				comment: comment,
+				comment_parent: comment_parent,
+			}
+
+		} else {
+
+			// if name, email, or comment empty, show error
+			if( !comment_author || !comment_email || !comment ) {
+				statusdiv.html('<p class="ajax-error" >Please fill out required fields.</p>');
+				return false;
+			}
+
+			var commentData = {
+				author: comment_author,
+				email: comment_email,
+				url: $('.ajax-comment-form-url #url').val(),
+				comment_post_ID: $('#commentform #comment_post_ID').val(),
+				comment: comment,
+				comment_parent: comment_parent,
+			}
 		}
 
 		//Add a status message
@@ -934,14 +953,7 @@
 		$.ajax({
 			type: 'post',
 			url: formurl,
-			data: {
-				author: comment_author,
-				email: comment_email,
-				url: $('.ajax-comment-form-url #url').val(),
-				comment_post_ID: $('#commentform #comment_post_ID').val(),
-				comment: comment,
-				comment_parent: comment_parent,
-			},
+			data: commentData,
 			error: function(XMLHttpRequest, textStatus, errorThrown){
 				statusdiv.html('<p class="ajax-error" >You might have left one of the fields blank, or be posting too quickly</p>');
 			},

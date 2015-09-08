@@ -3,11 +3,11 @@
 Plugin Name: WP Job Manager - Resume Manager
 Plugin URI: https://wpjobmanager.com/add-ons/resume-manager/
 Description: Manage canidate resumes from the WordPress admin panel, and allow candidates to post their resumes directly to your site.
-Version: 1.13.0
+Version: 1.13.1
 Author: WP Job Manager Team
 Author URI: https://wpjobmanager.com
 Requires at least: 3.8
-Tested up to: 4.2
+Tested up to: 4.3
 
 	Copyright: 2015 Mike Jolley
 	License: GNU General Public License v3.0
@@ -33,7 +33,7 @@ class WP_Resume_Manager extends WPJM_Updater {
 	 */
 	public function __construct() {
 		// Define constants
-		define( 'RESUME_MANAGER_VERSION', '1.13.0' );
+		define( 'RESUME_MANAGER_VERSION', '1.13.1' );
 		define( 'RESUME_MANAGER_PLUGIN_DIR', untrailingslashit( plugin_dir_path( __FILE__ ) ) );
 		define( 'RESUME_MANAGER_PLUGIN_URL', untrailingslashit( plugins_url( basename( plugin_dir_path( __FILE__ ) ), basename( __FILE__ ) ) ) );
 

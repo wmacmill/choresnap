@@ -3,7 +3,7 @@
 Plugin Name: WP Job Manager - Applications
 Plugin URI: https://wpjobmanager.com/add-ons/applications/
 Description: Lets candidates submit applications to jobs which are stored on the employers jobs page, rather than simply emailed. Works standalone with it's built in application form.
-Version: 2.1.6
+Version: 2.2.0
 Author: Mike Jolley
 Author URI: http://mikejolley.com
 Requires at least: 3.8
@@ -33,7 +33,7 @@ class WP_Job_Manager_Applications extends WPJM_Updater {
 	 */
 	public function __construct() {
 		// Define constants
-		define( 'JOB_MANAGER_APPLICATIONS_VERSION', '2.1.6' );
+		define( 'JOB_MANAGER_APPLICATIONS_VERSION', '2.2.0' );
 		define( 'JOB_MANAGER_APPLICATIONS_FILE', __FILE__ );
 		define( 'JOB_MANAGER_APPLICATIONS_PLUGIN_DIR', untrailingslashit( plugin_dir_path( __FILE__ ) ) );
 		define( 'JOB_MANAGER_APPLICATIONS_PLUGIN_URL', untrailingslashit( plugins_url( basename( plugin_dir_path( __FILE__ ) ), basename( __FILE__ ) ) ) );

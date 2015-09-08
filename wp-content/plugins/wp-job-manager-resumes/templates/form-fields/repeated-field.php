@@ -42,5 +42,5 @@
 	<?php
 	echo esc_attr( ob_get_clean() );
 
-?>">+ <?php _e( 'Add URL', 'wp-job-manager-resumes' ); ?></a>
+?>">+ <?php echo esc_html( ! empty( $field['add_row'] ) ? $field['add_row'] : __( 'Add URL', 'wp-job-manager-resumes' ) ); ?></a>
 <?php if ( ! empty( $field['description'] ) ) : ?><small class="description"><?php echo $field['description']; ?></small><?php endif; ?>

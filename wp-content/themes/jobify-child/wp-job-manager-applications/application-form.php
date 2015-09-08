@@ -48,21 +48,28 @@
 		}
 	?>
 	
-	<?php foreach ( $application_fields as $key => $field ) : //checks $valid_transaction is set as 0 stil if so it's a valid transaction ?>
-		<fieldset class="fieldset-<?php esc_attr_e( $key ); ?>">
-			<label for="<?php esc_attr_e( $key ); ?>"><?php echo $field['label'] . apply_filters( 'submit_job_form_required_label', $field['required'] ? '' : ' <small>' . __( '(optional)', 'wp-job-manager' ) . '</small>', $field ); ?></label>
-			<div class="field <?php echo $field['required'] ? 'required-field' : ''; ?>">
-				<?php get_job_manager_template( 'form-fields/' . $field['type'] . '-field.php', array( 'key' => $key, 'field' => $field ) ); ?>
+	<?php foreach ( $application_fields as $key => $field ) : ?>
+		<?php if ( 'output-content' === $field['type'] ) : ?>
+			<div class="form-content">
+				<h3><?php esc_html_e( $field['label'] ); ?></h3>
+				<?php if ( ! empty( $field['description'] ) ) : ?><?php echo wpautop( wp_kses_post( $field['description'] ) ); ?><?php endif; ?>
 			</div>
-		</fieldset>
+		<?php else : ?>
+			<fieldset class="fieldset-<?php esc_attr_e( $key ); ?>">
+				<label for="<?php esc_attr_e( $key ); ?>"><?php echo __( $field['label'] ) . apply_filters( 'submit_job_form_required_label', $field['required'] ? '' : ' <small>' . __( '(optional)', 'wp-job-manager' ) . '</small>', $field ); ?></label>
+				<div class="field <?php echo $field['required'] ? 'required-field' : ''; ?>">
+					<?php $class->get_field_template( $key, $field ); ?>
+				</div>
+			</fieldset>
+		<?php endif; ?>
 	<?php endforeach; ?>
-	
+
 	<?php do_action( 'job_application_form_fields_end' ); ?>
 
-	     <p>
+	<p>
 		<input type="submit" name="wp_job_manager_send_application" value="<?php esc_attr_e( 'Send application', 'wp-job-manager-applications' ); ?>" />
 		<input type="hidden" name="job_id" value="<?php echo absint( $post->ID ); ?>" />
-		</p>
+	</p>
 	
 
 </form>

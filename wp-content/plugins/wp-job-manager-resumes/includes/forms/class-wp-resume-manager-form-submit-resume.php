@@ -200,6 +200,7 @@ class WP_Resume_Manager_Form_Submit_Resume extends WP_Job_Manager_Form {
 				),
 				'links' => array(
 					'label'       => __( 'URL(s)', 'wp-job-manager-resumes' ),
+					'add_row'     => __( 'Add URL', 'wp-job-manager-resumes' ),
 					'type'        => 'links', // repeated
 					'required'    => false,
 					'placeholder' => '',
@@ -224,6 +225,7 @@ class WP_Resume_Manager_Form_Submit_Resume extends WP_Job_Manager_Form {
 				),
 				'candidate_education' => array(
 					'label'       => __( 'Education', 'wp-job-manager-resumes' ),
+					'add_row'     => __( 'Add Education', 'wp-job-manager-resumes' ),
 					'type'        => 'education', // repeated
 					'required'    => false,
 					'placeholder' => '',
@@ -257,6 +259,7 @@ class WP_Resume_Manager_Form_Submit_Resume extends WP_Job_Manager_Form {
 				),
 				'candidate_experience' => array(
 					'label'       => __( 'Experience', 'wp-job-manager-resumes' ),
+					'add_row'     => __( 'Add Experience', 'wp-job-manager-resumes' ),
 					'type'        => 'experience', // repeated
 					'required'    => false,
 					'placeholder' => '',
@@ -427,6 +430,13 @@ class WP_Resume_Manager_Form_Submit_Resume extends WP_Job_Manager_Form {
 						}
 					}
 				}
+
+				if ( 'candidate_email' === $key ) {
+					if ( ! empty( $values[ $group_key ][ $key ] ) && ! is_email( $values[ $group_key ][ $key ] ) ) {
+						throw new Exception( __( 'Please enter a valid email address', 'wp-job-manager-resumes' ) );
+					}
+				}
+
 				if ( 'resume_skills' === $key ) {
 					if ( is_string( $values[ $group_key ][ $key ] ) ) {
 						$raw_skills = explode( ',', $values[ $group_key ][ $key ] );
@@ -494,10 +504,21 @@ class WP_Resume_Manager_Form_Submit_Resume extends WP_Job_Manager_Form {
 			$this->fields = apply_filters( 'submit_resume_form_fields_get_resume_data', $this->fields, $resume );
 
 		// Get user meta
-		} elseif ( is_user_logged_in() && empty( $_POST ) ) {
-
+		} elseif ( is_user_logged_in() && empty( $_POST['resume_manager_form'] ) ) {
+			$user = wp_get_current_user();
+			foreach ( $this->fields as $group_key => $fields ) {
+				foreach ( $fields as $key => $field ) {
+					switch ( $key ) {
+						case 'candidate_name' :
+							$this->fields[ $group_key ][ $key ]['value'] = $user->first_name . ' ' . $user->last_name;
+						break;
+						case 'candidate_email' :
+							$this->fields[ $group_key ][ $key ]['value'] = $user->user_email;
+						break;
+					}
+				}
+			}
 			$this->fields = apply_filters( 'submit_resume_form_fields_get_user_data', $this->fields, get_current_user_id() );
-
 		}
 
 		get_job_manager_template( 'resume-submit.php', array(
@@ -528,8 +549,9 @@ class WP_Resume_Manager_Form_Submit_Resume extends WP_Job_Manager_Form {
 				return;
 
 			// Validate required
-			if ( is_wp_error( ( $return = $this->validate_fields( $values ) ) ) )
+			if ( is_wp_error( ( $return = $this->validate_fields( $values ) ) ) ) {
 				throw new Exception( $return->get_error_message() );
+			}
 
 			// Account creation
 			if ( ! is_user_logged_in() ) {
@@ -587,21 +609,28 @@ class WP_Resume_Manager_Form_Submit_Resume extends WP_Job_Manager_Form {
 	 * @param  string $status
 	 */
 	protected function save_resume( $post_title, $post_content, $status = 'preview', $values = array() ) {
-		$resume_slug   = array();
-
-		// Prepend with unqiue key
+		// Get random key
 		if ( $this->resume_id ) {
 			$prefix = get_post_meta( $this->resume_id, '_resume_name_prefix', true );
 
-			if ( ! $prefix )
+			if ( ! $prefix ) {
 				$prefix = wp_generate_password( 10 );
-
-			$resume_slug[] = $prefix;
+			}
 		} else {
 			$prefix        = wp_generate_password( 10 );
-			$resume_slug[] = $prefix;
 		}
-		$resume_slug[] = $post_title;
+
+		$resume_slug   = array();
+		$resume_slug[] = current( explode( ' ', $post_title ) );
+		$resume_slug[] = $prefix;
+
+		if ( ! empty( $values['resume_fields']['candidate_title'] ) ) {
+			$resume_slug[] = $values['resume_fields']['candidate_title'];
+		}
+
+		if ( ! empty( $values['resume_fields']['candidate_location'] ) ) {
+			$resume_slug[] = $values['resume_fields']['candidate_location'];
+		}
 
 		$data = apply_filters( 'submit_resume_form_save_resume_data', array(
 			'post_title'     => $post_title,

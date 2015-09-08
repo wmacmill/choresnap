@@ -15,10 +15,11 @@ class WP_Job_Manager_Applications_Post_Types {
 			add_action( 'delete_post', array( $this, 'delete_post' ) );
 		}
 		add_action( 'job_applications_purge', array( $this, 'job_applications_purge' ) );
+		add_action( 'transition_post_status', array( $this, 'transition_post_status' ), 10, 3 );
 	}
 
 	public function already_applied_title( $title, $post_id = '' ) {
-		if ( $post_id && 'job_listing' === get_post_type( $post_id ) && ! is_single() && user_has_applied_for_job( get_current_user_id(), $post_id ) ) {
+		if ( $post_id && 'job_listing' === get_post_type( $post_id ) && ! is_single() && empty( $_GET['download-csv'] ) && user_has_applied_for_job( get_current_user_id(), $post_id ) ) {
 			$title .= ' <span class="job-manager-applications-applied-notice">' . __( 'Applied', 'wp-job-manager-applications' ) . '</span>';
 		}
 		return $title;
@@ -161,6 +162,37 @@ class WP_Job_Manager_Applications_Post_Types {
 
 				wp_delete_post( $application_id, true );
 			}
+		}
+	}
+
+	/**
+	 * When the status changes
+	 */
+	public function transition_post_status( $new_status, $old_status, $post ) {
+		if ( 'job_application' !== $post->post_type ) {
+			return;
+		}
+
+		$statuses = get_job_application_statuses();
+
+		// Add a note
+		if ( $old_status !== $new_status && array_key_exists( $old_status, $statuses ) && array_key_exists( $new_status, $statuses ) ) {
+			$user                 = get_user_by( 'id', get_current_user_id() );
+			$comment_author       = $user->display_name;
+			$comment_author_email = $user->user_email;
+			$comment_post_ID      = $post->ID;
+			$comment_author_url   = '';
+			$comment_content      = sprintf( __( 'Application status changed from "%s" to "%s"', 'wp-job-manager-applications' ), $statuses[ $old_status ], $statuses[ $new_status ] );
+			$comment_agent        = 'WP Job Manager';
+			$comment_type         = 'job_application_note';
+			$comment_parent       = 0;
+			$comment_approved     = 1;
+			$commentdata          = apply_filters( 'job_application_note_data', compact( 'comment_post_ID', 'comment_author', 'comment_author_email', 'comment_author_url', 'comment_content', 'comment_agent', 'comment_type', 'comment_parent', 'comment_approved' ), $application_id );
+			$comment_id           = wp_insert_comment( $commentdata );
+		}
+
+		if ( 'hired' === $new_status ) {
+			update_post_meta( wp_get_post_parent_id( $post->ID ), '_filled', 1 );
 		}
 	}
 }

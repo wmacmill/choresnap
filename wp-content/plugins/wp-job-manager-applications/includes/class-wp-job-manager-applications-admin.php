@@ -28,8 +28,11 @@ class WP_Job_Manager_Applications_Admin {
 		add_action( 'manage_job_application_posts_custom_column', array( $this, 'custom_columns' ), 2 );
 		add_filter( 'post_updated_messages', array( $this, 'post_updated_messages' ) );
 		add_action( 'restrict_manage_posts', array( $this, 'restrict_manage_posts' ) );
+		add_action( 'parse_query', array( $this, 'search_meta' ) );
+		add_filter( 'get_search_query', array( $this, 'search_meta_label' ) );
 		add_filter( 'request', array( $this, 'request' ) );
 		add_filter( 'manage_edit-job_application_sortable_columns', array( $this, 'sortable_columns' ) );
+		add_action( 'admin_footer-edit.php', array( $this, 'add_custom_statuses' ) );
 
 		$this->settings_page = new WP_Job_Manager_Applications_Settings();
 	}
@@ -317,6 +320,73 @@ class WP_Job_Manager_Applications_Admin {
 		unset( $columns['comments'] );
 
 		return wp_parse_args( $custom, $columns );
+	}
+
+	/**
+	 * Search custom fields as well as content.
+	 * @param WP_Query $wp
+	 */
+	public function search_meta( $wp ) {
+		global $pagenow, $wpdb;
+
+		if ( 'edit.php' != $pagenow || empty( $wp->query_vars['s'] ) || $wp->query_vars['post_type'] != 'job_application' ) {
+			return;
+		}
+
+		$post_ids = array_unique( array_merge(
+			$wpdb->get_col(
+				$wpdb->prepare( "
+					SELECT posts.ID
+					FROM {$wpdb->posts} posts
+					INNER JOIN {$wpdb->postmeta} p1 ON posts.ID = p1.post_id
+					WHERE p1.meta_value LIKE '%%%s%%'
+					OR posts.post_title LIKE '%%%s%%'
+					OR posts.post_content LIKE '%%%s%%'
+					AND posts.post_type = 'job_application'
+					",
+					esc_attr( $wp->query_vars['s'] ),
+					esc_attr( $wp->query_vars['s'] ),
+					esc_attr( $wp->query_vars['s'] )
+				)
+			),
+			array( 0 )
+		) );
+
+		// Adjust the query vars
+		unset( $wp->query_vars['s'] );
+		$wp->query_vars['job_application_search'] = true;
+		$wp->query_vars['post__in'] = $post_ids;
+	}
+
+	/**
+	 * Change the label when searching meta.
+	 * @param string $query
+	 * @return string
+	 */
+	public function search_meta_label( $query ) {
+		global $pagenow, $typenow;
+
+		if ( 'edit.php' != $pagenow || $typenow != 'job_application' || ! get_query_var( 'job_application_search' ) ) {
+			return $query;
+		}
+
+		return wp_unslash( sanitize_text_field( $_GET['s'] ) );
+	}
+
+	/**
+	 * Add statuses to admin
+	 */
+	public function add_custom_statuses() {
+		global $typenow;
+
+		if ( 'job_application' === $typenow ) {
+			echo "<script>jQuery(document).ready( function() {";
+			echo "jQuery( 'select[name=\"_status\"]' ).find('option[value!=\"-1\"]').remove();";
+			foreach( get_job_application_statuses() as $key => $value ) {
+				echo "jQuery( 'select[name=\"_status\"]' ).append( '<option value=\"" . esc_attr( $key ) . "\">" . esc_attr( $value ) . "</option>' );";
+			}
+			echo "});</script>";
+		}
 	}
 }
 new WP_Job_Manager_Applications_Admin();

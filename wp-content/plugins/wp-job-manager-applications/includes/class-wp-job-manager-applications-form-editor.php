@@ -104,13 +104,14 @@ class WP_Job_Manager_Applications_Form_Editor {
 			)
 		) );
 		$field_types = apply_filters( 'job_application_form_field_types', array(
-			'text'          => __( 'Text', 'wp-job-manager-applications' ),
-			'textarea'      => __( 'Textarea', 'wp-job-manager-applications' ),
-			'file'          => __( 'File', 'wp-job-manager-applications' ),
-			'select'        => __( 'Select', 'wp-job-manager-applications' ),
-			'multiselect'   => __( 'Multiselect', 'wp-job-manager-applications' ),
-			'checkbox'      => __( 'Checkbox', 'wp-job-manager-applications' ),
-			'resumes'       => __( 'Resume', 'wp-job-manager-applications' ),
+			'text'           => __( 'Text', 'wp-job-manager-applications' ),
+			'textarea'       => __( 'Textarea', 'wp-job-manager-applications' ),
+			'file'           => __( 'File', 'wp-job-manager-applications' ),
+			'select'         => __( 'Select', 'wp-job-manager-applications' ),
+			'multiselect'    => __( 'Multiselect', 'wp-job-manager-applications' ),
+			'checkbox'       => __( 'Checkbox', 'wp-job-manager-applications' ),
+			'resumes'        => __( 'Resume', 'wp-job-manager-applications' ),
+			'output-content' => __( 'Output content', 'wp-job-manager-applications' ),
 		) );
 
 		if ( ! function_exists( 'get_resume_share_link' ) ) {
@@ -165,13 +166,13 @@ class WP_Job_Manager_Applications_Form_Editor {
 	 * Save the form fields
 	 */
 	private function form_editor_save() {
-		$field_types          = ! empty( $_POST['field_type'] ) ? array_map( 'sanitize_text_field', $_POST['field_type'] ) : array();
-		$field_labels         = ! empty( $_POST['field_label'] ) ? array_map( 'sanitize_text_field', $_POST['field_label'] ) : array();
-		$field_descriptions   = ! empty( $_POST['field_description'] ) ? array_map( 'sanitize_text_field', $_POST['field_description'] ) : array();
-		$field_placeholder    = ! empty( $_POST['field_placeholder'] ) ? array_map( 'sanitize_text_field', $_POST['field_placeholder'] ) : array();
-		$field_options        = ! empty( $_POST['field_options'] ) ? array_map( 'sanitize_text_field', $_POST['field_options'] ) : array();
+		$field_types          = ! empty( $_POST['field_type'] ) ? array_map( 'sanitize_text_field', $_POST['field_type'] )                     : array();
+		$field_labels         = ! empty( $_POST['field_label'] ) ? array_map( 'sanitize_text_field', $_POST['field_label'] )                   : array();
+		$field_descriptions   = ! empty( $_POST['field_description'] ) ? array_map( 'sanitize_text_field', $_POST['field_description'] )       : array();
+		$field_placeholder    = ! empty( $_POST['field_placeholder'] ) ? array_map( 'sanitize_text_field', $_POST['field_placeholder'] )       : array();
+		$field_options        = ! empty( $_POST['field_options'] ) ? array_map( 'sanitize_text_field', $_POST['field_options'] )               : array();
 		$field_multiple_files = ! empty( $_POST['field_multiple_files'] ) ? array_map( 'sanitize_text_field', $_POST['field_multiple_files'] ) : array();
-		$field_rules          = ! empty( $_POST['field_rules'] ) ? $this->sanitize_array( $_POST['field_rules'] ) : array();
+		$field_rules          = ! empty( $_POST['field_rules'] ) ? $this->sanitize_array( $_POST['field_rules'] )                              : array();
 		$new_fields           = array();
 		$index                = 0;
 
@@ -182,17 +183,17 @@ class WP_Job_Manager_Applications_Form_Editor {
 			$field_name                = sanitize_title( $field_labels[ $key ] );
 			$options                   = ! empty( $field_options[ $key ] ) ? array_map( 'sanitize_text_field', explode( '|', $field_options[ $key ] ) ) : array();
 
-			$new_field                 = array();
-			$new_field['label']        = $field_labels[ $key ];
-			$new_field['type']         = $field_types[ $key ];
-			$new_field['required']     = ! empty( $field_rules[ $key ] ) ? in_array( 'required', $field_rules[ $key ] ) : false;
-			$new_field['options']      = $options ? array_combine( $options, $options ) : array();
-			$new_field['placeholder']  = $field_placeholder[ $key ];
-			$new_field['description']  = $field_descriptions[ $key ];
-			$new_field['priority']     = $index ++;
-			$new_field['multiple']     = isset( $field_multiple_files[ $key ] );
-			$new_field['rules']        = ! empty( $field_rules[ $key ] ) ? $field_rules[ $key ] : array();
-			$new_fields[ $field_name ] = $new_field;
+			$new_field                       = array();
+			$new_field['label']              = $field_labels[ $key ];
+			$new_field['type']               = $field_types[ $key ];
+			$new_field['required']           = ! empty( $field_rules[ $key ] ) ? in_array( 'required', $field_rules[ $key ] ) : false;
+			$new_field['options']            = $options ? array_combine( $options, $options ) : array();
+			$new_field['placeholder']        = $field_placeholder[ $key ];
+			$new_field['description']        = $field_descriptions[ $key ];
+			$new_field['priority']           = $index ++;
+			$new_field['multiple']           = isset( $field_multiple_files[ $key ] );
+			$new_field['rules']              = ! empty( $field_rules[ $key ] ) ? $field_rules[ $key ] : array();
+			$new_fields[ $field_name ]       = $new_field;
 		}
 
 		$result = update_option( 'job_application_form_fields', $new_fields );
@@ -224,6 +225,7 @@ class WP_Job_Manager_Applications_Form_Editor {
 	private function employer_notification_editor() {
 		if ( ! empty( $_GET['reset-email'] ) && ! empty( $_GET['_wpnonce'] ) && wp_verify_nonce( $_GET['_wpnonce'], 'reset' ) ) {
 			delete_option( 'job_application_email_content' );
+			delete_option( 'job_application_email_subject' );
 			echo '<div class="updated"><p>' . __( 'The email was successfully reset.', 'wp-job-manager-applications' ) . '</p></div>';
 		}
 
@@ -263,7 +265,7 @@ class WP_Job_Manager_Applications_Form_Editor {
 	 */
 	private function employer_notification_editor_save() {
 		$email_content = wp_unslash( $_POST['email-content'] );
-		$email_subject = sanitize_text_field( $_POST['email-subject'] );
+		$email_subject = sanitize_text_field( wp_unslash( $_POST['email-subject'] ) );
 		$result        = update_option( 'job_application_email_content', $email_content );
 		$result2       = update_option( 'job_application_email_subject', $email_subject );
 
@@ -278,6 +280,7 @@ class WP_Job_Manager_Applications_Form_Editor {
 	private function candidate_notification_editor() {
 		if ( ! empty( $_GET['reset-email'] ) && ! empty( $_GET['_wpnonce'] ) && wp_verify_nonce( $_GET['_wpnonce'], 'reset' ) ) {
 			delete_option( 'job_application_candidate_email_content' );
+			delete_option( 'job_application_candidate_email_subject' );
 			echo '<div class="updated"><p>' . __( 'The email was successfully reset.', 'wp-job-manager-applications' ) . '</p></div>';
 		}
 
@@ -317,7 +320,7 @@ class WP_Job_Manager_Applications_Form_Editor {
 	 */
 	private function candidate_notification_editor_save() {
 		$email_content = wp_unslash( $_POST['email-content'] );
-		$email_subject = sanitize_text_field( $_POST['email-subject'] );
+		$email_subject = sanitize_text_field( wp_unslash( $_POST['email-subject'] ) );
 		$result        = update_option( 'job_application_candidate_email_content', $email_content );
 		$result2       = update_option( 'job_application_candidate_email_subject', $email_subject );
 

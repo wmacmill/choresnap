@@ -22,22 +22,32 @@ jQuery(document).ready(function($) {
 				}
 			});
 			$(this).find( '.field-type select' ).change();
-			$(this).find('.field-rules select').chosen();
+			$(this).find( '.field-rules select:visible' ).chosen();
 		})
 		.on( 'change', '.field-type select', function() {
 			$(this).closest('tr').find('.field-options .placeholder').hide();
 			$(this).closest('tr').find('.field-options .options').hide();
 			$(this).closest('tr').find('.field-options .na').hide();
-			$(this).closest('tr').find('.field-options .multiple-files').hide();
+			$(this).closest('tr').find('.field-options .file-options').hide();
 
 			if ( 'select' === $(this).val() || 'multiselect' === $(this).val() ) {
 				$(this).closest('tr').find('.field-options .options').show();
-			} else if ( 'resumes' === $(this).val() ) {
+			} else if ( 'resumes' === $(this).val() || 'output-content' === $(this).val() ) {
 				$(this).closest('tr').find('.field-options .na').show();
 			} else if ( 'file' === $(this).val() ) {
-				$(this).closest('tr').find('.field-options .multiple-files').show();
+				$(this).closest('tr').find('.field-options .file-options').show();
 			} else {
 				$(this).closest('tr').find('.field-options .placeholder').show();
+			}
+
+			$(this).closest('tr').find('.field-rules .rules').hide();
+			$(this).closest('tr').find('.field-rules .na').hide();
+
+			if ( 'output-content' === $(this).val() ) {
+				$(this).closest('tr').find('.field-rules .na').show();
+			} else {
+				$(this).closest('tr').find( '.field-rules .rules' ).show();
+				$(this).closest('tr').find( '.field-rules select:visible' ).chosen();
 			}
 		})
 		.on( 'click', '.delete-field', function() {

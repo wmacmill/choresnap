@@ -3,11 +3,11 @@
 	Plugin Name: WooCommerce - Autocomplete Order
 	Plugin URI: 
 	Description: Do you hate WooCommerce for obliging you to manually approve every order placed for non-downloadable goods? This plugin is the answer, since allows to automatically mark orders for **virtual** products as Completed after a successful payment (e.g. with PayPal or Credit Card).
-	Version: 1.1
+	Version: 1.1.1
 	Author: Mirko Grewing
 	Author URI: http://www.mirkogrewing.it	
 		
-		Copyright: © 2013 Mirko Grewing (email : mirko.grewing@live.com)	
+		Copyright: © 2013 Mirko Grewing (email : mirko@grewing.co.uk)	
 		License: GNU General Public License v3.0	
 		License URI: http://www.gnu.org/licenses/gpl-3.0.html
 */
@@ -22,10 +22,10 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
          * @category  Class
          * @package   Woocommerce_Autocomplete_Order
          * @author    Mirko Grewing <mirko@grewing.co.uk>
-         * @copyright 2014 Mirko Grewing
+         * @copyright 2012-2015 Mirko Grewing
          * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
-         * @version   1.1
-         * @link      http://www.nitelab.org/
+         * @version   1.1.1
+         * @link      http://www.mirkogrewing.it
          * @since     Class available since Release 0.1
          *
          */
@@ -56,31 +56,8 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
 					//save tabs select field
 					add_action('woocommerce_update_option_'.$this->id,array($this, 'save_'.$this->id.'_field'), 10);
 				}
-                //ajax search handler
-                //add_action('wp_ajax_woocommerce_json_custom_tabs', array($this,'woocommerce_json_custom_tabs'));
-                //register_post_type
                 add_action('init', array($this,'autocompleteOrders'), 0);
 				
-				function mgWooeoNotice()
-				{
-					global $current_user;
-					$user_id = $current_user->ID;
-					if (!get_user_meta($user_id, 'mg_ignore_notice')) {
-						echo '<div class="updated"><p>';
-						printf(__('This is an annoying nag message. | <a href="%1$s">Hide Notice</a>'), '?mgWooeoNoticeIgnore=0');
-						echo "</p></div>";
-					}
-				}
-				
-				function mgWooeoNoticeIgnore() {
-					global $current_user;
-					$user_id = $current_user->ID;
-					if (isset($_GET['mgWooeoNoticeIgnore']) && '0' == $_GET['mgWooeoNoticeIgnore']) {
-						add_user_meta($user_id, 'mg_ignore_notice', 'true', true);
-					}
-				}
-				//add_action('admin_notices', 'mgWooeoNotice');
-				//add_action('admin_init', 'mgWooeoNoticeIgnore');
 			}
 			
 			/**
