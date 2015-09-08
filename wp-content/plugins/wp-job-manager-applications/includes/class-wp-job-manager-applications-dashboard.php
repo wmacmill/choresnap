@@ -191,7 +191,7 @@ class WP_Job_Manager_Applications_Dashboard {
 			@ob_clean();
 
 			header( 'Content-Type: text/csv; charset=UTF-8' );
-			header( 'Content-Disposition: attachment; filename=applications.csv' );
+			header( 'Content-Disposition: attachment; filename=' . __( 'applications', 'wp-job-manager-applications' ) . '.csv' );
 			header( 'Pragma: no-cache' );
 			header( 'Expires: 0' );
 
@@ -222,7 +222,9 @@ class WP_Job_Manager_Applications_Dashboard {
 	   			'_job_applied_for',
 	   			'_candidate_email',
 	   			'_candidate_user_id',
-	   			'_rating'
+	   			'_rating',
+				'_application_source',
+				'_secret_dir'
 	   		) );
 
 	   		foreach ( $custom_fields as $custom_field ) {
@@ -243,7 +245,7 @@ class WP_Job_Manager_Applications_Dashboard {
 	   			$row[] = get_job_application_rating( $application->ID );
 
 	   			foreach ( $custom_fields as $custom_field ) {
-	   				$row[] = get_post_meta( $application->ID, $custom_field, true );
+					$row[] = get_post_meta( $application->ID, $custom_field, true );
 	   			}
 
 	   			$row   = array_map( __CLASS__ . '::wrap_column', $row );
@@ -347,6 +349,7 @@ class WP_Job_Manager_Applications_Dashboard {
 	 * @return string wrapped data
 	 */
 	public static function wrap_column( $data ) {
+		$data = is_array( $data ) ? json_encode( $data ) : $data;
 		return '"' . str_replace( '"', '""', $data ) . '"';
 	}
 

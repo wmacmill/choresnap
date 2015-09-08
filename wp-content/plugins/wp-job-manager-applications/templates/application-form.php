@@ -3,12 +3,19 @@
 	<?php do_action( 'job_application_form_fields_start' ); ?>
 
 	<?php foreach ( $application_fields as $key => $field ) : ?>
-		<fieldset class="fieldset-<?php esc_attr_e( $key ); ?>">
-			<label for="<?php esc_attr_e( $key ); ?>"><?php echo __( $field['label'] ) . apply_filters( 'submit_job_form_required_label', $field['required'] ? '' : ' <small>' . __( '(optional)', 'wp-job-manager' ) . '</small>', $field ); ?></label>
-			<div class="field <?php echo $field['required'] ? 'required-field' : ''; ?>">
-				<?php $class->get_field_template( $key, $field ); ?>
+		<?php if ( 'output-content' === $field['type'] ) : ?>
+			<div class="form-content">
+				<h3><?php esc_html_e( $field['label'] ); ?></h3>
+				<?php if ( ! empty( $field['description'] ) ) : ?><?php echo wpautop( wp_kses_post( $field['description'] ) ); ?><?php endif; ?>
 			</div>
-		</fieldset>
+		<?php else : ?>
+			<fieldset class="fieldset-<?php esc_attr_e( $key ); ?>">
+				<label for="<?php esc_attr_e( $key ); ?>"><?php echo __( $field['label'] ) . apply_filters( 'submit_job_form_required_label', $field['required'] ? '' : ' <small>' . __( '(optional)', 'wp-job-manager' ) . '</small>', $field ); ?></label>
+				<div class="field <?php echo $field['required'] ? 'required-field' : ''; ?>">
+					<?php $class->get_field_template( $key, $field ); ?>
+				</div>
+			</fieldset>
+		<?php endif; ?>
 	<?php endforeach; ?>
 
 	<?php do_action( 'job_application_form_fields_end' ); ?>

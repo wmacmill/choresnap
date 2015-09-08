@@ -137,8 +137,9 @@ class WP_Job_Manager_Applications_Apply {
 						'order'               => 'desc',
 						'author'              => get_current_user_id()
 					) );
-					$resumes      = array( 0 => __( 'Choose an online resume...', 'wp-job-manager-applications' ) );
+					$resumes      = array();
 					$resume_posts = get_posts( $args );
+
 					foreach ( $resume_posts as $resume ) {
 						$resumes[ $resume->ID ] = $resume->post_title;
 					}
@@ -146,13 +147,25 @@ class WP_Job_Manager_Applications_Apply {
 					$resumes = null;
 				}
 
-				if ( ! $resumes || sizeof( $resumes ) < 2 ) {
+				// No resumes? Don't show field.
+				if ( ! $resumes ) {
 					unset( $this->fields[ $key ] );
 					continue;
 				}
 
-				$this->fields[ $key ]['type']    = 'select';
-				$this->fields[ $key ]['options'] = $resumes;
+				// If resume field is required, and use has 1 only, hide the option (hidden input)
+				if ( $this->fields[ $key ]['required'] && 1 === sizeof( $resumes ) ) {
+					$this->fields[ $key ]['type']        = 'single-resume';
+					$this->fields[ $key ]['value']       = current( array_keys( $resumes ) );
+					$this->fields[ $key ]['description'] = '<a href="' . esc_url( get_permalink( current( array_keys( $resumes ) ) ) ) . '" target="_blank">' . current( $resumes ) . '</a>';
+				} else {
+					if ( ! $this->fields[ $key ]['required'] ) {
+						$resumes = array_merge( array( 0 => __( 'Choose an online resume...', 'wp-job-manager-applications' ) ), $resumes );
+					}
+					$this->fields[ $key ]['type']    = 'select';
+					$this->fields[ $key ]['options'] = $resumes;
+				}
+
 				$this->fields[ $key ]['rules'][] = 'resume_id';
 			}
 
@@ -167,7 +180,14 @@ class WP_Job_Manager_Applications_Apply {
 	 * Get a field from either resume manager or job manager
 	 */
 	public static function get_field_template( $key, $field ) {
-		get_job_manager_template( 'form-fields/' . $field['type'] . '-field.php', array( 'key' => $key, 'field' => $field ) );
+		switch ( $field['type'] ) {
+			case 'single-resume' :
+				get_job_manager_template( 'form-fields/single-resume-field.php', array( 'key' => $key, 'field' => $field ), 'wp-job-manager-applications', JOB_MANAGER_APPLICATIONS_PLUGIN_DIR . '/templates/' );
+			break;
+			default :
+				get_job_manager_template( 'form-fields/' . $field['type'] . '-field.php', array( 'key' => $key, 'field' => $field ) );
+			break;
+		}
 	}
 
 	/**

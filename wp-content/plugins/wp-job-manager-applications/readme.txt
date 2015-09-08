@@ -1,8 +1,8 @@
 [=== Job Applications ===
 Contributors: mikejolley
 Requires at least: 3.8
-Tested up to: 4.2
-Stable tag: 2.1.6
+Tested up to: 4.3
+Stable tag: 2.2.0
 License: GNU General Public License v3.0
 
 Lets candidates submit applications to jobs which are stored on the employers jobs page, rather than simply emailed.
@@ -22,6 +22,19 @@ If you need help with customisation you will need to find and hire a developer c
 To install this plugin, please refer to the guide here: [http://codex.wordpress.org/Managing_Plugins#Manual_Plugin_Installation](http://codex.wordpress.org/Managing_Plugins#Manual_Plugin_Installation)
 
 == Changelog ==
+
+= 2.2.0 =
+* If resume is required remove the 'choose a resume' option from the dropdown.
+* If resume is required and user only has one resume, convert to hidden input.
+* Fix saving quotes in subject lines.
+* Make reset buttons reset subjects as well as form fields.
+* Translate CSV file name.
+* Hide hidden fields from CSV export.
+* Allow custom content/text in application form.
+* Mark job filled when 'hired' status chosen for applicant.
+* Add note when status changes.
+* Search all meta in backend search.
+* Allow bulk editor for statuses.
 
 = 2.1.6 =
 * Added [job_post_meta key="x"] placeholder for email notifications.

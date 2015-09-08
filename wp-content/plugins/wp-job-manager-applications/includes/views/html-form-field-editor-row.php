@@ -17,29 +17,37 @@
 	</td>
 	<td class="field-options">
 		<input type="text" class="input-text placeholder" name="field_placeholder[<?php echo esc_attr( $index ); ?>]" value="<?php echo esc_attr( $field['placeholder'] ); ?>" placeholder="<?php _e( 'N/A', 'wp-job-manager-applications' ); ?>" />
+
 		<input type="text" class="input-text options" name="field_options[<?php echo esc_attr( $index ); ?>]" placeholder="<?php _e( 'Pipe (|) separate options.', 'wp-job-manager-applications' ); ?>" value="<?php echo esc_attr( isset( $field['options'] ) ? implode( ' | ', $field['options'] ) : '' ); ?>" />
-		<label class="multiple-files"><input type="checkbox" class="input-text" name="field_multiple_files[<?php echo esc_attr( $index ); ?>]" value="1" <?php checked( ! empty( $field['multiple'] ), true ); ?> /> <?php _e( 'Multiple Files?', 'wp-job-manager-applications' ); ?></label>
+
+		<div class="file-options">
+			<label class="multiple-files"><input type="checkbox" class="input-text" name="field_multiple_files[<?php echo esc_attr( $index ); ?>]" value="1" <?php checked( ! empty( $field['multiple'] ), true ); ?> /> <?php _e( 'Multiple Files?', 'wp-job-manager-applications' ); ?></label>
+		</div>
+
 		<span class="na">&ndash;</span>
 	</td>
 	<td class="field-rules">
-		<select name="field_rules[<?php echo esc_attr( $index ); ?>][]" multiple="multiple" style="width: 250px;">
-			<?php
-				$field['rules'] = array_filter( (array) ( isset( $field['rules'] ) ? $field['rules'] : array() ) );
+		<div class="rules">
+			<select name="field_rules[<?php echo esc_attr( $index ); ?>][]" multiple="multiple" style="width: 250px;">
+				<?php
+					$field['rules'] = array_filter( (array) ( isset( $field['rules'] ) ? $field['rules'] : array() ) );
 
-				foreach( $field_rules as $optgroup => $rules ) {
-					echo '<optgroup label="' . esc_attr( $optgroup ) . '">';
-					foreach ( $rules as $key => $rule ) {
-						if ( 'required' === $key ) {
-							$selected = selected( ! empty( $field['required'] ), true, false );
-						} else {
-							$selected = selected( in_array( $key, $field['rules'] ), true, false );
+					foreach( $field_rules as $optgroup => $rules ) {
+						echo '<optgroup label="' . esc_attr( $optgroup ) . '">';
+						foreach ( $rules as $key => $rule ) {
+							if ( 'required' === $key ) {
+								$selected = selected( ! empty( $field['required'] ), true, false );
+							} else {
+								$selected = selected( in_array( $key, $field['rules'] ), true, false );
+							}
+							echo '<option value="' . esc_attr( $key ) . '" ' . $selected . '>' . esc_html( $rule ) . '</option>';
 						}
-						echo '<option value="' . esc_attr( $key ) . '" ' . $selected . '>' . esc_html( $rule ) . '</option>';
+						echo '</optgroup>';
 					}
-					echo '</optgroup>';
-				}
-			?>
-		</select>
+				?>
+			</select>
+		</div>
+		<span class="na">&ndash;</span>
 	</td>
 	<td class="field-actions">
 		<a class="delete-field" href='#'>X</a>

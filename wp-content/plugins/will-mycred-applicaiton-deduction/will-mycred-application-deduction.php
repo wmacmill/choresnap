@@ -2,7 +2,7 @@
 /*
 Plugin Name: Will - Deduct credits on applying
 Plugin URI:
-Description: 
+Description: This plugin deducts the points on a job application using MyCred
 Version: 0.1
 Author: Will MacMillan
 Author URI: http://www.facebook.com/macmillan.will
@@ -14,7 +14,7 @@ Domain Path:
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-add_action ( 'new_job_application', 'mycred_deduct_on_apply', 10, 1);
+add_action ( 'new_job_application', 'mycred_deduct_on_apply', 10, 2);
 function mycred_deduct_on_apply ( $user_id ) {
 
 	// Bail if myCRED is not installed
@@ -23,7 +23,7 @@ function mycred_deduct_on_apply ( $user_id ) {
 	//get all your variables
 	$user_ID = get_current_user_id();
 	$post_ID = get_the_ID();
-	$cred_value	= -1 * abs(get_post_meta( $post_ID, 'cred_field', true));//get_post_meta( $post_ID, 'cred_field', true);
+	$cred_value	= -1 * abs(get_post_meta( $post_ID, '_cred_field', true));//get_post_meta( $post_ID, 'cred_field', true);
 	$current_balance = mycred_get_users_cred( $user_ID );
 
 	
@@ -42,8 +42,6 @@ function mycred_deduct_on_apply ( $user_id ) {
 		'mycred_default'
 		);	
 	}	
-	
-	
 }
 
 
