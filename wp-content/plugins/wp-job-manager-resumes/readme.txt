@@ -1,8 +1,8 @@
 === Resume Manager ===
 Contributors: mikejolley
 Requires at least: 3.8
-Tested up to: 4.2
-Stable tag: 1.13.0
+Tested up to: 4.3
+Stable tag: 1.13.1
 License: GNU General Public License v3.0
 
 Manage canidate resumes from the WordPress admin panel, and allow candidates to post their resumes directly to your site.
@@ -26,6 +26,12 @@ If you need help with customisation you will need to find and hire a developer c
 To install this plugin, please refer to the guide here: [http://codex.wordpress.org/Managing_Plugins#Manual_Plugin_Installation](http://codex.wordpress.org/Managing_Plugins#Manual_Plugin_Installation)
 
 == Changelog ==
+
+= 1.13.1 =
+* Fix - Add text links.
+* Fix - Correctly validate email addresses.
+* Fix - Load user fields if posting a resume from job page links.
+* Fix - anonymize default post_name/permalink. e.g. mike-randomstring-web-developer-london-uk
 
 = 1.13.0 =
 * Feature - From address for application set to candidate email.

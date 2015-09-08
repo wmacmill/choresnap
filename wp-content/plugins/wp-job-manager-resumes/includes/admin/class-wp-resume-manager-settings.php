@@ -91,9 +91,9 @@ class WP_Resume_Manager_Settings extends WP_Job_Manager_Settings {
 						array(
 							'name'        => 'resume_manager_max_skills',
 							'std'         => '',
-							'label'       => __( 'Maximum Skills', 'wp-job-manager-tags' ),
-							'placeholder' => __( 'Unlimited', 'wp-job-manager-tags' ),
-							'desc'        => __( 'Enter the number of skills per resume submission you wish to allow, or leave blank for unlimited skills.', 'wp-job-manager-tags' ),
+							'label'       => __( 'Maximum Skills', 'wp-job-manager-resumes' ),
+							'placeholder' => __( 'Unlimited', 'wp-job-manager-resumes' ),
+							'desc'        => __( 'Enter the number of skills per resume submission you wish to allow, or leave blank for unlimited skills.', 'wp-job-manager-resumes' ),
 							'type'        => 'input'
 						),
 						array(
@@ -248,15 +248,15 @@ class WP_Resume_Manager_Settings extends WP_Job_Manager_Settings {
 						array(
 							'name' 		=> 'resume_manager_candidate_dashboard_page_id',
 							'std' 		=> '',
-							'label' 	=> __( 'Candidate Dashboard Page', 'wp-job-manager' ),
-							'desc'		=> __( 'Select the page where you have placed the [candidate_dashboard] shortcode. This lets the plugin know where the dashboard is located.', 'wp-job-manager' ),
+							'label' 	=> __( 'Candidate Dashboard Page', 'wp-job-manager-resumes' ),
+							'desc'		=> __( 'Select the page where you have placed the [candidate_dashboard] shortcode. This lets the plugin know where the dashboard is located.', 'wp-job-manager-resumes' ),
 							'type'      => 'page'
 						),
 						array(
 							'name' 		=> 'resume_manager_resumes_page_id',
 							'std' 		=> '',
-							'label' 	=> __( 'Resume Listings Page', 'wp-job-manager' ),
-							'desc'		=> __( 'Select the page where you have placed the [resumes] shortcode. This lets the plugin know where the resume listings page is located.', 'wp-job-manager' ),
+							'label' 	=> __( 'Resume Listings Page', 'wp-job-manager-resumes' ),
+							'desc'		=> __( 'Select the page where you have placed the [resumes] shortcode. This lets the plugin know where the resume listings page is located.', 'wp-job-manager-resumes' ),
 							'type'      => 'page'
 						),
 					)
