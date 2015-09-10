@@ -23,6 +23,29 @@ class WP_Job_Manager_Field_Editor_Settings_Fields {
 	}
 
 	/**
+	 * CheckBoxes Field
+	 *
+	 *
+	 * @since 1.3.6
+	 *
+	 * @param $a
+	 */
+	function checkboxes_field( $a ) {
+
+		$o       = $a['option'];
+
+		$boxnum = 0;
+		foreach( $o['options'] as $key => $value ){
+			$checked = checked( in_array( $key, $a['value'] ), true, FALSE );
+			echo "<label style=\"margin-right: 5px;\"><input id=\"{$o['name']}_{$key}\" type=\"checkbox\" class=\"{$a['field_class']}\" name=\"{$o['name']}[]\" value=\"{$key}\"  {$a['attributes']} {$checked} /> {$value} </label>";
+			$boxnum++;
+		}
+
+		$this->description( $o );
+
+	}
+
+	/**
 	 * Dump Debug Data
 	 *
 	 *

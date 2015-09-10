@@ -96,9 +96,10 @@ class WP_Job_Manager_Field_Editor_Widget extends WP_Widget {
 		$output_oembed_height = isset( $instance[ 'output_oembed_height' ] ) ? $instance[ 'output_oembed_height' ] : '';
 		$output_check_true = isset( $instance[ 'output_check_true' ] ) ? $instance[ 'output_check_true' ] : '';
 		$output_check_false = isset( $instance[ 'output_check_false' ] ) ? $instance[ 'output_check_false' ] : '';
+		$image_link = isset($instance['image_link']) ? $instance['image_link'] : '1';
 		$output_video_width = isset( $instance[ 'output_video_width' ] ) ? $instance[ 'output_video_width' ] : '';
 		$output_video_height = isset( $instance[ 'output_video_height' ] ) ? $instance[ 'output_video_height' ] : '';
-		$output_video_allowdl = ( isset( $instance[ 'output_video_allowdl' ] ) && ! empty( $instance[ 'output_video_allowdl' ] ) ) ? $instance[ 'output_video_allowdl' ] : '1';
+		$output_video_allowdl = isset( $instance[ 'output_video_allowdl' ] ) ? $instance[ 'output_video_allowdl' ] : '1';
 		$output_video_poster = isset( $instance[ 'output_video_poster' ] ) ? $instance[ 'output_video_poster' ] : '';
 
 		?>
@@ -211,6 +212,10 @@ class WP_Job_Manager_Field_Editor_Widget extends WP_Widget {
 				<input class="widefat" id="<?php echo $this->get_field_id( 'output_check_false' ); ?>" name="<?php echo $this->get_field_name( 'output_check_false' ); ?>" type="text" value="<?php echo esc_attr( $output_check_false ); ?>" placeholder="<?php _e( 'No', 'wp-job-manager-field-editor' ); ?>">
 				<small><?php _e( 'Custom caption to use if checkbox field type is not checked.', 'wp-job-manager-field-editor' ); ?></small>
 			</p>
+			<p id="<?php echo $this->get_field_id( 'con_image' ); ?>" style="<?php if ( $output_as != 'image' ) echo "display: none;"; ?>">
+				<label for="<?php echo $this->get_field_id( 'image_link' ); ?>"><?php _e( 'Wrap Image with a Link to the URL:', 'wp-job-manager-field-editor' ); ?></label>
+				<input class="checkbox" id="<?php echo $this->get_field_id( 'image_link' ); ?>" name="<?php echo $this->get_field_name( 'image_link' ); ?>" type="checkbox" value="<?php echo esc_attr( $image_link ); ?>" <?php checked( 1, $image_link, TRUE ); ?>>
+			</p>
 		</div>
 		<script>
 			jQuery(function($){
@@ -248,6 +253,7 @@ class WP_Job_Manager_Field_Editor_Widget extends WP_Widget {
 		$instance[ 'output_check_true' ] = ( ! empty( $new_instance[ 'output_check_true' ] ) ) ? strip_tags( $new_instance[ 'output_check_true' ] ) : '';
 		$instance[ 'output_check_false' ] = ( ! empty( $new_instance[ 'output_check_false' ] ) ) ? strip_tags( $new_instance[ 'output_check_false' ] ) : '';
 		$instance[ 'output_video_allowdl' ] = isset( $new_instance[ 'output_video_allowdl' ] ) ? '1' : '0';
+		$instance[ 'image_link' ] = isset( $new_instance[ 'image_link' ] ) ? '1' : '0';
 		$instance[ 'output_video_poster' ] = ( ! empty( $new_instance[ 'output_video_poster' ] ) ) ? strip_tags( $new_instance[ 'output_video_poster' ] ) : '';
 		$instance[ 'output_video_width' ] = ( ! empty( $new_instance[ 'output_video_width' ] ) ) ? strip_tags( $new_instance[ 'output_video_width' ] ) : '';
 		$instance[ 'output_video_height' ] = ( ! empty( $new_instance[ 'output_video_height' ] ) ) ? strip_tags( $new_instance[ 'output_video_height' ] ) : '';

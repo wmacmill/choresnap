@@ -244,6 +244,13 @@ Class WP_Job_Manager_Field_Editor_Modal extends WP_Job_Manager_Field_Editor_Fiel
 								'default' => '1||',
 								'hidden'      => TRUE
 							),
+							'image_link' => array(
+									'label'   => __( 'Image Link', 'wp-job-manager-field-editor' ),
+									'caption' => __( "Will wrap the image in a link to the URL of the image.", 'wp-job-manager-field-editor' ),
+									'type'    => 'checkbox',
+									'default' => '1||',
+									'hidden'  => TRUE
+							),
 							'output_video_poster' => array(
 								'label'       => __( 'Poster URL', 'wp-job-manager-field-editor' ),
 								'caption'     => __( "A URL for an image to show until the user plays or seeks. If not specified, the first frame of video will be used when it becomes available.", 'wp-job-manager-field-editor' ) . __( '<strong>(optional)</strong>', 'wp-job-manager-field-editor' ),
@@ -327,15 +334,22 @@ Class WP_Job_Manager_Field_Editor_Modal extends WP_Job_Manager_Field_Editor_Fiel
 							'content' => __( 'You can view, edit, or add user meta using my free open source <strong><a target="_blank" href="https://wordpress.org/plugins/user-meta-display/">User Meta Display</a></strong> plugin.', 'wp-job-manager-field-editor' )
 						),
 						'fields' => array(
+							'populate_save' => array(
+									'label'   => __( 'Auto Save', 'wp-job-manager-field-editor' ),
+									'caption' => __( 'Save the value (except default) when a listing is submitted, to the user\'s meta.', 'wp-job-manager-field-editor' ),
+									'type'    => 'checkbox',
+									'default' => '1||Enable',
+							),
+							'populate_save_as' => array(
+									'label'   => __( 'Save As', 'wp-job-manager-field-editor' ),
+									'caption' => __( '<strong>ONLY</strong> set this value if you want to specify a custom meta key to save the value to!  Default value for this field should be blank/empty.', 'wp-job-manager-field-editor' ),
+									'type'    => 'textfield',
+									'default' => '',
+									'placeholder' => '_company_facebook'
+							),
 							'populate_enable'   => array(
 								'label'   => __( 'Auto Populate', 'wp-job-manager-field-editor' ),
 								'caption' => __( 'This box must be checked to enable auto populate.', 'wp-job-manager-field-editor' ),
-								'type'    => 'checkbox',
-								'default' => '1||Enable',
-							),
-							'populate_save'     => array(
-								'label'   => __( 'Auto Save', 'wp-job-manager-field-editor' ),
-								'caption' => __( 'Save the value (except default) when a listing is submitted, to the user\'s meta.', 'wp-job-manager-field-editor' ),
 								'type'    => 'checkbox',
 								'default' => '1||Enable',
 							),

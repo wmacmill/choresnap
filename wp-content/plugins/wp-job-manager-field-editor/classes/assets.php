@@ -38,7 +38,7 @@ class WP_Job_Manager_Field_Editor_Assets {
 			'jquery-ui-datepicker'
 		), WPJM_FIELD_EDITOR_VERSION, TRUE );
 		wp_register_script( 'jmfe-header-field', WPJM_FIELD_EDITOR_PLUGIN_URL . '/assets/js/header.min.js', array('jquery'), WPJM_FIELD_EDITOR_VERSION, TRUE );
-		wp_register_script( 'recaptcha', 'https://www.google.com/recaptcha/api.js' );
+		wp_register_script( 'jmfe-recaptcha', 'https://www.google.com/recaptcha/api.js' );
 
 		wp_register_style( 'jquery-ui', '//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css', array(), '1.0' );
 		wp_register_style( 'jmfe-phone-field-style', WPJM_FIELD_EDITOR_PLUGIN_URL . '/assets/css/intlTelInput.min.css', array(), WPJM_FIELD_EDITOR_VERSION );

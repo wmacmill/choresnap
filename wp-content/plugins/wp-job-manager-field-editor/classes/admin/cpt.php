@@ -129,7 +129,7 @@ class WP_Job_Manager_Field_Editor_CPT {
 		// action, nonce, filter, options(array), paged, post_id
 		$skip_update = apply_filters( 'field_editor_update_post_meta_skip_update', array('action', 'nonce', 'filter', 'options', 'packages_show', 'paged', 'post_id', 'modal_action') );
 		$skip_purge = apply_filters( 'field_editor_update_post_meta_skip_purge', array( 'status' ) );
-		$checkboxes = apply_filters( 'field_editor_update_post_meta_checkboxes', array( 'admin_only', 'multiple', 'ajax', 'required', 'output_show_label', 'populate_enable', 'populate_save', 'option_default', 'option_disabled', 'packages_require') );
+		$checkboxes = apply_filters( 'field_editor_update_post_meta_checkboxes', array( 'admin_only', 'multiple', 'ajax', 'required', 'output_show_label', 'populate_enable', 'populate_save', 'option_default', 'option_disabled', 'packages_require', 'image_link') );
 		$meta_checks = apply_filters( 'field_editor_update_post_meta_checks', array( 'taxonomy' ) );
 
 		$meta_key = filter_input( INPUT_POST, 'meta_key', FILTER_SANITIZE_STRING );
@@ -184,10 +184,18 @@ class WP_Job_Manager_Field_Editor_CPT {
 		$packages_show = isset( $_POST[ 'packages_show' ] ) ? $_POST[ 'packages_show' ] : array();
 		// If no packages are select remove post meta
 		if ( $action === "edit" && empty( $packages_show ) ) delete_post_meta( $post_id, 'packages_show' );
-		if ( ! empty( $packages_show ) && isset( $packages_show[0] ) ){
-			foreach( $packages_show[0] as $product_id ){
-				$enabled_packages[] = $product_id;
+
+		if ( ! empty( $packages_show ) ){
+			// Check if packages_show was submitted as array of IDs
+			if( isset($packages_show[0]) ){
+				foreach( $packages_show[0] as $product_id ) {
+					$enabled_packages[] = $product_id;
+				}
+			} else {
+				// Or if only one package exists, it will show up as a string in POST
+				$enabled_packages[] = $packages_show;
 			}
+
 			update_post_meta( $post_id, 'packages_show', $enabled_packages );
 		}
 

@@ -56,9 +56,11 @@ class WP_Job_Manager_Field_Editor_Admin_Assets {
 	 *
 	 * @since 1.1.9
 	 *
+	 * @param null $page
+	 *
 	 * @return bool
 	 */
-	function is_plugin_page(){
+	function is_plugin_page( $page = null ){
 
 		global $pagenow;
 
@@ -74,7 +76,12 @@ class WP_Job_Manager_Field_Editor_Admin_Assets {
 
 		$current_page = ( isset( $_GET[ 'page' ] ) ? $_GET[ 'page' ] : '' );
 
-		if ( $pagenow == 'edit.php' && in_array( $current_page, $plugin_pages ) ) return true;
+		if ( $pagenow == 'edit.php' && in_array( $current_page, $plugin_pages ) ){
+			// Return TRUE if $page not defined, or if defined and matches $current_page
+			if( ! $page || $current_page == $page ) return TRUE;
+			// Return false because $page is set, but does not match $current_page
+			return false;
+		}
 
 		return false;
 	}
@@ -139,14 +146,19 @@ class WP_Job_Manager_Field_Editor_Admin_Assets {
 	 * Enqueue already registered styles
 	 *
 	 *
-	 * @since 1.1.9
+	 * @since    1.1.9
 	 *
+	 * @param bool $include_vendor
 	 */
-	public function enqueue_assets(){
+	public function enqueue_assets( $include_vendor = true ){
 
 		wp_enqueue_style( 'jmfe-styles' );
-		wp_enqueue_style( 'jmfe-vendor-styles' );
-		wp_enqueue_script( 'jmfe-vendor-scripts' );
+
+		if( $include_vendor ){
+			wp_enqueue_style( 'jmfe-vendor-styles' );
+			wp_enqueue_script( 'jmfe-vendor-scripts' );
+		}
+
 		wp_enqueue_script( 'jmfe-scripts' );
 
 	}

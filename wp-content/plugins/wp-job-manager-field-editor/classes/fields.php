@@ -183,6 +183,43 @@ class WP_Job_Manager_Field_Editor_Fields extends WP_Job_Manager_Field_Editor {
 	}
 
 	/**
+	 * Remove invalid fields from array
+	 *
+	 * Will remove any fields that are set in the array and missing the
+	 * type array key.  This key should always be set for any valid fields.
+	 *
+	 *
+	 * @since 1.3.6
+	 *
+	 * @param       $fields
+	 * @param       $check
+	 *
+	 * @return array
+	 */
+	function remove_invalid_fields( $fields, $check = 'type' ){
+
+		if( ! is_array( $fields ) ) return $fields;
+
+		if( isset( $fields['job'] ) || isset( $fields['resume_fields'] ) ){
+
+			foreach( $fields as $field_group => $group_fields ){
+				$fields[$field_group] = $this->remove_invalid_fields( $group_fields );
+			}
+
+			return $fields;
+		}
+
+		foreach( $fields as $f_key => $f_conf ){
+			// If $check is key in field array, and is not empty value, move on to next field/meta key.
+			if( array_key_exists( $check, $f_conf ) && ! empty( $f_conf[ $check ] ) ) continue;
+			// Remove the field from the array
+			unset( $fields[ $f_key ] );
+		}
+
+		return $fields;
+	}
+
+	/**
 	 * Filters a list of objects, based on a set of key => value arguments.
 	 *
 	 * Same as WordPress wp_list_filter with added support for 'my_key' => array() in args to
@@ -358,7 +395,7 @@ class WP_Job_Manager_Field_Editor_Fields extends WP_Job_Manager_Field_Editor {
 						if ( $config_name == 'required' ) settype( $post_value, 'boolean' );
 						if ( $config_name == 'options' || $config_name == 'packages_show' || $additional_option ) $post_value = maybe_unserialize( $post_value );
 
-						$i18n_fields = apply_filters( 'field_editor_custom_fields_i18n_meta_keys', array( 'label', 'description' ) );
+						$i18n_fields = apply_filters( 'field_editor_custom_fields_i18n_meta_keys', array( 'label', 'description', 'placeholder' ) );
 						if( in_array( $config_name, $i18n_fields ) ) $post_value = __( $post_value, 'wp-job-manager-field-editor' );
 						$build_fields[ $config_name ] = $post_value;
 

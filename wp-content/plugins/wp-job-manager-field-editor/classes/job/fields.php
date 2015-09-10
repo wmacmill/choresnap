@@ -17,7 +17,7 @@ class WP_Job_Manager_Field_Editor_Job_Fields extends WP_Job_Manager_Field_Editor
 	function __construct() {
 
 		add_filter( 'submit_job_form_fields', array( $this, 'init_fields' ), 100 );
-		add_filter( 'submit_job_form_fields_get_job_data', array( $this, 'new_job_fields' ), 100, 2 );
+		add_filter( 'submit_job_form_fields_get_job_data', array( $this, 'get_job_data' ), 100, 2 );
 		add_filter( 'job_manager_job_listing_data_fields', array( $this, 'admin_fields' ), 100 );
 		add_filter( 'job_manager_save_job_listing', array( $this, 'save_admin_fields' ), 100, 2 );
 		add_action( 'job_manager_update_job_data', array( $this, 'save_fields' ), 100, 2 );
@@ -29,6 +29,32 @@ class WP_Job_Manager_Field_Editor_Job_Fields extends WP_Job_Manager_Field_Editor
 		add_action( 'submit_job_form_job_fields_start', array( $this, 'job_package_field' ) );
 		// Called only from class-wp-job-manager-form-submit-job
 		// add_filter( 'submit_job_form_fields_get_user_data', array( $this, 'new_job_fields' ), 100, 2 );
+	}
+
+	/**
+	 * Get Job Field Data
+	 *
+	 * Called by submit() in both edit and submit form classes and includes all
+	 * fields with the value set in the field array config.
+	 *
+	 * Submit form class calls this method when editing a listing already previewed (so the listing is draft)
+	 * Edit form class class this method when editing a listing to populate the values
+	 *
+	 *
+	 * @since 1.3.6
+	 *
+	 * @param $fields
+	 * @param $job
+	 *
+	 * @return mixed
+	 */
+	function get_job_data( $fields, $job ){
+
+		$fields = $this->new_job_fields( $fields );
+		$fields = $this->remove_invalid_fields( $fields );
+
+		return $fields;
+
 	}
 
 	/**
@@ -114,7 +140,7 @@ class WP_Job_Manager_Field_Editor_Job_Fields extends WP_Job_Manager_Field_Editor
 	 */
 	function job_package_field(){
 
-		if( WP_Job_Manager_Field_Editor_reCAPTCHA::is_enabled() ) wp_enqueue_script( 'recaptcha' );
+		if( WP_Job_Manager_Field_Editor_reCAPTCHA::is_enabled() ) wp_enqueue_script( 'jmfe-recaptcha' );
 
 		$product_id  = isset( $_REQUEST[ 'wcpl_jmfe_product_id' ] ) ? intval( $_REQUEST[ 'wcpl_jmfe_product_id' ] ) : false;
 		$package = isset( $_REQUEST[ 'job_package' ] ) ? sanitize_text_field( $_REQUEST[ 'job_package' ] ) : $product_id;
@@ -168,6 +194,8 @@ class WP_Job_Manager_Field_Editor_Job_Fields extends WP_Job_Manager_Field_Editor
 
 			// If called by force validation, set fields equal to field config for validation
 			if ( $this->force_validate ) $fields = $this->validation_fields( $fields );
+
+			$fields = apply_filters( 'job_manager_field_editor_job_init_fields', $fields );
 
 		}
 
@@ -287,23 +315,31 @@ class WP_Job_Manager_Field_Editor_Job_Fields extends WP_Job_Manager_Field_Editor
 	 *
 	 * @param $label
 	 *
+	 * @param $field
+	 *
 	 * @return string
 	 */
-	function custom_required_label( $label ){
+	function custom_required_label( $label, $field ){
 
 		// Required Field
 		if ( $label === '' ) {
-			if( get_option( 'jmfe_enable_required_label' ) && get_option( 'jmfe_required_label' ) ){
-				$label = ' ' . get_option( 'jmfe_required_label' );
+			$custom_req_label = get_option( 'jmfe_required_label' );
+			if( get_option( 'jmfe_enable_required_label' ) && $custom_req_label ){
+				$label = ' ' . __( $custom_req_label, 'wp-job-manager-field-editor' );
 			}
+
 		}
 
 		// Optional Field
 		$defaultOptional = ' <small>' . __( '(optional)', 'wp-job-manager-field-editor', 'wp-job-manager-field-editor' ) . '</small>';
 
+		if( in_array( $field['type'], apply_filters( 'field_editor_job_required_label_field_types', array( 'header', 'html', 'actionhook' ) ) ) )
+			return '';
+
 		if( $label === $defaultOptional ){
-			if( get_option( 'jmfe_enable_optional_label' ) && get_option( 'jmfe_optional_label' ) ){
-				$label = ' ' . get_option( 'jmfe_optional_label' );
+			$custom_opt_label = get_option( 'jmfe_optional_label' );
+			if( get_option( 'jmfe_enable_optional_label' ) && $custom_opt_label ){
+				$label = ' ' . __( $custom_opt_label, 'wp-job-manager-field-editor' );
 			} elseif( get_option( 'jmfe_enable_required_label' ) ) {
 				$label = '';
 			}
@@ -324,7 +360,10 @@ class WP_Job_Manager_Field_Editor_Job_Fields extends WP_Job_Manager_Field_Editor
 	 */
 	function custom_submit_button( $label ) {
 
-		if ( get_option( 'jmfe_enable_job_submit_button' ) && get_option( 'jmfe_job_submit_button' ) ) return get_option( 'jmfe_job_submit_button' );
+		$custom_submit_button = get_option( 'jmfe_job_submit_button' );
+		if ( get_option( 'jmfe_enable_job_submit_button' ) && $custom_submit_button ) {
+			$label = __( $custom_submit_button, 'wp-job-manager-field-editor' );
+		}
 
 		return $label;
 	}

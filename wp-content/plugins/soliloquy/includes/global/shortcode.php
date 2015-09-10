@@ -1315,7 +1315,7 @@ class Soliloquy_Shortcode {
         if ( 'thumbnails' == $type ) {
             $image = apply_filters( 'soliloquy_cropped_image', $image, $id, $item, $data, $data['id'] );
         }
-        
+
         // If no image, return with the base link.
         if ( ! $image ) {
             $image = ! empty( $item['src'] ) ? $item['src'] : false;
@@ -1372,9 +1372,12 @@ class Soliloquy_Shortcode {
 
                 // If there is an error, possibly output error message and return the default image src.
                 if ( is_wp_error( $cropped_image ) ) {
-                    // If debugging is defined, print out the error.
-                    if ( defined( 'SOLILOQUY_CROP_DEBUG' ) && SOLILOQUY_CROP_DEBUG ) {
-                        echo '<pre>' . var_export( $cropped_image->get_error_message(), true ) . '</pre>';
+                    // If WP_DEBUG is enabled, and we're logged in, output an error to the user
+                    if ( defined( 'WP_DEBUG' ) && WP_DEBUG && is_user_logged_in() ) {
+                        echo '<pre>Soliloquy: Error occured resizing image (these messages are only displayed to logged in WordPress users):<br />';
+                        echo 'Error: ' . $cropped_image->get_error_message() . '<br />';
+                        echo 'Image: ' . $image . '<br />';
+                        echo 'Args: ' . var_export( $args, true ) . '</pre>';
                     }
 
                     // Return the non-cropped image as a fallback.
@@ -1400,9 +1403,12 @@ class Soliloquy_Shortcode {
 
                 // If there is an error, possibly output error message and return the default image src.
                 if ( is_wp_error( $cropped_image ) ) {
-                    // If debugging is defined, print out the error.
-                    if ( defined( 'SOLILOQUY_CROP_DEBUG' ) && SOLILOQUY_CROP_DEBUG ) {
-                        echo '<pre>' . var_export( $cropped_image->get_error_message(), true ) . '</pre>';
+                    // If WP_DEBUG is enabled, and we're logged in, output an error to the user
+                    if ( defined( 'WP_DEBUG' ) && WP_DEBUG && is_user_logged_in() ) {
+                        echo '<pre>Soliloquy: Error occured resizing image (these messages are only displayed to logged in WordPress users):<br />';
+                        echo 'Error: ' . $cropped_image->get_error_message() . '<br />';
+                        echo 'Image: ' . $image . '<br />';
+                        echo 'Args: ' . var_export( $args, true ) . '</pre>';
                     }
 
                     // Return the non-cropped image as a fallback.
@@ -1428,9 +1434,12 @@ class Soliloquy_Shortcode {
 
                 // If there is an error, possibly output error message and return the default image src.
                 if ( is_wp_error( $cropped_image ) ) {
-                    // If debugging is defined, print out the error.
-                    if ( defined( 'SOLILOQUY_CROP_DEBUG' ) && SOLILOQUY_CROP_DEBUG ) {
-                        echo '<pre>' . var_export( $cropped_image->get_error_message(), true ) . '</pre>';
+                    // If WP_DEBUG is enabled, and we're logged in, output an error to the user
+                    if ( defined( 'WP_DEBUG' ) && WP_DEBUG && is_user_logged_in() ) {
+                        echo '<pre>Soliloquy: Error occured resizing image (these messages are only displayed to logged in WordPress users):<br />';
+                        echo 'Error: ' . $cropped_image->get_error_message() . '<br />';
+                        echo 'Image: ' . $image . '<br />';
+                        echo 'Args: ' . var_export( $args, true ) . '</pre>';
                     }
 
                     // Return the non-cropped image as a fallback.

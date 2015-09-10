@@ -248,6 +248,21 @@ class WP_Job_Manager_Field_Editor_Settings extends WP_Job_Manager_Field_Editor_S
 						),
 					)
 				),
+				'output' => array(
+					__( 'Output', 'wp-job-manager-field-editor' ),
+					array(
+						array(
+							'name'  => 'jmfe_output_wpautop',
+							'type'  => 'checkboxes',
+							'label'     => __( 'Auto Paragraph', 'wp-job-manager-field-editor' ),
+							'desc'        => __( 'Select which field types you want to automatically add paragraphs to, when using one of the built-in output methods.', 'wp-job-manager-field-editor' ),
+							'options' => array(
+								'wp-editor' => __( 'WP-Editor', 'wp-job-manager-field-editor' ),
+								'textarea' => __( 'Text Area', 'wp-job-manager-field-editor' )
+							)
+						)
+					)
+				),
 				'support' => array(
 					__( 'Support', 'wp-job-manager-field-editor' ),
 					array(
@@ -379,7 +394,9 @@ class WP_Job_Manager_Field_Editor_Settings extends WP_Job_Manager_Field_Editor_S
 				$placeholder = ( ! empty( $option[ 'placeholder' ] ) ) ? 'placeholder="' . $option[ 'placeholder' ] . '"' : '';
 				$class       = ! empty( $option[ 'class' ] ) ? $option[ 'class' ] : '';
 				$field_class       = ! empty( $option[ 'field_class' ] ) ? $option[ 'field_class' ] : '';
-				$value       = esc_attr( get_option( $option[ 'name' ] ) );
+				$value       = get_option( $option[ 'name' ] );
+				$value	     = maybe_unserialize( $value );
+				//$value = esc_attr( $value );
 				$attributes  = "";
 
 				if ( ! empty( $option[ 'attributes' ] ) && is_array( $option[ 'attributes' ] ) ) {

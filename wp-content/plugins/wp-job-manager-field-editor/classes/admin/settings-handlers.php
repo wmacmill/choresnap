@@ -113,4 +113,10 @@ class WP_Job_Manager_Field_Editor_Settings_Handlers extends WP_Job_Manager_Field
 
 	}
 
+	function checkboxes_handler( $input ){
+
+		$input = maybe_serialize( array_values($input) );
+
+		return $input;
+	}
 }
