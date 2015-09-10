@@ -39,7 +39,7 @@ class WP_Job_Manager_Field_Editor_Fields_Options extends WP_Job_Manager_Field_Ed
 
 		if( ! is_array($soptions) || ! isset( $soptions['option_value'] ) ) return $soptions;
 
-		if( empty( $soptions['option_value'][0] ) ) return array();
+		if( empty( $soptions['option_value'][0] ) && empty( $soptions['option_label'][0] ) ) return array();
 
 		$options = array();
 

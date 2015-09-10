@@ -51,13 +51,7 @@ if ( ! function_exists( 'the_job_field' ) ) {
 	function the_job_field( $field_slug, $job_id = null, $args = array() ) {
 
 		$field_value = get_job_field( $field_slug, $job_id );
-
-		if ( isset( $args['output_as'] ) && ! empty( $args['output_as'] ) ) {
-			the_custom_field_output_as( $field_slug, $job_id, $field_value, $args );
-		} else {
-			if ( is_array( $field_value ) ) $field_value = implode( ', ', $field_value );
-			echo $field_value;
-		}
+		the_custom_field_output_as( $field_slug, $job_id, $field_value, $args );
 
 	}
 
@@ -112,13 +106,7 @@ if ( ! function_exists( 'the_company_field' ) ) {
 	function the_company_field( $field_slug, $job_id = null, $args = array() ) {
 
 		$field_value = get_company_field( $field_slug, $job_id );
-
-		if ( isset( $args[ 'output_as' ] ) && ! empty( $args[ 'output_as' ] ) ) {
-			the_custom_field_output_as( $field_slug, $job_id, $field_value, $args );
-		} else {
-			if ( is_array( $field_value ) ) $field_value = implode( ', ', $field_value );
-			echo $field_value;
-		}
+		the_custom_field_output_as( $field_slug, $job_id, $field_value, $args );
 
 	}
 
@@ -173,13 +161,7 @@ if ( ! function_exists( 'the_resume_field' ) ) {
 	function the_resume_field( $field_slug, $job_id = null, $args = array() ) {
 
 		$field_value = get_resume_field( $field_slug, $job_id );
-
-		if ( isset( $args[ 'output_as' ] ) && ! empty( $args[ 'output_as' ] ) ) {
-			the_custom_field_output_as( $field_slug, $job_id, $field_value, $args );
-		} else {
-			if ( is_array( $field_value ) ) $field_value = implode( ', ', $field_value );
-			echo $field_value;
-		}
+		the_custom_field_output_as( $field_slug, $job_id, $field_value, $args );
 
 	}
 
@@ -234,13 +216,7 @@ if ( ! function_exists( 'the_custom_field' ) ) {
 	function the_custom_field( $field_slug, $job_id = null, $args = array() ) {
 
 		$field_value = get_custom_field( $field_slug, $job_id, $args );
-
-		if ( isset( $args[ 'output_as' ] ) && ! empty( $args[ 'output_as' ] ) ) {
-			the_custom_field_output_as( $field_slug, $job_id, $field_value, $args );
-		} else {
-			if ( is_array( $field_value ) ) $field_value = implode( ', ', $field_value );
-			echo $field_value;
-		}
+		the_custom_field_output_as( $field_slug, $job_id, $field_value, $args );
 
 	}
 
@@ -316,11 +292,10 @@ if ( ! function_exists( 'the_custom_field_output_as' ) ) {
 
 		if( $field_value !== 0 && empty( $field_value ) ) return;
 
-		$tax_labels = array();
 		$label_show_colon = true;
 
 		// Handle multiple values output (probably file upload)
-		if( is_array( $field_value ) && isset( $args['multiple'] ) && $args['multiple'] > 0 ){
+		if( is_array( $field_value ) ){
 			// Put label in its own div for mutliple output
 			if( ! empty( $args[ 'output_show_label' ] ) ){
 				echo "<div id=\"jmfe-wrap-{$field_slug}-multi-label\" class=\"jmfe-custom-field-wrap jmfe-custom-field-multi-label\">";
@@ -338,7 +313,11 @@ if ( ! function_exists( 'the_custom_field_output_as' ) ) {
 		// Output array as comma separated values
 		if( is_array( $field_value ) ) $field_value = implode( ', ', $field_value );
 
-		$output_as     = ( ! empty( $args[ 'output_as' ] ) ) ? $args[ 'output_as' ] : '';
+		// Automatically add <p> through wpautop()
+		$wpautop_fields = maybe_unserialize( get_option( 'jmfe_output_wpautop' ) );
+		if( ! empty( $wpautop_fields ) && isset($args['type']) && in_array( $args['type'], $wpautop_fields ) ) $field_value = wpautop( $field_value );
+
+		$output_as     = ( ! empty( $args[ 'output_as' ] ) ) ? $args[ 'output_as' ] : 'text';
 		$extra_classes = ( ! empty( $args[ 'output_classes' ] ) ) ? $args[ 'output_classes' ] : '';
 
 		$oembed_args = array();
@@ -407,7 +386,9 @@ if ( ! function_exists( 'the_custom_field_output_as' ) ) {
 				break;
 
 			case 'image':
+				if( isset( $args['image_link'] ) && ! empty( $args['image_link'] ) ) echo "<a class=\"jmfe-image-link\" href=\"{$field_value}\">";
 				echo "<img id=\"jmfe-custom-{$field_slug}\" src=\"{$field_value}\" class=\"jmfe-custom-field {$extra_classes}\" />";
+				if( isset($args['image_link']) && ! empty($args['image_link']) ) echo "</a>";
 				break;
 
 			// Output checkbox label only if checked has no output besides the label

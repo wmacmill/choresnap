@@ -6,10 +6,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WP Job Manager Field Editor\n"
 "Report-Msgid-Bugs-To: http://plugins.smyl.es\n"
-"POT-Creation-Date: 2015-07-07 23:03:59+00:00\n"
-"PO-Revision-Date: 2015-07-07 21:46+0000\n"
+"POT-Creation-Date: 2015-09-08 23:48:18+00:00\n"
+"PO-Revision-Date: 2015-09-08 23:48+0000\n"
 "Last-Translator: Myles McNamara <myles@smyl.es>\n"
-"Language-Team: Polish (Poland) (http://www.transifex.com/projects/p/wp-job-manager-field-editor/language/pl_PL/)\n"
+"Language-Team: Polish (Poland) (http://www.transifex.com/smyles/wp-job-manager-field-editor/language/pl_PL/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -132,22 +132,22 @@ msgid ""
 "field itself, if you want to remove it from the form, please use disable."
 msgstr "Przepraszam, tylko można usunąć domyślnej konfiguracji pole, nie rzeczywiste pole samo w sobie, jeśli chcesz go usunąć z formularza, użyj proszę wyłączyć."
 
-#: classes/admin/cpt.php:241
+#: classes/admin/cpt.php:249
 msgid "WPJM Custom Fields"
 msgstr "WPJM pól niestandardowych"
 
-#: classes/admin/cpt.php:242
+#: classes/admin/cpt.php:250
 msgid "WPJM Custom Field"
 msgstr "Niestandardowe pola WPJM"
 
-#: classes/admin/cpt.php:264
+#: classes/admin/cpt.php:272
 msgid "Disabled (%s)"
 msgid_plural "Disabled (%s)"
 msgstr[0] "Niepełnosprawnych (%s)"
 msgstr[1] "Niepełnosprawnych (%s)"
 msgstr[2] "Niepełnosprawnych (%s)"
 
-#: classes/admin/cpt.php:273
+#: classes/admin/cpt.php:281
 msgid "Enabled (%s)"
 msgid_plural "Enabled (%s)"
 msgstr[0] "Włączone (%s)"
@@ -158,7 +158,7 @@ msgstr[2] "Włączone (%s)"
 msgid " Field"
 msgstr " Pole"
 
-#: classes/admin/list-table.php:196 classes/admin/settings.php:326
+#: classes/admin/list-table.php:196 classes/admin/settings.php:341
 msgid "Field Data"
 msgstr "Pole danych"
 
@@ -208,7 +208,7 @@ msgid "Status"
 msgstr "Stan"
 
 #: classes/admin/list-table.php:545 classes/admin/modal.php:68
-#: classes/admin/modal.php:350
+#: classes/admin/modal.php:357
 msgid "Meta Key"
 msgstr "Klawisz meta"
 
@@ -232,12 +232,12 @@ msgid "Placeholder"
 msgstr "Symbol zastępczy"
 
 #: classes/admin/list-table.php:550 classes/admin/modal.php:135
-#: classes/admin/modal.php:304
+#: classes/admin/modal.php:311
 msgid "Priority"
 msgstr "Priorytet"
 
 #: classes/admin/list-table.php:552 classes/admin/modal.php:204
-#: classes/admin/modal.php:211
+#: classes/admin/modal.php:211 classes/admin/settings.php:252
 msgid "Output"
 msgstr "Wyjście"
 
@@ -261,7 +261,7 @@ msgstr "Post ID"
 msgid "Delete"
 msgstr "Usuń"
 
-#: classes/admin/list-table.php:626 classes/admin/settings.php:300
+#: classes/admin/list-table.php:626 classes/admin/settings.php:315
 #: classes/translations.php:68
 msgid "Disable"
 msgstr "Wyłącz"
@@ -270,7 +270,7 @@ msgstr "Wyłącz"
 #: classes/admin/settings.php:126 classes/admin/settings.php:141
 #: classes/admin/settings.php:162 classes/admin/settings.php:177
 #: classes/admin/settings.php:192 classes/admin/settings.php:235
-#: classes/admin/settings.php:244 classes/admin/settings.php:291
+#: classes/admin/settings.php:244 classes/admin/settings.php:306
 #: classes/translations.php:67
 msgid "Enable"
 msgstr "Włącz"
@@ -339,7 +339,7 @@ msgstr ""
 msgid "Use built-in Ajax uploader"
 msgstr ""
 
-#: classes/admin/modal.php:96 classes/admin/modal.php:343
+#: classes/admin/modal.php:96 classes/admin/modal.php:350
 msgid "Default"
 msgstr "Domyślnie"
 
@@ -419,27 +419,27 @@ msgstr "Automatycznie wyjście na aukcji pracy/życiorys."
 msgid "Do not automatically output the value"
 msgstr "Nie automatycznie dane wyjściowe wartości"
 
-#: classes/admin/modal.php:219 classes/admin/modal.php:289
+#: classes/admin/modal.php:219 classes/admin/modal.php:296
 msgid "Choose what you want the value to be output as."
 msgstr "Wybierz, co chcesz, aby wartości wyjściowe jako."
 
-#: classes/admin/modal.php:225 classes/widget.php:180
+#: classes/admin/modal.php:225 classes/widget.php:181
 msgid "oEmbed Width"
 msgstr "oEmbed szerokość"
 
-#: classes/admin/modal.php:226 classes/widget.php:178 classes/widget.php:183
+#: classes/admin/modal.php:226 classes/widget.php:179 classes/widget.php:184
 msgid ""
 "Set a specific width for oEmbed (in pixels), use only numbers do not include"
 " px."
 msgstr "Ustaw szczególnych szerokość oEmbed (w pikselach), należy użyć tylko liczby nie obejmują px."
 
 #: classes/admin/modal.php:226 classes/admin/modal.php:234
-#: classes/admin/modal.php:249 classes/admin/modal.php:257
-#: classes/admin/modal.php:265
+#: classes/admin/modal.php:256 classes/admin/modal.php:264
+#: classes/admin/modal.php:272
 msgid "<strong>(optional)</strong>"
 msgstr "<strong>(opcjonalnie)</strong>"
 
-#: classes/admin/modal.php:233 classes/widget.php:175
+#: classes/admin/modal.php:233 classes/widget.php:176
 msgid "oEmbed Height"
 msgstr "oEmbed wysokość"
 
@@ -453,133 +453,141 @@ msgstr "Zestaw określonej wysokości dla oEmbed (w pikselach), należy użyć t
 msgid "Allow Download"
 msgstr "Umożliwia pobieranie"
 
-#: classes/admin/modal.php:242 classes/widget.php:189
+#: classes/admin/modal.php:242 classes/widget.php:190
 msgid ""
 "Will display a download link for browsers incompatible with HTML5 video."
 msgstr "Wyświetli link do pobrania dla przeglądarek niezgodnych z wideo HTML5."
 
 #: classes/admin/modal.php:248
+msgid "Image Link"
+msgstr ""
+
+#: classes/admin/modal.php:249
+msgid "Will wrap the image in a link to the URL of the image."
+msgstr ""
+
+#: classes/admin/modal.php:255
 msgid "Poster URL"
 msgstr "Plakat URL"
 
-#: classes/admin/modal.php:249 classes/widget.php:193
+#: classes/admin/modal.php:256 classes/widget.php:194
 msgid ""
 "A URL for an image to show until the user plays or seeks. If not specified, "
 "the first frame of video will be used when it becomes available."
 msgstr "Adres URL obrazu aby pokazać aż użytkownik gra lub stara. Jeśli nie określono, pierwszej klatce wideo będzie używana, gdy stanie się dostępny."
 
-#: classes/admin/modal.php:256 classes/widget.php:195
+#: classes/admin/modal.php:263 classes/widget.php:196
 msgid "Video Height"
 msgstr "Wysokość wideo"
 
-#: classes/admin/modal.php:257 classes/widget.php:198
+#: classes/admin/modal.php:264 classes/widget.php:199
 msgid ""
 "Set a specific height for video (in pixels), use only numbers do not include"
 " px."
 msgstr "Zestaw wysokości szczególnych zastosowań wideo (w pikselach), tylko do liczby nie obejmują px."
 
-#: classes/admin/modal.php:264 classes/widget.php:200
+#: classes/admin/modal.php:271 classes/widget.php:201
 msgid "Video Width"
 msgstr "Szerokość wideo"
 
-#: classes/admin/modal.php:265 classes/widget.php:203
+#: classes/admin/modal.php:272 classes/widget.php:204
 msgid ""
 "Set a specific width for video (in pixels), use only numbers do not include "
 "px."
 msgstr "Zestaw szerokości konkretnych zastosowań wideo (w pikselach), tylko do liczby nie obejmują px."
 
-#: classes/admin/modal.php:272
+#: classes/admin/modal.php:279
 msgid "Checkbox True"
 msgstr "Prawdziwe pole wyboru"
 
-#: classes/admin/modal.php:273 classes/widget.php:208
+#: classes/admin/modal.php:280 classes/widget.php:209
 msgid "Custom caption to use if checkbox field type is checked."
 msgstr "Niestandardowe podpisów używać, jeśli jest zaznaczone pole wyboru Typ pola."
 
-#: classes/admin/modal.php:275 classes/translations.php:62
-#: classes/widget.php:207
+#: classes/admin/modal.php:282 classes/translations.php:62
+#: classes/widget.php:208
 msgid "Yes"
 msgstr "Tak"
 
-#: classes/admin/modal.php:280
+#: classes/admin/modal.php:287
 msgid "Checkbox False"
 msgstr "Pole wyboru False"
 
-#: classes/admin/modal.php:281
+#: classes/admin/modal.php:288
 msgid "Custom caption to use if checkbox field type is not checked"
 msgstr "Niestandardowe podpisów używać, jeśli nie jest zaznaczone pole wyboru Typ pola"
 
-#: classes/admin/modal.php:283 classes/translations.php:63
-#: classes/widget.php:211
+#: classes/admin/modal.php:290 classes/translations.php:63
+#: classes/widget.php:212
 msgid "No"
 msgstr "Nr"
 
-#: classes/admin/modal.php:288 classes/translations.php:84
+#: classes/admin/modal.php:295 classes/translations.php:84
 msgid "Caption"
 msgstr "Podpis"
 
-#: classes/admin/modal.php:291
+#: classes/admin/modal.php:298
 msgid "My Link"
 msgstr "Mój Link"
 
-#: classes/admin/modal.php:296
+#: classes/admin/modal.php:303
 msgid "Classes"
 msgstr "Klasy"
 
-#: classes/admin/modal.php:297
+#: classes/admin/modal.php:304
 msgid "Add any additional classes separated by spaces"
 msgstr "Dodawanie jakichkolwiek dodatkowych klas oddzielonych spacjami"
 
-#: classes/admin/modal.php:299
+#: classes/admin/modal.php:306
 msgid "my-class my-custom-class my-other-class"
 msgstr "Moja Klasa mój zwyczaj Klasa mój inne Klasa"
 
-#: classes/admin/modal.php:305
+#: classes/admin/modal.php:312
 msgid "<strong>optional</strong>"
 msgstr "<strong>opcjonalne</strong>"
 
-#: classes/admin/modal.php:307
+#: classes/admin/modal.php:314
 msgid "1.5"
 msgstr "1.5"
 
-#: classes/admin/modal.php:312
+#: classes/admin/modal.php:319
 msgid "Show Label"
 msgstr "Pokaż etykiety"
 
-#: classes/admin/modal.php:321
+#: classes/admin/modal.php:328
 msgid "Populate"
 msgstr "Wypełnić"
 
-#: classes/admin/modal.php:327
+#: classes/admin/modal.php:334
 msgid ""
 "You can view, edit, or add user meta using my free open source <strong><a "
 "target=\"_blank\" href=\"https://wordpress.org/plugins/user-meta-"
 "display/\">User Meta Display</a></strong> plugin."
 msgstr "Można wyświetlić, edytować lub dodać użytkownika meta przy pomocy mój plugin <strong><a target=\"_blank\" href=\"https://wordpress.org/plugins/user-meta-display/\"> Użytkownika Meta wyświetlacz</a></strong> wolna open source."
 
-#: classes/admin/modal.php:331
+#: classes/admin/modal.php:338
 msgid "Auto Populate"
 msgstr "Automatyczne wypełnianie"
 
-#: classes/admin/modal.php:332
+#: classes/admin/modal.php:339
 msgid "This box must be checked to enable auto populate."
 msgstr "To pole należy sprawdzić aby włączyć auto wypełniania."
 
-#: classes/admin/modal.php:337
+#: classes/admin/modal.php:344
 msgid "Auto Save"
 msgstr "Auto uratować"
 
-#: classes/admin/modal.php:338
+#: classes/admin/modal.php:345
 msgid ""
 "Save the value (except default) when a listing is submitted, to the user's "
 "meta."
 msgstr ""
 
-#: classes/admin/modal.php:344
+#: classes/admin/modal.php:351
 msgid "Default value for logged in users."
 msgstr ""
 
-#: classes/admin/modal.php:351
+#: classes/admin/modal.php:358
 msgid ""
 "Specify the <strong>USER</strong> meta key to auto populate this field from "
 "if it exists (and user is logged in).  If meta key is set and meta exists "
@@ -589,53 +597,53 @@ msgid ""
 "<code>_company_website</code></i>"
 msgstr ""
 
-#: classes/admin/modal.php:353
+#: classes/admin/modal.php:360
 msgid "_company_facebook"
 msgstr "_company_facebook"
 
-#: classes/admin/modal.php:379 classes/admin/modal.php:392
+#: classes/admin/modal.php:386 classes/admin/modal.php:399
 msgid "Packages"
 msgstr ""
 
-#: classes/admin/modal.php:386
+#: classes/admin/modal.php:393
 msgid "Require"
 msgstr ""
 
-#: classes/admin/modal.php:387
+#: classes/admin/modal.php:394
 msgid "Require specific packages to display this field"
 msgstr ""
 
-#: classes/admin/modal.php:393
+#: classes/admin/modal.php:400
 msgid ""
 "Select packages you want this field to show for.  Require checkbox above "
 "must be enabled for this to work."
 msgstr ""
 
-#: classes/admin/modal.php:483
+#: classes/admin/modal.php:490
 msgid "Add Another"
 msgstr "Dodaj kolejny"
 
-#: classes/admin/modal.php:513
+#: classes/admin/modal.php:520
 msgid "Remove"
 msgstr "Usuń"
 
-#: classes/admin/modal.php:545
+#: classes/admin/modal.php:552
 msgid "WP Job Manager"
 msgstr "WP pracy menedżera"
 
-#: classes/admin/modal.php:546
+#: classes/admin/modal.php:553
 msgid "Field Editor"
 msgstr "Edytor pól"
 
-#: classes/admin/modal.php:613 classes/translations.php:65
+#: classes/admin/modal.php:620 classes/translations.php:65
 msgid "Cancel"
 msgstr "Anuluj"
 
-#: classes/admin/modal.php:614 classes/translations.php:50
+#: classes/admin/modal.php:621 classes/translations.php:50
 msgid "Save Field"
 msgstr "Zapisz pole"
 
-#: classes/admin/settings-fields.php:131
+#: classes/admin/settings-fields.php:154
 msgid ""
 "No fields to remove!  A button will appear here when there is field data you"
 " can remove."
@@ -771,92 +779,110 @@ msgid ""
 "Documentation</a> page."
 msgstr ""
 
-#: classes/admin/settings.php:252
+#: classes/admin/settings.php:257
+msgid "Auto Paragraph"
+msgstr ""
+
+#: classes/admin/settings.php:258
+msgid ""
+"Select which field types you want to automatically add paragraphs to, when "
+"using one of the built-in output methods."
+msgstr ""
+
+#: classes/admin/settings.php:260
+msgid "WP-Editor"
+msgstr ""
+
+#: classes/admin/settings.php:261
+msgid "Text Area"
+msgstr ""
+
+#: classes/admin/settings.php:267
 msgid "Support"
 msgstr "Wsparcie"
 
-#: classes/admin/settings.php:262
+#: classes/admin/settings.php:277
 msgid "Backup"
 msgstr "Kopia zapasowa"
 
-#: classes/admin/settings.php:266
+#: classes/admin/settings.php:281
 msgid "Create Backup!"
 msgstr "Tworzenie kopii zapasowej!"
 
-#: classes/admin/settings.php:269
+#: classes/admin/settings.php:284
 msgid "Generate Backup"
 msgstr "Generowanie kopii zapasowej"
 
-#: classes/admin/settings.php:270
+#: classes/admin/settings.php:285
 msgid "Generate and download a backup of all fields."
 msgstr "Generowanie i pobrać kopię zapasową wszystkich pól."
 
-#: classes/admin/settings.php:275
+#: classes/admin/settings.php:290
 msgid "Import Backup!"
 msgstr "Importowanie kopii zapasowej!"
 
-#: classes/admin/settings.php:278
+#: classes/admin/settings.php:293
 msgid "Import Backup"
 msgstr "Importowanie kopii zapasowej"
 
-#: classes/admin/settings.php:279
+#: classes/admin/settings.php:294
 msgid ""
 "Import a previously generated backup for custom fields.  This uses the "
 "default WordPress import feature, if you do not see a file upload after "
 "clicking this button, make sure to import using WordPress importer."
 msgstr "Importowanie kopii wcześniej wygenerowanego dla pól niestandardowych.  Używa domyślnie WordPress import cecha, jeśli nie widzisz pliku przesłać po kliknięciu tego przycisku, upewnij się, aby importować za pomocą WordPress importera."
 
-#: classes/admin/settings.php:285
+#: classes/admin/settings.php:300
 msgid "Debug"
 msgstr "Debugowania"
 
-#: classes/admin/settings.php:290
+#: classes/admin/settings.php:305
 msgid "Enable Bug Reporter"
 msgstr "Włącz Reporter błąd"
 
-#: classes/admin/settings.php:292
+#: classes/admin/settings.php:307
 msgid ""
 "Enable the bug report icon in the top right corner to submit bug reports"
 msgstr "Błąd raport ikona w prawym górnym rogu do zgłaszania błędów"
 
-#: classes/admin/settings.php:299
+#: classes/admin/settings.php:314
 msgid "License Deactivate"
 msgstr ""
 
-#: classes/admin/settings.php:301
+#: classes/admin/settings.php:316
 msgid ""
 "By default when you deactivate this plugin it will also "
 "deactivate/unregister your API/License Key.  With this setting checked your "
 "license will not be deactivated when you deactivate the plugin."
 msgstr ""
 
-#: classes/admin/settings.php:307
+#: classes/admin/settings.php:322
 msgid "I understand, remove all data!"
 msgstr "Rozumiem, usunąć wszystkie dane!"
 
-#: classes/admin/settings.php:310
+#: classes/admin/settings.php:325
 msgid "Remove All"
 msgstr "Usuń wszystkie"
 
-#: classes/admin/settings.php:311
+#: classes/admin/settings.php:326
 msgid "This will remove all custom and customized field data!"
 msgstr "Spowoduje to usunięcie wszystkich danych pola niestandardowe i wykonać na zamówienie!"
 
-#: classes/admin/settings.php:316
+#: classes/admin/settings.php:331
 msgid "Purge Options!"
 msgstr "Przeczyść opcje!"
 
-#: classes/admin/settings.php:319
+#: classes/admin/settings.php:334
 msgid "Purge Options"
 msgstr "Przeczyść opcje"
 
-#: classes/admin/settings.php:320
+#: classes/admin/settings.php:335
 msgid ""
 "Older versions of this plugin saved option values for fields that do not "
 "require them. You can purge those values by clicking this button."
 msgstr "Starsze wersje tego pluginu zapisane wartości opcji dla pól, które nie wymagają. Te wartości można usunąć klikając ten przycisk."
 
-#: classes/admin/settings.php:332
+#: classes/admin/settings.php:347
 msgid "About"
 msgstr "O"
 
@@ -1076,11 +1102,11 @@ msgstr "Taksonomia rozwijanej"
 msgid "Taxonomy Multi-Select Dropdown"
 msgstr "Taksonomia rozwijana wielokrotnego wyboru"
 
-#: classes/fields.php:699
+#: classes/fields.php:736
 msgid "No field data found!"
 msgstr "Nie znaleziono danych pole!"
 
-#: classes/job/fields.php:302 classes/resume/fields.php:291
+#: classes/job/fields.php:334 classes/resume/fields.php:320
 msgid "(optional)"
 msgstr "(opcjonalnie)"
 
@@ -1111,11 +1137,11 @@ msgstr "Doświadczenie pola"
 msgid "Links Fields"
 msgstr "Linki pola"
 
-#: classes/shortcodes.php:46
+#: classes/shortcodes.php:55
 msgid "Meta Key was not specified!"
 msgstr "Nie określono meta klucz!"
 
-#: classes/shortcodes.php:50
+#: classes/shortcodes.php:59
 msgid "Unable to determine correct job/resume/post ID!"
 msgstr "Nie można ustalić poprawnej pracy/CV/post ID!"
 
@@ -1394,111 +1420,134 @@ msgid ""
 "listing that supports widgets."
 msgstr "Wyjście wartość pola niestandardowe domyślne z WP praca Manager pola edytora na aukcji, która obsługuje widżety."
 
-#: classes/widget.php:106
+#: classes/widget.php:107
 msgid "Title:"
 msgstr "Tytuł:"
 
-#: classes/widget.php:110
+#: classes/widget.php:111
 msgid "Use Widget Style:"
 msgstr "Użyj styl:"
 
-#: classes/widget.php:115
+#: classes/widget.php:116
 msgid "Show Label:"
 msgstr "Pokaż etykiety:"
 
-#: classes/widget.php:119
+#: classes/widget.php:120
 msgid "Field Meta Key:"
 msgstr "Pole klawisz Meta:"
 
-#: classes/widget.php:142
+#: classes/widget.php:143
 msgid "Extra Classes:"
 msgstr "Dodatkowe zajęcia:"
 
-#: classes/widget.php:143
+#: classes/widget.php:144
 msgid "my-class my-class2"
 msgstr "Moja Klasa mój class2"
 
-#: classes/widget.php:146
+#: classes/widget.php:147
 msgid "Output As:"
 msgstr "Dane wyjściowe jako:"
 
-#: classes/widget.php:170
+#: classes/widget.php:171
 msgid "Caption:"
 msgstr "Podpis:"
 
-#: classes/widget.php:171
+#: classes/widget.php:172
 msgid "Click Here!"
 msgstr "Kliknij tutaj!"
 
-#: classes/widget.php:172
+#: classes/widget.php:173
 msgid ""
 "If you want to use a specific caption for the link enter it above. Leave "
 "blank to use the URL as the caption."
 msgstr "Jeśli chcesz użyć okreolony podpis na link do niego wejść wyżej. Pozostaw puste, aby używać adresu URL jako podpis."
 
-#: classes/widget.php:175 classes/widget.php:180 classes/widget.php:191
-#: classes/widget.php:195 classes/widget.php:200
+#: classes/widget.php:176 classes/widget.php:181 classes/widget.php:192
+#: classes/widget.php:196 classes/widget.php:201
 msgid "Optional"
 msgstr "Opcjonalne"
 
-#: classes/widget.php:186
+#: classes/widget.php:187
 msgid "Allow Download:"
 msgstr "Zezwalaj na pobieranie:"
 
-#: classes/widget.php:191
+#: classes/widget.php:192
 msgid "Poster URL:"
 msgstr "Plakat URL:"
 
-#: classes/widget.php:206
+#: classes/widget.php:207
 msgid "Checkbox True:"
 msgstr "Prawdziwe pole wyboru:"
 
-#: classes/widget.php:210
+#: classes/widget.php:211
 msgid "Checkbox False:"
 msgstr "Pole wyboru False:"
 
-#: classes/widget.php:212
+#: classes/widget.php:213
 msgid "Custom caption to use if checkbox field type is not checked."
 msgstr "Niestandardowe podpis jeśli typ pola wyboru nie jest zaznaczone."
 
-#: includes/compatibility.php:68
+#: classes/widget.php:216
+msgid "Wrap Image with a Link to the URL:"
+msgstr ""
+
+#: includes/compatibility.php:71
 msgid ""
-"Your server is using a <strong>VERY OLD</strong> and unsupported version of "
-"PHP, version 5.2 or older. <a href=\"%1$s\" target=\"_blank\">EOL (End of "
-"Life)</a> for PHP 5.2 was about <strong>%2$s ago</strong>!!<br /><br />It is"
-" <strong>strongly</strong> recommended that you upgrade to PHP 5.3 or "
-"newer...you can upgrade PHP or <a href=\"%3$s\">Hide this Notice "
-"Forever!</a><br/><br />Did you know im also the Founder and CEO of Host "
-"Tornado?<br/><a href=\"%4$s\" target=\"_blank\">Contact me</a> for an "
+"Your server is using a <strong>VERY OLD, unsupported, and no longer "
+"maintained</strong> version of PHP, version 5.2 or older. <a href=\"%1$s\" "
+"target=\"_blank\">EOL (End of Life)</a> for PHP 5.2 was about <strong>%2$s "
+"ago</strong>!! This means there may be bugs, and security vulnerabilities "
+"that have not, and will never be patched for this version of PHP!<br /><br "
+"/>It is <strong>strongly</strong> recommended that you contact your web "
+"hosting provider and request to upgrade to PHP 5.4 or newer ... or <a "
+"href=\"%3$s\">Hide this Notice Forever!</a> (but don't say I didn't warn "
+"you)<br/><br /><a href=\"%4$s\" target=\"_blank\">Contact me</a> for an "
 "exclusive sMyles Plugins customer promo code discount for any shared "
 "<strong>SSD (Solid State Drive)</strong> hosting packages!  Data centers in "
 "Florida USA, Arizona USA, Montreal Canada, and France.  Your site will run "
 "faster than it ever has, or your money back!"
-msgstr "Serwer jest za pomocą <strong>Bardzo stary</strong> i nieobsługiwanych wersji PHP, wersja 5.2 lub starszych. <a href=\"%1$s\" target=\"_blank\"> EOL (End of Life)</a> dla PHP 5.2 był o <strong>%2$ s temu</strong>!<br /> <br /> jest <strong>mocno</strong> zalecane... uaktualnić PHP 5.3 lub nowszej można uaktualnić PHP lub <a href=\"%3$s\"> ukryć ten zawiadomienie Forever!</a> <br/><br /> wiesz, im również założyciel i CEO od hosta Tornado? <br/><a href=\"%4$s\" target=\"_blank\"> skontaktuj się ze mną</a> na wyłączne sMyles wtyczki klienta promocyjny kod zniżki dla każdej udostępnione <strong>SSD (Solid State Drive)</strong> pakiety hostingowe!  Dane ośrodki w Florida USA, Arizona, Stany Zjednoczone Ameryki, Montrealu i Francji.  Twoja witryna będzie działać szybciej niż kiedykolwiek ma, lub swoje pieniądze z powrotem!"
+msgstr ""
 
-#: includes/functions.php:399
+#: includes/compatibility.php:75
+msgid ""
+"Your server is using an <strong>OLD, unsupported, and no longer "
+"maintained</strong> version of PHP, version 5.3. <a href=\"%1$s\" "
+"target=\"_blank\">EOL (End of Life)</a> for PHP 5.3 was about <strong>%2$s "
+"ago</strong>!! This means there may be bugs, and security vulnerabilities "
+"that have not, and will never be patched for this version of PHP!<br /><br "
+"/>It is <strong>strongly</strong> recommended that you contact your web "
+"hosting provider and request to upgrade to PHP 5.4 or newer ... or <a "
+"href=\"%3$s\">Hide this Notice Forever!</a> (but don't say I didn't warn "
+"you)<br/><br /><a href=\"%4$s\" target=\"_blank\">Contact me</a> for an "
+"exclusive sMyles Plugins customer promo code discount for any shared "
+"<strong>SSD (Solid State Drive)</strong> hosting packages!  Data centers in "
+"Florida USA, Arizona USA, Montreal Canada, and France.  Your site will run "
+"faster than it ever has, or your money back!"
+msgstr ""
+
+#: includes/functions.php:378
 msgid ""
 "Sorry, your browser doesn't support embedded videos, you should upgrade to a"
 " modern browser."
 msgstr "Niestety Twoja przeglądarka nie obsługuje osadzone pliki wideo, należy uaktualnić do nowoczesnej przeglądarki."
 
-#: includes/functions.php:400
+#: includes/functions.php:379
 msgid "Or you can"
 msgstr "Czy można"
 
-#: includes/functions.php:400
+#: includes/functions.php:379
 msgid "Download The File"
 msgstr "Pobierz plik"
 
-#: includes/functions.php:400
+#: includes/functions.php:379
 msgid "(right click and select Save As)"
 msgstr "(kliknij prawym przyciskiem myszy i wybierz Zapisz jako)"
 
-#: includes/functions.php:421
+#: includes/functions.php:402
 msgid "True"
 msgstr "Prawdziwe"
 
-#: includes/functions.php:426
+#: includes/functions.php:407
 msgid "False"
 msgstr "Fałszywe"
 
@@ -1646,12 +1695,12 @@ msgstr "Myles McNamara"
 msgid "http://plugins.smyl.es"
 msgstr "http://plugins.smyl.es"
 
-#: classes/admin/cpt.php:263
+#: classes/admin/cpt.php:271
 msgctxt "Disabled Field Status"
 msgid "disabled"
 msgstr "wyłączone"
 
-#: classes/admin/cpt.php:272
+#: classes/admin/cpt.php:280
 msgctxt "Enabled Field Status"
 msgid "enabled"
 msgstr "włączone"

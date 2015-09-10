@@ -30,7 +30,6 @@ class WP_Job_Manager_Field_Editor_Integration extends WP_Job_Manager_Field_Edito
 		$this->init_theme();
 	}
 
-
 	/**
 	 * Remove Job Tag Input dropdown from Settings
 	 *
@@ -58,6 +57,23 @@ class WP_Job_Manager_Field_Editor_Integration extends WP_Job_Manager_Field_Edito
 		$settings['job_submission'][1] = $new_settings;
 
 		return $settings;
+	}
+
+	/**
+	 * Load Plugin Integration Files
+	 *
+	 *
+	 * @since 1.3.6
+	 *
+	 */
+	function plugin_integration(){
+
+		$dir = WPJM_FIELD_EDITOR_PLUGIN_DIR . "/classes/plugins/*";
+
+		foreach( glob( $dir ) as $file ) {
+			if( ! is_dir( $file ) ) include_once( $file );
+		}
+
 	}
 
 	/**
@@ -162,6 +178,8 @@ class WP_Job_Manager_Field_Editor_Integration extends WP_Job_Manager_Field_Edito
 	 *
 	 */
 	function plugins_loaded(){
+
+		$this->plugin_integration();
 
 //		if ( ! class_exists( 'WP_Job_Manager_Field_Editor_Job_Writepanels' ) )
 //			parent::do_require( '/classes/job/writepanels.php' );
@@ -400,7 +418,10 @@ class WP_Job_Manager_Field_Editor_Integration extends WP_Job_Manager_Field_Edito
 					// Auto save auto populate field to user meta
 					if( isset( $custom_field_config[ 'populate_save' ] ) && ! empty( $custom_field_config[ 'populate_save' ] ) ){
 						// Only update user meta if actual value is different from default value
-						if( $custom_field_config['populate_default'] !== $field_value ) update_user_meta( get_current_user_id(), $_meta_key, $field_value );
+						if( $custom_field_config['populate_default'] !== $field_value ) {
+							if( isset( $custom_field_config['populate_save_as'] ) ) $_meta_key = $custom_field_config['populate_save_as'];
+							update_user_meta( get_current_user_id(), $_meta_key, $field_value );
+						}
 					}
 
 				}

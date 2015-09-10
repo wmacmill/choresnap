@@ -36,6 +36,15 @@ class WP_Job_Manager_Field_Editor_ShortCodes {
 			'field'  => '',
 			'job_id' => get_the_ID(),
 		);
+
+		$qo = get_queried_object();
+		if( is_object( $qo ) && isset($qo->ID) ) $default_atts['job_id'] = $qo->ID;
+
+		// Check if post ID was passed as post_id, listing_id, or just id
+		if( isset( $atts['post_id'] ) && ! empty( $atts['post_id'] ) ) $atts['job_id'] = $atts['post_id'];
+		if( isset( $atts['listing_id'] ) && ! empty( $atts['listing_id'] ) ) $atts['job_id'] = $atts['listing_id'];
+		if( isset( $atts['id'] ) && ! empty( $atts['id'] ) ) $atts['job_id'] = $atts['id'];
+
 		$merged_atts = array_merge( $default_atts, $atts );
 
 		try {

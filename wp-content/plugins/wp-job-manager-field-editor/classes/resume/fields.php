@@ -18,7 +18,7 @@ class WP_Job_Manager_Field_Editor_Resume_Fields extends WP_Job_Manager_Field_Edi
 	function __construct() {
 
 		add_filter( 'submit_resume_form_fields', array( $this, 'init_fields' ), 100 );
-		add_filter( 'submit_resume_form_fields_get_resume_data', array( $this, 'new_resume_fields' ), 100, 2 );
+		add_filter( 'submit_resume_form_fields_get_resume_data', array( $this, 'get_resume_data' ), 100, 2 );
 		add_filter( 'resume_manager_resume_fields', array( $this, 'admin_fields' ), 100 );
 		add_action( 'resume_manager_update_resume_data', array( $this, 'save_fields' ), 100, 2 );
 		// add_filter( 'submit_resume_steps', array( $this, 'steps' ), 100 );
@@ -27,6 +27,32 @@ class WP_Job_Manager_Field_Editor_Resume_Fields extends WP_Job_Manager_Field_Edi
 		add_filter( 'submit_resume_form_required_label', array( $this, 'custom_required_label' ), 100, 2 );
 		add_filter( 'submit_resume_form_submit_button_text', array( $this, 'custom_submit_button' ), 100 );
 		add_action( 'submit_resume_form_start', array($this, 'resume_package_field') );
+
+	}
+
+	/**
+	 * Get Resume Field Data
+	 *
+	 * Called by submit() in both edit and submit form classes and includes all
+	 * fields with the value set in the field array config.
+	 *
+	 * Submit form class calls this method when editing a listing already previewed (so the listing is draft)
+	 * Edit form class class this method when editing a listing to populate the values
+	 *
+	 *
+	 * @since 1.3.6
+	 *
+	 * @param $fields
+	 * @param $resume
+	 *
+	 * @return mixed
+	 */
+	function get_resume_data( $fields, $resume ) {
+
+		$fields = $this->new_resume_fields( $fields );
+		$fields = $this->remove_invalid_fields( $fields );
+
+		return $fields;
 
 	}
 
@@ -115,7 +141,7 @@ class WP_Job_Manager_Field_Editor_Resume_Fields extends WP_Job_Manager_Field_Edi
 	 */
 	function resume_package_field() {
 
-		if( WP_Job_Manager_Field_Editor_reCAPTCHA::is_enabled( 'resume' ) ) wp_enqueue_script( 'recaptcha' );
+		if( WP_Job_Manager_Field_Editor_reCAPTCHA::is_enabled( 'resume' ) ) wp_enqueue_script( 'jmfe-recaptcha' );
 
 		$product_id = isset($_REQUEST['wcpl_jmfe_product_id']) ? intval( $_REQUEST['wcpl_jmfe_product_id'] ) : FALSE;
 		$package    = isset($_REQUEST['resume_package']) ? sanitize_text_field( $_REQUEST['resume_package'] ) : $product_id;
@@ -276,23 +302,30 @@ class WP_Job_Manager_Field_Editor_Resume_Fields extends WP_Job_Manager_Field_Edi
 	 *
 	 * @param $label
 	 *
+	 * @param $field
+	 *
 	 * @return string
 	 */
-	function custom_required_label( $label ) {
+	function custom_required_label( $label, $field ) {
 
 		// Required Field
 		if ( $label === '' ) {
-			if ( get_option( 'jmfe_enable_resume_required_label' ) && get_option( 'jmfe_resume_required_label' ) ) {
-				$label = ' ' . get_option( 'jmfe_resume_required_label' );
+			$custom_req_label = get_option( 'jmfe_resume_required_label' );
+			if ( get_option( 'jmfe_enable_resume_required_label' ) && $custom_req_label ) {
+				$label = ' ' . __( $custom_req_label, 'wp-job-manager-field-editor' );
 			}
 		}
 
 		// Optional Field
 		$defaultOptional = ' <small>' . __( '(optional)', 'wp-job-manager-field-editor', 'wp-job-manager-field-editor' ) . '</small>';
 
+		if( in_array( $field['type'], apply_filters( 'field_editor_resume_required_label_field_types', array('header', 'html', 'actionhook') ) ) )
+			return '';
+
 		if ( $label === $defaultOptional ) {
-			if ( get_option( 'jmfe_enable_resume_optional_label' ) && get_option( 'jmfe_resume_optional_label' ) ) {
-				$label = ' ' . get_option( 'jmfe_resume_optional_label' );
+			$custom_opt_label = get_option( 'jmfe_resume_optional_label' );
+			if ( get_option( 'jmfe_enable_resume_optional_label' ) && $custom_opt_label ) {
+				$label = ' ' . __( $custom_opt_label, 'wp-job-manager-field-editor' );
 			} elseif ( get_option( 'jmfe_enable_resume_required_label' ) ) {
 				$label = '';
 			}
@@ -313,7 +346,11 @@ class WP_Job_Manager_Field_Editor_Resume_Fields extends WP_Job_Manager_Field_Edi
 	 */
 	function custom_submit_button( $label ){
 
-		if ( get_option( 'jmfe_enable_resume_submit_button' ) && get_option( 'jmfe_resume_submit_button' ) ) return get_option( 'jmfe_resume_submit_button' );
+		$custom_submit_button = get_option( 'jmfe_resume_submit_button' );
+
+		if ( get_option( 'jmfe_enable_resume_submit_button' ) && $custom_submit_button ) {
+			$label = __( $custom_submit_button, 'wp-job-manager-field-editor' );
+		}
 
 		return $label;
 	}
