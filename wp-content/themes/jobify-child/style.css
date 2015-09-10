@@ -53,6 +53,11 @@ p.job-manager-single-alert-link a::before {
     max-width: 800px;
 }
 
+/*removes the "resume link" from the apply to job popup*/
+.fieldset-resume {
+    display: none;
+}
+
 /*change the background of featured resumes*/
 .resume_featured {
   background: #deeefd !important;
