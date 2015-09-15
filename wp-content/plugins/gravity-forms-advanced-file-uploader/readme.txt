@@ -5,7 +5,7 @@ License URI: http://www.gnu.org/licenses/gpl.html
 Tags: gravity forms, gravity forms file upload, gravity forms file uploader, gravity forms uploader, plupload, gravity forms videos, gravity forms youtube, youtube uploader, youtube file uploader
 Requires at least: 3.0
 Tested up to: 4.3
-Stable tag: 1.32
+Stable tag: 1.34
 
 Chunked Multiple file uploads, Auto upload of videos to YouTube & Brightcove, Files stored in WP Media Library, Advanced options.
 
@@ -130,6 +130,12 @@ This option can be hit and miss in some older browsers, that said it works in mo
 
 == Changelog ==
 
+= 1.34 =
+* Added option for users to increase video upload request timeout. This should only be used if users host will not set ignore_user_abort to TRUE in PHP, this option is to be used as a last resort.
+
+= 1.33 =
+* Increased curl timeout for youtube uploads to allow for servers with slower response times :)
+
 = 1.32 =
 * Fixed youtue api class conflicts with other plugins using youtube api
 
@@ -209,6 +215,12 @@ This option can be hit and miss in some older browsers, that said it works in mo
 * Inital commit to plugin repo
 
 == Upgrade Notice ==
+
+= 1.34 =
+* Added option for users to increase video upload request timeout. This should only be used if users host will not set ignore_user_abort to TRUE in PHP, this option is to be used as a last resort.
+
+= 1.33 =
+* Increased curl timeout for youtube uploads to allow for servers with slower response times :)
 
 = 1.32 =
 * Fixed youtue api class conflicts with other plugins using youtube api

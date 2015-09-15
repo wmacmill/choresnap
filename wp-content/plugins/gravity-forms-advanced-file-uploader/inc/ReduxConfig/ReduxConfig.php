@@ -505,6 +505,15 @@ if ( !class_exists( "PrsoGformsAdvUploaderOptions" ) ) {
 					'default' 	=> 'Uploading files please wait'
 				),
 				
+				//User video upload timeout
+				array(
+					'id'		=>'video_upload_timeout',
+					'type' 		=> 'text',
+					'title' 	=> __('Upload Request Timeout', $this->text_domain),
+					'desc' 		=> __('If you have problems with videos not uploading to service. First contact your host and try and get ignore_user_abort set to TRUE. Failing that try increasing number of secs for timeout. Large video files will require more time, but users will have to wait until form submits!', $this->text_domain),
+					'default' 	=> '1'
+				),
+				
 				//Video Service APIs
 				array(
 					'id'		=>'api_select',

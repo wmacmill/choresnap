@@ -341,7 +341,7 @@ class PrsoAdvYoutubeApi extends PrsoAdvVideoUploader {
 			    // Specify the size of each chunk of data, in bytes. Set a higher value for
 			    // reliable connection as fewer chunks lead to faster uploads. Set a lower
 			    // value for better recovery on less reliable connections.
-			    $chunkSizeBytes = 1 * 1024 * 1024;
+			    $chunkSizeBytes = 10 * 1024 * 1024;
 			
 			    // Setting the defer flag to true tells the client to return a request which can be called
 			    // with ->execute(); instead of making the API call immediately.
@@ -374,6 +374,8 @@ class PrsoAdvYoutubeApi extends PrsoAdvVideoUploader {
 			
 			    // If you want to make other calls after the file upload, set setDefer back to false
 			    $client->setDefer(false);
+				
+				$this->plugin_error_log( $status );
 				
 			    return $status;
 			
