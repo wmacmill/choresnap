@@ -268,7 +268,10 @@ if ( ! function_exists( 'get_custom_field_listing_meta' ) ){
 			$field_value = wp_get_post_terms( $listing_id, $args[ 'taxonomy' ], array('fields' => 'names') );
 		}
 
+		// If value not already set, or not set by taxonomy, pull from meta
 		if ( empty( $field_value ) ) $field_value = get_post_meta( $listing_id, '_' . $field_slug, TRUE );
+
+		if( isset( $args['type'] ) && $args['type'] === 'date' ) $field_value = WP_Job_Manager_Field_Editor_Fields_Date::convert_to_display( $field_value, $field_slug, $listing_id );
 
 		return $field_value;
 	}

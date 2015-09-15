@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WP Job Manager Field Editor\n"
 "Report-Msgid-Bugs-To: http://plugins.smyl.es\n"
-"POT-Creation-Date: 2015-09-08 23:48:18+00:00\n"
-"PO-Revision-Date: 2015-09-08 23:48+0000\n"
+"POT-Creation-Date: 2015-09-14 20:44:47+00:00\n"
+"PO-Revision-Date: 2015-09-14 20:44+0000\n"
 "Last-Translator: Myles McNamara <myles@smyl.es>\n"
 "Language-Team: English (http://www.transifex.com/smyles/wp-job-manager-field-editor/language/en/)\n"
 "MIME-Version: 1.0\n"
@@ -155,11 +155,11 @@ msgstr[1] "Enabled (%s)"
 msgid " Field"
 msgstr " Field"
 
-#: classes/admin/list-table.php:196 classes/admin/settings.php:341
+#: classes/admin/list-table.php:196 classes/admin/settings.php:393
 msgid "Field Data"
 msgstr "Field Data"
 
-#: classes/admin/list-table.php:205
+#: classes/admin/list-table.php:205 classes/admin/settings.php:252
 msgid "Fields"
 msgstr "Fields"
 
@@ -205,7 +205,7 @@ msgid "Status"
 msgstr "Status"
 
 #: classes/admin/list-table.php:545 classes/admin/modal.php:68
-#: classes/admin/modal.php:357
+#: classes/admin/modal.php:364
 msgid "Meta Key"
 msgstr "Meta Key"
 
@@ -216,7 +216,7 @@ msgstr "Type"
 
 #: classes/admin/list-table.php:547 classes/admin/modal.php:114
 #: classes/admin/modal.php:176 classes/admin/settings.php:225
-#: classes/translations.php:92
+#: classes/admin/settings.php:290 classes/translations.php:92
 msgid "Label"
 msgstr "Label"
 
@@ -234,7 +234,7 @@ msgid "Priority"
 msgstr "Priority"
 
 #: classes/admin/list-table.php:552 classes/admin/modal.php:204
-#: classes/admin/modal.php:211 classes/admin/settings.php:252
+#: classes/admin/modal.php:211 classes/admin/settings.php:298
 msgid "Output"
 msgstr "Output"
 
@@ -258,7 +258,7 @@ msgstr "Post ID"
 msgid "Delete"
 msgstr "Delete"
 
-#: classes/admin/list-table.php:626 classes/admin/settings.php:315
+#: classes/admin/list-table.php:626 classes/admin/settings.php:367
 #: classes/translations.php:68
 msgid "Disable"
 msgstr "Disable"
@@ -267,7 +267,7 @@ msgstr "Disable"
 #: classes/admin/settings.php:126 classes/admin/settings.php:141
 #: classes/admin/settings.php:162 classes/admin/settings.php:177
 #: classes/admin/settings.php:192 classes/admin/settings.php:235
-#: classes/admin/settings.php:244 classes/admin/settings.php:306
+#: classes/admin/settings.php:244 classes/admin/settings.php:358
 #: classes/translations.php:67
 msgid "Enable"
 msgstr "Enable"
@@ -332,7 +332,7 @@ msgstr "Ajax"
 msgid "Use built-in Ajax uploader"
 msgstr "Use built-in Ajax uploader"
 
-#: classes/admin/modal.php:96 classes/admin/modal.php:350
+#: classes/admin/modal.php:96 classes/admin/modal.php:357
 msgid "Default"
 msgstr "Default"
 
@@ -559,28 +559,39 @@ msgid ""
 msgstr "You can view, edit, or add user meta using my free open source <strong><a target=\"_blank\" href=\"https://wordpress.org/plugins/user-meta-display/\">User Meta Display</a></strong> plugin."
 
 #: classes/admin/modal.php:338
-msgid "Auto Populate"
-msgstr "Auto Populate"
-
-#: classes/admin/modal.php:339
-msgid "This box must be checked to enable auto populate."
-msgstr "This box must be checked to enable auto populate."
-
-#: classes/admin/modal.php:344
 msgid "Auto Save"
 msgstr "Auto Save"
 
-#: classes/admin/modal.php:345
+#: classes/admin/modal.php:339
 msgid ""
 "Save the value (except default) when a listing is submitted, to the user's "
 "meta."
 msgstr "Save the value (except default) when a listing is submitted, to the user's meta."
 
+#: classes/admin/modal.php:344
+msgid "Save As"
+msgstr "Save As"
+
+#: classes/admin/modal.php:345
+msgid ""
+"<strong>ONLY</strong> set this value if you want to specify a custom meta "
+"key to save the value to!  Default value for this field should be "
+"blank/empty."
+msgstr "<strong>ONLY</strong> set this value if you want to specify a custom meta key to save the value to!  Default value for this field should be blank/empty."
+
 #: classes/admin/modal.php:351
+msgid "Auto Populate"
+msgstr "Auto Populate"
+
+#: classes/admin/modal.php:352
+msgid "This box must be checked to enable auto populate."
+msgstr "This box must be checked to enable auto populate."
+
+#: classes/admin/modal.php:358
 msgid "Default value for logged in users."
 msgstr "Default value for logged in users."
 
-#: classes/admin/modal.php:358
+#: classes/admin/modal.php:365
 msgid ""
 "Specify the <strong>USER</strong> meta key to auto populate this field from "
 "if it exists (and user is logged in).  If meta key is set and meta exists "
@@ -590,53 +601,53 @@ msgid ""
 "<code>_company_website</code></i>"
 msgstr "Specify the <strong>USER</strong> meta key to auto populate this field from if it exists (and user is logged in).  If meta key is set and meta exists for user, it will take priority over default value.<br /><br />If using a meta key from WPJM or WPRM you <strong>must</strong> prepend it with an underscore.  <i>As example, company_website would be <code>_company_website</code></i>"
 
-#: classes/admin/modal.php:360
+#: classes/admin/modal.php:367
 msgid "_company_facebook"
 msgstr "_company_facebook"
 
-#: classes/admin/modal.php:386 classes/admin/modal.php:399
+#: classes/admin/modal.php:393 classes/admin/modal.php:406
 msgid "Packages"
 msgstr "Packages"
 
-#: classes/admin/modal.php:393
+#: classes/admin/modal.php:400
 msgid "Require"
 msgstr "Require"
 
-#: classes/admin/modal.php:394
+#: classes/admin/modal.php:401
 msgid "Require specific packages to display this field"
 msgstr "Require specific packages to display this field"
 
-#: classes/admin/modal.php:400
+#: classes/admin/modal.php:407
 msgid ""
 "Select packages you want this field to show for.  Require checkbox above "
 "must be enabled for this to work."
 msgstr "Select packages you want this field to show for.  Require checkbox above must be enabled for this to work."
 
-#: classes/admin/modal.php:490
+#: classes/admin/modal.php:497
 msgid "Add Another"
 msgstr "Add Another"
 
-#: classes/admin/modal.php:520
+#: classes/admin/modal.php:527
 msgid "Remove"
 msgstr "Remove"
 
-#: classes/admin/modal.php:552
+#: classes/admin/modal.php:559
 msgid "WP Job Manager"
 msgstr "WP Job Manager"
 
-#: classes/admin/modal.php:553
+#: classes/admin/modal.php:560
 msgid "Field Editor"
 msgstr "Field Editor"
 
-#: classes/admin/modal.php:620 classes/translations.php:65
+#: classes/admin/modal.php:627 classes/translations.php:65
 msgid "Cancel"
 msgstr "Cancel"
 
-#: classes/admin/modal.php:621 classes/translations.php:50
+#: classes/admin/modal.php:628 classes/translations.php:50
 msgid "Save Field"
 msgstr "Save Field"
 
-#: classes/admin/settings-fields.php:154
+#: classes/admin/settings-fields.php:155
 msgid ""
 "No fields to remove!  A button will appear here when there is field data you"
 " can remove."
@@ -740,12 +751,12 @@ msgstr "Required to use reCAPTCHA, you can get one from <a href=\"%s\" target=\"
 msgid "Secret Key"
 msgstr "Secret Key"
 
-#: classes/admin/settings.php:227 classes/recaptcha.php:35
-#: classes/recaptcha.php:66
+#: classes/admin/settings.php:227 classes/admin/settings.php:292
+#: classes/recaptcha.php:35 classes/recaptcha.php:66
 msgid "Are you human?"
 msgstr "Are you human?"
 
-#: classes/admin/settings.php:229
+#: classes/admin/settings.php:229 classes/admin/settings.php:294
 msgid ""
 "This value will be used as the label that shows next to the actual reCAPTCHA"
 msgstr "This value will be used as the label that shows next to the actual reCAPTCHA"
@@ -773,109 +784,174 @@ msgid ""
 msgstr "If enabled, a reCAPTCHA form will be added to the bottom of the submit resume page. See the <a target=\"_blank\" href=\"%s\">WP Job Manager Documentation</a> page."
 
 #: classes/admin/settings.php:257
+msgid "Date Save Format"
+msgstr "Date Save Format"
+
+#: classes/admin/settings.php:258
+msgid ""
+"Select the type of format you want the date picker field to save as.  "
+"Default is WordPress Date Format (defined in WordPress settings)."
+msgstr "Select the type of format you want the date picker field to save as.  Default is WordPress Date Format (defined in WordPress settings)."
+
+#: classes/admin/settings.php:260
+msgid "WordPress Date Format"
+msgstr "WordPress Date Format"
+
+#: classes/admin/settings.php:261
+msgid "Epoch Timestamp "
+msgstr "Epoch Timestamp "
+
+#: classes/admin/settings.php:262
+msgid "ISO 8601 "
+msgstr "ISO 8601 "
+
+#: classes/admin/settings.php:263
+msgid "RFC 2822 "
+msgstr "RFC 2822 "
+
+#: classes/admin/settings.php:264
+msgid "MySQL DATETIME "
+msgstr "MySQL DATETIME "
+
+#: classes/admin/settings.php:265
+msgid "PHP Ymd | JS: yymmdd "
+msgstr "PHP Ymd | JS: yymmdd "
+
+#: classes/admin/settings.php:266
+msgid "PHP ymd | JS: ymmdd "
+msgstr "PHP ymd | JS: ymmdd "
+
+#: classes/admin/settings.php:267
+msgid "Custom Format (set below)"
+msgstr "Custom Format (set below)"
+
+#: classes/admin/settings.php:272
+msgid "Date Save Custom Format"
+msgstr "Date Save Custom Format"
+
+#: classes/admin/settings.php:276
+msgid "If you chose Custom Format above, enter the PHP custom format here"
+msgstr "If you chose Custom Format above, enter the PHP custom format here"
+
+#: classes/admin/settings.php:281
+msgid "Date Display"
+msgstr "Date Display"
+
+#: classes/admin/settings.php:282
+msgid "Yes, use <code>date_i18n()</code>"
+msgstr "Yes, use <code>date_i18n()</code>"
+
+#: classes/admin/settings.php:283
+msgid ""
+"Enable this to use the core WordPress <a href=\"%s\" "
+"target=\"_blank\"><code>date_i18n()</code></a> function to attempt "
+"translation/format of date based on locale. Default value is unchecked."
+msgstr "Enable this to use the core WordPress <a href=\"%s\" target=\"_blank\"><code>date_i18n()</code></a> function to attempt translation/format of date based on locale. Default value is unchecked."
+
+#: classes/admin/settings.php:303
 msgid "Auto Paragraph"
 msgstr "Auto Paragraph"
 
-#: classes/admin/settings.php:258
+#: classes/admin/settings.php:304
 msgid ""
 "Select which field types you want to automatically add paragraphs to, when "
 "using one of the built-in output methods."
 msgstr "Select which field types you want to automatically add paragraphs to, when using one of the built-in output methods."
 
-#: classes/admin/settings.php:260
+#: classes/admin/settings.php:307
 msgid "WP-Editor"
 msgstr "WP-Editor"
 
-#: classes/admin/settings.php:261
+#: classes/admin/settings.php:311
 msgid "Text Area"
 msgstr "Text Area"
 
-#: classes/admin/settings.php:267
+#: classes/admin/settings.php:319
 msgid "Support"
 msgstr "Support"
 
-#: classes/admin/settings.php:277
+#: classes/admin/settings.php:329
 msgid "Backup"
 msgstr "Backup"
 
-#: classes/admin/settings.php:281
+#: classes/admin/settings.php:333
 msgid "Create Backup!"
 msgstr "Create Backup!"
 
-#: classes/admin/settings.php:284
+#: classes/admin/settings.php:336
 msgid "Generate Backup"
 msgstr "Generate Backup"
 
-#: classes/admin/settings.php:285
+#: classes/admin/settings.php:337
 msgid "Generate and download a backup of all fields."
 msgstr "Generate and download a backup of all fields."
 
-#: classes/admin/settings.php:290
+#: classes/admin/settings.php:342
 msgid "Import Backup!"
 msgstr "Import Backup!"
 
-#: classes/admin/settings.php:293
+#: classes/admin/settings.php:345
 msgid "Import Backup"
 msgstr "Import Backup"
 
-#: classes/admin/settings.php:294
+#: classes/admin/settings.php:346
 msgid ""
 "Import a previously generated backup for custom fields.  This uses the "
 "default WordPress import feature, if you do not see a file upload after "
 "clicking this button, make sure to import using WordPress importer."
 msgstr "Import a previously generated backup for custom fields.  This uses the default WordPress import feature, if you do not see a file upload after clicking this button, make sure to import using WordPress importer."
 
-#: classes/admin/settings.php:300
+#: classes/admin/settings.php:352
 msgid "Debug"
 msgstr "Debug"
 
-#: classes/admin/settings.php:305
+#: classes/admin/settings.php:357
 msgid "Enable Bug Reporter"
 msgstr "Enable Bug Reporter"
 
-#: classes/admin/settings.php:307
+#: classes/admin/settings.php:359
 msgid ""
 "Enable the bug report icon in the top right corner to submit bug reports"
 msgstr "Enable the bug report icon in the top right corner to submit bug reports"
 
-#: classes/admin/settings.php:314
+#: classes/admin/settings.php:366
 msgid "License Deactivate"
 msgstr "License Deactivate"
 
-#: classes/admin/settings.php:316
+#: classes/admin/settings.php:368
 msgid ""
 "By default when you deactivate this plugin it will also "
 "deactivate/unregister your API/License Key.  With this setting checked your "
 "license will not be deactivated when you deactivate the plugin."
 msgstr "By default when you deactivate this plugin it will also deactivate/unregister your API/License Key.  With this setting checked your license will not be deactivated when you deactivate the plugin."
 
-#: classes/admin/settings.php:322
+#: classes/admin/settings.php:374
 msgid "I understand, remove all data!"
 msgstr "I understand, remove all data!"
 
-#: classes/admin/settings.php:325
+#: classes/admin/settings.php:377
 msgid "Remove All"
 msgstr "Remove All"
 
-#: classes/admin/settings.php:326
+#: classes/admin/settings.php:378
 msgid "This will remove all custom and customized field data!"
 msgstr "This will remove all custom and customized field data!"
 
-#: classes/admin/settings.php:331
+#: classes/admin/settings.php:383
 msgid "Purge Options!"
 msgstr "Purge Options!"
 
-#: classes/admin/settings.php:334
+#: classes/admin/settings.php:386
 msgid "Purge Options"
 msgstr "Purge Options"
 
-#: classes/admin/settings.php:335
+#: classes/admin/settings.php:387
 msgid ""
 "Older versions of this plugin saved option values for fields that do not "
 "require them. You can purge those values by clicking this button."
 msgstr "Older versions of this plugin saved option values for fields that do not require them. You can purge those values by clicking this button."
 
-#: classes/admin/settings.php:347
+#: classes/admin/settings.php:399
 msgid "About"
 msgstr "About"
 
@@ -1099,7 +1175,7 @@ msgstr "Taxonomy Multi-Select Dropdown"
 msgid "No field data found!"
 msgstr "No field data found!"
 
-#: classes/job/fields.php:334 classes/resume/fields.php:320
+#: classes/job/fields.php:335 classes/resume/fields.php:321
 msgid "(optional)"
 msgstr "(optional)"
 
@@ -1518,29 +1594,29 @@ msgid ""
 "faster than it ever has, or your money back!"
 msgstr "Your server is using an <strong>OLD, unsupported, and no longer maintained</strong> version of PHP, version 5.3. <a href=\"%1$s\" target=\"_blank\">EOL (End of Life)</a> for PHP 5.3 was about <strong>%2$s ago</strong>!! This means there may be bugs, and security vulnerabilities that have not, and will never be patched for this version of PHP!<br /><br />It is <strong>strongly</strong> recommended that you contact your web hosting provider and request to upgrade to PHP 5.4 or newer ... or <a href=\"%3$s\">Hide this Notice Forever!</a> (but don't say I didn't warn you)<br/><br /><a href=\"%4$s\" target=\"_blank\">Contact me</a> for an exclusive sMyles Plugins customer promo code discount for any shared <strong>SSD (Solid State Drive)</strong> hosting packages!  Data centers in Florida USA, Arizona USA, Montreal Canada, and France.  Your site will run faster than it ever has, or your money back!"
 
-#: includes/functions.php:378
+#: includes/functions.php:381
 msgid ""
 "Sorry, your browser doesn't support embedded videos, you should upgrade to a"
 " modern browser."
 msgstr "Sorry, your browser doesn't support embedded videos, you should upgrade to a modern browser."
 
-#: includes/functions.php:379
+#: includes/functions.php:382
 msgid "Or you can"
 msgstr "Or you can"
 
-#: includes/functions.php:379
+#: includes/functions.php:382
 msgid "Download The File"
 msgstr "Download The File"
 
-#: includes/functions.php:379
+#: includes/functions.php:382
 msgid "(right click and select Save As)"
 msgstr "(right click and select Save As)"
 
-#: includes/functions.php:402
+#: includes/functions.php:405
 msgid "True"
 msgstr "True"
 
-#: includes/functions.php:407
+#: includes/functions.php:410
 msgid "False"
 msgstr "False"
 

@@ -18,6 +18,7 @@ class WP_Job_Manager_Field_Editor_Install extends WP_Job_Manager_Field_Editor_Ad
 		$this->init_user_roles();
 //		$this->cpt()->purge_options();
 		$this->set_hidden_columns();
+		$this->set_default_settings();
 
 		update_option( 'wp_job_manager_field_editor_version', WPJM_FIELD_EDITOR_VERSION );
 
@@ -34,6 +35,20 @@ class WP_Job_Manager_Field_Editor_Install extends WP_Job_Manager_Field_Editor_Ad
 		delete_option( 'jmfe_enable_bug_reporter' );
 	}
 
+
+	/**
+	 * Set Default Settings Option Values
+	 *
+	 *
+	 * @since 1.3.7
+	 *
+	 */
+	function set_default_settings(){
+
+		$output_wpautop = get_option( 'jmfe_output_wpautop' );
+		if( $output_wpautop === FALSE ) update_option( 'jmfe_output_wpautop', maybe_serialize( array( 'wp-editor', 'textarea' ) ) );
+
+	}
 
 	/**
 	 * Set any default configured fields auto output value to enabled

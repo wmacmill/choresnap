@@ -3,14 +3,14 @@
  * Plugin Name: WP Job Manager Field Editor
  * Plugin URI:  https://plugins.smyl.es/wp-job-manager-field-editor
  * Description: Full ajax plugin to Disable, Create, or Modify all WP Job Manager Fields, as well as automagically output custom fields on listing pages.
- * Version:     1.3.6
+ * Version:     1.3.7
  * Author:      Myles McNamara
  * Author URI:  http://plugins.smyl.es
  * Requires at least: 3.8
  * Tested up to: 4.3
  * Domain Path: /languages
  * Text Domain: wp-job-manager-field-editor
- * Last Updated: Tue Sep 08 2015 21:24:25
+ * Last Updated: Mon Sep 14 2015 17:42:06
  */
 
 // Exit if accessed directly
@@ -31,7 +31,7 @@ Class WP_Job_Manager_Field_Editor extends sMyles_Update {
 
 	const PLUGIN_SLUG = 'wp-job-manager-field-editor';
 	const PROD_ID = 'WP Job Manager Field Editor';
-	const VERSION = "1.3.6";
+	const VERSION = "1.3.7";
 
 	private static $instance;
 	protected      $fields;

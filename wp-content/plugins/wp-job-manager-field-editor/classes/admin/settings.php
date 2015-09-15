@@ -248,6 +248,52 @@ class WP_Job_Manager_Field_Editor_Settings extends WP_Job_Manager_Field_Editor_S
 						),
 					)
 				),
+				'fields' => array(
+					__( 'Fields', 'wp-job-manager-field-editor' ),
+					array(
+						array(
+							'name'  => 'jmfe_fields_dp_saveas',
+							'type'  => 'select',
+							'label'     => __( 'Date Save Format', 'wp-job-manager-field-editor' ),
+							'desc'        => __( 'Select the type of format you want the date picker field to save as.  Default is WordPress Date Format (defined in WordPress settings).', 'wp-job-manager-field-editor' ),
+							'options' => array(
+								'default' => __( 'WordPress Date Format', 'wp-job-manager-field-editor' ),
+								'epoch'		=> __( 'Epoch Timestamp ', 'wp-job-manager-field-editor' ) . '( Ex: ' . time() . ' )',
+								'iso' 		=> __( 'ISO 8601 ', 'wp-job-manager-field-editor' ) . '( Ex: ' . date( 'c' ) . ' )',
+								'rfc' 		=> __( 'RFC 2822 ', 'wp-job-manager-field-editor' ) . '( Ex: ' . date( 'r' ) . ' )',
+								'rfc' 		=> __( 'MySQL DATETIME ', 'wp-job-manager-field-editor' ) . '( Ex: ' . date( 'Y-m-d H:i:s' ) . ' )',
+								'Ymd'	=> __( 'PHP Ymd | JS: yymmdd ', 'wp-job-manager-field-editor' ) . '( Ex: ' . date( 'Ymd' ) . ' )',
+								'ymd'	=> __( 'PHP ymd | JS: ymmdd ', 'wp-job-manager-field-editor' ) . '( Ex: ' . date( 'ymd' ) . ' )',
+								'custom'	=> __( 'Custom Format (set below)', 'wp-job-manager-field-editor' ),
+							)
+						),
+						array(
+								'name'        => 'jmfe_fields_dp_custom',
+								'label'       => __( 'Date Save Custom Format', 'wp-job-manager-field-editor' ),
+								'type'        => 'textbox',
+								'std'         => '',
+								'placeholder' => get_option( 'date_format' ),
+								'desc'        => __( 'If you chose Custom Format above, enter the PHP custom format here', 'wp-job-manager-field-editor' )
+						),
+						array(
+								'name'       => 'jmfe_fields_dp_i18n',
+								'std'        => '0',
+								'label'      => __( 'Date Display', 'wp-job-manager-field-editor' ),
+								'cb_label'   => __( 'Yes, use <code>date_i18n()</code>', 'wp-job-manager-field-editor' ),
+								'desc'       => sprintf( __( 'Enable this to use the core WordPress <a href="%s" target="_blank"><code>date_i18n()</code></a> function to attempt translation/format of date based on locale. Default value is unchecked.', 'wp-job-manager-field-editor' ), 'https://codex.wordpress.org/Function_Reference/date_i18n' ),
+								'type'       => 'checkbox',
+								'attributes' => array()
+						),
+					),
+					array(
+							'name'        => 'jmfe_recaptcha_label',
+							'label'       => __( 'Label', 'wp-job-manager-field-editor' ),
+							'type'        => 'textbox',
+							'std'         => __( "Are you human?", 'wp-job-manager-field-editor' ),
+							'placeholder' => '',
+							'desc'        => __( 'This value will be used as the label that shows next to the actual reCAPTCHA', 'wp-job-manager-field-editor' )
+					),
+				),
 				'output' => array(
 					__( 'Output', 'wp-job-manager-field-editor' ),
 					array(
@@ -257,8 +303,14 @@ class WP_Job_Manager_Field_Editor_Settings extends WP_Job_Manager_Field_Editor_S
 							'label'     => __( 'Auto Paragraph', 'wp-job-manager-field-editor' ),
 							'desc'        => __( 'Select which field types you want to automatically add paragraphs to, when using one of the built-in output methods.', 'wp-job-manager-field-editor' ),
 							'options' => array(
-								'wp-editor' => __( 'WP-Editor', 'wp-job-manager-field-editor' ),
-								'textarea' => __( 'Text Area', 'wp-job-manager-field-editor' )
+								'wp-editor' => array(
+										'label' => __( 'WP-Editor', 'wp-job-manager-field-editor' ),
+										'std'	=> 1,
+								),
+								'textarea' => array(
+										'label' => __( 'Text Area', 'wp-job-manager-field-editor' ),
+										'std'	=> 1,
+								)
 							)
 						)
 					)

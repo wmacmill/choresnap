@@ -52,6 +52,7 @@ class WP_Job_Manager_Field_Editor_Job_Fields extends WP_Job_Manager_Field_Editor
 
 		$fields = $this->new_job_fields( $fields );
 		$fields = $this->remove_invalid_fields( $fields );
+		$fields = WP_Job_Manager_Field_Editor_Fields_Date::convert_fields( $fields );
 
 		return $fields;
 
@@ -314,12 +315,11 @@ class WP_Job_Manager_Field_Editor_Job_Fields extends WP_Job_Manager_Field_Editor
 	 * @since 1.1.14
 	 *
 	 * @param $label
-	 *
 	 * @param $field
 	 *
 	 * @return string
 	 */
-	function custom_required_label( $label, $field ){
+	function custom_required_label( $label, $field = false ){
 
 		// Required Field
 		if ( $label === '' ) {
@@ -333,8 +333,8 @@ class WP_Job_Manager_Field_Editor_Job_Fields extends WP_Job_Manager_Field_Editor
 		// Optional Field
 		$defaultOptional = ' <small>' . __( '(optional)', 'wp-job-manager-field-editor', 'wp-job-manager-field-editor' ) . '</small>';
 
-		if( in_array( $field['type'], apply_filters( 'field_editor_job_required_label_field_types', array( 'header', 'html', 'actionhook' ) ) ) )
-			return '';
+		$skip_field_types = apply_filters( 'field_editor_job_required_label_field_types', array('header', 'html', 'actionhook') );
+		if( isset( $field, $field['type'] ) && in_array( $field['type'], $skip_field_types ) ) return '';
 
 		if( $label === $defaultOptional ){
 			$custom_opt_label = get_option( 'jmfe_optional_label' );

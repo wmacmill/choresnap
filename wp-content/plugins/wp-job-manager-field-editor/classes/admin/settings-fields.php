@@ -35,9 +35,10 @@ class WP_Job_Manager_Field_Editor_Settings_Fields {
 		$o       = $a['option'];
 
 		$boxnum = 0;
-		foreach( $o['options'] as $key => $value ){
-			$checked = checked( in_array( $key, $a['value'] ), true, FALSE );
-			echo "<label style=\"margin-right: 5px;\"><input id=\"{$o['name']}_{$key}\" type=\"checkbox\" class=\"{$a['field_class']}\" name=\"{$o['name']}[]\" value=\"{$key}\"  {$a['attributes']} {$checked} /> {$value} </label>";
+		foreach( $o['options'] as $key => $config ){
+			$default_checked = isset( $config['std'] ) && $a['value'] === FALSE ? ! empty( $config['std'] ) : false;
+			$checked = is_array( $a['value'] ) ? checked( in_array( $key, $a['value'] ), TRUE, FALSE ) : checked( $default_checked, TRUE, FALSE );
+			echo "<label style=\"margin-right: 5px;\"><input id=\"{$o['name']}_{$key}\" type=\"checkbox\" class=\"{$a['field_class']}\" name=\"{$o['name']}[]\" value=\"{$key}\"  {$a['attributes']} {$checked} /> {$config['label']} </label>";
 			$boxnum++;
 		}
 
@@ -194,7 +195,7 @@ class WP_Job_Manager_Field_Editor_Settings_Fields {
 		foreach ( $o[ 'options' ] as $key => $name ) {
 			$value    = esc_attr( $key );
 			$label    = esc_attr( $name );
-			$selected = selected( $o[ 'value' ], $key, FALSE );
+			$selected = isset($a['value']) ? selected( $a[ 'value' ], $key, FALSE ) : false;
 
 			echo "<option value=\"{$value}\" {$selected}> {$label} </option>";
 		}

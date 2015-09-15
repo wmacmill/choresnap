@@ -336,6 +336,8 @@ class WP_Job_Manager_Field_Editor_Integration extends WP_Job_Manager_Field_Edito
 
 		}
 
+		$default_fields = WP_Job_Manager_Field_Editor_Fields_Date::convert_fields( $default_fields, true );
+
 		uasort( $default_fields, 'WP_Job_Manager_Field_Editor_Fields::priority_cmp' );
 
 		return wp_list_filter( $default_fields, array( 'status' => 'disabled' ), 'NOT' );
@@ -394,36 +396,37 @@ class WP_Job_Manager_Field_Editor_Integration extends WP_Job_Manager_Field_Edito
 
 				$field_value = isset( $values[ $type ][ $custom_field ] ) ? $values[ $type ][ $custom_field ] : false;
 
-				if ( isset( $field_value ) ) {
+				if ( ! isset( $field_value ) ) continue;
 
-					$_meta_key = '_' . $custom_field;
+				$_meta_key = '_' . $custom_field;
 
-					// Featured image
-					if( $_meta_key === '_featured_image' && ! empty( $field_value ) ){
-						$attach_id = get_attachment_id_from_url( $field_value );
+				// Date Format Saving/Handling
+				if( $custom_field_config['type']  == 'date' ) $field_value = WP_Job_Manager_Field_Editor_Fields_Date::convert_to_save( $field_value, $custom_field_config, $_meta_key, $job_id );
 
-						if ( $attach_id !== get_post_thumbnail_id( $job_id ) ) {
-							set_post_thumbnail( $job_id, $attach_id );
-						} elseif ( '' == $field_value && has_post_thumbnail( $job_id ) ) {
-							delete_post_thumbnail( $job_id );
-							delete_post_meta( $job_id, $_meta_key );
-						}
+				// Featured image
+				if( $_meta_key === '_featured_image' && ! empty( $field_value ) ){
+					$attach_id = get_attachment_id_from_url( $field_value );
+
+					if ( $attach_id !== get_post_thumbnail_id( $job_id ) ) {
+						set_post_thumbnail( $job_id, $attach_id );
+					} elseif ( '' == $field_value && has_post_thumbnail( $job_id ) ) {
+						delete_post_thumbnail( $job_id );
+						delete_post_meta( $job_id, $_meta_key );
 					}
+				}
 
-					// Don't update post meta for default fields
-					if( isset( $custom_field_config['origin'] ) && $custom_field_config['origin'] != "default" ){
-						update_post_meta( $job_id, $_meta_key, $field_value );
+				// Don't update post meta for default fields
+				if( isset( $custom_field_config['origin'] ) && $custom_field_config['origin'] != "default" ){
+					update_post_meta( $job_id, $_meta_key, $field_value );
+				}
+
+				// Auto save auto populate field to user meta
+				if( isset( $custom_field_config[ 'populate_save' ] ) && ! empty( $custom_field_config[ 'populate_save' ] ) ){
+					// Only update user meta if actual value is different from default value
+					if( $custom_field_config['populate_default'] !== $field_value ) {
+						if( isset( $custom_field_config['populate_save_as'] ) ) $_meta_key = $custom_field_config['populate_save_as'];
+						update_user_meta( get_current_user_id(), $_meta_key, $field_value );
 					}
-
-					// Auto save auto populate field to user meta
-					if( isset( $custom_field_config[ 'populate_save' ] ) && ! empty( $custom_field_config[ 'populate_save' ] ) ){
-						// Only update user meta if actual value is different from default value
-						if( $custom_field_config['populate_default'] !== $field_value ) {
-							if( isset( $custom_field_config['populate_save_as'] ) ) $_meta_key = $custom_field_config['populate_save_as'];
-							update_user_meta( get_current_user_id(), $_meta_key, $field_value );
-						}
-					}
-
 				}
 
 			}
