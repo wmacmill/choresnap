@@ -346,4 +346,31 @@ function yourprefix_register_demo_metabox() {
 /*bump this version on git so it is in sync*/
 
 
+/*adding a new email template to the application process*/
+add_action( 'new_job_application', 'applicant_send_application_confirmation', 10, 2 );
+
+function applicant_send_application_confirmation ( $application_id, $job_id ) {
+  $candidate_email = get_post_meta( $application_id, '_candidate_email', true );
+  $candidate_message         = get_email_body_for_candidate( $application_id, $job_id );
+  $headers   = array();
+          $headers[] = 'From: ' . get_bloginfo( 'name' ) . ' <noreply@' . str_replace( array( 'http://', 'https://', 'www.' ), '', site_url( '' ) ) . '>';
+          $headers[] = 'Content-Type: text/html';
+          $headers[] = 'charset=utf-8';
+
+  wp_mail( $candidate_email, 'Your Application on ' . get_bloginfo( 'name' ), $candidate_message, $headers );       
+}
+
+function get_email_body_for_candidate( $application_id, $job_id ) {
+    $site_url = site_url();
+    $body = '
+      Congrats on placing an estimate on Chore Snap. For your records here are all the details you included in your bid:<br>
+      <br>
+      <b>Bid:</b> $' . get_post_meta ($application_id, 'Estimate', true) . '<br>
+      <b>Message:</b> ' . get_post_meta($application_id, 'Message', true) . '<br>
+      <b>What is included:</b> ' . get_post_meta($application_id, 'What is included?', true) . '<br>
+      <br>As always you can manage your online company profile by visiting your online dashboard <a href="' . $site_url . '/my-company/">here</a>.<br>';
+    
+    return $body;
+}
+
 ?>
