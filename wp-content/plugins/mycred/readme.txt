@@ -2,8 +2,8 @@
 Contributors: designbymerovingi
 Tags:points, tokens, credit, management, reward, charge, community, contest, buddypress, jetpack, bbpress, simple press, woocommerce, marketpress, wp e-commerce, gravity forms, share-this
 Requires at least: 3.8
-Tested up to: 4.1.1
-Stable tag: 1.6.3
+Tested up to: 4.3
+Stable tag: 1.6.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -106,8 +106,8 @@ myCRED supports importing, exporting, inline editing and manual deletion of log 
 
 == Upgrade Notice ==
 
-= 1.6.3 =
-Translation updates with proper escaping, adjusted log module, badge module and buyCRED module.
+= 1.6.4 =
+WP 4.3 compatibility update, clean up of code and Japanese language support.
 
 
 == Other Notes ==
@@ -126,27 +126,18 @@ Translation updates with proper escaping, adjusted log module, badge module and 
 * Russian - Skladchik
 * Chinese - suifengtec [Website](http://coolwp.com)
 * Portuguese (Brazil) - Guilherme
+* Japanese - Mochizuki Hiroshi
 
 
 == Changelog ==
 
-= 1.6.3 =
-FIX - Coupons min- or max- requirement is not enforced.
-FIX - mycred_my_badges shortcode is using a bad loop.
-FIX - WooCommerce refunds fails when refunding an order paid with points.
-FIX - Banking add-ons recurring payout service is using a bad SQL query when decimals are used.
-FIX - Fixed error in mycred_hook_table shortcode when looping through hooks.
-FIX - Fixed bad logic for mycred_translate_limit_code.
-FIX - over_hook_limit() should also take into account the point type.
-FIX - Added missing table cell classes for order display function in buyCRED.
-TWEAK - Adjusted exclude_user() to always handle a user ID even if nothing is passed to the function.
-TWEAK - Cleaned up the affiliate hook and replaced the built in hook limit with the new 1.6 system.
-TWEAK - Wrapped myCRED scripts in anonymous functions.
-TWEAK - Improved the transfer.js script.
-TWEAK - Added <br> element to allowed html.
-UPDATE - Updated plugin credit page.
-NEW - Added new mycred_my_badge filter to adjust how each badge is presented when viewing a users earned badges.
-NEW - Query Log class now also accepts username/login/email filtering instead of just ID.
+= 1.6.4 =
+UPDATE - Minor adjustment to the admin log pages visual structure.
+UPDATE - Adjusted widget constructors for 4.3 compatibility.
+NEW - Added Japanese translation.
+
+= 1.6.3 = 
+http://mycred.me/support/changelog/
 
 = 1.6.2 = 
 http://mycred.me/support/changelog/

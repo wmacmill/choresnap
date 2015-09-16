@@ -1257,9 +1257,12 @@ if ( ! class_exists( 'myCRED_Email_Notice_Module' ) ) {
 			ob_start();
 			
 			if ( $saved )
-				echo '<p class="updated-email-subscriptions">' . $success . '</p>'; ?>
+				echo '<p class="updated-email-subscriptions">' . $success . '</p>';
 
-<form action="<?php echo add_query_arg( array( 'do' => 'mycred-unsubscribe', 'user' => get_current_user_id(), 'token' => wp_create_nonce( 'update-mycred-email-subscriptions' ) ) ); ?>" id="mycred-email-subscriptions" method="post">
+			$url = add_query_arg( array( 'do' => 'mycred-unsubscribe', 'user' => get_current_user_id(), 'token' => wp_create_nonce( 'update-mycred-email-subscriptions' ) ) );
+
+?>
+<form action="<?php echo esc_url( $url ); ?>" id="mycred-email-subscriptions" method="post">
 	<table class="table">
 		<thead>
 			<tr>
@@ -1293,6 +1296,7 @@ if ( ! class_exists( 'myCRED_Email_Notice_Module' ) ) {
 	<input type="submit" class="btn btn-primary button button-primary pull-right" value="<?php _e( 'Save Changes', 'mycred' ); ?>" />
 </form>
 <?php
+
 			$content = ob_get_contents();
 			ob_end_clean();
 

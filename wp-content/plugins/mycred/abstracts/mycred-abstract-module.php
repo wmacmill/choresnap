@@ -576,14 +576,15 @@ h4.ui-accordion-header:before { content: "<?php _e( 'click to open', 'mycred' );
 		/**
 		 * Get Settings URL
 		 * @since 1.4
-		 * @version 1.0
+		 * @version 1.0.1
 		 */
 		function get_settings_url( $module = '' ) {
 			$variables = array( 'page' => 'myCRED_page_settings' );
 			if ( ! empty( $module ) )
 				$variables['open-tab'] = $module;
-			
-			return add_query_arg( $variables, admin_url( 'admin.php' ) );
+
+			$url = add_query_arg( $variables, admin_url( 'admin.php' ) );
+			return esc_url( $url );
 		}
 
 		/**
