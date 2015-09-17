@@ -739,7 +739,7 @@ endif;
  * for watchinga YouTube video.
  * @see http://codex.mycred.me/shortcodes/mycred_video/
  * @since 1.2
- * @version 1.2
+ * @version 1.2.1
  */
 if ( ! function_exists( 'mycred_render_shortcode_video' ) ) :
 	function mycred_render_shortcode_video( $atts ) {
@@ -799,7 +799,7 @@ if ( ! function_exists( 'mycred_render_shortcode_video' ) ) :
 
 ?>
 <div class="mycred-video-wrapper youtube-video">
-	<iframe id="mycred_vvideo_v<?php echo $video_id; ?>" class="mycred-video mycred-youtube-video" data-vid="<?php echo $video_id; ?>" src="<?php echo $url; ?>" width="<?php echo $width; ?>" height="<?php echo $height; ?>" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+	<iframe id="mycred_vvideo_v<?php echo $video_id; ?>" class="mycred-video mycred-youtube-video" data-vid="<?php echo $video_id; ?>" src="<?php echo esc_url( $url ); ?>" width="<?php echo $width; ?>" height="<?php echo $height; ?>" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 	<script type="text/javascript">
 function mycred_vvideo_v<?php echo $video_id; ?>( state ) {
 	duration[ "<?php echo $video_id; ?>" ] = state.target.getDuration();

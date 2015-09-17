@@ -2840,7 +2840,7 @@ if ( ! class_exists( 'myCRED_Hook_Affiliate' ) ) :
 		 * Get Ref Link
 		 * Returns a given users referral id with optional url appended.
 		 * @since 1.4
-		 * @version 1.0
+		 * @version 1.0.1
 		 */
 		public function get_ref_link( $user_id = '', $url = '' ) {
 
@@ -2858,7 +2858,7 @@ if ( ! class_exists( 'myCRED_Hook_Affiliate' ) ) :
 			else
 				$link = add_query_arg( array( $this->ref_key => $ref_id ) );
 
-			return apply_filters( 'mycred_affiliate_get_ref_link', $link, $user_id, $url, $this );
+			return apply_filters( 'mycred_affiliate_get_ref_link', esc_url( $link ), $user_id, $url, $this );
 
 		}
 
@@ -2984,7 +2984,7 @@ if ( ! class_exists( 'myCRED_Hook_Affiliate' ) ) :
 		/**
 		 * Preference for Affiliate Hook
 		 * @since 1.4
-		 * @version 1.0.2
+		 * @version 1.0.3
 		 */
 		public function preferences() {
 
@@ -3045,13 +3045,13 @@ if ( ! class_exists( 'myCRED_Hook_Affiliate' ) ) :
 	<li>
 		<input type="radio" name="<?php echo $this->field_name( array( 'setup' => 'links' ) ); ?>" id="<?php echo $this->field_id( array( 'setup' => 'links' ) ); ?>-numeric" <?php checked( $prefs['setup']['links'], 'numeric' ); ?> value="numeric" /> 
 		<label for="<?php echo $this->field_id( array( 'setup' => 'links' ) ); ?>-numeric"><?php _e( 'Assign numeric referral IDs to each user.', 'mycred' ); ?></label><br />
-		<span class="description"><?php printf( '%s: %s', __( 'Example', 'mycred' ), add_query_arg( array( $this->ref_key => 1 ), home_url( '/' ) ) ); ?></span>
+		<span class="description"><?php printf( '%s: %s', __( 'Example', 'mycred' ), esc_url( add_query_arg( array( $this->ref_key => 1 ), home_url( '/' ) ) ) ); ?></span>
 	</li>
 	<li class="empty">&nbsp;</li>
 	<li>
 		<input type="radio" name="<?php echo $this->field_name( array( 'setup' => 'links' ) ); ?>" id="<?php echo $this->field_id( array( 'setup' => 'links' ) ); ?>-username" <?php checked( $prefs['setup']['links'], 'username' ); ?> value="username" /> 
 		<label for="<?php echo $this->field_id( array( 'setup' => 'links' ) ); ?>-username"><?php _e( 'Assign usernames as IDs for each user.', 'mycred' ); ?></label><br />
-		<span class="description"><?php printf( '%s: %s', __( 'Example', 'mycred' ), add_query_arg( array( $this->ref_key => 'john+doe' ), home_url( '/' ) ) ); ?></span>
+		<span class="description"><?php printf( '%s: %s', __( 'Example', 'mycred' ), esc_url( add_query_arg( array( $this->ref_key => 'john+doe' ), home_url( '/' ) ) ) ); ?></span>
 	</li>
 </ol>
 <label class="subheader"><?php _e( 'IP Limit', 'mycred' ); ?></label>

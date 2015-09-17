@@ -125,7 +125,7 @@ if ( ! class_exists( 'myCRED_Sell_Content_Module' ) ) {
 		/**
 		 * Save Override
 		 * @since 1.5
-		 * @version 1.1
+		 * @version 1.1.1
 		 */
 		function save_user_override() {
 
