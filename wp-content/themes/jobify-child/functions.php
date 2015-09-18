@@ -373,4 +373,62 @@ function get_email_body_for_candidate( $application_id, $job_id ) {
     return $body;
 }
 
+/*
+//start by filtering the email to remove it
+function filter_bp_messages_email ( $email_to, $ud ) {
+    $email_to = '';
+    return $email_to;
+}
+add_filter( 'messages_notification_new_message_to', 'filter_bp_messages_email', 10, 2 );
+
+function bp_custom_messages_email( $recipients, $email_subject, $email_content, $args ) {
+    // Create your $headers and $attachments here
+     $headers   = array();
+          $headers[] = 'From: ' . get_bloginfo( 'name' ) . ' <noreply@' . str_replace( array( 'http://', 'https://', 'www.' ), '', site_url( '' ) ) . '>';
+          $headers[] = 'Content-Type: text/html';
+          $headers[] = 'charset=utf-8';
+    // Send the email.
+    wp_mail( $recipients, $email_subject, $email_content, $headers );
+}
+add_action( 'bp_messages_sent_notification_email', 'bp_custom_messages_email', 10, 5 );
+*/
+
+add_filter ( 'messages_notification_new_message_message', 'will_custom_bp_message_notification', 10, 7);
+
+function will_custom_bp_message_notification ( $email_content, $sender_name, $subject, $content, $message_link, $settings_link, $ud ) {
+  $message = sprintf( __(
+'%1$s sent you a new message:<br>
+<br>
+Subject: %2$s<br>
+<br>
+"%3$s"<br>
+<br>
+To view and read your messages please log in and go to <a style="text-decoration:none; color: #85c0e3; font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif; font-size: text-align: left;" href="%4$s"> My Messages </a>.<br>
+<br>
+---------------------<br>
+', 'buddypress' ), $sender_name, $subject, $content, $message_link );
+
+// Only show the disable notifications line if the settings component is enabled
+if ( bp_is_active( 'settings' ) ) {
+  $message .= sprintf( __( '<br>To disable these notifications, <a style="text-decoration:none; color: #85c0e3; font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif; font-size: text-align: left;" href="%s">Click Here</a>', 'buddypress' ), $settings_link );
+}
+
+  return $message;
+}
+
+//adding html to the "password changed email" when a password is changed this is sent to the user confirming the change
+add_filter ( 'password_change_email', 'custom_password_change_email', 8, 3);
+
+function custom_password_change_email ( $pass_change_email, $user, $userdata ) {
+  $pass_change_email['message'] = _('Hi ' . $user['display_name'] . ',<br>
+    <br>
+    This notice confirms that your password was changed on ###SITENAME###.<br>
+    <br>
+    If you did not change your password, please contact the site administrator at
+    <a style="text-decoration:none; color: #85c0e3; font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif; font-size: text-align: left;" href="mailto:security@choresnap.com">security@choresnap.com</a><br>
+    ' );
+  
+  return $pass_change_email;
+}
+
 ?>
