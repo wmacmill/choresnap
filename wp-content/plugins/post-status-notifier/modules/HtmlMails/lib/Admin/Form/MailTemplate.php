@@ -1,12 +1,9 @@
 <?php
 /**
- * ifeelweb.de WordPress Plugin Framework
- * For more information see http://www.ifeelweb.de/wp-plugin-framework
- *
- *
+ * MailTemplates form
  *
  * @author   Timo Reith <timo@ifeelweb.de>
- * @version  $Id: MailTemplate.php 400 2015-08-18 20:15:45Z timoreithde $
+ * @version  $Id: MailTemplate.php 418 2015-09-18 10:25:48Z timoreithde $
  */
 class Psn_Module_HtmlMails_Admin_Form_MailTemplate extends IfwPsn_Zend_Form
 {

@@ -1,12 +1,9 @@
 <?php
 /**
- * AmazonSimpleAffiliate (ASA2)
- * For more information see http://www.wp-amazon-plugin.com/
- * 
- * 
+ * MailQueue model mapper
  *
  * @author   Timo Reith <timo@ifeelweb.de>
- * @version  $Id: MailQueue.php 400 2015-08-18 20:15:45Z timoreithde $
+ * @version  $Id: MailQueue.php 418 2015-09-18 10:25:48Z timoreithde $
  */ 
 class Psn_Module_DeferredSending_Model_Mapper_MailQueue extends IfwPsn_Wp_Model_Mapper_Abstract
 {

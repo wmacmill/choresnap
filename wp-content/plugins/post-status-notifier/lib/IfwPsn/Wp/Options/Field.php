@@ -6,7 +6,7 @@
  * Options field
  *
  * @author   Timo Reith <timo@ifeelweb.de>
- * @version  $Id: Field.php 458 2015-08-24 22:17:27Z timoreithde $
+ * @version  $Id: Field.php 459 2015-08-27 21:08:32Z timoreithde $
  */
 abstract class IfwPsn_Wp_Options_Field
 {
@@ -137,7 +137,7 @@ abstract class IfwPsn_Wp_Options_Field
      */
     public function getSanitizer()
     {
-        return $this->_params['sanitizer'];
+        return isset($this->_params['sanitizer']) ? $this->_params['sanitizer'] : null;
     }
 
     /**

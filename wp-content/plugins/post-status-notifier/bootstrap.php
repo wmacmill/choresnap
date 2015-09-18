@@ -4,7 +4,7 @@
  *
  * @author    Timo Reith <timo@ifeelweb.de>
  * @copyright Copyright (c) ifeelweb.de
- * @version   $Id: bootstrap.php 394 2015-06-21 21:40:04Z timoreithde $
+ * @version   $Id: bootstrap.php 414 2015-09-17 10:06:02Z timoreithde $
  */
 class Psn_Bootstrap extends IfwPsn_Wp_Plugin_Bootstrap_Abstract
 {
@@ -82,7 +82,6 @@ class Psn_Bootstrap extends IfwPsn_Wp_Plugin_Bootstrap_Abstract
         require_once $this->_pm->getPathinfo()->getRootLib() . '/Psn/Notification/Manager.php';
         $this->_notificationManager = new Psn_Notification_Manager($this->_pm);
         $this->_notificationManager->setDeferredExecution();
-
 
         //IfwPsn_Wp_Proxy_Action::addInit(array($this, 'test'));
     }

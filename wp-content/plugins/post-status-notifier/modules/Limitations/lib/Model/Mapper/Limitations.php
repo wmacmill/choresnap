@@ -1,12 +1,9 @@
 <?php
 /**
- * AmazonSimpleAffiliate (ASA2)
- * For more information see http://www.wp-amazon-plugin.com/
- * 
- * 
+ * Limitations model mapper
  *
  * @author   Timo Reith <timo@ifeelweb.de>
- * @version  $Id: Limitations.php 400 2015-08-18 20:15:45Z timoreithde $
+ * @version  $Id: Limitations.php 418 2015-09-18 10:25:48Z timoreithde $
  */ 
 class Psn_Module_Limitations_Model_Mapper_Limitations extends IfwPsn_Wp_Model_Mapper_Abstract
 {

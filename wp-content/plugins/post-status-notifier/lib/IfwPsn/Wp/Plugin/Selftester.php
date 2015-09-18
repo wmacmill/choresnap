@@ -7,7 +7,7 @@
  *
  * @author    Timo Reith <timo@ifeelweb.de>
  * @copyright Copyright (c) ifeelweb.de
- * @version   $Id: Selftester.php 300 2014-07-06 22:22:07Z timoreithde $
+ * @version   $Id: Selftester.php 461 2015-09-09 22:16:16Z timoreithde $
  * @package   IfwPsn_Wp_Plugin
  */ 
 class IfwPsn_Wp_Plugin_Selftester 
@@ -134,7 +134,7 @@ class IfwPsn_Wp_Plugin_Selftester
             $test->execute($this->_pm);
 
             if (!$test->getResult()) {
-                $this->_status = false;
+                $this->_status = 'false';
             }
         }
 

@@ -1,12 +1,9 @@
 <?php
 /**
- * AmazonSimpleAffiliate (ASA2)
- * For more information see http://www.wp-amazon-plugin.com/
- * 
- * 
+ * Postponed notification handler
  *
  * @author   Timo Reith <timo@ifeelweb.de>
- * @version  $Id: Postponed.php 392 2015-06-20 13:21:14Z timoreithde $
+ * @version  $Id: Postponed.php 418 2015-09-18 10:25:48Z timoreithde $
  */ 
 class Psn_Notification_Postponed 
 {

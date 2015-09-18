@@ -6,7 +6,7 @@
  * 
  *
  * @author   Timo Reith <timo@ifeelweb.de>
- * @version  $Id: Post.php 432 2015-06-07 22:17:57Z timoreithde $
+ * @version  $Id: Post.php 463 2015-09-18 10:25:34Z timoreithde $
  */ 
 class IfwPsn_Wp_Proxy_Post extends IfwPsn_Wp_Proxy_Abstract
 {
@@ -247,6 +247,32 @@ class IfwPsn_Wp_Proxy_Post extends IfwPsn_Wp_Proxy_Abstract
                 if (isset($cat->name)) {
                     if ($taxonomy === null or ($taxonomy !== null && $taxonomy == $cat->taxonomy)) {
                         array_push($result, $cat->name);
+                    }
+                }
+            }
+        }
+
+        $result = array_map('html_entity_decode', $result);
+
+        return $result;
+    }
+
+    /**
+     * @param $post
+     * @param null $taxonomy
+     * @return array
+     */
+    public static function getAttachedCategoriesSlugs($post, $taxonomy = null)
+    {
+        $result = array();
+
+        $categories = self::getAttachedCategories($post);
+
+        if (is_array($categories)) {
+            foreach (self::getAttachedCategories($post) as $cat) {
+                if (isset($cat->slug)) {
+                    if ($taxonomy === null or ($taxonomy !== null && $taxonomy == $cat->taxonomy)) {
+                        array_push($result, $cat->slug);
                     }
                 }
             }
@@ -623,6 +649,32 @@ class IfwPsn_Wp_Proxy_Post extends IfwPsn_Wp_Proxy_Abstract
                 if (isset($tag->name)) {
                     if ($taxonomy === null or ($taxonomy !== null && $taxonomy == $tag->taxonomy)) {
                         array_push($result, $tag->name);
+                    }
+                }
+            }
+        }
+
+        $result = array_map('html_entity_decode', $result);
+
+        return $result;
+    }
+
+    /**
+     * @param $post
+     * @param null $taxonomy
+     * @return array
+     */
+    public static function getAttachedTagsSlugs($post, $taxonomy = null)
+    {
+        $result = array();
+
+        $tags = self::getAttachedTags($post);
+
+        if (is_array($tags)) {
+            foreach (self::getAttachedTags($post) as $tag) {
+                if (isset($tag->slug)) {
+                    if ($taxonomy === null or ($taxonomy !== null && $taxonomy == $tag->taxonomy)) {
+                        array_push($result, $tag->slug);
                     }
                 }
             }

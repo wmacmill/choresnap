@@ -1,12 +1,8 @@
 <?php
 /**
- * ifeelweb.de WordPress Plugin Framework
- * For more information see http://www.ifeelweb.de/wp-plugin-framework
- * 
- * 
  *
  * @author   Timo Reith <timo@ifeelweb.de>
- * @version  $Id: Details.php 404 2015-08-21 20:44:28Z timoreithde $
+ * @version  $Id: Details.php 418 2015-09-18 10:25:48Z timoreithde $
  */ 
 class Psn_Module_Logger_ListTable_Ajax_Details extends IfwPsn_Wp_Ajax_Request
 {

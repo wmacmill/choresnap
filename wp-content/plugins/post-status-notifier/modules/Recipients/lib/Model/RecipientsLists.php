@@ -1,10 +1,10 @@
 <?php
 /**
- *
+ * RecipientsLists model
  *
  * @author    Timo Reith <timo@ifeelweb.de>
  * @copyright Copyright (c) 2014 ifeelweb.de
- * @version   $Id: RecipientsLists.php 220 2014-05-05 16:25:48Z timoreithde $
+ * @version   $Id: RecipientsLists.php 418 2015-09-18 10:25:48Z timoreithde $
  * @package
  */
 

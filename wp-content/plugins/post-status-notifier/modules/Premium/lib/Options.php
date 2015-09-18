@@ -1,12 +1,9 @@
 <?php
 /**
- * AmazonSimpleAffiliate (ASA2)
- * For more information see http://www.wp-amazon-plugin.com/
- * 
- * 
+ * Premium options
  *
  * @author   Timo Reith <timo@ifeelweb.de>
- * @version  $Id: Options.php 405 2015-08-24 22:17:41Z timoreithde $
+ * @version  $Id: Options.php 418 2015-09-18 10:25:48Z timoreithde $
  */ 
 class Psn_Module_Premium_Options 
 {

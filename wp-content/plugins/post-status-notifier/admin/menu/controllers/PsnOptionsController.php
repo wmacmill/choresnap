@@ -2,7 +2,7 @@
 /**
  *
  * @author   Timo Reith <timo@ifeelweb.de>
- * @version  $Id: PsnOptionsController.php 373 2015-04-12 14:50:24Z timoreithde $
+ * @version  $Id: PsnOptionsController.php 416 2015-09-17 10:21:37Z timoreithde $
  */ 
 class PsnOptionsController extends PsnApplicationController
 {
@@ -45,22 +45,6 @@ class PsnOptionsController extends PsnApplicationController
         return sprintf(__('Please consider the documentation page <a href="%s" target="_blank">%s</a> for more information.', 'ifw'),
             'http://docs.ifeelweb.de/post-status-notifier/options.html',
             __('Options', 'psn'));
-    }
-
-    /**
-     *
-     * @return string
-     */
-    protected function _getHelpSidebar()
-    {
-        $sidebar = '<p><b>' . __('For more information:', 'ifw') . '</b></p>';
-        $sidebar .= sprintf('<p><a href="%s" target="_blank">' . __('Plugin homepage', 'ifw') . '</a></p>',
-            $this->_pm->getEnv()->getHomepage());
-        if (!empty($this->_pm->getConfig()->plugin->docUrl)) {
-            $sidebar .= sprintf('<p><a href="%s" target="_blank">' . __('Documentation', 'ifw') . '</a></p>',
-                $this->_pm->getConfig()->plugin->docUrl);
-        }
-        return $sidebar;
     }
 }
 

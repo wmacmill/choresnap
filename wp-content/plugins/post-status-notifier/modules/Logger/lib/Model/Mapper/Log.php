@@ -1,12 +1,8 @@
 <?php
 /**
- * AmazonSimpleAffiliate (ASA2)
- * For more information see http://www.wp-amazon-plugin.com/
- * 
- * 
  *
  * @author   Timo Reith <timo@ifeelweb.de>
- * @version  $Id: Log.php 398 2015-08-17 21:50:58Z timoreithde $
+ * @version  $Id: Log.php 418 2015-09-18 10:25:48Z timoreithde $
  */ 
 class Psn_Module_Logger_Model_Mapper_Log extends IfwPsn_Wp_Model_Mapper_Abstract
 {

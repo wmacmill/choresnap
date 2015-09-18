@@ -1,13 +1,14 @@
 <?php
 /**
- * AmazonSimpleAffiliate (ASA2)
- * For more information see http://www.wp-amazon-plugin.com/
- * 
- * 
  *
- * @author   Timo Reith <timo@ifeelweb.de>
- * @version  $Id: LogsAjax.php 394 2015-06-21 21:40:04Z timoreithde $
- */ 
+ *
+ * @author    Timo Reith <timo@ifeelweb.de>
+ * @copyright Copyright (c) 2014 ifeelweb.de
+ * @version   $Id: LogsAjax.php 418 2015-09-18 10:25:48Z timoreithde $
+ * @package
+ */
+
+$GLOBALS['hook_suffix'] = 'psn_logs';
 class Psn_Module_Logger_Metabox_LogsAjax extends IfwPsn_Wp_Ajax_Request
 {
     public $action = 'load-psn-logs';

@@ -127,6 +127,9 @@
     font-style: italic;
     color: #aaa;
 }
+.ifw-wp-zend-form-ul .hint .dashicons {
+    font-size: 17px;
+}
 .ifw-wp-zend-form-ul ul.errors li {
     margin: 0;
 }

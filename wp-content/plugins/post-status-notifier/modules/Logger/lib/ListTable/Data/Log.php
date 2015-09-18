@@ -1,12 +1,8 @@
 <?php
 /**
- * ifeelweb.de WordPress Plugin Framework
- * For more information see http://www.ifeelweb.de/wp-plugin-framework
- * 
- * 
  *
  * @author   Timo Reith <timo@ifeelweb.de>
- * @version  $Id: Log.php 74 2013-07-08 21:38:50Z timoreithde $
+ * @version  $Id: Log.php 418 2015-09-18 10:25:48Z timoreithde $
  */ 
 class Psn_Module_Logger_ListTable_Data_Log implements IfwPsn_Wp_Plugin_ListTable_Data_Interface
 {

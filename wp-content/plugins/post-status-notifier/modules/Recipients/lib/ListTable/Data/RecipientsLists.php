@@ -1,10 +1,10 @@
 <?php
 /**
- *
+ * RecipientsLists list table data
  *
  * @author    Timo Reith <timo@ifeelweb.de>
  * @copyright Copyright (c) 2014 ifeelweb.de
- * @version   $Id: RecipientsLists.php 208 2014-05-01 17:23:27Z timoreithde $
+ * @version   $Id: RecipientsLists.php 418 2015-09-18 10:25:48Z timoreithde $
  * @package
  */
 class Psn_Module_Recipients_ListTable_Data_RecipientsLists implements IfwPsn_Wp_Plugin_ListTable_Data_Interface

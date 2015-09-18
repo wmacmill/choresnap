@@ -3,7 +3,7 @@
  * This class handles the placeholders replacement
  *
  * @author      Timo Reith <timo@ifeelweb.de>
- * @version     $Id: Placeholders.php 329 2014-10-21 14:21:45Z timoreithde $
+ * @version     $Id: Placeholders.php 418 2015-09-18 10:25:48Z timoreithde $
  * @copyright   Copyright (c) ifeelweb.de
  * @package     Psn_Notification
  */
@@ -163,9 +163,17 @@ class Psn_Notification_Placeholders extends IfwPsn_Util_Replacements
         $categories = IfwPsn_Wp_Proxy_Post::getAttachedCategoriesNames($this->_post);
         $result['post_categories'] = implode(', ', $categories);
 
+        $categoriesSlugs = IfwPsn_Wp_Proxy_Post::getAttachedCategoriesSlugs($this->_post);
+        $result['post_categories_slugs_array'] = $categoriesSlugs;
+        $result['post_categories_slugs'] = implode(', ', $categoriesSlugs);
+
         // get the post's tags
         $tags = IfwPsn_Wp_Proxy_Post::getAttachedTagsNames($this->_post);
         $result['post_tags'] = implode(', ', $tags);
+
+        $tagsSlugs = IfwPsn_Wp_Proxy_Post::getAttachedTagsSlugs($this->_post);
+        $result['post_tags_slugs_array'] = $tagsSlugs;
+        $result['post_tags_slugs'] = implode(', ', $tagsSlugs);
 
         // custom keys
         $customKeys = IfwPsn_Wp_Proxy_Post::getCustomKeys($this->_post);

@@ -1,7 +1,9 @@
 <?php
 /**
+ * MailQueue list table
+ *
  * @author   Timo Reith <timo@ifeelweb.de>
- * @version  $Id: MailQueue.php 403 2015-08-21 20:40:03Z timoreithde $
+ * @version  $Id: MailQueue.php 418 2015-09-18 10:25:48Z timoreithde $
  */ 
 class Psn_Module_DeferredSending_ListTable_MailQueue extends IfwPsn_Wp_Plugin_ListTable_Abstract
 {

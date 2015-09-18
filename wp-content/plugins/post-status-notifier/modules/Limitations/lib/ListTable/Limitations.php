@@ -1,7 +1,9 @@
 <?php
 /**
+ * Limitations list table
+ *
  * @author   Timo Reith <timo@ifeelweb.de>
- * @version  $Id: Limitations.php 403 2015-08-21 20:40:03Z timoreithde $
+ * @version  $Id: Limitations.php 418 2015-09-18 10:25:48Z timoreithde $
  */ 
 class Psn_Module_Limitations_ListTable_Limitations extends IfwPsn_Wp_Plugin_ListTable_Abstract
 {
