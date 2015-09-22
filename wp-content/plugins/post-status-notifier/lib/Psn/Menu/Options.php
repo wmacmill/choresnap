@@ -1,13 +1,10 @@
 <?php
 /**
- * ifeelweb.de WordPress Plugin Framework
- * For more information see http://www.ifeelweb.de/wp-plugin-framework
- * 
- * 
+ * PSN menu options
  *
  * @author    Timo Reith <timo@ifeelweb.de>
  * @copyright Copyright (c) ifeelweb.de
- * @version   $Id: Options.php 313 2014-09-08 21:45:04Z timoreithde $
+ * @version   $Id: Options.php 418 2015-09-18 10:25:48Z timoreithde $
  * @package   
  */ 
 class Psn_Menu_Options extends IfwPsn_Wp_Plugin_Menu_Page_Options

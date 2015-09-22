@@ -1,12 +1,9 @@
 <?php
 /**
- * AmazonSimpleAffiliate (ASA2)
- * For more information see http://www.wp-amazon-plugin.com/
- * 
- * 
+ * RecipientsLists model mapper
  *
  * @author   Timo Reith <timo@ifeelweb.de>
- * @version  $Id: RecipientsLists.php 398 2015-08-17 21:50:58Z timoreithde $
+ * @version  $Id: RecipientsLists.php 418 2015-09-18 10:25:48Z timoreithde $
  */ 
 class Psn_Module_Recipients_Model_Mapper_RecipientsLists extends IfwPsn_Wp_Model_Mapper_Abstract
 {

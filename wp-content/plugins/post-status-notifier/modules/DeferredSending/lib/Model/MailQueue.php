@@ -1,10 +1,10 @@
 <?php
 /**
- *
+ * MailQueue model
  *
  * @author    Timo Reith <timo@ifeelweb.de>
  * @copyright Copyright (c) 2014 ifeelweb.de
- * @version   $Id: MailQueue.php 333 2014-11-08 00:16:07Z timoreithde $
+ * @version   $Id: MailQueue.php 418 2015-09-18 10:25:48Z timoreithde $
  * @package
  */
 class Psn_Module_DeferredSending_Model_MailQueue extends IfwPsn_Wp_ORM_Model

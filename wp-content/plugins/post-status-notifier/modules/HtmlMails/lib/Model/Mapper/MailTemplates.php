@@ -1,12 +1,9 @@
 <?php
 /**
- * AmazonSimpleAffiliate (ASA2)
- * For more information see http://www.wp-amazon-plugin.com/
- * 
- * 
+ * MailTemplates model mapper
  *
  * @author   Timo Reith <timo@ifeelweb.de>
- * @version  $Id: MailTemplates.php 397 2015-08-16 20:09:46Z timoreithde $
+ * @version  $Id: MailTemplates.php 418 2015-09-18 10:25:48Z timoreithde $
  */ 
 class Psn_Module_HtmlMails_Model_Mapper_MailTemplates extends IfwPsn_Wp_Model_Mapper_Abstract
 {

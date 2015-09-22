@@ -1,12 +1,8 @@
 <?php
 /**
- * ifeelweb.de WordPress Plugin Framework
- * For more information see http://www.ifeelweb.de/wp-plugin-framework
- *
- *
  *
  * @author   Timo Reith <timo@ifeelweb.de>
- * @version  $Id: EmailDecorator.php 365 2015-04-02 22:10:47Z timoreithde $
+ * @version  $Id: EmailDecorator.php 418 2015-09-18 10:25:48Z timoreithde $
  */
 class Psn_Module_HtmlMails_Service_EmailDecorator 
 {

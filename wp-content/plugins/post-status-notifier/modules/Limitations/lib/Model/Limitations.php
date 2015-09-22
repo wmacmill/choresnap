@@ -1,10 +1,10 @@
 <?php
 /**
- *
+ * Limitations model
  *
  * @author    Timo Reith <timo@ifeelweb.de>
  * @copyright Copyright (c) 2014 ifeelweb.de
- * @version   $Id: Limitations.php 353 2014-12-14 16:55:04Z timoreithde $
+ * @version   $Id: Limitations.php 418 2015-09-18 10:25:48Z timoreithde $
  * @package
  */
 

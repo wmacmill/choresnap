@@ -1,12 +1,10 @@
 <?php
 /**
- * ifeelweb.de WordPress Plugin Framework
- * For more information see http://www.ifeelweb.de/wp-plugin-framework
- * 
+ * MailTemplates model
  * 
  *
  * @author   Timo Reith <timo@ifeelweb.de>
- * @version  $Id: MailTemplates.php 258 2014-06-29 21:01:49Z timoreithde $
+ * @version  $Id: MailTemplates.php 418 2015-09-18 10:25:48Z timoreithde $
  */ 
 class Psn_Module_HtmlMails_Model_MailTemplates extends IfwPsn_Wp_ORM_Model
 {

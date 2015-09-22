@@ -1,12 +1,9 @@
 <?php
 /**
- * ifeelweb.de WordPress Plugin Framework
- * For more information see http://www.ifeelweb.de/wp-plugin-framework
- * 
- * 
+ * MailTemplates list table data
  *
  * @author   Timo Reith <timo@ifeelweb.de>
- * @version  $Id: MailTemplates.php 143 2014-02-09 21:52:39Z timoreithde $
+ * @version  $Id: MailTemplates.php 418 2015-09-18 10:25:48Z timoreithde $
  */ 
 class Psn_Module_HtmlMails_ListTable_Data_MailTemplates implements IfwPsn_Wp_Plugin_ListTable_Data_Interface
 {

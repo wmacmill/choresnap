@@ -4,7 +4,7 @@
  *
  * @author      Timo Reith <timo@ifeelweb.de>
  * @copyright   Copyright (c) ifeelweb.de
- * @version     $Id: Activation.php 368 2015-04-10 15:02:07Z timoreithde $
+ * @version     $Id: Activation.php 418 2015-09-18 10:25:48Z timoreithde $
  * @package     Psn_Installer
  */
 class Psn_Installer_Activation implements IfwPsn_Wp_Plugin_Installer_ActivationInterface
@@ -36,16 +36,32 @@ class Psn_Installer_Activation implements IfwPsn_Wp_Plugin_Installer_ActivationI
 
             foreach (IfwPsn_Wp_Proxy_Blog::getMultisiteBlogIds() as $blogId) {
 
+                // give every site in the network the default time limit of 30 seconds
+                set_time_limit(30);
+
                 IfwPsn_Wp_Proxy_Blog::switchToBlog($blogId);
                 $this->_createTable();
+                $this->_presetOptions($pm);
             }
             IfwPsn_Wp_Proxy_Blog::switchToBlog($currentBlogId);
 
         } else {
             // single blog installation
             $this->_createTable();
+            $this->_presetOptions($pm);
         }
+    }
 
+    /**
+     * Handles options presetting on first install / activation
+     * @param IfwPsn_Wp_Plugin_Manager $pm
+     */
+    protected function _presetOptions(IfwPsn_Wp_Plugin_Manager $pm)
+    {
+        if (!$pm->hasOption('selftest_timestamp')) {
+            // on first install (no selftest timestam could be found)
+            $pm->getOptions()->updateOption('psn_ignore_status_inherit', true);
+        }
     }
 
     /**

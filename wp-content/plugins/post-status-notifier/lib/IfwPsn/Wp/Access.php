@@ -7,7 +7,7 @@
  *
  * @author    Timo Reith <timo@ifeelweb.de>
  * @copyright Copyright (c) ifeelweb.de
- * @version   $Id: Access.php 433 2015-06-21 21:39:19Z timoreithde $
+ * @version   $Id: Access.php 459 2015-08-27 21:08:32Z timoreithde $
  * @package   
  */ 
 class IfwPsn_Wp_Access 
@@ -359,6 +359,14 @@ class IfwPsn_Wp_Access
             return true;
         }
         return false;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isOptionsSubmit()
+    {
+        return isset($_POST) && isset($_POST['option_page']) && $_POST['option_page'] == $this->_pm->getAbbrLower() . '_options';
     }
 
 }

@@ -11,7 +11,7 @@ table.mailqueues th#id, table.mailqueuelogs th#id {
     width: 100px;
 }
 table.mailqueues th#added, table.mailqueuelogs th#added, table.mailqueuelogs th#sent {
-    width: 150px;
+    width: 180px;
 }
 table.mailqueues th#tries, table.mailqueuelogs th#tries {
     width: 80px;

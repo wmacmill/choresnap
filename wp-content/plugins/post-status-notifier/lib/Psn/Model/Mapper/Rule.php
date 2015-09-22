@@ -1,12 +1,9 @@
 <?php
 /**
- * AmazonSimpleAffiliate (ASA2)
- * For more information see http://www.wp-amazon-plugin.com/
- * 
- * 
+ * Rule model mapper
  *
  * @author   Timo Reith <timo@ifeelweb.de>
- * @version  $Id: Rule.php 397 2015-08-16 20:09:46Z timoreithde $
+ * @version  $Id: Rule.php 418 2015-09-18 10:25:48Z timoreithde $
  */ 
 class Psn_Model_Mapper_Rule extends IfwPsn_Wp_Model_Mapper_Abstract
 {

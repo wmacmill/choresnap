@@ -6,7 +6,7 @@
  * Options
  *
  * @author   Timo Reith <timo@ifeelweb.de>
- * @version  $Id: Options.php 458 2015-08-24 22:17:27Z timoreithde $
+ * @version  $Id: Options.php 463 2015-09-18 10:25:34Z timoreithde $
  */
 class IfwPsn_Wp_Options
 {
@@ -92,9 +92,15 @@ class IfwPsn_Wp_Options
      */
     public function load()
     {
+        add_action('init', array($this, '_load'));
+    }
+
+    public function _load()
+    {
         if ($this->_pm->getAccess()->isPlugin() ||
             (isset($_POST['option_page']) && $_POST['option_page'] == $this->_pageId)) {
             // init the option objects only if it is a exact plugin admin page access or save request
+
             $generalOptions = new IfwPsn_Wp_Options_Section('general', __('General', 'ifw'));
             IfwPsn_Wp_Proxy_Action::doAction($this->_pm->getAbbrLower() . '_general_options_init', $generalOptions);
             $this->addSection($generalOptions);
@@ -102,6 +108,8 @@ class IfwPsn_Wp_Options
             $externalOptions = new IfwPsn_Wp_Options_Section('external', '');
             IfwPsn_Wp_Proxy_Action::doAction($this->_pm->getAbbrLower() . '_external_options_init', $externalOptions);
             $this->addSection($externalOptions);
+
+            do_action($this->_pm->getAbbrLower() . '_on_options_load');
         }
     }
 
@@ -186,6 +194,7 @@ class IfwPsn_Wp_Options
                  * @var $field IfwPsn_Wp_Options_Field
                  */
                 foreach ($section->getFields() as $field) {
+
                     if ($field->hasSanitizer()) {
                         $customSanitizer[$field->getId()] = $field->getSanitizer();
                     }
@@ -201,6 +210,8 @@ class IfwPsn_Wp_Options
                     $new[$k] = call_user_func($customSanitizer[$fieldName], $v);
                 } elseif ($customSanitizer[$fieldName] == 'number') {
                     $new[$k] = preg_replace('/[^\d]/', '', $v);
+                } elseif ($customSanitizer[$fieldName] == 'alphanum') {
+                    $new[$k] = preg_replace('/[^\w_-]/', '', $v);
                 }
             } else {
                 $new[$k] = sanitize_text_field($v);
@@ -255,7 +266,7 @@ class IfwPsn_Wp_Options
 
     /**
      * @param $id
-     * @return null
+     * @return null|mixed
      */
     public function getOption($id)
     {
@@ -267,6 +278,18 @@ class IfwPsn_Wp_Options
         }
 
         return $result;
+    }
+
+    /**
+     * @param $id
+     * @param $value
+     * @return bool
+     */
+    public function updateOption($id, $value)
+    {
+        $options = IfwPsn_Wp_Proxy::getOption($this->_pageId);
+        $options[$this->getOptionRealId($id)] = $value;
+        return update_option($this->_pageId, $options);
     }
 
     /**
@@ -334,6 +357,24 @@ class IfwPsn_Wp_Options
     public function getSections()
     {
         return $this->_sections;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAccess()
+    {
+        return $this->_pm->getAccess()->isPlugin() || $this->_pm->getAccess()->isOptionsSubmit();
+    }
+
+    /**
+     * @param $callback
+     */
+    public function addPluginOptions($callback)
+    {
+        if ($this->isAccess() && is_callable($callback)) {
+            add_action($this->_pm->getAbbrLower() . '_on_options_load', $callback);
+        }
     }
 
 }

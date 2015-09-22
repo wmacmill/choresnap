@@ -1,13 +1,9 @@
 <?php
 /**
- * ifeelweb.de WordPress Plugin Framework
- * For more information see http://www.ifeelweb.de/wp-plugin-framework
- * 
- * 
  *
  * @author    Timo Reith <timo@ifeelweb.de>
  * @copyright Copyright (c) 2012-2013 ifeelweb.de
- * @version   $Id: RecipientsHandler.php 366 2015-04-03 21:12:05Z timoreithde $
+ * @version   $Id: RecipientsHandler.php 418 2015-09-18 10:25:48Z timoreithde $
  * @package   
  */ 
 class Psn_Module_Recipients_RecipientsHandler 

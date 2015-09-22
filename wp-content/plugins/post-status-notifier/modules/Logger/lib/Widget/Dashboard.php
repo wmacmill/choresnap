@@ -1,12 +1,9 @@
 <?php
 /**
- * ifeelweb.de WordPress Plugin Framework
- * For more information see http://www.ifeelweb.de/wp-plugin-framework
- * 
- * 
+ * Logger widget
  *
  * @author   Timo Reith <timo@ifeelweb.de>
- * @version  $Id: Dashboard.php 149 2014-03-17 23:56:36Z timoreithde $
+ * @version  $Id: Dashboard.php 418 2015-09-18 10:25:48Z timoreithde $
  */ 
 class Psn_Module_Logger_Widget_Dashboard extends IfwPsn_Wp_Widget_Dashboard
 {

@@ -1,7 +1,9 @@
 <?php
 /**
+ * MailTemplates list table
+ *
  * @author   Timo Reith <timo@ifeelweb.de>
- * @version  $Id: MailTemplates.php 401 2015-08-21 20:24:18Z timoreithde $
+ * @version  $Id: MailTemplates.php 418 2015-09-18 10:25:48Z timoreithde $
  */ 
 class Psn_Module_HtmlMails_ListTable_MailTemplates extends IfwPsn_Wp_Plugin_ListTable_Abstract
 {

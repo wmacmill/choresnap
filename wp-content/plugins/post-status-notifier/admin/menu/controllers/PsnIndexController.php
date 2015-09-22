@@ -3,7 +3,7 @@
  * Index controller
  *
  * @author   Timo Reith <timo@ifeelweb.de>
- * @version  $Id: PsnIndexController.php 359 2015-01-10 20:48:25Z timoreithde $
+ * @version  $Id: PsnIndexController.php 414 2015-09-17 10:06:02Z timoreithde $
  * @package  IfwPsn_Wp
  */
 class PsnIndexController extends PsnApplicationController
@@ -48,6 +48,8 @@ class PsnIndexController extends PsnApplicationController
      */
     public function indexAction()
     {
+        add_thickbox();
+
         $this->_pm->getLogger()->logPrefixed('Executing '. get_class($this) . ':indexAction()');
 
         $this->_pm->getBootstrap()->getSelftester()->performTests();
@@ -110,22 +112,6 @@ class PsnIndexController extends PsnApplicationController
         return __('This is an overview of your plugin settings', 'psn');
     }
     
-    /**
-     *
-     * @return string
-     */
-    protected function _getHelpSidebar()
-    {
-        $sidebar = '<p><b>' . __('For more information:', 'ifw') . '</b></p>';
-        $sidebar .= sprintf('<p><a href="%s" target="_blank">' . __('Plugin homepage', 'ifw') . '</a></p>', 
-            $this->_pm->getEnv()->getHomepage());
-        if (!empty($this->_pm->getConfig()->plugin->docUrl)) {
-            $sidebar .= sprintf('<p><a href="%s" target="_blank">' . __('Documentation', 'ifw') . '</a></p>',
-                $this->_pm->getConfig()->plugin->docUrl);
-        }
-        return $sidebar;
-    }
-
     public function enqueueScripts()
     {
         IfwPsn_Wp_Proxy_Script::loadAdmin('jquery-ui-dialog');

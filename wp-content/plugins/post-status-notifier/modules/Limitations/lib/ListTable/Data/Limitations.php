@@ -1,13 +1,12 @@
 <?php
 /**
- *
+ * Limitations list table data
  *
  * @author    Timo Reith <timo@ifeelweb.de>
  * @copyright Copyright (c) 2014 ifeelweb.de
- * @version   $Id: Limitations.php 353 2014-12-14 16:55:04Z timoreithde $
+ * @version   $Id: Limitations.php 418 2015-09-18 10:25:48Z timoreithde $
  * @package
  */
-
 class Psn_Module_Limitations_ListTable_Data_Limitations implements IfwPsn_Wp_Plugin_ListTable_Data_Interface
 {
     /**

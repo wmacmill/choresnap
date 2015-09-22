@@ -1,12 +1,8 @@
 <?php
 /**
- * AmazonSimpleAffiliate (ASA2)
- * For more information see http://www.wp-amazon-plugin.com/
- * 
- * 
  *
  * @author   Timo Reith <timo@ifeelweb.de>
- * @version  $Id: Rules.php 397 2015-08-16 20:09:46Z timoreithde $
+ * @version  $Id: Rules.php 418 2015-09-18 10:25:48Z timoreithde $
  */ 
 class Psn_Module_Premium_Features_Rules extends IfwPsn_Wp_Plugin_Feature_Abstract
 {
