@@ -183,6 +183,15 @@ p.job-manager-single-alert-link a::before {
     width: 100% !important;
 }
 
+/*adds a border to the phone box on checkout*/
+input[type=tel] {
+    font-size: 16px;
+    padding: 10px 14px;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
 /*hides the "cancel" button on the subscription page - instead get them to change the to the free subscription*/
 /*.button.cancel {
     display: none;
