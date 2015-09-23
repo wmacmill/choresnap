@@ -58,15 +58,38 @@ add_filter('widget_text', 'do_shortcode');
 */
 function update_credit_meta ( ) {
   $post_ID = get_the_ID();
+  $cleaning_frequency = get_post_meta( $post_ID, '_chore_cleaning_frequency', true ); //check the frequency - used a lot in cleaning checking
+  
   if ( 'job_listing' != get_post_type ( $post_ID ) ) {
     return;
   }
 
   else { //go through each category, set credit amount, updates at the end
-    if( has_term ( 'Apartment Cleaning', 'job_listing_category', $post_ID ) ) $credit_amount = 2;
-    elseif( has_term ( 'Condo Cleaning', 'job_listing_category', $post_ID ) ) $credit_amount = 3;
-    elseif( has_term ( 'House Cleaning', 'job_listing_category', $post_ID ) ) $credit_amount = 4;
-    else $credit_amount = 2;
+    if( has_term ( 'Apartment Cleaning', 'job_listing_category', $post_ID ) ) {
+      if ( $cleaning_frequency != 'One time' ) {
+        $credit_amount = 3;
+      }
+      else {
+        $credit_amount = 2;
+      }
+    } 
+    elseif( has_term ( 'Condo Cleaning', 'job_listing_category', $post_ID ) ) {
+      if ( $cleaning_frequency != 'One time' ) {
+        $credit_amount = 3;
+      }
+      else {
+        $credit_amount = 2;
+      }
+    }
+    elseif( has_term ( 'House Cleaning', 'job_listing_category', $post_ID ) ) {
+     if ( $cleaning_frequency != 'One time' ) {
+        $credit_amount = 5;
+      }
+      else {
+        $credit_amount = 3;
+      } 
+    }
+    else $credit_amount = 2;//this defaults it to 2
   }
 
   update_post_meta ( $post_ID, '_cred_field', $credit_amount );
