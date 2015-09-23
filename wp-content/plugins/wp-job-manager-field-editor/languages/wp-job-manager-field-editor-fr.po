@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WP Job Manager Field Editor\n"
 "Report-Msgid-Bugs-To: http://plugins.smyl.es\n"
-"POT-Creation-Date: 2015-09-14 20:44:47+00:00\n"
-"PO-Revision-Date: 2015-09-14 20:44+0000\n"
+"POT-Creation-Date: 2015-09-09 01:24:29+00:00\n"
+"PO-Revision-Date: 2015-09-09 01:24+0000\n"
 "Last-Translator: Myles McNamara <myles@smyl.es>\n"
 "Language-Team: French (http://www.transifex.com/smyles/wp-job-manager-field-editor/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -157,11 +157,11 @@ msgstr[1] "Activé (%s)"
 msgid " Field"
 msgstr " Champ"
 
-#: classes/admin/list-table.php:196 classes/admin/settings.php:393
+#: classes/admin/list-table.php:196 classes/admin/settings.php:341
 msgid "Field Data"
 msgstr "Données sur le terrain"
 
-#: classes/admin/list-table.php:205 classes/admin/settings.php:252
+#: classes/admin/list-table.php:205
 msgid "Fields"
 msgstr "Champs"
 
@@ -218,7 +218,7 @@ msgstr "Type"
 
 #: classes/admin/list-table.php:547 classes/admin/modal.php:114
 #: classes/admin/modal.php:176 classes/admin/settings.php:225
-#: classes/admin/settings.php:290 classes/translations.php:92
+#: classes/translations.php:92
 msgid "Label"
 msgstr "Étiquette"
 
@@ -236,7 +236,7 @@ msgid "Priority"
 msgstr "Priorité"
 
 #: classes/admin/list-table.php:552 classes/admin/modal.php:204
-#: classes/admin/modal.php:211 classes/admin/settings.php:298
+#: classes/admin/modal.php:211 classes/admin/settings.php:252
 msgid "Output"
 msgstr "Sortie"
 
@@ -260,7 +260,7 @@ msgstr "ID du message"
 msgid "Delete"
 msgstr "Supprimer"
 
-#: classes/admin/list-table.php:626 classes/admin/settings.php:367
+#: classes/admin/list-table.php:626 classes/admin/settings.php:315
 #: classes/translations.php:68
 msgid "Disable"
 msgstr "Désactiver"
@@ -269,7 +269,7 @@ msgstr "Désactiver"
 #: classes/admin/settings.php:126 classes/admin/settings.php:141
 #: classes/admin/settings.php:162 classes/admin/settings.php:177
 #: classes/admin/settings.php:192 classes/admin/settings.php:235
-#: classes/admin/settings.php:244 classes/admin/settings.php:358
+#: classes/admin/settings.php:244 classes/admin/settings.php:306
 #: classes/translations.php:67
 msgid "Enable"
 msgstr "Enable"
@@ -649,7 +649,7 @@ msgstr "Annuler"
 msgid "Save Field"
 msgstr "Enregistrer le champ"
 
-#: classes/admin/settings-fields.php:155
+#: classes/admin/settings-fields.php:154
 msgid ""
 "No fields to remove!  A button will appear here when there is field data you"
 " can remove."
@@ -753,12 +753,12 @@ msgstr ""
 msgid "Secret Key"
 msgstr ""
 
-#: classes/admin/settings.php:227 classes/admin/settings.php:292
-#: classes/recaptcha.php:35 classes/recaptcha.php:66
+#: classes/admin/settings.php:227 classes/recaptcha.php:35
+#: classes/recaptcha.php:66
 msgid "Are you human?"
 msgstr ""
 
-#: classes/admin/settings.php:229 classes/admin/settings.php:294
+#: classes/admin/settings.php:229
 msgid ""
 "This value will be used as the label that shows next to the actual reCAPTCHA"
 msgstr ""
@@ -786,174 +786,109 @@ msgid ""
 msgstr ""
 
 #: classes/admin/settings.php:257
-msgid "Date Save Format"
-msgstr ""
-
-#: classes/admin/settings.php:258
-msgid ""
-"Select the type of format you want the date picker field to save as.  "
-"Default is WordPress Date Format (defined in WordPress settings)."
-msgstr ""
-
-#: classes/admin/settings.php:260
-msgid "WordPress Date Format"
-msgstr ""
-
-#: classes/admin/settings.php:261
-msgid "Epoch Timestamp "
-msgstr ""
-
-#: classes/admin/settings.php:262
-msgid "ISO 8601 "
-msgstr ""
-
-#: classes/admin/settings.php:263
-msgid "RFC 2822 "
-msgstr ""
-
-#: classes/admin/settings.php:264
-msgid "MySQL DATETIME "
-msgstr ""
-
-#: classes/admin/settings.php:265
-msgid "PHP Ymd | JS: yymmdd "
-msgstr ""
-
-#: classes/admin/settings.php:266
-msgid "PHP ymd | JS: ymmdd "
-msgstr ""
-
-#: classes/admin/settings.php:267
-msgid "Custom Format (set below)"
-msgstr ""
-
-#: classes/admin/settings.php:272
-msgid "Date Save Custom Format"
-msgstr ""
-
-#: classes/admin/settings.php:276
-msgid "If you chose Custom Format above, enter the PHP custom format here"
-msgstr ""
-
-#: classes/admin/settings.php:281
-msgid "Date Display"
-msgstr ""
-
-#: classes/admin/settings.php:282
-msgid "Yes, use <code>date_i18n()</code>"
-msgstr ""
-
-#: classes/admin/settings.php:283
-msgid ""
-"Enable this to use the core WordPress <a href=\"%s\" "
-"target=\"_blank\"><code>date_i18n()</code></a> function to attempt "
-"translation/format of date based on locale. Default value is unchecked."
-msgstr ""
-
-#: classes/admin/settings.php:303
 msgid "Auto Paragraph"
 msgstr ""
 
-#: classes/admin/settings.php:304
+#: classes/admin/settings.php:258
 msgid ""
 "Select which field types you want to automatically add paragraphs to, when "
 "using one of the built-in output methods."
 msgstr ""
 
-#: classes/admin/settings.php:307
+#: classes/admin/settings.php:260
 msgid "WP-Editor"
 msgstr ""
 
-#: classes/admin/settings.php:311
+#: classes/admin/settings.php:261
 msgid "Text Area"
 msgstr ""
 
-#: classes/admin/settings.php:319
+#: classes/admin/settings.php:267
 msgid "Support"
 msgstr "Prise en charge"
 
-#: classes/admin/settings.php:329
+#: classes/admin/settings.php:277
 msgid "Backup"
 msgstr "Sauvegarde"
 
-#: classes/admin/settings.php:333
+#: classes/admin/settings.php:281
 msgid "Create Backup!"
 msgstr "Créer sauvegarde !"
 
-#: classes/admin/settings.php:336
+#: classes/admin/settings.php:284
 msgid "Generate Backup"
 msgstr "Générer sauvegarde"
 
-#: classes/admin/settings.php:337
+#: classes/admin/settings.php:285
 msgid "Generate and download a backup of all fields."
 msgstr "Générer et télécharger une sauvegarde de tous les champs."
 
-#: classes/admin/settings.php:342
+#: classes/admin/settings.php:290
 msgid "Import Backup!"
 msgstr "Importer la sauvegarde !"
 
-#: classes/admin/settings.php:345
+#: classes/admin/settings.php:293
 msgid "Import Backup"
 msgstr "Importation sauvegarde"
 
-#: classes/admin/settings.php:346
+#: classes/admin/settings.php:294
 msgid ""
 "Import a previously generated backup for custom fields.  This uses the "
 "default WordPress import feature, if you do not see a file upload after "
 "clicking this button, make sure to import using WordPress importer."
 msgstr "Importer une sauvegarde préalablement générée pour les champs personnalisés.  Cet exemple utilise la valeur par défaut que WordPress importer fonctionnalité, si vous ne voyez pas un fichier Télécharger après avoir cliqué sur ce bouton, n'oubliez pas d'importer à l'aide de WordPress importateur."
 
-#: classes/admin/settings.php:352
+#: classes/admin/settings.php:300
 msgid "Debug"
 msgstr "Débogage"
 
-#: classes/admin/settings.php:357
+#: classes/admin/settings.php:305
 msgid "Enable Bug Reporter"
 msgstr "Activez le Rapporteur de bogues"
 
-#: classes/admin/settings.php:359
+#: classes/admin/settings.php:307
 msgid ""
 "Enable the bug report icon in the top right corner to submit bug reports"
 msgstr "Activer l'icône de rapport de bogue dans le coin supérieur droit de soumettre des rapports de bogue"
 
-#: classes/admin/settings.php:366
+#: classes/admin/settings.php:314
 msgid "License Deactivate"
 msgstr ""
 
-#: classes/admin/settings.php:368
+#: classes/admin/settings.php:316
 msgid ""
 "By default when you deactivate this plugin it will also "
 "deactivate/unregister your API/License Key.  With this setting checked your "
 "license will not be deactivated when you deactivate the plugin."
 msgstr ""
 
-#: classes/admin/settings.php:374
+#: classes/admin/settings.php:322
 msgid "I understand, remove all data!"
 msgstr "Je comprends, supprimer toutes les données !"
 
-#: classes/admin/settings.php:377
+#: classes/admin/settings.php:325
 msgid "Remove All"
 msgstr "Supprimer tous les"
 
-#: classes/admin/settings.php:378
+#: classes/admin/settings.php:326
 msgid "This will remove all custom and customized field data!"
 msgstr "Ceci supprimera toutes les données de champ personnalisé et sur mesure !"
 
-#: classes/admin/settings.php:383
+#: classes/admin/settings.php:331
 msgid "Purge Options!"
 msgstr "Purger les Options !"
 
-#: classes/admin/settings.php:386
+#: classes/admin/settings.php:334
 msgid "Purge Options"
 msgstr "Purge des Options"
 
-#: classes/admin/settings.php:387
+#: classes/admin/settings.php:335
 msgid ""
 "Older versions of this plugin saved option values for fields that do not "
 "require them. You can purge those values by clicking this button."
 msgstr "Anciennes versions de ce plugin enregistré des valeurs d'options pour les champs qui n'en ont pas besoin. Vous pouvez purger ces valeurs en cliquant sur ce bouton."
 
-#: classes/admin/settings.php:399
+#: classes/admin/settings.php:347
 msgid "About"
 msgstr "Sur"
 
@@ -1177,7 +1112,7 @@ msgstr "Liste déroulante sélection multiple de taxonomie"
 msgid "No field data found!"
 msgstr "Aucune donnée de champ trouvée !"
 
-#: classes/job/fields.php:335 classes/resume/fields.php:321
+#: classes/job/fields.php:334 classes/resume/fields.php:320
 msgid "(optional)"
 msgstr "(facultatif)"
 
@@ -1596,29 +1531,29 @@ msgid ""
 "faster than it ever has, or your money back!"
 msgstr ""
 
-#: includes/functions.php:381
+#: includes/functions.php:378
 msgid ""
 "Sorry, your browser doesn't support embedded videos, you should upgrade to a"
 " modern browser."
 msgstr "Désolé, votre navigateur ne supporte pas les vidéos intégrées, vous devez passer à un navigateur modern."
 
-#: includes/functions.php:382
+#: includes/functions.php:379
 msgid "Or you can"
 msgstr "Ou vous pouvez"
 
-#: includes/functions.php:382
+#: includes/functions.php:379
 msgid "Download The File"
 msgstr "Télécharger le fichier"
 
-#: includes/functions.php:382
+#: includes/functions.php:379
 msgid "(right click and select Save As)"
 msgstr "(faites un clic droit et sélectionnez Enregistrer sous)"
 
-#: includes/functions.php:405
+#: includes/functions.php:402
 msgid "True"
 msgstr "Vrai"
 
-#: includes/functions.php:410
+#: includes/functions.php:407
 msgid "False"
 msgstr "Faux"
 

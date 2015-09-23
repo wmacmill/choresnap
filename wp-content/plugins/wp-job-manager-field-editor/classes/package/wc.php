@@ -239,7 +239,7 @@ class WP_Job_Manager_Field_Editor_Package_WC {
 
 		if( ! self::is_wcpl_active() ) return $fields;
 
-		if( array_key_exists( 'job', $fields ) || array_key_exists( 'resume', $fields ) ) return self::filter_field_groups( $fields, $id );
+		if( array_key_exists( 'job', $fields ) || array_key_exists( 'resume_fields', $fields ) ) return self::filter_field_groups( $fields, $id );
 
 		$product_id = self::get_product_id( $id );
 

@@ -259,7 +259,7 @@ class WP_Job_Manager_Field_Editor_Admin extends WP_Job_Manager_Field_Editor_Fiel
 	 */
 	function settings(){
 
-		$this->assets()->enqueue_assets( false );
+		//$this->assets()->enqueue_assets( false );
 		$this->settings_page->output();
 
 	}

@@ -60,6 +60,7 @@ class WP_Job_Manager_Field_Editor_Assets {
 		global $wp_locale;
 
 		$date_args = apply_filters( 'job_manager_field_editor_date_args', array(
+				'showButtonPanel' => true,
 				'closeText'       => __( 'Done', 'wp-job-manager-field-editor' ),
 				'currentText'     => __( 'Today', 'wp-job-manager-field-editor' ),
 				'monthNames'      => array_values( $wp_locale->month ),
