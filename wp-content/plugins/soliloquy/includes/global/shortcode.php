@@ -328,11 +328,11 @@ class Soliloquy_Shortcode {
         $no_js  .= '</noscript>';
         $slider .= $no_js;
 
-        // Filter slider output
-        $slider = apply_filters( 'soliloquy_output', $slider, $data );
-
         // Close outer container
         $slider .= '</div>';
+
+        // Filter slider output
+        $slider = apply_filters( 'soliloquy_output', $slider, $data );
 
         return $slider;
 
