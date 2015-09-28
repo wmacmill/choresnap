@@ -64,14 +64,14 @@ function acf_post_submission ($entry, $form)
 }
 
 
-
+/*This code allows for redirects programatically. Potentially use in the future with chore picker
 add_filter( 'gform_confirmation', 'custom_confirmation', 10, 4 );
 function custom_confirmation( $confirmation, $form, $entry, $ajax ) {
     if( $form['id'] == 5 ) {
          $confirmation = array( 'redirect' => site_url('/post-a-chore/apartment-cleaning') );
     }
     return $confirmation;
-}
+}*/
 
 /*
  *
