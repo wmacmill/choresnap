@@ -462,4 +462,24 @@ function wpse60605_change_username_label( $defaults ){
 }
 add_filter( 'login_form_defaults', 'wpse60605_change_username_label' );
 
+
+//adds a button on the admin bar if user is admin to allow them to publish pending jobs
+function custom_button_example($wp_admin_bar){
+  $capability = 'publish_posts';
+  $post_ID = get_query_var('p');
+  if ( current_user_can( $capability ) && is_singular ( 'job_listing' ) && is_preview() ) {
+      $args = array(
+        'id' => 'approve-listing',
+        'title' => 'Approve Job',
+        'href' => wp_nonce_url( "/wp-admin/edit.php?post_type=job_listing&approve_job=" . $post_ID . "&", 'approve_job' ),
+        'meta' => array(
+          'class' => 'custom-button-class'
+        )
+      );
+    $wp_admin_bar->add_node($args);  
+  }
+}
+
+add_action('admin_bar_menu', 'custom_button_example', 150);
+
 ?>
