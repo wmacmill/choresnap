@@ -130,6 +130,16 @@ p.job-manager-single-alert-link a::before {
 .signup-login-section {
     padding: 40px;
 }
+
+.contractor-signup-square .button:hover {
+  color: #fff !important;
+  border-color: #fff !important;
+}
+
+.homeowner-signup-square .button:hover {
+  color: #fff !important;
+  border-color: #fff !important; 
+}
 /*end signup page css*/
 
 
@@ -402,6 +412,11 @@ div.job-applications ul.job-applications li.job-application header {
     position: absolute;
     bottom: 0px;
     min-width: 75%;
+}
+
+.hero-caption-box .button:hover {
+  border-color: #fff !important;
+  color: #fff !important;
 }
 
 .homepage-hero-caption {
