@@ -28,8 +28,11 @@ class WC_Gateway_Stripe extends WC_Payment_Gateway {
 			'subscription_reactivation',
 			'subscription_suspension',
 			'subscription_amount_changes',
-			'subscription_payment_method_change',
+			'subscription_payment_method_change', // Subs 1.n compatibility
+			'subscription_payment_method_change_customer',
+			'subscription_payment_method_change_admin',
 			'subscription_date_changes',
+			'multiple_subscriptions',
 			'pre-orders'
 		);
 
@@ -388,7 +391,7 @@ class WC_Gateway_Stripe extends WC_Payment_Gateway {
 		if ( is_checkout_pay_page() && isset( $_GET['order'] ) && isset( $_GET['order_id'] ) ) {
 			$order_key = urldecode( $_GET['order'] );
 			$order_id  = absint( $_GET['order_id'] );
-			$order     = new WC_Order( $order_id );
+			$order     = wc_get_order( $order_id );
 
 			if ( $order->id == $order_id && $order->order_key == $order_key ) {
 				$stripe_params['billing_first_name'] = $order->billing_first_name;
@@ -409,7 +412,7 @@ class WC_Gateway_Stripe extends WC_Payment_Gateway {
 	 * Process the payment
 	 */
 	public function process_payment( $order_id, $retry = true ) {
-		$order        = new WC_Order( $order_id );
+		$order        = wc_get_order( $order_id );
 		$stripe_token = isset( $_POST['stripe_token'] ) ? wc_clean( $_POST['stripe_token'] ) : '';
 		$card_id      = isset( $_POST['stripe_card_id'] ) ? wc_clean( $_POST['stripe_card_id'] ) : '';
 		$customer_id  = is_user_logged_in() ? get_user_meta( get_current_user_id(), '_stripe_customer_id', true ) : 0;
@@ -446,6 +449,7 @@ class WC_Gateway_Stripe extends WC_Payment_Gateway {
 
 			// Use token
 			else {
+
 				// Save token if logged in
 				if ( is_user_logged_in() && $this->saved_cards ) {
 					if ( ! $customer_id ) {
@@ -605,7 +609,7 @@ class WC_Gateway_Stripe extends WC_Payment_Gateway {
 	 * @return int|WP_ERROR
 	 */
 	public function add_customer( $order, $stripe_token ) {
-		if ( $stripe_token && is_user_logged_in() ) {
+		if ( $stripe_token ) {
 			$response = $this->stripe_request( array(
 				'email'       => $order->billing_email,
 				'description' => 'Customer: ' . $order->billing_first_name . ' ' . $order->billing_last_name,
@@ -615,8 +619,11 @@ class WC_Gateway_Stripe extends WC_Payment_Gateway {
 			if ( is_wp_error( $response ) ) {
 				return $response;
 			} elseif ( ! empty( $response->id ) ) {
-				// Store the ID on the user account
-				update_user_meta( get_current_user_id(), '_stripe_customer_id', $response->id );
+
+				// Store the ID on the user account if logged in
+				if ( is_user_logged_in() ) {
+					update_user_meta( get_current_user_id(), '_stripe_customer_id', $response->id );
+				}
 
 				// Store the ID in the order
 				update_post_meta( $order->id, '_stripe_customer_id', $response->id );

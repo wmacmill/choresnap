@@ -1,5 +1,12 @@
 *** Stripe Changelog ***
 
+2015.09.15 - version 2.6.1
+* Unset source if not set during pre-order release payments.
+* Store customer ID if not logged in for pre-order payments.
+
+2015.09.02 - version 2.6.0
+* Subscriptions 2.0 support.
+
 2015.08.11 - version 2.5.4
 * Tweak - Terms and conditions error styling when required
 * Tweak - Account password error styling when required
