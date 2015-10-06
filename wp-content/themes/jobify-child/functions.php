@@ -454,4 +454,12 @@ function custom_password_change_email ( $pass_change_email, $user, $userdata ) {
   return $pass_change_email;
 }
 
+
+/*changes Username to Username & Email on login*/
+function wpse60605_change_username_label( $defaults ){
+    $defaults['label_username'] = __( 'Username or Email' );
+    return $defaults;
+}
+add_filter( 'login_form_defaults', 'wpse60605_change_username_label' );
+
 ?>
