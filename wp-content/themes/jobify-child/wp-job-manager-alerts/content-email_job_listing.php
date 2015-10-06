@@ -3,6 +3,6 @@
 
 ** <?php _e( 'Location:', 'wp-job-manager-alerts' ); ?> <?php the_job_location( false ); ?><br>
 
-View at <?php the_job_permalink(); ?><br>
+View at <a href="<?php the_job_permalink(); ?>"><?php the_job_permalink(); ?></a><br>
 
 ----<br>
