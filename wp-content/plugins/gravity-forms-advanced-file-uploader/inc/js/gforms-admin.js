@@ -16,8 +16,14 @@ jQuery(document).ready(function(){
 		}
 	);
 	
-	jQuery('#redux-header').hide();
+	//jQuery('#redux-header').hide();
 	
 	jQuery('.redux-sidebar').append('<a target="_blank" href="http://shareasale.com/r.cfm?b=768137&amp;u=1029469&amp;m=41388&amp;urllink=&amp;afftrack="><img src="http://static.shareasale.com/image/41388/Fastsite_200x200-v1.jpg" border="0" alt="WP Engine Hosting" /></a>');
+	
+	setTimeout(function(){
+		jQuery('.redux-sidebar img').show(); 
+		jQuery('#redux-intro-text img').show();
+	}, 1500);
+	
 	
 });

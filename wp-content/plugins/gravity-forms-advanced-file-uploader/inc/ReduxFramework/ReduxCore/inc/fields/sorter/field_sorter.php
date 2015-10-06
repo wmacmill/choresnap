@@ -1,5 +1,24 @@
 <?php
 
+    /**
+     * Options Sorter Field for Redux Options
+     *
+     * @author                      Yannis - Pastis Glaros <mrpc@pramnoshosting.gr>
+     * @url                         http://www.pramhost.com
+     * @license                     [http://www.gnu.org/copyleft/gpl.html GPLv3
+     *                              This is actually based on:   [SMOF - Slightly Modded Options Framework](http://aquagraphite.com/2011/09/slightly-modded-options-framework/)
+     *                              Original Credits:
+     *                              Author:                      Syamil MJ
+     *                              Author URI:                  http://aquagraphite.com
+     *                              License:                     GPLv3 - http://www.gnu.org/copyleft/gpl.html
+     *                              Credits:                     Thematic Options Panel - http://wptheming.com/2010/11/thematic-options-panel-v2/
+     *                              KIA Thematic Options Panel:   https://github.com/helgatheviking/thematic-options-KIA
+     *                              Woo Themes:                   http://woothemes.com/
+     *                              Option Tree:                  http://wordpress.org/extend/plugins/option-tree/
+     *                              Twitter:                     http://twitter.com/syamilmj
+     *                              Website:                     http://aquagraphite.com
+     */
+
 // Exit if accessed directly
     if ( ! defined( 'ABSPATH' ) ) {
         exit;
@@ -20,38 +39,34 @@
                 $this->value  = $value;
             }
 
-            private function replace_id_with_slug( $arr ) {
+            private function replace_id_with_slug($arr){
                 $new_arr = array();
-                if ( ! empty( $arr ) ) {
-                    foreach ( $arr as $id => $name ) {
+                
+                foreach($arr as $id => $name) {
 
-                        if ( is_numeric( $id ) ) {
-                            $slug = strtolower( $name );
-                            $slug = str_replace( ' ', '-', $slug );
+                    if ( is_numeric ( $id ) ) {
+                        $slug = strtolower($name);
+                        $slug = str_replace(' ', '-', $slug);
 
-                            $new_arr[ $slug ] = $name;
-                        } else {
-                            $new_arr[ $id ] = $name;
-                        }
+                        $new_arr[$slug] = $name;
+                    } else {
+                        $new_arr[$id] = $name;
                     }
                 }
 
                 return $new_arr;
             }
-
-            private function is_value_empty( $val ) {
-                if ( ! empty( $val ) ) {
-                    foreach ( $val as $section => $arr ) {
-                        if ( ! empty( $arr ) ) {
-                            return false;
-                        }
+            
+            private function is_value_empty($val){
+                foreach($val as $section => $arr) {
+                    if (!empty($arr)) {
+                        return false;
                     }
                 }
-
-
+                
                 return true;
             }
-
+            
             /**
              * Field Render Function.
              * Takes the vars and outputs the HTML for the field in the settings
@@ -68,8 +83,18 @@
                     $this->field['args'] = array();
                 }
 
-                if ( isset( $this->field['data'] ) ) {
-                    $this->field['options'] = $this->parent->options_defaults[ $this->field['id'] ];
+                if ( isset( $this->field['data'] ) && ! empty( $this->field['data'] ) && is_array( $this->field['data'] ) ) {
+                    foreach ( $this->field['data'] as $key => $data ) {
+                        if ( ! isset( $this->field['args'][ $key ] ) ) {
+                            $this->field['args'][ $key ] = array();
+                        }
+                        
+                        $this->field['options'][ $key ] = $this->parent->get_wordpress_data( $data, $this->field['args'][ $key ] );
+                    }
+                    
+                    // id numbers as array keys won't work in the checks below
+                    // so, replace them with slugs of the value.
+                    $this->field['options'][ $key ] = $this->replace_id_with_slug($this->field['options'][ $key ]);
                 }
 
                 // Make sure to get list of all the default blocks first
@@ -81,19 +106,16 @@
                     $temp = array_merge( $temp, $blocks );
                 }
 
-                if ( $this->is_value_empty( $this->value ) ) {
-                    if ( ! empty( $this->field['options'] ) ) {
-                        $this->value = $this->field['options'];
-                    }
+                if ($this->is_value_empty ( $this->value)) {
+                    $this->value = $this->field['options'];
                 }
-
+                
                 $sortlists = $this->value;
-                if ( ! empty( $sortlists ) ) {
-                    foreach ( $sortlists as $section => $arr ) {
-                        $sortlists[ $section ] = $this->replace_id_with_slug( $arr );
-                    }
+                
+                foreach($sortlists as $section => $arr) {
+                    $sortlists[$section] = $this->replace_id_with_slug($arr);
                 }
-
+                
                 if ( is_array( $sortlists ) ) {
                     foreach ( $sortlists as $sortlist ) {
                         $temp2 = array_merge( $temp2, $sortlist );
@@ -104,13 +126,9 @@
                         // k = id/slug
                         // v = name
 
-                        if ( ! empty( $temp2 ) ) {
+                        if (!empty($temp2)) {
                             if ( ! array_key_exists( $k, $temp2 ) ) {
-                                if (isset($sortlists['Disabled'])) {
-                                    $sortlists['Disabled'][ $k ] = $v;
-                                } else {
-                                    $sortlists['disabled'][ $k ] = $v;
-                                }
+                                $sortlists['disabled'][ $k ] = $v;
                             }
                         }
                     }
@@ -119,7 +137,7 @@
                     foreach ( $sortlists as $key => $sortlist ) {
                         // key = enabled, disabled, backup
                         // sortlist = id => name
-
+                        
                         foreach ( $sortlist as $k => $v ) {
                             // k = id
                             // v = name
@@ -156,13 +174,13 @@
                             }
 
                             foreach ( $sortlist as $key => $list ) {
-
+                                
                                 echo '<input class="sorter-placebo" type="hidden" name="' . $this->field['name'] . '[' . $group . '][placebo]' . $this->field['name_suffix'] . '" value="placebo">';
 
                                 if ( $key != "placebo" ) {
 
                                     //echo '<li id="' . $key . '" class="sortee">';
-                                    echo '<li id="sortee-' . $key . '" class="sortee" data-id="' . $key . '">';
+                                    echo '<li id="sortee-' . $key . '" class="sortee" data-id="'. $key .'">';
                                     echo '<input class="position ' . $this->field['class'] . '" type="hidden" name="' . $this->field['name'] . '[' . $group . '][' . $key . ']' . $this->field['name_suffix'] . '" value="' . $list . '">';
                                     echo $list;
                                     echo '</li>';
@@ -177,20 +195,27 @@
             }
 
             function enqueue() {
-                if ( $this->parent->args['dev_mode'] ) {
-                    wp_enqueue_style(
-                        'redux-field-sorder-css',
-                        ReduxFramework::$_url . 'inc/fields/sorter/field_sorter.css',
-                        array(),
-                        time(),
-                        'all'
-                    );
-                }
+                redux_enqueue_style(
+                    $this->parent,
+                    'redux-field-sorder-css',
+                    ReduxFramework::$_url . 'inc/fields/sorter/field_sorter.css',
+                    ReduxFramework::$_dir . 'inc/fields/sorter',
+                    array(),
+                    time(),
+                    false
+                ); 
+                
+//                wp_enqueue_style(
+//                    'redux-field-sorder-css',
+//                    ReduxFramework::$_url . 'inc/fields/sorter/field_sorter.css',
+//                    time(),
+//                    true
+//                );
 
                 wp_enqueue_script(
                     'redux-field-sorter-js',
                     ReduxFramework::$_url . 'inc/fields/sorter/field_sorter' . Redux_Functions::isMin() . '.js',
-                    array( 'jquery', 'redux-js', 'jquery-ui-sortable' ),
+                    array( 'jquery', 'redux-js' ),
                     time(),
                     true
                 );

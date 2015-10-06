@@ -72,10 +72,7 @@
 
         // Get colour value and sanitize it
         var currentColor    = colorpickerInput.data('current-color');
-        currentColor        = (currentColor === '' || currentColor === 'transparent') ? '' : currentColor;
-
-        var outputTransparent   = colorpickerInput.data('output-transparent');
-        outputTransparent       = Boolean((outputTransparent === '') ? false : outputTransparent);
+        currentColor        = (currentColor === '') ? '' : currentColor;
 
         // Color picker arguments
         var container   = el.find('.redux-color-rgba-container');
@@ -179,25 +176,17 @@
 
             // on change
             change: function(color) {
-                var colorVal, alphaVal, rgbaVal;
+                var colorVal, alphaVal;
 
                 if (color === null) {
-                    if (outputTransparent === true) {
-                        colorVal = 'transparent';
-                    } else {
-                        colorVal = null;
-                    }
+                    colorVal = null;
                     alphaVal = null;
                 } else {
                     colorVal = color.toHexString();
                     alphaVal = color.alpha;
                 }
 
-                if (colorVal != 'transparent') {
-                    rgbaVal     = redux.field_objects.color_rgba.hexToRGBA(colorVal, alphaVal);
-                } else {
-                    rgbaVal     = 'transparent';
-                }
+                var rgbaVal = redux.field_objects.color_rgba.hexToRGBA(colorVal, alphaVal);
                 
                 var blockID = $(this).data('block-id');
                 

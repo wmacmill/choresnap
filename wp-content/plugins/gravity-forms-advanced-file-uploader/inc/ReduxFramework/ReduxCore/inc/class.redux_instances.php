@@ -126,11 +126,9 @@
                             }
                         }
                     }
-                    
                     if ( isset( $array->import_export ) ) {
                         unset( $array->import_export );
                     }
-                    
                     if ( isset( $array->debug ) ) {
                         unset( $array->debug );
                     }

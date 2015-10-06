@@ -47,15 +47,9 @@
                         return undefined;
                     }
                     
-                    if($(this).data('select2Data') != undefined){
-                        var id = $(this).data('select2Data').id;
-                        return $select.find('option[value="' + id + '"]')[0];
-                    }
+                    var id = $(this).data('select2Data').id;
 
-                    
-                    //var id = $(this).data('select2Data').id;
-
-                    //return $select.find('option[value="' + id + '"]')[0];
+                    return $select.find('option[value="' + id + '"]')[0];
                 }));
  
                  sorted.push.apply(sorted, optArr);
