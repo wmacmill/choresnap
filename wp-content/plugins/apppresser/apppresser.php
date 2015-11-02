@@ -5,7 +5,7 @@ Plugin URI: http://apppresser.com
 Description: A mobile app development framework for WordPress.
 Text Domain: apppresser
 Domain Path: /languages
-Version: 1.2.0
+Version: 1.3.2
 Author: AppPresser Team
 Author URI: http://apppresser.com
 License: GPLv2
@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 class AppPresser {
 
-	const VERSION           = '1.2.0';
+	const VERSION           = '1.3.2';
 	const SETTINGS_NAME     = 'appp_settings';
 	public static $settings = 'false';
 	public static $instance = null;
@@ -41,6 +41,7 @@ class AppPresser {
 	public static $css_url;
 	public static $img_url;
 	public static $js_url;
+	public static $tmpl_path;
 	public static $dir_url;
 	public static $pg_url;
 	public static $pg_version;
@@ -74,6 +75,7 @@ class AppPresser {
 		self::$css_url  = self::$dir_url  . 'css/';
 		self::$img_url  = self::$dir_url  . 'images/';
 		self::$js_url   = self::$dir_url  . 'js/';
+		self::$tmpl_path= self::$dir_path . 'templates/';
 		self::$pg_url   = self::$dir_url  . 'pg/' . self::$pg_version . '/';
 
 		self::$l10n = array(
@@ -86,7 +88,7 @@ class AppPresser {
 		);
 
 		// Load translations
-		load_plugin_textdomain( 'apppresser', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
+		add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
 
 		// Setup our activation and deactivation hooks
 		register_activation_hook( __FILE__, array( $this, 'activate' ) );
@@ -105,6 +107,8 @@ class AppPresser {
 		require_once( self::$inc_path . 'plugin-updater.php' );
 		require_once( self::$inc_path . 'AppPresser_Theme_Customizer.php' );
 		require_once( self::$inc_path . 'AppPresser_Ajax_Extras.php' );
+		require_once( self::$inc_path . 'AppPresser_Log_Admin.php' );
+		require_once( self::$inc_path . 'AppPresser_Logger.php' );
 		$this->theme_customizer = new AppPresser_Theme_Customizer();
 
 	}
@@ -141,6 +145,14 @@ class AppPresser {
 		</script>
 		<script src="<?php echo self::$js_url; ?>appp<?php echo $min; ?>.js" type="text/javascript"></script>
 		<?php
+	}
+
+	/**
+	 * Load textdomain during the plugins_loaded action hook
+	 * @since 1.2.1
+	 */
+	function load_textdomain() {
+		load_plugin_textdomain( 'apppresser', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 	}
 
 	/**
