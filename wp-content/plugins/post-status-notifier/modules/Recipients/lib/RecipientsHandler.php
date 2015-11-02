@@ -3,7 +3,7 @@
  *
  * @author    Timo Reith <timo@ifeelweb.de>
  * @copyright Copyright (c) 2012-2013 ifeelweb.de
- * @version   $Id: RecipientsHandler.php 418 2015-09-18 10:25:48Z timoreithde $
+ * @version   $Id: RecipientsHandler.php 427 2015-10-29 19:42:20Z timoreithde $
  * @package   
  */ 
 class Psn_Module_Recipients_RecipientsHandler 
@@ -206,6 +206,8 @@ class Psn_Module_Recipients_RecipientsHandler
             // custom FROM is set on rule
             $from = $ruleFrom;
         }
+
+        $from = Psn_Notification_Service_Email::sanitizeEmail($from);
 
         // support for placeholders on from
         $from = $serviceEmail->getRule()->getReplacer()->replace($from);
