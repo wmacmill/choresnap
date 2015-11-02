@@ -1,9 +1,9 @@
-<?php
+    <?php
 /**
  *
  *
  * @author      Timo Reith <timo@ifeelweb.de>
- * @version     $Id: Navigation.php 226 2014-05-08 21:05:37Z timoreithde $
+ * @version     $Id: Navigation.php 430 2015-10-30 12:08:41Z timoreithde $
  * @copyright   Copyright (c) ifeelweb.de
  * @package     Psn_Admin
  */

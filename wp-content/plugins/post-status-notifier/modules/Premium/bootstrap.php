@@ -3,7 +3,7 @@
  * Premium module
  *
  * @author   Timo Reith <timo@ifeelweb.de>
- * @version  $Id: bootstrap.php 397 2015-08-16 20:09:46Z timoreithde $
+ * @version  $Id: bootstrap.php 433 2015-10-30 17:31:36Z timoreithde $
  */
 class Psn_Premium_Bootstrap extends IfwPsn_Wp_Module_Bootstrap_Abstract
 {
@@ -79,7 +79,15 @@ class Psn_Premium_Bootstrap extends IfwPsn_Wp_Module_Bootstrap_Abstract
             $options = new Psn_Module_Premium_Options($this->_pm, $this);
             $options->load();
 
-            add_filter('envato_license_code', array($this, 'getEnvatoLicenseCode'));
+            add_filter('psn_license_code', array($this, 'getEnvatoLicenseCode'));
+
+            IfwPsn_Wp_Proxy_Filter::addNetworkAdminPluginActionLinks($this->_pm, array($this, 'addNetworkAdminPluginActionLinks'));
+        }
+
+        if (!IfwPsn_Wp_Proxy_Blog::isMultisite() && $this->_pm->getAccess()->isPlugin()) {
+            IfwPsn_Wp_Proxy_Action::addPlugin($this->_pm, 'after_admin_navigation_service', array($this, 'addLicenseTab'));
+        } elseif (IfwPsn_Wp_Proxy_Blog::isMultisite()) {
+            add_action( 'network_admin_menu', array($this, 'registerNetworkSettingsPage') );
         }
 
         require_once $this->getPathinfo()->getRootLib() . 'PostSubmitboxHandler.php';
@@ -112,6 +120,22 @@ class Psn_Premium_Bootstrap extends IfwPsn_Wp_Module_Bootstrap_Abstract
         IfwPsn_Wp_Proxy_Action::add('psn-service-metabox-col3', array($this, 'addServiceCol3Metabox'));
         IfwPsn_Wp_Proxy_Action::add('PsnServiceController_init', array($this, 'initPsnController'));
         IfwPsn_Wp_Proxy_Action::add('PsnOptionsController_init', array($this, 'initPsnController'));
+    }
+
+    /**
+     * @param $navigation
+     */
+    public function addLicenseTab(IfwPsn_Vendor_Zend_Navigation $navigation)
+    {
+        $page = new IfwPsn_Zend_Navigation_Page_WpMvc(array(
+            'label' => __('License', 'psn_prm'),
+            'controller' => 'license',
+            'action' => 'index',
+            'module' => strtolower($this->_pathinfo->getDirname()),
+            'page' => $this->_pm->getPathinfo()->getDirname(),
+            'route' => 'requestVars'
+        ));
+        $navigation->addPage($page);
     }
 
     /**
@@ -157,9 +181,21 @@ class Psn_Premium_Bootstrap extends IfwPsn_Wp_Module_Bootstrap_Abstract
      */
     public function getEnvatoLicenseCode($license_code)
     {
-        if (IfwPsn_Util_Encryption::isEncryptedString($license_code)) {
-            return IfwPsn_Util_Encryption::decrypt($license_code, Psn_Module_Premium_Options::LICENSE_CODE_SALT);
-        }
-        return $license_code;
+        return Psn_Module_Premium_License::getInstance($this->_pm)->getLicense();
+    }
+
+    /**
+     *
+     */
+    public function addNetworkAdminPluginActionLinks($links, $file)
+    {
+        $links[] = '<a href="' . network_admin_url('settings.php?page=post-status-notifier') . '">' . __('Settings', 'psn') . '</a>';
+        return $links;
+    }
+
+    public function registerNetworkSettingsPage()
+    {
+        $networkSettings = Psn_Module_Premium_Admin_NetworkSettings::getInstance($this->_pm);
+        $networkSettings->registerPage();
     }
 }

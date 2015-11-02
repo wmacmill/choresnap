@@ -6,7 +6,7 @@
  * 
  *
  * @author    Timo Reith <timo@ifeelweb.de>
- * @version   $Id: Importer.php 452 2015-08-15 21:28:58Z timoreithde $
+ * @version   $Id: Importer.php 465 2015-09-27 20:36:12Z timoreithde $
  * @package   
  */ 
 class IfwPsn_Wp_Data_Importer 
@@ -34,6 +34,7 @@ class IfwPsn_Wp_Data_Importer
     public function __construct($file, $xmlOptions)
     {
         $this->_file = $file;
+
         if (is_array($xmlOptions)) {
             $this->_xmlOptions = $xmlOptions;
         }
@@ -129,6 +130,52 @@ class IfwPsn_Wp_Data_Importer
         }
 
         return $items;
+    }
+
+    /**
+     * @param string $itemNameCol
+     * @return string|null
+     */
+    public function getItemName($itemNameCol = 'name')
+    {
+        $xml = simplexml_load_file($this->_file);
+
+        if (isset($this->_xmlOptions['node_name_singular'])) {
+            $itemNodeName = $this->_xmlOptions['node_name_singular'];
+        } else {
+            $itemNodeName = $this->_xmlOptions['item_name_singular'];
+        }
+
+        $items = $this->_getItems($xml, $itemNodeName, $itemNameCol);
+
+        if (isset($items[0][$itemNameCol])) {
+            return $items[0][$itemNameCol];
+        }
+
+        return null;
+    }
+
+    /**
+     * @param string $itemNameCol
+     * @return array|null
+     */
+    public function getItemValues($itemNameCol = 'name')
+    {
+        $xml = simplexml_load_file($this->_file);
+
+        if (isset($this->_xmlOptions['node_name_singular'])) {
+            $itemNodeName = $this->_xmlOptions['node_name_singular'];
+        } else {
+            $itemNodeName = $this->_xmlOptions['item_name_singular'];
+        }
+
+        $items = $this->_getItems($xml, $itemNodeName, $itemNameCol);
+
+        if (isset($items[0]) && !empty($items[0])) {
+            return $items[0];
+        }
+
+        return null;
     }
 
     /**

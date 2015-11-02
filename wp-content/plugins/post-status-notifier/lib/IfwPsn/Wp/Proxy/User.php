@@ -6,7 +6,7 @@
  * 
  *
  * @author   Timo Reith <timo@ifeelweb.de>
- * @version  $Id: User.php 318 2014-08-05 22:20:28Z timoreithde $
+ * @version  $Id: User.php 478 2015-10-30 12:08:05Z timoreithde $
  */ 
 class IfwPsn_Wp_Proxy_User
 {
@@ -105,6 +105,14 @@ class IfwPsn_Wp_Proxy_User
         }
 
         return $result;
+    }
+
+    /**
+     * @return int|mixed|null
+     */
+    public static function getCurrentUserEmail()
+    {
+        return self::getEmail(self::getCurrentUserId());
     }
 
     /**

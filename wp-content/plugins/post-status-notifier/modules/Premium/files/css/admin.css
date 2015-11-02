@@ -24,3 +24,6 @@
 #psn_option_license_code {
     width: 100%;
 }
+#psn_form_license input#license {
+    width: 400px;
+}

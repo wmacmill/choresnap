@@ -6,7 +6,7 @@
  * Sets the environment variables of a plugin
  *
  * @author   Timo Reith <timo@ifeelweb.de>
- * @version  $Id: Abstract.php 325 2014-08-17 22:48:44Z timoreithde $
+ * @version  $Id: Abstract.php 468 2015-10-05 21:16:43Z timoreithde $
  * @package  IfwPsn_Wp_Plugin
  */
 abstract class IfwPsn_Wp_Env_Abstract
@@ -36,6 +36,11 @@ abstract class IfwPsn_Wp_Env_Abstract
      * @var string
      */
     protected $_homepage;
+
+    /**
+     * @var string
+     */
+    protected $_author;
 
     /**
      * @var string
@@ -153,6 +158,14 @@ abstract class IfwPsn_Wp_Env_Abstract
     public function getVersion()
     {
         return $this->_version;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAuthor()
+    {
+        return $this->_author;
     }
 
     /**

@@ -98,12 +98,18 @@ function wcs_create_subscription( $args = array() ) {
 
 	$order = ( isset( $args['order_id'] ) ) ? wc_get_order( $args['order_id'] ) : null;
 
+	if ( ! empty( $order ) && isset( $order->post->post_date ) ) {
+		$default_start_date = ( '0000-00-00 00:00:00' != $order->post->post_date_gmt ) ? $order->post->post_date_gmt : get_gmt_from_date( $order->post->post_date );
+	} else {
+		$default_start_date = current_time( 'mysql', true );
+	}
+
 	$default_args = array(
 		'status'             => '',
 		'order_id'           => 0,
 		'customer_note'      => null,
 		'customer_id'        => ( ! empty( $order ) ) ? $order->get_user_id() : null,
-		'start_date'         => ( ! empty( $order ) ) ? $order->order_date : current_time( 'mysql', true ),
+		'start_date'         => $default_start_date,
 		'created_via'        => ( ! empty( $order ) ) ? $order->created_via : '',
 		'order_version'      => ( ! empty( $order ) ) ? $order->order_version : WC_VERSION,
 		'currency'           => ( ! empty( $order ) ) ? $order->order_currency : get_woocommerce_currency(),
@@ -144,6 +150,7 @@ function wcs_create_subscription( $args = array() ) {
 	$post_title_date = strftime( __( '%b %d, %Y @ %I:%M %p', 'woocommerce-subscriptions' ) );
 	// translators: placeholder is order date parsed by strftime
 	$subscription_data['post_title']    = sprintf( __( 'Subscription &ndash; %s', 'woocommerce-subscriptions' ), $post_title_date );
+	$subscription_data['post_date_gmt'] = $args['start_date'];
 	$subscription_data['post_date']     = get_date_from_gmt( $args['start_date'] );
 
 	if ( $args['order_id'] > 0 ) {

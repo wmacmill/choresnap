@@ -5,7 +5,7 @@
  * Description: Create predefined regions/locations that job submissions can associate themselves with.
  * Author:      Astoundify
  * Author URI:  http://astoundify.com
- * Version:     1.9.0
+ * Version:     1.9.1
  * Text Domain: wp-job-manager-locations
  */
 
@@ -165,9 +165,9 @@ class Astoundify_Job_Manager_Regions {
         } elseif( isset( $args['search_region'] ) ) { // WPJM Alerts support
             $region = $args[ 'search_region' ];
 
-            if ( is_int( $args['search_region'] ) ) {
-                $region = array( $args['search_region'] );
-            }
+			if ( is_array( $region ) && empty( $region ) ) {
+				return $query_args;
+			}
 
             $query_args[ 'tax_query' ][] = array(
                 'taxonomy' => 'job_listing_region',

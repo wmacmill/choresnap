@@ -168,4 +168,10 @@ jQuery(document).ready(function($){
 	function zeroise( val ) {
 		return (val > 9 ) ? val : '0' + val;
 	}
+
+	$('body.post-type-shop_subscription #post').submit(function(){
+		if('wcs_process_renewal' == $( "body.post-type-shop_subscription select[name='wc_order_action']" ).val()) {
+			return confirm(wcs_admin_meta_boxes.process_renewal_action_warning);
+		}
+	});
 });

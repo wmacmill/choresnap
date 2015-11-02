@@ -3,7 +3,7 @@
  * Prepares custom controller name
  *
  * @author   Timo Reith <timo@ifeelweb.de>
- * @version  $Id: WpRequestDispatcher.php 276 2014-05-01 21:33:57Z timoreithde $
+ * @version  $Id: WpRequestDispatcher.php 477 2015-10-16 22:07:10Z timoreithde $
  */
 class IfwPsn_Zend_Controller_Plugin_WpRequestDispatcher extends IfwPsn_Vendor_Zend_Controller_Plugin_Abstract
 {
@@ -37,10 +37,10 @@ class IfwPsn_Zend_Controller_Plugin_WpRequestDispatcher extends IfwPsn_Vendor_Ze
 
             if ($request->getControllerName() == $this->_pm->getAbbrLower() . '-error') {
                 return;
-            } elseif ($this->_isPatchesRedirect($request)) {
-                $request->setModuleName('default');
-                $request->setControllerName($this->_pm->getAbbrLower() . '-patches');
-                $request->setActionName('index');
+            //} elseif ($this->_isPatchesRedirect($request)) {
+            //    $request->setModuleName('default');
+            //    $request->setControllerName($this->_pm->getAbbrLower() . '-patches');
+            //    $request->setActionName('index');
             } else {
                 $customController = $this->_getCustomController($request);
 

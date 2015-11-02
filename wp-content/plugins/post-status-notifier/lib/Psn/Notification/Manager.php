@@ -4,7 +4,7 @@
  *
  * @author      Timo Reith <timo@ifeelweb.de>
  * @copyright   Copyright (c) ifeelweb.de
- * @version     $Id: Manager.php 389 2015-06-04 19:10:34Z timoreithde $
+ * @version     $Id: Manager.php 426 2015-09-30 12:39:15Z timoreithde $
  * @package     Psn_Notification
  */ 
 class Psn_Notification_Manager
@@ -70,7 +70,7 @@ class Psn_Notification_Manager
         IfwPsn_Wp_Proxy_Filter::add('psn_service_email_subject', array($this, 'filterEmailSubject'), 10, 3);
 
         // add replacer filters
-        IfwPsn_Wp_Proxy_Filter::add('psn_notification_placeholders', array($this, 'addPlaceholders'));
+
         IfwPsn_Wp_Proxy_Filter::add('psn_notification_placeholders', array($this, 'filterPlaceholders'));
         IfwPsn_Wp_Proxy_Filter::add('psn_notification_dynamic_placeholders', array($this, 'filterPlaceholders'));
 
@@ -124,6 +124,8 @@ class Psn_Notification_Manager
 
         $this->_statusBefore = $statusBefore;
         $this->_statusAfter = $statusAfter;
+
+        IfwPsn_Wp_Proxy_Filter::add('psn_notification_placeholders', array($this, 'addPlaceholders'));
 
         // get all active rules
         $activeRules = IfwPsn_Wp_ORM_Model::factory('Psn_Model_Rule')->filter('active')->find_many();

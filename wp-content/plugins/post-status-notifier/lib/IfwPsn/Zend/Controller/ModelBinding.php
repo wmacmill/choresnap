@@ -6,7 +6,7 @@
  * 
  *
  * @author   Timo Reith <timo@ifeelweb.de>
- * @version  $Id: ModelBinding.php 455 2015-08-18 20:15:55Z timoreithde $
+ * @version  $Id: ModelBinding.php 466 2015-09-29 19:38:44Z timoreithde $
  */ 
 abstract class IfwPsn_Zend_Controller_ModelBinding extends IfwPsn_Zend_Controller_Default
 {
@@ -226,9 +226,14 @@ abstract class IfwPsn_Zend_Controller_ModelBinding extends IfwPsn_Zend_Controlle
 
         $importer = new IfwPsn_Wp_Data_Importer($file, $this->getModelMapper()->getExportOptions($this->_pm->getAbbrLower() . '_'));
 
-        $item_callback = array(
-            array($this, 'handleImportNameCheck')
-        );
+        if (!isset($options['handle_name']) || $options['handle_name'] == true) {
+            $item_callback = array(
+                array($this, 'handleImportNameCheck')
+            );
+        } else {
+            $item_callback = array();
+        }
+
         if (isset($options['item_callback'])) {
             if (is_callable($options['item_callback'])) {
                 $item_callback = array_merge($item_callback, array($options['item_callback']));
@@ -249,7 +254,7 @@ abstract class IfwPsn_Zend_Controller_ModelBinding extends IfwPsn_Zend_Controlle
             @unlink($file);
         }
 
-        if (!$result) {
+        if (!is_numeric($result)) {
             $this->getAdminNotices()->persistError($importer->getError());
         }
 

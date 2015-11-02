@@ -202,7 +202,7 @@ class WC_API_Subscriptions extends WC_API_Orders {
 
 			do_action( 'wcs_api_subscription_created', $subscription->id, $this );
 
-			return array( 'creating_subscription' => wcs_get_subscription( $subscription->id ) );
+			return array( 'creating_subscription' => $this->get_subscription( $subscription->id ) );
 
 		} catch ( WC_API_Exception $e ) {
 			return new WP_Error( $e->getErrorCode(), $e->getMessage(), array( 'status' => $e->getCode() ) );
@@ -348,15 +348,6 @@ class WC_API_Subscriptions extends WC_API_Orders {
 		$args['billing_period']   = ( ! empty( $data['billing_period'] ) ) ? $data['billing_period'] : '';
 
 		return wcs_create_subscription( $args );
-	}
-
-	/**
-	 *
-	 *
-	 * @since 2.0
-	 */
-	public function validate_payment_method_data( $payment_details ) {
-		return true;
 	}
 
 	/**

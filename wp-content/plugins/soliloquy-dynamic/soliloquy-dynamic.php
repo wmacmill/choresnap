@@ -5,7 +5,7 @@
  * Description: Enables Dynamic sliders in Soliloquy.
  * Author:      Thomas Griffin
  * Author URI:  http://thomasgriffinmedia.com
- * Version:     2.2.4
+ * Version:     2.2.5
  * Text Domain: soliloquy-dynamic
  * Domain Path: languages
  *
@@ -54,7 +54,7 @@ class Soliloquy_Dynamic {
      *
      * @var string
      */
-    public $version = '2.2.4';
+    public $version = '2.2.5';
 
     /**
      * The name of the plugin.

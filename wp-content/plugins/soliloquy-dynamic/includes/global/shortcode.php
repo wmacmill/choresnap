@@ -238,7 +238,16 @@ class Soliloquy_Dynamic_Shortcode {
 	    }
 	    
 	    // $images now reflects the exact images we want to include in the Slider
+	    // Convert it to an array
 	    $images     = explode( ',', (string) $images );
+
+	    // There may be some links also specified - store these for later use in the loop
+	    $data_links = $instance->get_config( 'links', $data );
+	    if ( $data_links !== false && ! empty( $data_links ) ) {
+	    	$data_links = explode( ',', (string) $data_links );
+	    }
+
+	    // Iterate through images
 	    foreach ( (array) $images as $i => $image_id ) {
 	    	// Check if Image ID is numeric or not
 	    	if ( is_numeric( $image_id ) ) {
@@ -274,6 +283,11 @@ class Soliloquy_Dynamic_Shortcode {
 		            } else if ( 'post' == $link ) {
 		                $dynamic_data[ $image_id ]['link'] = get_permalink( $attachment->post_parent );
 		            }
+		        }
+
+		        // If link is still empty, check our $data_links array to see if the user has manually specified a link
+		        if ( is_array( $data_links ) ) {
+		        	$dynamic_data[ $image_id ]['link'] = $data_links[ $i ];
 		        }
 	    	} else {
 	    		/**

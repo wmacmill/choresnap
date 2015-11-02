@@ -3,7 +3,7 @@
  * Premium options
  *
  * @author   Timo Reith <timo@ifeelweb.de>
- * @version  $Id: Options.php 418 2015-09-18 10:25:48Z timoreithde $
+ * @version  $Id: Options.php 430 2015-10-30 12:08:41Z timoreithde $
  */ 
 class Psn_Module_Premium_Options 
 {
@@ -36,11 +36,15 @@ class Psn_Module_Premium_Options
         require_once $this->_pm->getPathinfo()->getRootLib() . '/IfwPsn/Wp/Options/Field/Textarea.php';
         require_once $this->_pm->getPathinfo()->getRootLib() . '/IfwPsn/Wp/Options/Field/Text.php';
 
-        add_filter('pre_update_option_psn_options', array($this, 'handleLicenseKey'), 10, 2);
+
 
         /**
          * License options
          */
+        $this->_pm->getBootstrap()->getOptionsManager()->registerExternalOption('license_code');
+
+        /*add_filter('pre_update_option_psn_options', array($this, 'handleLicenseKey'), 10, 2);
+
         $licenseOptions = new IfwPsn_Wp_Options_Section('license', __('License', 'psn'),
             Psn_Admin_Options_Handler::getOptionsDescriptionBox(
                 '<span class="dashicons dashicons-info"></span> ' .
@@ -56,11 +60,12 @@ class Psn_Module_Premium_Options
                 'http://docs.ifeelweb.de/post-status-notifier/options.html#premium-license-code')
         ));
 
+        $this->_pm->getBootstrap()->getOptions()->addSection($licenseOptions, 11);*/
+
 
         /**
          * General options
          */
-        $this->_pm->getBootstrap()->getOptions()->addSection($licenseOptions, 11);
 
         $this->_pm->getBootstrap()->getOptionsManager()->addGeneralOption(new IfwPsn_Wp_Options_Field_Checkbox(
             'psn_deactivate_copied_rules',

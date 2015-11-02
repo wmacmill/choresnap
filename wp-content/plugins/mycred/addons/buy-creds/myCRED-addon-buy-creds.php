@@ -115,7 +115,7 @@ if ( ! class_exists( 'myCRED_buyCRED_Module' ) ) :
 		 * Process
 		 * Processes Gateway returns and IPN calls
 		 * @since 0.1
-		 * @version 1.2.1
+		 * @version 1.3
 		 */
 		public function module_init() {
 
@@ -602,7 +602,7 @@ if ( ! class_exists( 'myCRED_buyCRED_Module' ) ) :
 		 * @since 0.1
 		 * @version 1.1
 		 */
-		public function after_general_settings( $mycred ) {
+		public function after_general_settings() {
 
 			// Since we are both registering our own settings and want to hook into
 			// the core settings, we need to define our "defaults" here.

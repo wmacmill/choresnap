@@ -289,10 +289,10 @@ class WC_Subscription extends WC_Order {
 		// Standardise status names.
 		$new_status     = ( 'wc-' === substr( $new_status, 0, 3 ) ) ? substr( $new_status, 3 ) : $new_status;
 		$new_status_key = 'wc-' . $new_status;
-		$old_status     = $this->get_status();
-		$old_status_key = $this->post_status;
+		$old_status     = ( 'wc-' === substr( $this->get_status(), 0, 3 ) ) ? substr( $this->get_status(), 3 ) : $this->get_status();
+		$old_status_key = 'wc-' . $old_status;
 
-		if ( $new_status !== $old_status || ! in_array( $this->post_status, array_keys( wcs_get_subscription_statuses() ) ) ) {
+		if ( $new_status !== $old_status || ! in_array( $old_status_key, array_keys( wcs_get_subscription_statuses() ) ) ) {
 
 			// Only update is possible
 			if ( ! $this->can_be_updated_to( $new_status ) ) {
@@ -585,7 +585,7 @@ class WC_Subscription extends WC_Order {
 		if ( ! empty( $date_type ) && ! isset( $this->schedule->{$date_type} ) ) {
 			switch ( $date_type ) {
 				case 'start' :
-					$this->schedule->{$date_type} = get_gmt_from_date( $this->post->post_date ); // why not just use post_date_gmt? Because when a post is first created, it has a post_date but not a post_date_gmt value
+					$this->schedule->{$date_type} = ( '0000-00-00 00:00:00' != $this->post->post_date_gmt ) ? $this->post->post_date_gmt : get_gmt_from_date( $this->post->post_date ); // why not always use post_date_gmt? Because when a post is first created via the Add Subscription screen, it has a post_date but not a post_date_gmt value yet
 					break;
 				case 'next_payment' :
 				case 'trial_end' :

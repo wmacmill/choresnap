@@ -6,7 +6,7 @@
  * 
  *
  * @author    Timo Reith <timo@ifeelweb.de>
- * @version   $Id: WooCommerce.php 447 2015-07-31 16:57:37Z timoreithde $
+ * @version   $Id: WooCommerce.php 477 2015-10-16 22:07:10Z timoreithde $
  * @package   
  */ 
 class IfwPsn_Wp_Plugin_Update_Api_WooCommerce extends IfwPsn_Wp_Plugin_Update_Api_Abstract
@@ -61,9 +61,9 @@ class IfwPsn_Wp_Plugin_Update_Api_WooCommerce extends IfwPsn_Wp_Plugin_Update_Ap
 
         $current_version = $plugin_info->checked[$pluginSlug];
 
-        if (apply_filters('ifw_woocommerce_is_slug_activated-' . $pluginSlug, false)) {
+        if (apply_filters('ifw_update_api_is_slug_activated-' . $pluginSlug, false)) {
 
-            $activationData = apply_filters('ifw_woocommerce_get_activation_data-'. $pluginSlug, array());
+            $activationData = apply_filters('ifw_update_api_get_activation_data-'. $pluginSlug, array());
 
             $request = $this->_getRequest('upgrade-api');
 
@@ -99,6 +99,49 @@ class IfwPsn_Wp_Plugin_Update_Api_WooCommerce extends IfwPsn_Wp_Plugin_Update_Ap
                 $this->_pm->getLogger()->debug(' --- Plugin info check response --- ');
                 $this->_pm->getLogger()->debug(var_export($response, true));
             }
+        } else {
+
+            // plugin license is not activated
+            // workaround for retrieving update information as long as API Manager requires authentication for this
+
+            $request = new IfwPsn_Wp_Http_Request();
+
+            $request->setUrl('http://update.ifeelweb.de/');
+            $request->addData('api-key', md5(IfwPsn_Wp_Proxy_Blog::getUrl()));
+            $request->addData('referrer', IfwPsn_Wp_Proxy_Blog::getUrl());
+
+            if (isset($_SERVER['HTTP_USER_AGENT'])) {
+                $request->addData('browser_user_agent', $_SERVER['HTTP_USER_AGENT']);
+            }
+
+            $request
+                ->addData('action', $action)
+                ->addData('slug', $this->_pm->getSlug())
+                ->addData('version', $current_version)
+                ->addData('lang', IfwPsn_Wp_Proxy_Blog::getLanguage())
+            ;
+
+            $response = $request->send();
+
+            if ($response->isSuccess()) {
+
+                $responseBody = $response->getBody();
+                $result = unserialize($responseBody);
+
+                if ($result === false) {
+                    $result = new WP_Error('plugins_api_failed', __('An unknown error occurred'), $request['body']);
+                }
+
+            } else {
+
+                $result = new WP_Error('plugins_api_failed', __('An Unexpected HTTP Error occurred during the API request.</p> <p><a href="javascript:void(0)" onclick="document.location.reload(); return false;">Try again</a>'), $response->getErrorMessage());
+            }
+
+            if (!empty($this->_pm->getConfig()->debug->update)) {
+                $this->_pm->getLogger()->debug(' --- Plugin info check response --- ');
+                $this->_pm->getLogger()->debug(var_export($response, true));
+            }
+
         }
 
         return $result;
@@ -130,9 +173,9 @@ class IfwPsn_Wp_Plugin_Update_Api_WooCommerce extends IfwPsn_Wp_Plugin_Update_Ap
             return $updateData;
         }
 
-        if (apply_filters('ifw_woocommerce_is_slug_activated-' . $pluginSlug, false)) {
+        if (apply_filters('ifw_update_api_is_slug_activated-' . $pluginSlug, false)) {
 
-            $activationData = apply_filters('ifw_woocommerce_get_activation_data-'. $pluginSlug, array());
+            $activationData = apply_filters('ifw_update_api_get_activation_data-'. $pluginSlug, array());
             $localVersion = $updateData->checked[$pluginSlug];
 
             $request = $this->_getRequest('upgrade-api');
@@ -168,7 +211,48 @@ class IfwPsn_Wp_Plugin_Update_Api_WooCommerce extends IfwPsn_Wp_Plugin_Update_Ap
                     if ($remoteVersion->isGreaterThan($localVersion)) {
                         // Feed the update data into WP updater
                         $updateData->response[$pluginSlug] = $remoteData;
+
+                        delete_transient($this->_pm->getAbbrLower() . '_auto_update');
                     }
+                }
+            }
+        } else {
+
+            // plugin license is not activated
+            // workaround for retrieving update information as long as API Manager requires authentication for this
+
+            $request = new IfwPsn_Wp_Http_Request();
+
+            $request->setUrl('http://update.ifeelweb.de/');
+            $request->addData('api-key', md5(IfwPsn_Wp_Proxy_Blog::getUrl()));
+            $request->addData('referrer', IfwPsn_Wp_Proxy_Blog::getUrl());
+
+            if (isset($_SERVER['HTTP_USER_AGENT'])) {
+                $request->addData('browser_user_agent', $_SERVER['HTTP_USER_AGENT']);
+            }
+
+            $request
+                ->addData('action', 'plugin_update_check')
+                ->addData('slug', $this->_pm->getSlug())
+                ->addData('version', $updateData->checked[$this->_pm->getPathinfo()->getFilenamePath()])
+                ->addData('lang', IfwPsn_Wp_Proxy_Blog::getLanguage())
+            ;
+
+            $response = $request->send();
+
+            if ($response->isSuccess()) {
+
+                $responseBody = $response->getBody();
+                $responseBody = unserialize($responseBody);
+
+                if (!empty($this->_pm->getConfig()->debug->update)) {
+                    $this->_pm->getLogger()->debug('Update check response:');
+                    $this->_pm->getLogger()->debug(var_export($responseBody, true));
+                }
+
+                if (is_object($responseBody) && !empty($responseBody)) {
+                    // Feed the update data into WP updater
+                    $updateData->response[$this->_pm->getPathinfo()->getFilenamePath()] = $responseBody;
                 }
             }
         }
@@ -188,50 +272,115 @@ class IfwPsn_Wp_Plugin_Update_Api_WooCommerce extends IfwPsn_Wp_Plugin_Update_Ap
         $pluginSlug = $this->_pm->getSlugFilenamePath();
 
         if ($this->_pm->isPremium()) {
-            if (!apply_filters('ifw_woocommerce_is_slug_activated-' . $pluginSlug, false)) {
+            if (!apply_filters('ifw_update_api_is_slug_activated-' . $pluginSlug, false)) {
+
                 if ($this->_pm->getAccess()->isNetworkAdmin()) {
                     $licensePage = network_admin_url($this->_pm->getConfig()->plugin->licensePageNetwork);
                 } else {
                     $licensePage = admin_url($this->_pm->getConfig()->plugin->licensePage);
                 }
-                printf('<div style="padding: 5px 10px; border: 1px dashed red; margin-top: 10px;"><span class="dashicons dashicons-info"></span> %s</div>',
-                    sprintf( __('<b>License issue:</b> You have to <a href="%s">active your license</a> to be able to receive updates.', 'ifw'), $licensePage) );
+
+                $wp_list_table = _get_list_table( 'WP_Plugins_List_Table' );
+                echo '<tr class="plugin-update-tr"><td colspan="' . $wp_list_table->get_column_count() . '" class="plugin-update colspanchange">
+                        <div style="padding: 10px; background-color: #fcf3ef;">';
+
+                printf('<span class="dashicons dashicons-info"></span> %s</div>',
+                    sprintf( __('<b>License issue:</b> Please <a href="%s">active your license</a> to be able to receive updates.', 'ifw'), $licensePage) );
+
+                echo '</td></tr>';
             }
         }
     }
 
+    public function afterPluginRow($plugin_data, $meta_data)
+    {
+        // not used
+    }
+
     /**
-     * @param $licence_key
-     * @param $email
+     * @param $license
+     * @param array $options
      * @return IfwPsn_Wp_Http_Response|string
      */
-    public function getLicenseStatus($licence_key, $email)
+    public function getLicenseStatus($license, array $options = array())
     {
-        $response = '';
+        $result = '';
         $request = $this->_getRequest();
 
         if ($request instanceof IfwPsn_Wp_Http_Request) {
             $request
                 ->addData('request', 'status')
-                ->addData('email', $email)
-                ->addData('licence_key', $licence_key)
+                ->addData('licence_key', $license)
                 ->addData('platform', $this->_getPlatform())
-                ->addData('instance', $this->_getInstance($licence_key, $email));
             ;
+            if (isset($options['email'])) {
+                $request->addData('email', $options['email']);
+                $request->addData('instance', $this->_getInstance($license, $options['email']));
+            }
 
             $response = $request->send();
+
+            if ($response->isSuccess()) {
+
+                $responseBody = trim($response->getBody());
+                $result = json_decode($responseBody, true);
+            }
         }
 
-        return $response;
+        return $result;
     }
 
     /**
-     * @param $licence_key
-     * @param $email
-     * @param $version
+     * @param $license
+     * @param array $options
+     * @return bool
+     */
+    public function isActiveLicense($license, array $options = array())
+    {
+        $status = $this->getLicenseStatus($license, $options);
+
+        if (isset($status['status_check']) && $status['status_check'] == 'active') {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * @param $license
+     * @param array $options
+     * @return bool
+     */
+    public function getLicenseExpiryDate($license, array $options = array())
+    {
+        $expiryDate = '';
+
+        $status = $this->getLicenseStatus($license, $options);
+
+        if (isset($status['status_extra']['subscription_data'])) {
+            $subscription_data = $status['status_extra']['subscription_data'];
+            if (isset($subscription_data['trial_expiry_date'])) {
+                $expiryDate = $subscription_data['trial_expiry_date'];
+            } elseif (isset($subscription_data['expiry_date'])) {
+                $expiryDate = $subscription_data['expiry_date'];
+            } elseif (isset($subscription_data['end_date'])) {
+                $expiryDate = $subscription_data['end_date'];
+            }
+
+            if (!empty($expiryDate)) {
+                $expiryDate = IfwPsn_Wp_Date::format($expiryDate);
+            }
+        }
+
+        return $expiryDate;
+    }
+
+    /**
+     * @param $license
+     * @param array $options
      * @return IfwPsn_Wp_Http_Response|string
      */
-    public function activate($licence_key, $email, $version)
+    public function activate($license, array $options = array())
     {
         $response = '';
         $request = $this->_getRequest();
@@ -239,12 +388,16 @@ class IfwPsn_Wp_Plugin_Update_Api_WooCommerce extends IfwPsn_Wp_Plugin_Update_Ap
         if ($request instanceof IfwPsn_Wp_Http_Request) {
             $request
                 ->addData('request', 'activation')
-                ->addData('email', $email)
-                ->addData('licence_key', $licence_key)
-                ->addData('software_version', $version)
+                ->addData('licence_key', $license)
                 ->addData('platform', $this->_getPlatform())
-                ->addData('instance', $this->_getInstance($licence_key, $email));
             ;
+            if (isset($options['email'])) {
+                $request->addData('email', $options['email']);
+                $request->addData('instance', $this->_getInstance($license, $options['email']));
+            }
+            if (isset($options['version'])) {
+                $request->addData('software_version', $options['version']);
+            }
 
             $response = $request->send();
         }
@@ -254,10 +407,11 @@ class IfwPsn_Wp_Plugin_Update_Api_WooCommerce extends IfwPsn_Wp_Plugin_Update_Ap
 
     /**
      * @param $licence_key
-     * @param $email
+     * @param array $options
      * @return IfwPsn_Wp_Http_Response|string
+     * @internal param $email
      */
-    public function deactivate($licence_key, $email)
+    public function deactivate($licence_key, array $options = array())
     {
         $response = '';
         $request = $this->_getRequest();
@@ -265,11 +419,13 @@ class IfwPsn_Wp_Plugin_Update_Api_WooCommerce extends IfwPsn_Wp_Plugin_Update_Ap
         if ($request instanceof IfwPsn_Wp_Http_Request) {
             $request
                 ->addData('request', 'deactivation')
-                ->addData('email', $email)
                 ->addData('licence_key', $licence_key)
                 ->addData('platform', $this->_getPlatform())
-                ->addData('instance', $this->_getInstance($licence_key, $email));
             ;
+            if (isset($options['email'])) {
+                $request->addData('email', $options['email']);
+                $request->addData('instance', $this->_getInstance($licence_key, $options['email']));
+            }
 
             $response = $request->send();
         }

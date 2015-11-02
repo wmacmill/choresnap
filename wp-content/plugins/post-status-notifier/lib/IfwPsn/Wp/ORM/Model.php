@@ -6,7 +6,7 @@
  *
  *
  * @author   Timo Reith <timo@ifeelweb.de>
- * @version  $Id: Model.php 443 2015-07-25 15:32:39Z timoreithde $
+ * @version  $Id: Model.php 466 2015-09-29 19:38:44Z timoreithde $
  */
 abstract class IfwPsn_Wp_ORM_Model extends IfwPsn_Wp_ORM_ModelParis
 {
@@ -26,6 +26,10 @@ abstract class IfwPsn_Wp_ORM_Model extends IfwPsn_Wp_ORM_ModelParis
         }
 
         return $result;
+    }
+
+    public function existsByData()
+    {
     }
 
     /**
@@ -185,13 +189,17 @@ abstract class IfwPsn_Wp_ORM_Model extends IfwPsn_Wp_ORM_ModelParis
                 }
             }
 
-            $obj = IfwPsn_Wp_ORM_Model::factory($modelName)->create($params);
+            try {
+                $obj = IfwPsn_Wp_ORM_Model::factory($modelName)->create($params);
 
-            if ($obj->save() != false) {
-                $counter++;
-                if (isset($options['item_callback_saved']) && is_callable($options['item_callback_saved'])) {
-                    call_user_func($options['item_callback_saved'], $obj, $item);
+                if (!IfwPsn_Wp_Model_Mapper_Abstract::existsByData($obj) && $obj->save() != false) {
+                    $counter++;
+                    if (isset($options['item_callback_saved']) && is_callable($options['item_callback_saved'])) {
+                        call_user_func($options['item_callback_saved'], $obj, $item);
+                    }
                 }
+            } catch (Exception $e) {
+                // object could not be stored in db
             }
         }
 

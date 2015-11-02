@@ -4,7 +4,7 @@
  *
  * @author    Timo Reith <timo@ifeelweb.de>
  * @copyright Copyright (c) ifeelweb.de
- * @version   $Id: bootstrap.php 414 2015-09-17 10:06:02Z timoreithde $
+ * @version   $Id: bootstrap.php 428 2015-10-29 19:46:36Z timoreithde $
  */
 class Psn_Bootstrap extends IfwPsn_Wp_Plugin_Bootstrap_Abstract
 {
@@ -68,13 +68,14 @@ class Psn_Bootstrap extends IfwPsn_Wp_Plugin_Bootstrap_Abstract
             $optionsHandler->load();
         }
 
-        if ($this->_pm->getAccess()->isPlugin()) {
-
-
-
+        if ($this->_pm->getAccess()->isAdmin() || $this->_pm->getAccess()->isNetworkAdmin()) {
             // register patches
             require_once $this->_pm->getPathinfo()->getRootLib() . 'Psn/Patch/Database.php';
             $this->getUpdateManager()->getPatcher()->addPatch(new Psn_Patch_Database());
+        }
+
+        if ($this->_pm->getAccess()->isPlugin()) {
+
             // register selftests
             IfwPsn_Wp_Proxy_Action::addPlugin($this->_pm, 'selftester_activate', array($this, 'addSelftests'));
         }
@@ -96,12 +97,14 @@ class Psn_Bootstrap extends IfwPsn_Wp_Plugin_Bootstrap_Abstract
         require_once $this->_pm->getPathinfo()->getRootLib() . '/Psn/Test/BccSelectField.php';
         require_once $this->_pm->getPathinfo()->getRootLib() . '/Psn/Test/CcSelectField.php';
         require_once $this->_pm->getPathinfo()->getRootLib() . '/Psn/Test/CategoriesField.php';
+        require_once $this->_pm->getPathinfo()->getRootLib() . '/Psn/Test/ExcludeCurrentUserField.php';
 
         $selftester->addTestCase(new Psn_Test_RuleModel());
         $selftester->addTestCase(new Psn_Test_BccField());
         $selftester->addTestCase(new Psn_Test_BccSelectField());
         $selftester->addTestCase(new Psn_Test_CcSelectField());
         $selftester->addTestCase(new Psn_Test_CategoriesField());
+        $selftester->addTestCase(new Psn_Test_ExcludeCurrentUserField());
     }
 
     /**

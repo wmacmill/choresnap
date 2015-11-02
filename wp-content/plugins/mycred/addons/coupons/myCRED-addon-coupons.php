@@ -491,7 +491,7 @@ table td textarea { width: 95%; }
 		 * @since 1.4
 		 * @version 1.0
 		 */
-		public function after_general_settings( $mycred ) {
+		public function after_general_settings() {
 			if ( ! isset( $this->coupons ) )
 				$prefs = $this->default_prefs;
 			else

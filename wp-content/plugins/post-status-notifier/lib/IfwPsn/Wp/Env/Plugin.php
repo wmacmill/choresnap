@@ -6,7 +6,7 @@
  *
  *
  * @author   Timo Reith <timo@ifeelweb.de>
- * @version  $Id: Plugin.php 339 2014-10-07 21:26:01Z timoreithde $
+ * @version  $Id: Plugin.php 468 2015-10-05 21:16:43Z timoreithde $
  */
 require_once dirname(__FILE__) . '/Abstract.php';
 
@@ -240,6 +240,7 @@ class IfwPsn_Wp_Env_Plugin extends IfwPsn_Wp_Env_Abstract
             '_textDomain' => 'Text Domain:(.*)',
             '_homepage' => 'Plugin URI:(.*)',
             '_version' => 'Version:(.*)',
+            '_author' => 'Author:(.*)',
         );
 
         foreach ($vars as $k => $v) {

@@ -7,7 +7,7 @@
  *
  * @author    Timo Reith <timo@ifeelweb.de>
  * @copyright Copyright (c) ifeelweb.de
- * @version   $Id: Patcher.php 215 2014-01-08 01:37:51Z timoreithde $
+ * @version   $Id: Patcher.php 477 2015-10-16 22:07:10Z timoreithde $
  * @package   
  */ 
 class IfwPsn_Wp_Plugin_Update_Patcher 
@@ -41,6 +41,23 @@ class IfwPsn_Wp_Plugin_Update_Patcher
     {
         $this->_pm = $pm;
         $this->_presentVersion = $presentVersion;
+    }
+
+    /**
+     *
+     * @throws IfwPsn_Wp_Plugin_Bootstrap_Exception
+     */
+    public function autoUpdate()
+    {
+        $transient = get_transient($this->_pm->getAbbrLower() . '_auto_update');
+
+        if (empty($transient)) {
+            if ($this->isPatchesAvailable()) {
+                $this->run();
+                $this->_pm->getBootstrap()->getUpdateManager()->refreshPresentVersion();
+            }
+            set_transient($this->_pm->getAbbrLower() . '_auto_update', 86400);
+        }
     }
 
     /**

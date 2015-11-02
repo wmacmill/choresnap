@@ -6,7 +6,7 @@
  * 
  *
  * @author   Timo Reith <timo@ifeelweb.de>
- * @version  $Id: Filter.php 372 2014-12-23 23:18:51Z timoreithde $
+ * @version  $Id: Filter.php 479 2015-10-30 17:31:12Z timoreithde $
  */ 
 class IfwPsn_Wp_Proxy_Filter
 {
@@ -151,6 +151,17 @@ class IfwPsn_Wp_Proxy_Filter
     public static function addPluginActionLinks(IfwPsn_Wp_Plugin_Manager $pm, $function_to_add, $priority = 10)
     {
         return self::add('plugin_action_links_'. $pm->getPathinfo()->getFilenamePath(), $function_to_add, $priority, 2);
+    }
+
+    /**
+     * @param IfwPsn_Wp_Plugin_Manager $pm
+     * @param $function_to_add
+     * @param int $priority
+     * @return bool|void
+     */
+    public static function addNetworkAdminPluginActionLinks(IfwPsn_Wp_Plugin_Manager $pm, $function_to_add, $priority = 10)
+    {
+        return self::add('network_admin_plugin_action_links_'. $pm->getPathinfo()->getFilenamePath(), $function_to_add, $priority, 2);
     }
 
     /**

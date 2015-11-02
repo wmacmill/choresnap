@@ -3,7 +3,7 @@
  *
  *
  * @author      Timo Reith <timo@ifeelweb.de>
- * @version     $Id: NotificationRule.php 400 2015-08-18 20:15:45Z timoreithde $
+ * @version     $Id: NotificationRule.php 427 2015-10-29 19:42:20Z timoreithde $
  * @copyright   Copyright (c) ifeelweb.de
  * @package     Psn_Admin
  */
@@ -248,6 +248,16 @@ class Psn_Admin_Form_NotificationRule extends IfwPsn_Zend_Form
         ));
 
         $this->getElement('bcc')->getDecorator('Description')->setEscape(false);
+
+
+        $excludeCurrentUser = $this->createElement('checkbox', 'exclude_current_user');
+        $excludeCurrentUser->setLabel(__('Exclude current user', 'psn'))
+            ->setDecorators($this->getFieldDecorators())
+            ->setDescription(__('If set, the current user who saves / updates the post will be excluded from all recipients.', 'psn'))
+            ->setCheckedValue(1)
+            ->setOrder(96)
+        ;
+        $this->addElement($excludeCurrentUser);
 
         /**
          * Active

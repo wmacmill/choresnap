@@ -7,7 +7,7 @@
  *
  * @author    Timo Reith <timo@ifeelweb.de>
  * @copyright Copyright (c) ifeelweb.de
- * @version   $Id: Database.php 378 2015-04-24 16:37:49Z timoreithde $
+ * @version   $Id: Database.php 427 2015-10-29 19:42:20Z timoreithde $
  * @package   
  */ 
 class Psn_Patch_Database implements IfwPsn_Wp_Plugin_Update_Patch_Interface
@@ -78,6 +78,11 @@ class Psn_Patch_Database implements IfwPsn_Wp_Plugin_Update_Patch_Interface
         }
         if (!$this->isFieldToDyn()) {
             $this->createRulesFieldToDyn();
+        }
+
+        // Updates for version 1.8.5
+        if (!$this->isFieldExcludeCurrentUser()) {
+            $this->createRulesFieldExcludeCurrentUser();
         }
     }
 
@@ -211,6 +216,14 @@ class Psn_Patch_Database implements IfwPsn_Wp_Plugin_Update_Patch_Interface
     }
 
     /**
+     * @return bool
+     */
+    public function isFieldExcludeCurrentUser()
+    {
+        return IfwPsn_Wp_Proxy_Db::columnExists('psn_rules', 'exclude_current_user');
+    }
+
+    /**
      * Create field "bcc" on psn_rules table
      * @since 1.1
      */
@@ -337,6 +350,17 @@ class Psn_Patch_Database implements IfwPsn_Wp_Plugin_Update_Patch_Interface
     {
         // ALTER TABLE `wp_psn_rules` ADD  `to_dyn` TEXT NULL AFTER  `to`;
         $query = sprintf('ALTER TABLE `%s` ADD `to_dyn` TEXT NULL AFTER  `to`', IfwPsn_Wp_Proxy_Db::getTableName('psn_rules'));
+        IfwPsn_Wp_Proxy_Db::getObject()->query($query);
+    }
+
+    /**
+     * Create field "exclude_current_user" on psn_rules table
+     * @since 1.8.5
+     */
+    public function createRulesFieldExcludeCurrentUser()
+    {
+        // ALTER TABLE `wp_psn_rules` ADD  `to_dyn` TEXT NULL AFTER  `to`;
+        $query = sprintf('ALTER TABLE `%s` ADD `exclude_current_user` TINYINT (1) NOT NULL DEFAULT "0"', IfwPsn_Wp_Proxy_Db::getTableName('psn_rules'));
         IfwPsn_Wp_Proxy_Db::getObject()->query($query);
     }
 
