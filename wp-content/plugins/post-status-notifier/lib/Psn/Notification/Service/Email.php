@@ -3,7 +3,7 @@
  * This class handles the email sending process
  *
  * @author      Timo Reith <timo@ifeelweb.de>
- * @version     $Id: Email.php 370 2015-04-11 21:55:00Z timoreithde $
+ * @version     $Id: Email.php 427 2015-10-29 19:42:20Z timoreithde $
  * @copyright   Copyright (c) ifeelweb.de
  * @package     Psn_Notification
  */
@@ -203,6 +203,38 @@ class Psn_Notification_Service_Email implements Psn_Notification_Service_Interfa
                 }
             }
         }
+
+
+        if ($rule->isExcludeCurrentUser()) {
+            // exclude current user from recipients
+            $this->_to = $this->_removeCurrentUserEmail($this->_to);
+            $this->_cc = $this->_removeCurrentUserEmail($this->_cc);
+            $this->_bcc = $this->_removeCurrentUserEmail($this->_bcc);
+        }
+    }
+
+    /**
+     * @param array $recipients
+     * @return array
+     */
+    protected function _removeCurrentUserEmail(array $recipients)
+    {
+        $currentUserEmail = strtolower(trim(IfwPsn_Wp_Proxy_User::getCurrentUserEmail()));
+
+        foreach ($recipients as $k => $v) {
+            if (strpos($v, '<') !== false) {
+                preg_match('/<(.*?)>/', $v, $match);
+                if (isset($match[1]) && !empty($match[1]) && strtolower(trim($match[1])) === $currentUserEmail) {
+                    unset($recipients[$k]);
+                }
+            } else {
+                if (strtolower(trim($v)) === $currentUserEmail) {
+                    unset($recipients[$k]);
+                }
+            }
+        }
+
+        return $recipients;
     }
 
     /**
@@ -220,7 +252,7 @@ class Psn_Notification_Service_Email implements Psn_Notification_Service_Interfa
      */
     public function addTo($to)
     {
-        array_push($this->_to, $to);
+        array_push($this->_to, self::sanitizeEmail($to));
     }
 
     /**
@@ -246,7 +278,7 @@ class Psn_Notification_Service_Email implements Psn_Notification_Service_Interfa
      */
     public function addCc($cc)
     {
-        array_push($this->_cc, $cc);
+        array_push($this->_cc, self::sanitizeEmail($cc));
     }
 
     /**
@@ -280,7 +312,7 @@ class Psn_Notification_Service_Email implements Psn_Notification_Service_Interfa
      */
     public function addBcc($bcc)
     {
-        array_push($this->_bcc, $bcc);
+        array_push($this->_bcc, self::sanitizeEmail($bcc));
     }
 
     /**
@@ -363,6 +395,20 @@ class Psn_Notification_Service_Email implements Psn_Notification_Service_Interfa
     {
         $emails = array_unique($emails);
         return implode(',' , $emails);
+    }
+
+    /**
+     * @param $email
+     * @return string
+     */
+    public static function sanitizeEmail($email)
+    {
+        $email = strtr($email, array(
+            '&lt;' => '<',
+            '&gt;' => '>',
+        ));
+
+        return $email;
     }
 
     /**

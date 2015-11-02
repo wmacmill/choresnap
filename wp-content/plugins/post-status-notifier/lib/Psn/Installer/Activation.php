@@ -4,7 +4,7 @@
  *
  * @author      Timo Reith <timo@ifeelweb.de>
  * @copyright   Copyright (c) ifeelweb.de
- * @version     $Id: Activation.php 418 2015-09-18 10:25:48Z timoreithde $
+ * @version     $Id: Activation.php 432 2015-10-30 12:18:57Z timoreithde $
  * @package     Psn_Installer
  */
 class Psn_Installer_Activation implements IfwPsn_Wp_Plugin_Installer_ActivationInterface
@@ -97,6 +97,7 @@ class Psn_Installer_Activation implements IfwPsn_Wp_Plugin_Installer_ActivationI
               `to_loop` tinyint(1) NOT NULL DEFAULT "0",
               `limit_type` tinyint(1) NULL,
               `limit_count` int(11) NULL,
+              `exclude_current_user` tinyint(1) NOT NULL DEFAULT "0",
               PRIMARY KEY (`id`)
             ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT="Plugin: Post Status Notifier";
         ');

@@ -4,7 +4,7 @@
  *
  * @author      Timo Reith <timo@ifeelweb.de>
  * @copyright   Copyright (c) ifeelweb.de
- * @version     $Id: Rule.php 365 2015-04-02 22:10:47Z timoreithde $
+ * @version     $Id: Rule.php 427 2015-10-29 19:42:20Z timoreithde $
  * @package     Psn_Model
  */
 class Psn_Model_Rule extends IfwPsn_Wp_ORM_Model
@@ -549,6 +549,14 @@ class Psn_Model_Rule extends IfwPsn_Wp_ORM_Model
     public function isIgnoreInherit()
     {
         return $this->_ignoreInherit;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isExcludeCurrentUser()
+    {
+        return (int)$this->get('exclude_current_user') === 1;
     }
 
     public static function getMax()

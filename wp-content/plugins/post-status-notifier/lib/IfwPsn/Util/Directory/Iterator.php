@@ -6,7 +6,7 @@
  * 
  *
  * @author   Timo Reith <timo@ifeelweb.de>
- * @version  $Id: Iterator.php 188 2013-08-08 15:50:20Z timoreithde $
+ * @version  $Id: Iterator.php 467 2015-10-01 21:34:26Z timoreithde $
  */ 
 class IfwPsn_Util_Directory_Iterator extends DirectoryIterator
 {
@@ -26,13 +26,13 @@ class IfwPsn_Util_Directory_Iterator extends DirectoryIterator
     }
 
     /**
-     * Get basename of file (without extension
+     * Get basename of file without extension
      * @return string
      */
-    public function getBasename()
-    {
-        return parent::getBasename('.'.$this->getExtension());
-    }
+//    public function getBasename($suffix = NULL)
+//    {
+//        return parent::getBasename('.'.$this->getExtension());
+//    }
 
     /**
      * Get the name of the class defined in this file

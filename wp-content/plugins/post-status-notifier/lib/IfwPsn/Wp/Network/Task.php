@@ -6,7 +6,7 @@
  * Networkwide task executor
  *
  * @author    Timo Reith <timo@ifeelweb.de>
- * @version   $Id: Task.php 320 2014-08-13 20:35:07Z timoreithde $
+ * @version   $Id: Task.php 465 2015-09-27 20:36:12Z timoreithde $
  * @package   
  */ 
 abstract class IfwPsn_Wp_Network_Task
@@ -25,6 +25,7 @@ abstract class IfwPsn_Wp_Network_Task
             // loop through all blogs
             foreach (IfwPsn_Wp_Proxy_Blog::getMultisiteBlogIds() as $blogId) {
 
+                set_time_limit(30);
                 IfwPsn_Wp_Proxy_Blog::switchToBlog($blogId);
 
                 // execute networkwide task

@@ -7,7 +7,7 @@
  *
  * @author    Timo Reith <timo@ifeelweb.de>
  * @copyright Copyright (c) ifeelweb.de
- * @version   $Id: Version.php 215 2014-01-08 01:37:51Z timoreithde $
+ * @version   $Id: Version.php 471 2015-10-10 13:37:06Z timoreithde $
  * @package   IfwPsn_Util
  */ 
 class IfwPsn_Util_Version 
@@ -65,5 +65,13 @@ class IfwPsn_Util_Version
     public function equals($version)
     {
         return version_compare($this->_version, $version) === 0;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getVersion()
+    {
+        return $this->_version;
     }
 }

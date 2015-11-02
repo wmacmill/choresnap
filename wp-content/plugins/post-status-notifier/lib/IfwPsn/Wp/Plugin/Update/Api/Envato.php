@@ -6,7 +6,7 @@
  * 
  *
  * @author    Timo Reith <timo@ifeelweb.de>
- * @version   $Id: Envato.php 447 2015-07-31 16:57:37Z timoreithde $
+ * @version   $Id: Envato.php 478 2015-10-30 12:08:05Z timoreithde $
  * @package   
  */ 
 class IfwPsn_Wp_Plugin_Update_Api_Envato extends IfwPsn_Wp_Plugin_Update_Api_Abstract
@@ -145,6 +145,8 @@ class IfwPsn_Wp_Plugin_Update_Api_Envato extends IfwPsn_Wp_Plugin_Update_Api_Abs
             if (is_object($responseBody) && !empty($responseBody)) {
                 // Feed the update data into WP updater
                 $updateData->response[$this->_pm->getPathinfo()->getFilenamePath()] = $responseBody;
+
+                delete_transient($this->_pm->getAbbrLower() . '_auto_update');
             }
         }
 
@@ -179,11 +181,85 @@ class IfwPsn_Wp_Plugin_Update_Api_Envato extends IfwPsn_Wp_Plugin_Update_Api_Abs
 
         if ($response->isSuccess()) {
             if ($this->_pm->isPremium() && empty($license)) {
-                printf('<div style="padding: 5px 10px; border: 1px dashed red; margin-top: 10px;">%s</div>',
-                    sprintf( __('You have to enter your plugin <b>license code</b> in the <a href="%s">plugin options</a> to be able to download this update!', 'ifw'), $this->_pm->getConfig()->plugin->optionsPage) );
+
+                if ($this->_pm->getAccess()->isNetworkAdmin()) {
+                    $licensePage = network_admin_url($this->_pm->getConfig()->plugin->licensePageNetwork);
+                } else {
+                    $licensePage = admin_url($this->_pm->getConfig()->plugin->licensePage);
+                }
+
+                $wp_list_table = _get_list_table( 'WP_Plugins_List_Table' );
+                echo '<tr class="plugin-update-tr"><td colspan="' . $wp_list_table->get_column_count() . '" class="plugin-update colspanchange">
+                        <div style="padding: 10px; background-color: #fcf3ef;">';
+
+                printf('<span class="dashicons dashicons-info"></span> %s</div>',
+                    sprintf( __('<b>License issue:</b> Please <a href="%s">active your license</a> to be able to receive updates.', 'ifw'), $licensePage) );
+
+                if ($response->getBody() != '') {
+                    echo $response->getBody();
+                }
+
+                echo '</td></tr>';
             }
-            echo $response->getBody();
+            ;
         }
+    }
+
+    public function afterPluginRow($plugin_data, $meta_data)
+    {
+        // not used
+    }
+
+    /**
+     * Activate license
+     * @param $license
+     * @param array $options
+     * @return mixed
+     */
+    public function activate($license, array $options = array())
+    {
+        // not implemented
+    }
+
+    /**
+     * Deactivate license
+     * @param $license
+     * @param array $options
+     * @return mixed
+     */
+    public function deactivate($license, array $options = array())
+    {
+        // not implemented
+    }
+
+    /**
+     * Get license status
+     * @param $license
+     * @param array $options
+     * @return mixed
+     */
+    public function getLicenseStatus($license, array $options = array())
+    {
+        // not implemented
+    }
+
+    /**
+     * @param $license
+     * @param array $options
+     * @return bool
+     */
+    public function getLicenseExpiryDate($license, array $options = array())
+    {
+    }
+
+    /**
+     * @param $license
+     * @param array $options
+     * @return mixed|void
+     */
+    public function isActiveLicense($license, array $options = array())
+    {
+        // not implemented
     }
 
     /**
@@ -211,7 +287,6 @@ class IfwPsn_Wp_Plugin_Update_Api_Envato extends IfwPsn_Wp_Plugin_Update_Api_Abs
      */
     protected function _getLicenseCode()
     {
-        return IfwPsn_Wp_Proxy_Filter::apply('envato_license_code', $this->_pm->getOptionsManager()->getOption('license_code'));
+        return IfwPsn_Wp_Proxy_Filter::apply($this->_pm->getAbbrLower() . '_license_code', '');
     }
-
 }
