@@ -593,7 +593,7 @@ if ( ! class_exists( 'myCRED_Hook_View_Contents' ) ) :
 		/**
 		 * Content Loaded
 		 * @since 1.5.1
-		 * @version 1.1.1
+		 * @version 1.1.2
 		 */
 		public function content_loaded( $content ) {
 
@@ -602,7 +602,8 @@ if ( ! class_exists( 'myCRED_Hook_View_Contents' ) ) :
 
 			global $post;
 
-			$user_id = get_current_user_id();
+			$user_id    = get_current_user_id();
+			$pay_author = true;
 			if ( $post->post_author == $user_id ) return $content;
 
 			// Make sure this post type award points. Any amount but zero.
@@ -612,7 +613,8 @@ if ( ! class_exists( 'myCRED_Hook_View_Contents' ) ) :
 				if ( ! $this->core->exclude_user( $user_id ) ) {
 
 					// Limit
-					if ( ! $this->over_hook_limit( $post->post_type, 'view_content', $user_id ) )
+					if ( ! $this->over_hook_limit( $post->post_type, 'view_content', $user_id, $post->ID ) ) {
+
 						$this->core->add_creds(
 							'view_content',
 							$user_id,
@@ -623,12 +625,17 @@ if ( ! class_exists( 'myCRED_Hook_View_Contents' ) ) :
 							$this->mycred_type
 						);
 
+					}
+
+					// If the visitor does not get points, neither does the author
+					else $pay_author = false;
+
 				}
 
 			}
 
 			// Make sure this post type award points to the author. Any amount but zero.
-			if ( isset( $this->prefs[ $post->post_type ]['acreds'] ) && $this->prefs[ $post->post_type ]['acreds'] != 0 && apply_filters( 'mycred_view_content_author', true, $this ) === true ) {
+			if ( isset( $this->prefs[ $post->post_type ]['acreds'] ) && $this->prefs[ $post->post_type ]['acreds'] != 0 && apply_filters( 'mycred_view_content_author', $pay_author, $this ) === true ) {
 
 				// No payout for viewing our own content
 				if ( ! $this->core->exclude_user( $post->post_author ) ) {
@@ -2173,7 +2180,7 @@ if ( ! class_exists( 'myCRED_Hook_Video_Views' ) ) :
 			// Decode the key giving us the video shortcode setup
 			// This will prevent users from manipulating the shortcode output
 			$setup = mycred_verify_token( $_POST['setup'], 5 );
-			if ( $setup === false ) die;
+			if ( $setup === false ) die( 0 );
 
 			list ( $source, $video_id, $amount, $logic, $interval ) = $setup;
 

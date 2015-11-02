@@ -406,7 +406,7 @@ if ( ! class_exists( 'myCRED_BuddyPress_Module' ) ) :
 		 * @since 0.1
 		 * @version 1.3
 		 */
-		public function after_general_settings( $mycred ) {
+		public function after_general_settings() {
 
 			// Settings
 			global $bp;
