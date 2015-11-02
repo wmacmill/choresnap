@@ -4,6 +4,29 @@ Author: Saurabh Shukla & Umesh Kumar
 Change Log:
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
+
+= 2.0.7.1 =
+
+* Fixed: Bulk Smush button keeps spinning after 50 images for free version
+* Fixed: NextGen Bulk Smush button issue
+
+= 2.0.7 =
+
+* Fixed: Invalid header issue
+* Fixed: Warnings in file functions
+* Updated: Added limit on query results, for sites with higher image count, Use filter `wp_smush_media_query_limit` to adjust values
+* Added: Sortable WP Smush column in Media Library
+* Added: Filters `wp_smush_media_image` for Media Gallery, `wp_smush_nextgen_image` For NextGen gallery,
+          allows to skip a particular image size from smushing
+* Added: NextGen Gallery support
+
+= 2.0.6.5 =
+
+* Updated: Skip webp images ( causing ajax error for few sites )
+* Fixed: Warning and Notices ( Media Library not loading )
+* Fixed: Smush full size image if no other sizes are available
+* Added: Detailed text for stats and settings
+
 = 2.0.6.3 =
 
 * Fixed: Change File permission after replacing image
@@ -93,4 +116,4 @@ Change Log:
 - First release
 
 
-161579-1445003819-au
+161579-1446483078-au
