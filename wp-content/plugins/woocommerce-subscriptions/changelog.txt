@@ -1,5 +1,43 @@
 *** WooCommerce Subscriptions Changelog ***
 
+2015.10.27 - version 2.0.3
+ * New: One Time Shipping feature: https://docs.woothemes.com/document/subscriptions/store-manager-guide/#one-time-shipping
+ * Tweak: redirect to View Subscription page after changing payment method for payment methods redirecting back to My Account page
+ * Fix: reactivation of subscriptions using PayPal Standard as the payment method after a subscription renewal payment IPN message is sent (introduced with 2.0.2)
+ * Fix: use of start date in based on current GMT/UTC offset instead of GMT/UTC offset at the time the subscription was created to handle daylight savings time and changes to a site's timezone
+ * Fix: notices when saving a manually added subscription with the pending status via the WooCommerce > Add Subscription administration interface
+ * Fix: increase specificity of JS selector on Edit Product screen to make sure subscription pricing fields are only inserted once, even when other code is adding additional pricing sections
+ * Fix: return estimated subscription length instead of null for 3rd party code calling deprecated API functions
+ * Fix: always use WC_API_Subscriptions->get_subscription() to construct the API response for WC-API endpoints
+
+2015.10.21 - version 2.0.2
+ * New: create pending renewal order action from the Edit Subscriptions screen
+ * New: process renewal action from the Edit Subscriptions screen
+ * New: 'woocommerce_subscriptions_validate_coupon_type' filter to improve compatibility with Free Gift Coupons extension
+ * Tweak: display HTTP errors that occur during upgrade
+ * Tweak: always allow a store manager to change a subscription to use "Manual" renewal method on the Edit Subscription screen, even if manual renewals are not enabled for checkout
+ * Fix: repair data not migrated correctly from Subscriptions 1.n, especially important for repairing incorrect dates for stores that upgraded with 2.0.0. Data repaired is dates, customer notes and line tax data.
+ * Fix: repair subscrpitions incorrectly expired due to incorrect expirate date set during the 2.0.0 upgrade process
+ * Fix: bug in upgrade process preventing line tax date being copied correctly
+ * Fix: bug in upgrade process preventing customer notes on subscription orders being copied to subscriptions
+ * Fix: bug in upgrade process where incorrect dates could be set on subscriptions (only affecting upgrades run with 2.0.0 not 2.0.1 and dates will be repaired on upgrade to this version)
+ * Fix: infinite loop during upgrade process if store had subscription order item meta data but the corresponding order item had been deleted
+ * Fix: call deprecated status change hooks: 'activated_subscription', 'suspended_subscription', 'subscription_put_on-hold', 'cancelled_subscription' and 'reactivated_subscription' to improve compatibility with plugins that have not been updated for Subscriptions 2.0 yet
+ * Fix: hide refund button on Edit Subscriptions screen: subscriptions can not be refunded, only orders
+ * Fix: handling of PayPal IPN recurring_payment_suspended_due_to_max_failed_payment messages - correctly create renewal order on failure instead of simply suspending the subscription
+ * Fix: occassional "Invalid argument supplied for foreach" notices on cart page when attempting to get shipping methods
+ * Fix: do not show "Free!" for grouped products with a free trial on the grouped product's page when product is in the cart
+ * Fix: paying for renewal of a limited subscription product
+ * Fix: customer changing payment method with PayPal RT
+ * Fix: [subscriptions] shortcode
+
+2015.10.09 - version 2.0.1
+ * Tweak: add a log entry when processing an IPN request completes
+ * Fix: PayPal IPN handling for subscriptions purchased with older versions of WooCommerce
+ * Fix: renewal failure on stores running code attached to the deprecated 'woocommerce_subscriptions_renewal_order_created' hook and not returning the renewal order (which wasn't required previously because it was an action)
+ * Fix: checkout errors on stores running code calling the deprecated WC_Subscriptions_Order::get_recurring_total_tax() method
+ * Fix: upgrade error when upgrading a sync'd subscription that has been trashed for a product that has been permanently deleted
+
 2015.10.05 - version 2.0.0
  * New: purchase different subscription products in the same transaction: https://docs.woothemes.com/document/subscriptions/version-2/#section-2
  * New: administration interface for Adding or Editing a subscription: https://docs.woothemes.com/document/subscriptions/version-2/#section-3

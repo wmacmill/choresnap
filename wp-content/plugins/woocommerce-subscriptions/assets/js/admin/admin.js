@@ -274,7 +274,7 @@ jQuery(document).ready(function($){
 	$('.options_group.pricing ._sale_price_field .description').prepend('<span id="sale-price-period" style="display: none;"></span>');
 
 	// Move the subscription pricing section to the same location as the normal pricing section
-	$('.options_group.subscription_pricing').not('.variable_subscription_pricing .options_group.subscription_pricing').insertBefore($('.options_group.pricing'));
+	$('.options_group.subscription_pricing').not('.variable_subscription_pricing .options_group.subscription_pricing').insertBefore($('.options_group.pricing:first'));
 	$('.show_if_subscription.clear').insertAfter($('.options_group.subscription_pricing'));
 
 	// Move the subscription variation pricing section to a better location in the DOM on load
