@@ -1,11 +1,10 @@
-# Copyright (C) 2015 WP Job Manager - Job Alerts
-# This file is distributed under the same license as the WP Job Manager - Job Alerts package.
+# Copyright (C) 2015 WP Job Manager - Alerts
+# This file is distributed under the same license as the WP Job Manager - Alerts package.
 msgid ""
 msgstr ""
-"Project-Id-Version: WP Job Manager - Job Alerts 1.3.11\n"
-"Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/wp-job-manager-"
-"alerts\n"
-"POT-Creation-Date: 2015-06-27 08:49:47+00:00\n"
+"Project-Id-Version: WP Job Manager - Alerts 1.4.0\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/wp-job-manager-alerts\n"
+"POT-Creation-Date: 2015-11-24 14:13:22+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,25 +12,29 @@ msgstr ""
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
-#: includes/class-wp-job-manager-alerts-notifier.php:26
-msgid "Once Weekly"
+#: includes/class-wp-job-manager-alerts-notifier.php:33
+msgid "Daily"
 msgstr ""
 
-#: includes/class-wp-job-manager-alerts-notifier.php:30
-msgid "Once every fortnight"
+#: includes/class-wp-job-manager-alerts-notifier.php:38
+msgid "Weekly"
 msgstr ""
 
-#: includes/class-wp-job-manager-alerts-notifier.php:60
+#: includes/class-wp-job-manager-alerts-notifier.php:43
+msgid "Fortnightly"
+msgstr ""
+
+#: includes/class-wp-job-manager-alerts-notifier.php:83
 msgid "Job Alert Results Matching \"%s\""
 msgstr ""
 
-#: includes/class-wp-job-manager-alerts-notifier.php:171
+#: includes/class-wp-job-manager-alerts-notifier.php:178
 msgid ""
 "No jobs were found matching your search. Login to your account to change "
 "your alert criteria"
 msgstr ""
 
-#: includes/class-wp-job-manager-alerts-notifier.php:188
+#: includes/class-wp-job-manager-alerts-notifier.php:191
 msgid "This job alert will automatically stop sending after %s."
 msgstr ""
 
@@ -40,57 +43,55 @@ msgid "Please name your alert"
 msgstr ""
 
 #: includes/class-wp-job-manager-alerts-shortcodes.php:74
-#: includes/class-wp-job-manager-alerts-shortcodes.php:127
-#: includes/class-wp-job-manager-alerts-shortcodes.php:164
+#: includes/class-wp-job-manager-alerts-shortcodes.php:128
+#: includes/class-wp-job-manager-alerts-shortcodes.php:161
 msgid "Invalid Alert"
 msgstr ""
 
-#: includes/class-wp-job-manager-alerts-shortcodes.php:156
+#: includes/class-wp-job-manager-alerts-shortcodes.php:153
 msgid "%s has been %s"
 msgstr ""
 
-#: includes/class-wp-job-manager-alerts-shortcodes.php:156
-#: templates/my-alerts.php:88
+#: includes/class-wp-job-manager-alerts-shortcodes.php:153
 msgid "Enabled"
 msgstr ""
 
-#: includes/class-wp-job-manager-alerts-shortcodes.php:156
-#: templates/my-alerts.php:88
+#: includes/class-wp-job-manager-alerts-shortcodes.php:153
 msgid "Disabled"
 msgstr ""
 
-#: includes/class-wp-job-manager-alerts-shortcodes.php:170
+#: includes/class-wp-job-manager-alerts-shortcodes.php:167
 msgid "%s has been deleted"
 msgstr ""
 
-#: includes/class-wp-job-manager-alerts-shortcodes.php:178
+#: includes/class-wp-job-manager-alerts-shortcodes.php:175
 msgid "%s has been triggered"
 msgstr ""
 
-#: includes/class-wp-job-manager-alerts-shortcodes.php:195
+#: includes/class-wp-job-manager-alerts-shortcodes.php:192
 msgid "You need to be %ssigned in%s to manage your alerts."
 msgstr ""
 
-#: includes/class-wp-job-manager-alerts-shortcodes.php:204
+#: includes/class-wp-job-manager-alerts-shortcodes.php:201
 msgid "Your alerts have been updated"
 msgstr ""
 
-#: includes/class-wp-job-manager-alerts-shortcodes.php:288
+#: includes/class-wp-job-manager-alerts-shortcodes.php:287
 msgid "Jobs matching your \"%s\" alert:"
 msgstr ""
 
-#: includes/class-wp-job-manager-alerts-shortcodes.php:303
+#: includes/class-wp-job-manager-alerts-shortcodes.php:302
 msgid "No jobs found"
 msgstr ""
 
-#: includes/updater/views/html-key-input.php:4
-msgid "Licence"
+#: includes/updater/views/html-key-input.php:5
+msgid "License"
 msgstr ""
 
-#: includes/updater/views/html-key-input.php:7
+#: includes/updater/views/html-key-input.php:8
 msgid ""
-"Enter your licence key and email and hit return. A valid key is required for "
-"automatic updates."
+"Enter your license key and email and hit return. A valid key is required for "
+"updates."
 msgstr ""
 
 #: includes/updater/views/html-key-notice.php:2
@@ -120,55 +121,51 @@ msgstr ""
 msgid "Optionally add a keyword to match jobs against"
 msgstr ""
 
-#: templates/alert-form.php:15 templates/my-alerts.php:9
-msgid "Location"
-msgstr ""
-
-#: templates/alert-form.php:17
-msgid "Optionally define a location to search against"
-msgstr ""
-
-#: templates/alert-form.php:22
+#: templates/alert-form.php:16
 msgid "Job Region"
 msgstr ""
 
-#: templates/alert-form.php:34
+#: templates/alert-form.php:28
 msgid "Any region"
 msgstr ""
 
-#: templates/alert-form.php:42
+#: templates/alert-form.php:35 templates/my-alerts.php:14
+msgid "Location"
+msgstr ""
+
+#: templates/alert-form.php:37
+msgid "Optionally define a location to search against"
+msgstr ""
+
+#: templates/alert-form.php:43 templates/my-alerts.php:9
 msgid "Categories"
 msgstr ""
 
-#: templates/alert-form.php:54
+#: templates/alert-form.php:55
 msgid "Any category"
 msgstr ""
 
-#: templates/alert-form.php:61
+#: templates/alert-form.php:63 templates/my-alerts.php:12
+msgid "Tags"
+msgstr ""
+
+#: templates/alert-form.php:75
+msgid "Any tag"
+msgstr ""
+
+#: templates/alert-form.php:82
 msgid "Job Type"
 msgstr ""
 
-#: templates/alert-form.php:63
+#: templates/alert-form.php:84
 msgid "Any job type"
 msgstr ""
 
-#: templates/alert-form.php:73
+#: templates/alert-form.php:94
 msgid "Email Frequency"
 msgstr ""
 
-#: templates/alert-form.php:76 templates/my-alerts.php:78
-msgid "Daily"
-msgstr ""
-
-#: templates/alert-form.php:77 templates/my-alerts.php:81
-msgid "Weekly"
-msgstr ""
-
-#: templates/alert-form.php:78 templates/my-alerts.php:84
-msgid "Fortnightly"
-msgstr ""
-
-#: templates/alert-form.php:85
+#: templates/alert-form.php:106
 msgid "Save alert"
 msgstr ""
 
@@ -185,52 +182,47 @@ msgid "Location:"
 msgstr ""
 
 #: templates/my-alerts.php:2
-msgid ""
-"Your job alerts are shown in the table below. Your alerts will be sent to %s."
+msgid "Your job alerts are shown in the table below and will be emailed to %s."
 msgstr ""
 
 #: templates/my-alerts.php:7
-msgid "Date Created"
-msgstr ""
-
-#: templates/my-alerts.php:8
 msgid "Keywords"
 msgstr ""
 
-#: templates/my-alerts.php:10
+#: templates/my-alerts.php:15
 msgid "Frequency"
 msgstr ""
 
-#: templates/my-alerts.php:11
-msgid "Status"
-msgstr ""
-
-#: templates/my-alerts.php:17 wp-job-manager-alerts.php:179
+#: templates/my-alerts.php:21 wp-job-manager-alerts.php:179
 msgid "Add alert"
 msgstr ""
 
-#: templates/my-alerts.php:30
-msgid "Show Results"
-msgstr ""
-
 #: templates/my-alerts.php:34
-msgid "Email"
+msgid "Results"
 msgstr ""
 
 #: templates/my-alerts.php:38
+msgid "Send&nbsp;Now"
+msgstr ""
+
+#: templates/my-alerts.php:42
 msgid "Edit"
 msgstr ""
 
-#: templates/my-alerts.php:42
+#: templates/my-alerts.php:46
 msgid "Enable"
 msgstr ""
 
-#: templates/my-alerts.php:42
+#: templates/my-alerts.php:46
 msgid "Disable"
 msgstr ""
 
-#: templates/my-alerts.php:46
+#: templates/my-alerts.php:50
 msgid "Delete"
+msgstr ""
+
+#: templates/my-alerts.php:101
+msgid "Next: %s at %s"
 msgstr ""
 
 #: wp-job-manager-alerts.php:87
@@ -311,7 +303,7 @@ msgid "Alert me to jobs like this"
 msgstr ""
 
 #. Plugin Name of the plugin/theme
-msgid "WP Job Manager - Job Alerts"
+msgid "WP Job Manager - Alerts"
 msgstr ""
 
 #. Plugin URI of the plugin/theme
@@ -326,9 +318,9 @@ msgid ""
 msgstr ""
 
 #. Author of the plugin/theme
-msgid "Mike Jolley"
+msgid "Automattic"
 msgstr ""
 
 #. Author URI of the plugin/theme
-msgid "http://mikejolley.com"
+msgid "http://wpjobmanager.com"
 msgstr ""

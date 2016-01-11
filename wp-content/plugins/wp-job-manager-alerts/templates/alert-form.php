@@ -58,6 +58,26 @@
 			</div>
 		</fieldset>
 	<?php endif; ?>
+	<?php if ( wp_count_terms( 'job_listing_tag' ) > 0 ) : ?>
+		<fieldset>
+			<label for="alert_tags"><?php _e( 'Tags', 'wp-job-manager-alerts' ); ?></label>
+			<div class="field">
+				<?php
+					wp_enqueue_script( 'wp-job-manager-term-multiselect' );
+
+					job_manager_dropdown_categories( array(
+						'taxonomy'     => 'job_listing_tag',
+						'hierarchical' => 0,
+						'name'         => 'alert_tags',
+						'orderby'      => 'name',
+						'selected'     => $alert_tags,
+						'hide_empty'   => false,
+						'placeholder'  => __( 'Any tag', 'wp-job-manager' )
+					) );
+				?>
+			</div>
+		</fieldset>
+	<?php endif; ?>
 	<fieldset>
 		<label for="alert_job_type"><?php _e( 'Job Type', 'wp-job-manager-alerts' ); ?></label>
 		<div class="field">
@@ -74,9 +94,9 @@
 		<label for="alert_frequency"><?php _e( 'Email Frequency', 'wp-job-manager-alerts' ); ?></label>
 		<div class="field">
 			<select name="alert_frequency" id="alert_frequency">
-				<option value="daily" <?php selected( $alert_frequency, 'daily' ); ?>><?php _e( 'Daily', 'wp-job-manager-alerts' ); ?></option>
-				<option value="weekly" <?php selected( $alert_frequency, 'weekly' ); ?>><?php _e( 'Weekly', 'wp-job-manager-alerts' ); ?></option>
-				<option value="fortnightly" <?php selected( $alert_frequency, 'fortnightly' ); ?>><?php _e( 'Fortnightly', 'wp-job-manager-alerts' ); ?></option>
+				<?php foreach ( WP_Job_Manager_Alerts_Notifier::get_alert_schedules() as $key => $schedule ) : ?>
+					<option value="<?php echo esc_attr( $key ); ?>" <?php selected( $alert_frequency, $key ); ?>><?php echo esc_html( $schedule['display'] ); ?></option>
+				<?php endforeach; ?>
 			</select>
 		</div>
 	</fieldset>

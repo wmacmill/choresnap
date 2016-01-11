@@ -8,6 +8,12 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 class WP_Job_Manager_Alerts_Notifier {
 
 	/**
+	 * Store current alert frequency for queries
+	 * @var string
+	 */
+	private static $current_alert_frequency = 'daily';
+
+	/**
 	 * Constructor
 	 */
 	public function __construct() {
@@ -16,20 +22,37 @@ class WP_Job_Manager_Alerts_Notifier {
 	}
 
 	/**
+	 * Get alert schedules
+	 * @return array
+	 */
+	public static function get_alert_schedules() {
+		$schedules = array();
+
+		$schedules['daily'] = array(
+			'interval' => 86400,
+			'display'  => __( 'Daily', 'wp-job-manager-alerts' )
+	 	);
+
+		$schedules['weekly'] = array(
+			'interval' => 604800,
+			'display'  => __( 'Weekly', 'wp-job-manager-alerts' )
+	 	);
+
+	 	$schedules['fortnightly'] = array(
+			'interval' => 604800 * 2,
+			'display'  => __( 'Fortnightly', 'wp-job-manager-alerts' )
+	 	);
+
+		return apply_filters( 'job_manager_alerts_alert_schedules', $schedules );
+	}
+
+	/**
 	 * Add custom cron schedules
 	 * @param array $schedules
 	 * @return array
 	 */
 	public function add_cron_schedules( array $schedules ) {
-		$schedules['weekly'] = array(
-			'interval' => 604800,
-			'display'  => __( 'Once Weekly', 'wp-job-manager-alerts' )
-	 	);
-	 	$schedules['fortnightly'] = array(
-			'interval' => 604800 * 2,
-			'display'  => __( 'Once every fortnight', 'wp-job-manager-alerts' )
-	 	);
-		return $schedules;
+		return array_merge( $schedules, $this->get_alert_schedules() );
 	}
 
 	/**
@@ -85,28 +108,22 @@ class WP_Job_Manager_Alerts_Notifier {
 	 * Match jobs to an alert
 	 */
 	public static function get_matching_jobs( $alert, $force ) {
-		if ( method_exists( __CLASS__, 'filter_' . $alert->alert_frequency ) && ! $force )
-			add_filter( 'posts_where', array( __CLASS__, 'filter_' . $alert->alert_frequency ) );
+		self::$current_alert_frequency = $alert->alert_frequency;
 
-		if ( taxonomy_exists( 'job_listing_category' ) ) {
-			$cats  = array_filter( (array) wp_get_post_terms( $alert->ID, 'job_listing_category', array( 'fields' => 'slugs' ) ) );
-		} else {
-			$cats = '';
+		if ( ! $force ) {
+			add_filter( 'posts_where', array( __CLASS__, 'filter_alert_frequency' ) );
 		}
 
-		if ( taxonomy_exists( 'job_listing_region' ) ) {
-			$regions  = array_filter( (array) wp_get_post_terms( $alert->ID, 'job_listing_region', array( 'fields' => 'ids' ) ) );
-		} else {
-			$regions = '';
-		}
-
-		$types = array_filter( (array) wp_get_post_terms( $alert->ID, 'job_listing_type', array( 'fields' => 'slugs' ) ) );
-
-		$jobs = get_job_listings( apply_filters( 'job_manager_alerts_get_job_listings_args', array(
+		$cats    = taxonomy_exists( 'job_listing_category' ) ? array_filter( (array) wp_get_post_terms( $alert->ID, 'job_listing_category', array( 'fields' => 'slugs' ) ) ) : '';
+		$tags    = taxonomy_exists( 'job_listing_tag' ) ? array_filter( (array) wp_get_post_terms( $alert->ID, 'job_listing_tag', array( 'fields'           => 'slugs' ) ) ) : '';
+		$regions = taxonomy_exists( 'job_listing_region' ) ? array_filter( (array) wp_get_post_terms( $alert->ID, 'job_listing_region', array( 'fields'     => 'ids' ) ) )   : '';
+		$types   = array_filter( (array) wp_get_post_terms( $alert->ID, 'job_listing_type', array( 'fields'                                                 => 'slugs' ) ) );
+		$jobs    = get_job_listings( apply_filters( 'job_manager_alerts_get_job_listings_args', array(
 			'search_location'   => $alert->alert_location,
 			'search_keywords'   => $alert->alert_keyword,
 			'search_categories' => sizeof( $cats ) > 0 ? $cats : '',
 			'search_region'     => $regions,
+			'search_tags'       => $tags,
 			'job_types'         => sizeof( $types ) > 0 ? $types : '',
 			'orderby'           => 'date',
 			'order'             => 'desc',
@@ -114,9 +131,7 @@ class WP_Job_Manager_Alerts_Notifier {
 			'posts_per_page'    => 50
 		) ) );
 
-		if ( method_exists( __CLASS__, 'filter_' . $alert->alert_frequency ) && ! $force ) {
-			remove_filter( 'posts_where', array( __CLASS__, 'filter_' . $alert->alert_frequency ) );
-		}
+		remove_filter( 'posts_where', array( __CLASS__, 'filter_alert_frequency' ) );
 
 		return $jobs;
 	}
@@ -124,24 +139,16 @@ class WP_Job_Manager_Alerts_Notifier {
 	/**
 	 * Filter posts from the last day
 	 */
-	public static function filter_daily( $where = '' ) {
-		$where .= " AND post_date >= '" . date( 'Y-m-d', strtotime( '-1 days' ) ) . "' ";
-		return $where;
-	}
+	public static function filter_alert_frequency( $where = '' ) {
+		$schedules = WP_Job_Manager_Alerts_Notifier::get_alert_schedules();
 
-	/**
-	 * Filter posts from the last week
-	 */
-	public static function filter_weekly( $where = '' ) {
-		$where .= " AND post_date >= '" . date( 'Y-m-d', strtotime( '-1 week' ) ) . "' ";
-		return $where;
-	}
+		if ( ! empty( $schedules[ self::$current_alert_frequency ] ) ) {
+			$interval = $schedules[ self::$current_alert_frequency ]['interval'];
+		} else {
+			$interval = 86400;
+		}
 
-	/**
-	 * Filter posts from the last 2 weeks
-	 */
-	public static function filter_fortnightly( $where = '' ) {
-		$where .= " AND post_date >= '" . date( 'Y-m-d', strtotime( '-2 weeks' ) ) . "' ";
+		$where .= " AND post_date >= '" . date( 'Y-m-d', strtotime( '-' . absint( $interval ) . ' seconds' ) ) . "' ";
 		return $where;
 	}
 
@@ -172,16 +179,12 @@ class WP_Job_Manager_Alerts_Notifier {
 		}
 
 		// Reschedule next alert
-		switch ( $alert->alert_frequency ) {
-			case 'daily' :
-				$next = strtotime( '+1 day' );
-			break;
-			case 'fortnightly' :
-				$next = strtotime( '+2 week' );
-			break;
-			default :
-				$next = strtotime( '+1 week' );
-			break;
+		$schedules = WP_Job_Manager_Alerts_Notifier::get_alert_schedules();
+
+		if ( ! empty( $schedules[ $alert->alert_frequency ] ) ) {
+			$next = strtotime( '+' . $schedules[ $alert->alert_frequency ]['interval'] . ' seconds' );
+		} else {
+			$next = strtotime( '+1 day' );
 		}
 
 		if ( get_option( 'job_manager_alerts_auto_disable' ) > 0 ) {
