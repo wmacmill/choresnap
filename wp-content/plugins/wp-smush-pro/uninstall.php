@@ -50,7 +50,7 @@ if ( is_multisite() ) {
 		if ( $blogs ) {
 			foreach ( $blogs as $blog ) {
 				switch_to_blog( $blog['blog_id'] );
-				delete_metadata( $meta_type, $user_id, $meta_key, $meta_value, $delete_all );
+				delete_metadata( $meta_type, $user_id, $meta_key, $meta_value, $delete_all );	     		   	  	  				
 			}
 			restore_current_blog();
 		}

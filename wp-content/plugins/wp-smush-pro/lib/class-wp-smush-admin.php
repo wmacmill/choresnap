@@ -26,7 +26,6 @@ if ( ! class_exists( 'WpSmushitAdmin' ) ) {
 	class WpSmushitAdmin extends WpSmush {
 
 		/**
-		 *
 		 * @var array Settings
 		 */
 		public $settings;
@@ -67,12 +66,17 @@ if ( ! class_exists( 'WpSmushitAdmin' ) ) {
 		public $exceeding_items_count = 0;
 
 		/**
+		 * @var If the plugin is a pro version or not
+		 */
+		private $is_pro_user;
+
+		/**
 		 * Constructor
 		 */
 		public function __construct() {
 
 			// Save Settings, Process Option, Need to process it early, so the pages are loaded accordingly, nextgen gallery integration is loaded at same action
-			add_action( 'plugins_loaded', array( $this, 'process_options' ) );
+			add_action( 'plugins_loaded', array( $this, 'process_options' ), 20 );
 
 			// hook scripts and styles
 			add_action( 'admin_init', array( $this, 'register' ) );
@@ -102,9 +106,6 @@ if ( ! class_exists( 'WpSmushitAdmin' ) ) {
 
 			/// Smush Upgrade
 			add_action( 'admin_notices', array( $this, 'smush_upgrade' ) );
-
-			$this->init_settings();
-
 		}
 
 		/**
@@ -251,7 +252,7 @@ if ( ! class_exists( 'WpSmushitAdmin' ) ) {
 			$bulk   = new WpSmushitBulk();
 			$handle = 'wp-smushit-admin-js';
 
-			if ( $this->is_pro() || $this->remaining_count <= $this->max_free_bulk ) {
+			if ( $this->is_pro_user || $this->remaining_count <= $this->max_free_bulk ) {
 				$bulk_now = __( 'Bulk Smush Now', 'wp-smushit' );
 			} else {
 				$bulk_now = sprintf( __( 'Bulk Smush %d Attachments', 'wp-smushit' ), $this->max_free_bulk );
@@ -276,7 +277,7 @@ if ( ! class_exists( 'WpSmushitAdmin' ) ) {
 			$this->ids = ! empty( $_REQUEST['ids'] ) ? explode( ',', $_REQUEST['ids'] ) : $bulk->get_attachments();
 
 			//If premium, Super smush allowed, all images are smushed, localize lossless smushed ids for bulk compression
-			if ( $this->is_pro() &&
+			if ( $this->is_pro_user &&
 			     ( $this->total_count == $this->smushed_count && empty( $this->ids ) )
 			) {
 
@@ -305,11 +306,11 @@ if ( ! class_exists( 'WpSmushitAdmin' ) ) {
 		 * Translation ready settings
 		 */
 		function init_settings() {
-			if( $this->is_pro() ) {
-				$smush_orgnl_txt = esc_html__('Smush all images, including originals.', 'wp_smushit');
-			}else{
-				$count = count( get_intermediate_image_sizes() );
-				$smush_orgnl_txt = sprintf( esc_html__("When you upload an image to WordPress it automatically creates %s thumbnail sizes that are commonly used in your pages. WordPress also stores the original full-size image, but because these are not usually embedded on your site we don’t Smush them. Pro users can override this.", 'wp_smushit'), $count );
+			if ( $this->is_pro_user ) {
+				$smush_orgnl_txt = esc_html__( 'Smush all images, including originals.', 'wp_smushit' );
+			} else {
+				$count           = count( get_intermediate_image_sizes() );
+				$smush_orgnl_txt = sprintf( esc_html__( "When you upload an image to WordPress it automatically creates %s thumbnail sizes that are commonly used in your pages. WordPress also stores the original full-size image, but because these are not usually embedded on your site we don’t Smush them. Pro users can override this.", 'wp_smushit' ), $count );
 			}
 			$this->settings = array(
 				'auto'     => __( 'Smush images on upload', 'wp-smushit' ),
@@ -339,7 +340,7 @@ if ( ! class_exists( 'WpSmushitAdmin' ) ) {
 
 				<h2>
 					<?php
-					if ( $this->is_pro() ) {
+					if ( $this->is_pro_user ) {
 						_e( 'WP Smush Pro', 'wp-smushit' );
 					} else {
 						_e( 'WP Smush', 'wp-smushit' );
@@ -389,47 +390,33 @@ if ( ! class_exists( 'WpSmushitAdmin' ) ) {
 					$opt_original = WP_SMUSH_PREFIX . 'original';
 					//Auto value
 					$opt_original_val = get_option( $opt_original, false );
-					//For free version, show unchecked
-					if ( ! $this->is_pro() ) {
-						$opt_original_val = 0;
-					}
 
 					//Smush auto key
 					$opt_lossy = WP_SMUSH_PREFIX . 'lossy';
 					//Auto value
 					$opt_lossy_val = get_option( $opt_lossy, false );
 
-					//For free version, show unchecked
-					if ( ! $this->is_pro() ) {
-						$opt_lossy_val = 0;
-					}
-
 					//Smush auto key
 					$opt_backup = WP_SMUSH_PREFIX . 'backup';
 					//Auto value
 					$opt_backup_val = get_option( $opt_backup, false );
-
-					//For free version, show unchecked
-					if ( ! $this->is_pro() ) {
-						$opt_backup_val = 0;
-					}
 
 					//Smush NextGen key
 					$opt_nextgen = WP_SMUSH_PREFIX . 'nextgen';
 					//Auto value
 					$opt_nextgen_val = get_option( $opt_nextgen, 1 );
 
-					//For free version, show unchecked
-					if ( ! $this->is_pro() ) {
-						$opt_nextgen_val = 0;
-					}
-
 					//disable lossy for non-premium members
-					$disabled = $class = $feature_class = '';
-					if ( ! $this->is_pro() ) {
+					$disabled = $feature_class = '';
+
+					//For free version, show unchecked
+					if ( ! $this->is_pro_user ) {
+						$opt_original_val = 0;
+						$opt_lossy_val    = 0;
+						$opt_backup_val   = 0;
+						$opt_nextgen_val  = 0;
+
 						$disabled      = ' disabled';
-						$opt_lossy_val = $opt_backup_val = 0;
-						$class         = ' inactive inactive-anim';
 					} ?>
 					<div class='wp-smush-setting-row'><?php
 						// return html
@@ -439,11 +426,13 @@ if ( ! class_exists( 'WpSmushitAdmin' ) ) {
 					<fieldset class="wp-smush-pro-features">
 						<legend><strong><?php esc_html_e( "PRO FEATURES", "wp-smushit" ); ?></strong></legend><?php
 
-						if ( ! $this->is_pro() ) {
+						if ( ! $this->is_pro_user ) {
 							?>
 							<div class="pro-note">
-								<div style="padding:14px 0 14px;"><span class="dashicons dashicons-info"></span><?php esc_html_e( "These features are available in Pro Version of the plugin.", "wp-smushit" ); ?>
-									<a href="<?php echo $this->upgrade_url; ?>" target="_blank" class="button find-out-link">Find out more »</a>
+								<div style="padding:14px 0 14px;">
+									<span class="dashicons dashicons-info"></span><?php esc_html_e( "These features are available in Pro Version of the plugin.", "wp-smushit" ); ?>
+									<a href="<?php echo $this->upgrade_url; ?>" target="_blank" class="button find-out-link">Find
+										out more »</a>
 								</div>
 							</div>
 							<?php
@@ -479,6 +468,16 @@ if ( ! class_exists( 'WpSmushitAdmin' ) ) {
 		 * @return null
 		 */
 		function process_options() {
+
+			$this->is_pro_user = $this->is_pro();
+
+			$this->init_settings();
+
+			//If refresh is set in URL
+			if ( isset( $_GET['refresh'] ) && $_GET['refresh'] ) {
+				$this->refresh_status();
+			}
+
 			// we aren't saving options
 			if ( ! isset( $_POST['wp_smush_options_nonce'] ) ) {
 				return;
@@ -513,8 +512,8 @@ if ( ! class_exists( 'WpSmushitAdmin' ) ) {
 		 * @return int
 		 */
 		function get_exceeding_items_count( $force_update = false ) {
-			$count = wp_cache_get('exceeding_items', 'wp_smush');
-			if( !$count || $force_update ) {
+			$count = wp_cache_get( 'exceeding_items', 'wp_smush' );
+			if ( ! $count || $force_update ) {
 				$count       = 0;
 				$bulk        = new WpSmushitBulk();
 				$attachments = $bulk->get_attachments();
@@ -540,7 +539,7 @@ if ( ! class_exists( 'WpSmushitAdmin' ) ) {
 		function bulk_preview() {
 
 			$exceed_mb = '';
-			if ( ! $this->is_pro() ) {
+			if ( ! $this->is_pro_user ) {
 
 				//Initialize exceeding item Count
 				$this->exceeding_items_count = $this->get_exceeding_items_count();
@@ -582,7 +581,7 @@ if ( ! class_exists( 'WpSmushitAdmin' ) ) {
 						<p><?php _e( "Please be aware, smushing a large number of images can take a while depending on your server and network speed.
 						<strong>You must keep this page open while the bulk smush is processing</strong>, but you can leave at any time and come back to continue where it left off.", 'wp-smushit' ); ?></p>
 
-						<?php if ( ! $this->is_pro() ) { ?>
+						<?php if ( ! $this->is_pro_user ) { ?>
 							<p class="error">
 								<?php printf( __( "Free accounts are limited to bulk smushing %d attachments per request. You will need to click to start a new bulk job after each %d attachments.", 'wp-smushit' ), $this->max_free_bulk, $this->max_free_bulk ); ?>
 								<a href="<?php echo $this->upgrade_url; ?>"><?php _e( 'Remove limits &raquo;', 'wp-smushit' ); ?></a>
@@ -695,16 +694,12 @@ if ( ! class_exists( 'WpSmushitAdmin' ) ) {
 			global $WpSmush;
 
 			$should_continue = true;
-			$is_pro          = false;
 
 			if ( empty( $_REQUEST['attachment_id'] ) ) {
 				wp_send_json_error( 'missing id' );
 			}
 
-			//if not premium
-			$is_pro = $WpSmush->is_pro();
-
-			if ( ! $is_pro ) {
+			if ( ! $this->is_pro_user ) {
 				//Free version bulk smush, check the transient counter value
 				$should_continue = $this->check_bulk_limit();
 			}
@@ -735,7 +730,7 @@ if ( ! class_exists( 'WpSmushitAdmin' ) ) {
 			if ( is_wp_error( $smush ) ) {
 				$error = $smush->get_error_message();
 				//Check for timeout error and suggest to filter timeout
-				if( strpos( $error, 'timed out') ) {
+				if ( strpos( $error, 'timed out' ) ) {
 					$msg = esc_html__( "Smush request timed out, You can try setting a higher value for `WP_SMUSH_API_TIMEOUT`.", "wp-smushit" );
 				}
 				wp_send_json_error( array( 'stats' => $stats, 'error_msg' => $msg ) );
@@ -992,8 +987,8 @@ if ( ! class_exists( 'WpSmushitAdmin' ) ) {
 			 * Allows to set a limit of mysql query
 			 * Default value is 2000
 			 */
-			$limit = apply_filters('wp_smush_media_query_limit', 2000 );
-			$limit = intval( $limit );
+			$limit  = apply_filters( 'wp_smush_media_query_limit', 2000 );
+			$limit  = intval( $limit );
 			$offset = 0;
 
 			while ( $global_data = $wpdb->get_col( $wpdb->prepare( "SELECT meta_value FROM $wpdb->postmeta WHERE meta_key=%s LIMIT $offset, $limit", "wp-smpro-smush-data" ) ) ) {
@@ -1012,7 +1007,7 @@ if ( ! class_exists( 'WpSmushitAdmin' ) ) {
 				$offset += $limit;
 			}
 
-			if ( $smush_data['bytes'] < 0 ) {
+			if ( ! isset( $smush_data['bytes'] ) || $smush_data['bytes'] < 0 ) {
 				$smush_data['bytes'] = 0;
 			}
 
@@ -1039,7 +1034,7 @@ if ( ! class_exists( 'WpSmushitAdmin' ) ) {
 				'cancel' => false,
 			);
 			if ( $super_smush ) {
-				if ( $this->is_pro() || $this->remaining_count <= $this->max_free_bulk ) { //if premium or under limit
+				if ( $this->is_pro_user || $this->remaining_count <= $this->max_free_bulk ) { //if premium or under limit
 
 					$button['text']  = __( 'Bulk Smush Now', 'wp-smushit' );
 					$button['class'] = 'wp-smush-button wp-smush-send';
@@ -1055,7 +1050,7 @@ if ( ! class_exists( 'WpSmushitAdmin' ) ) {
 					$button['class']    = 'wp-smush-finished disabled wp-smush-finished';
 					$button['disabled'] = 'disabled';
 
-				} else if ( $this->is_pro() || $this->remaining_count <= $this->max_free_bulk ) { //if premium or under limit
+				} else if ( $this->is_pro_user || $this->remaining_count <= $this->max_free_bulk ) { //if premium or under limit
 
 					$button['text']  = __( 'Bulk Smush Now', 'wp-smushit' );
 					$button['class'] = 'wp-smush-button wp-smush-send';
@@ -1076,7 +1071,7 @@ if ( ! class_exists( 'WpSmushitAdmin' ) ) {
 		 * @return array
 		 */
 		function get_smushed_image_ids() {
-			$args = array(
+			$args  = array(
 				'fields'         => 'ids',
 				'post_type'      => 'attachment',
 				'post_status'    => 'any',
@@ -1127,6 +1122,7 @@ if ( ! class_exists( 'WpSmushitAdmin' ) ) {
 		 * Shows Notice for free users, displays a discount coupon
 		 */
 		function smush_upgrade() {
+
 			if ( ! current_user_can( 'edit_others_posts' ) || ! is_super_admin() ) {
 				return;
 			}
@@ -1139,7 +1135,7 @@ if ( ! class_exists( 'WpSmushitAdmin' ) ) {
 				update_option( 'dismiss_smush_upgrade', 1 );
 			}
 
-			if ( get_option( 'dismiss_smush_upgrade' ) || $this->is_pro() ) {
+			if ( get_option( 'dismiss_smush_upgrade' ) || $this->is_pro_user ) {
 				return;
 			}
 			?>
@@ -1278,7 +1274,7 @@ if ( ! class_exists( 'WpSmushitAdmin' ) ) {
 			if ( ! is_super_admin() || ! $show_features ) {
 				return;
 			}
-			if ( $this->is_pro() ) { ?>
+			if ( $this->is_pro_user ) { ?>
 				<div class="wp-smpushit-features updated">
 					<h3><?php _e( 'Thanks for using WP Smush Pro! You now can:', 'wp-smushit' ) ?></h3>
 					<ol>
@@ -1291,7 +1287,12 @@ if ( ! class_exists( 'WpSmushitAdmin' ) ) {
 						<li><?php _e( 'Keep a backup of your original un-smushed images in case you want to restore later.', 'wp-smushit' ); ?></li>
 					</ol>
 				</div>
-			<?php } else { ?>
+			<?php } else {
+				if( $this->_get_api_key() ) {
+					$refresh_url = add_query_arg( array( 'refresh' => 1 ) );
+				}else{
+					$refresh_url = '';
+				}?>
 				<div class="wp-smpushit-features error">
 					<h3><?php _e( 'Upgrade to WP Smush Pro to:', 'wp-smushit' ) ?></h3>
 					<ol>
@@ -1309,7 +1310,10 @@ if ( ! class_exists( 'WpSmushitAdmin' ) ) {
 						<a class="button-primary" href="<?php echo $this->upgrade_url; ?>"><?php _e( 'Upgrade Now &raquo;', 'wp-smushit' ); ?></a>
 					</p>
 
-					<p><?php _e( 'Already upgraded to a WPMU DEV membership? Install and Login to our Dashboard plugin to enable Smush Pro features.', 'wp-smushit' ); ?></p>
+					<p><?php _e( 'Already upgraded to a WPMU DEV membership? Install and Login to our Dashboard plugin to enable Smush Pro features.', 'wp-smushit' ); ?></p><?php
+					if ( ! empty( $refresh_url ) ) {?>
+						<p><?php echo sprintf( __( 'Unable to access Pro Features? <a href="%s">Refresh Status</a>', 'wp-smushit' ), $refresh_url ); ?></p><?php }
+					?>
 
 					<p>
 						<?php
@@ -1317,17 +1321,25 @@ if ( ! class_exists( 'WpSmushitAdmin' ) ) {
 							if ( file_exists( WP_PLUGIN_DIR . '/wpmudev-updates/update-notifications.php' ) ) {
 								$function = is_multisite() ? 'network_admin_url' : 'admin_url';
 								$url      = wp_nonce_url( $function( 'plugins.php?action=activate&plugin=wpmudev-updates%2Fupdate-notifications.php' ), 'activate-plugin_wpmudev-updates/update-notifications.php' );
-								?><a class="button-secondary"
-								href="<?php echo $url; ?>"><?php _e( 'Activate WPMU DEV Dashboard', 'wp-smushit' ); ?></a><?php
+								?>
+								<a class="button-secondary" href="<?php echo $url; ?>"><?php _e( 'Activate WPMU DEV Dashboard', 'wp-smushit' ); ?></a><?php
 							} else { //dashboard not installed at all
-								?><a class="button-secondary" target="_blank"
-									href="https://premium.wpmudev.org/project/wpmu-dev-dashboard/"><?php _e( 'Install WPMU DEV Dashboard', 'wp-smushit' ); ?></a><?php
+								?>
+								<a class="button-secondary" target="_blank" href="https://premium.wpmudev.org/project/wpmu-dev-dashboard/"><?php _e( 'Install WPMU DEV Dashboard', 'wp-smushit' ); ?></a><?php
 							}
 						}
 						?>
 					</p>
 				</div>
 			<?php }
+		}
+
+		/**
+		 * Delete Site Option, stored for api status
+		 */
+		function refresh_status() {
+
+			delete_site_option('wp_smush_api_auth');
 		}
 	}
 

@@ -147,11 +147,16 @@ if ( ! function_exists( 'get_job_listings_keyword_search' ) ) :
 		global $wpdb, $job_manager_keyword;
 
 		// Query matching ids to avoid more joins
-		$post_ids   = $wpdb->get_col( "SELECT post_id FROM {$wpdb->postmeta} WHERE meta_value LIKE '%" .esc_sql( $job_manager_keyword ) . "%'" );
+		$post_ids   = $wpdb->get_col( "SELECT post_id FROM {$wpdb->postmeta} WHERE meta_value LIKE '%" . esc_sql( $job_manager_keyword ) . "%'" );
 		$conditions = array();
 
 		$conditions[] = "{$wpdb->posts}.post_title LIKE '%" . esc_sql( $job_manager_keyword ) . "%'";
-		$conditions[] = "{$wpdb->posts}.post_content RLIKE '[[:<:]]" . esc_sql( $job_manager_keyword ) . "[[:>:]]'";
+
+		if ( ctype_alnum( $job_manager_keyword ) ) {
+			$conditions[] = "{$wpdb->posts}.post_content RLIKE '[[:<:]]" . esc_sql( $job_manager_keyword ) . "[[:>:]]'";
+		} else {
+			$conditions[] = "{$wpdb->posts}.post_content LIKE '%" . esc_sql( $job_manager_keyword ) . "%'";
+		}
 
 		if ( $post_ids ) {
 			$conditions[] = "{$wpdb->posts}.ID IN (" . esc_sql( implode( ',', $post_ids ) ) . ")";
@@ -327,6 +332,7 @@ if ( ! function_exists( 'job_manager_create_account' ) ) :
  */
 function wp_job_manager_create_account( $args, $deprecated = '' ) {
 	global $current_user;
+	global $wp_version;
 
 	// Soft Deprecated in 1.20.0
 	if ( ! is_array( $args ) ) {
@@ -399,7 +405,11 @@ function wp_job_manager_create_account( $args, $deprecated = '' ) {
     }
 
     // Notify
-    wp_new_user_notification( $user_id, $password );
+    if ( version_compare( $wp_version, '4.3.1', '<' ) ) {
+    	wp_new_user_notification( $user_id, $password );
+    } else {
+    	wp_new_user_notification( $user_id, null, 'both' );
+    }
 
 	// Login
     wp_set_auth_cookie( $user_id, true, is_ssl() );
@@ -433,12 +443,15 @@ function job_manager_user_can_post_job() {
  */
 function job_manager_user_can_edit_job( $job_id ) {
 	$can_edit = true;
-	$job      = get_post( $job_id );
 
-	if ( ! is_user_logged_in() ) {
+	if ( ! is_user_logged_in() || ! $job_id ) {
 		$can_edit = false;
-	} elseif ( $job->post_author != get_current_user_id() && ! current_user_can( 'edit_post', $job_id ) ) {
-		$can_edit = false;
+	} else {
+		$job      = get_post( $job_id );
+
+		if ( ! $job || ( absint( $job->post_author ) !== get_current_user_id() && ! current_user_can( 'edit_post', $job_id ) ) ) {
+			$can_edit = false;
+		}
 	}
 
 	return apply_filters( 'job_manager_user_can_edit_job', $can_edit, $job_id );
@@ -617,9 +630,10 @@ function job_manager_prepare_uploaded_files( $file_data ) {
 	if ( is_array( $file_data['name'] ) ) {
 		foreach( $file_data['name'] as $file_data_key => $file_data_value ) {
 			if ( $file_data['name'][ $file_data_key ] ) {
+				$type              = wp_check_filetype( $file_data['name'][ $file_data_key ] ); // Map mime type to one WordPress recognises
 				$files_to_upload[] = array(
 					'name'     => $file_data['name'][ $file_data_key ],
-					'type'     => $file_data['type'][ $file_data_key ],
+					'type'     => $type['type'],
 					'tmp_name' => $file_data['tmp_name'][ $file_data_key ],
 					'error'    => $file_data['error'][ $file_data_key ],
 					'size'     => $file_data['size'][ $file_data_key ]
@@ -627,6 +641,8 @@ function job_manager_prepare_uploaded_files( $file_data ) {
 			}
 		}
 	} else {
+		$type              = wp_check_filetype( $file_data['name'] ); // Map mime type to one WordPress recognises
+		$file_data['type'] = $type['type'];
 		$files_to_upload[] = $file_data;
 	}
 

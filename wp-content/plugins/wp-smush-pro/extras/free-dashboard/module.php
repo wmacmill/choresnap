@@ -385,7 +385,7 @@ if ( ! class_exists( 'WDev_Frash' ) ) {
 			$user_name = $user->display_name;
 			$admin_email = get_site_option( 'admin_email' );
 
-			$msg = __( "We're happy that you've chosen to install %s! Are you interested in how to make the most of this plugin? How would you like a quick 5 day email crash course with actionable advice on building your membership site? Only the info you want, no subscription!", self::LANG );	     		   	  	  				
+			$msg = __( "We're happy that you've chosen to install %s! Are you interested in how to make the most of this plugin? How would you like a quick 5 day email crash course with actionable advice on building your membership site? Only the info you want, no subscription!", self::LANG );
 			$msg = apply_filters( 'wdev-email-message-' . $plugin->id, $msg );
 
 			?>

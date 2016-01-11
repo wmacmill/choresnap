@@ -3,9 +3,9 @@ Contributors: ninjew
 Donate link: http://geomywp.com/
 Tags: Geo-location, Geolocation, proximity search, zipcode search, radius search, store locator, Geolocate posts, address search, search distance, google v3 , Google maps, get directions, search locations, Geolocate, GEO, members locator, Geolocate memebrs, mapping, mapping software, latitude, longitude, locations finder, map creator.
 Requires at least: 4.0
-Tested up to: 4.3
+Tested up to: 4.3.1
 Buddypress: 2.1.1
-Stable tag: 2.6.3
+Stable tag: 2.6.4
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -130,6 +130,12 @@ For screenshots please visit [GEO my WP](http://www.geomywp.com)
 
 == Changelog ==
 
+= 2.6.4 =
+
+* Fix: Custom Zoom level issue..
+* Tweak: Pass item_id to the license updater.
+* Tweak: remove street_number and street_name field when updating user location. This is a temporary solution to prevent issues for installation that memebrs database table was not updated properly. This will be fixed in the next major update of GEO my WP.
+
 = 2.6.3 =
 
 * Fix: per page function.
@@ -139,12 +145,12 @@ For screenshots please visit [GEO my WP](http://www.geomywp.com)
 
 = 2.6.2.2 =
 
-Fix: Allow decimals for radius values.
+* Fix: Allow decimals for radius values.
 
 = 2.6.2.1 =
 
-Fix: issue with pagination not working properly.
-Fix: Members Locator get no results due to missing 'feature' column in database
+* Fix: issue with pagination not working properly.
+* Fix: Members Locator get no results due to missing 'feature' column in database
 
 = 2.6.2 =
 
