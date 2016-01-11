@@ -327,6 +327,7 @@ function get_job_application_email_tags() {
 		'user_id'           => __( 'User ID of applicant', 'wp-job-manager-applications' ),
 		'job_id'            => __( 'Job ID', 'wp-job-manager-applications' ),
 		'job_title'         => __( 'Job Title', 'wp-job-manager-applications' ),
+		'job_url'           => __( 'URL of the job listing', 'wp-job-manager-applications' ),
 		'job_dashboard_url' => __( 'URL to the frontend job dashboard page', 'wp-job-manager-applications' ),
 		'company_name'      => __( 'Name of the company which submitted the job listing', 'wp-job-manager-applications' ),
 		'job_post_meta'     => __( 'Some meta data from the job. e.g. <code>[job_post_meta key="_job_location"]</code>', 'wp-job-manager-applications' )
@@ -390,6 +391,9 @@ function job_application_email_add_shortcodes( $data ) {
 	} );
 	add_shortcode( 'job_title', function( $atts, $content = '' ) use( $job_title ) {
 		return job_application_email_shortcode_handler( $atts, $content, $job_title );
+	} );
+	add_shortcode( 'job_url', function( $atts, $content = '' ) use( $job_id ) {
+		return job_application_email_shortcode_handler( $atts, $content, get_permalink( $job_id ) );
 	} );
 	add_shortcode( 'job_dashboard_url', function( $atts, $content = '' ) use( $job_dashboard_url ) {
 		return job_application_email_shortcode_handler( $atts, $content, $job_dashboard_url );

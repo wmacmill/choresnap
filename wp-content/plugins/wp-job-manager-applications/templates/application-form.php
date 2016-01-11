@@ -21,7 +21,8 @@
 	<?php do_action( 'job_application_form_fields_end' ); ?>
 
 	<p>
-		<input type="submit" name="wp_job_manager_send_application" value="<?php esc_attr_e( 'Send application', 'wp-job-manager-applications' ); ?>" />
+		<input type="submit" class="button wp_job_manager_send_application_button" value="<?php esc_attr_e( 'Send application', 'wp-job-manager-applications' ); ?>" />
+		<input type="hidden" name="wp_job_manager_send_application" value="1" />
 		<input type="hidden" name="job_id" value="<?php echo absint( $post->ID ); ?>" />
 	</p>
 </form>

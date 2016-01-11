@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the WP Job Manager - Applications package.
 msgid ""
 msgstr ""
-"Project-Id-Version: WP Job Manager - Applications 2.2.0\n"
+"Project-Id-Version: WP Job Manager - Applications 2.2.2\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/wp-job-manager-applications\n"
-"POT-Creation-Date: 2015-09-05 17:38:39+00:00\n"
+"POT-Creation-Date: 2015-11-25 10:45:43+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -133,7 +133,7 @@ msgid "Applications for all jobs"
 msgstr ""
 
 #: includes/class-wp-job-manager-applications-apply.php:35
-#: includes/class-wp-job-manager-applications-apply.php:267
+#: includes/class-wp-job-manager-applications-apply.php:271
 msgid "\"%s\" is a required field"
 msgstr ""
 
@@ -150,26 +150,30 @@ msgid "Invalid job"
 msgstr ""
 
 #: includes/class-wp-job-manager-applications-apply.php:245
+msgid "That job is not available"
+msgstr ""
+
+#: includes/class-wp-job-manager-applications-apply.php:249
 msgid "You have already applied for this job"
 msgstr ""
 
-#: includes/class-wp-job-manager-applications-apply.php:277
+#: includes/class-wp-job-manager-applications-apply.php:281
 msgid "Please provide a valid email address"
 msgstr ""
 
-#: includes/class-wp-job-manager-applications-apply.php:282
+#: includes/class-wp-job-manager-applications-apply.php:286
 msgid "Please enter a number"
 msgstr ""
 
-#: includes/class-wp-job-manager-applications-apply.php:346
+#: includes/class-wp-job-manager-applications-apply.php:350
 msgid "Yes"
 msgstr ""
 
-#: includes/class-wp-job-manager-applications-apply.php:346
+#: includes/class-wp-job-manager-applications-apply.php:350
 msgid "No"
 msgstr ""
 
-#: includes/class-wp-job-manager-applications-apply.php:362
+#: includes/class-wp-job-manager-applications-apply.php:366
 msgid "Could not create job application"
 msgstr ""
 
@@ -633,14 +637,14 @@ msgstr ""
 msgid "Save"
 msgstr ""
 
-#: includes/updater/views/html-key-input.php:4
-msgid "Licence"
+#: includes/updater/views/html-key-input.php:5
+msgid "License"
 msgstr ""
 
-#: includes/updater/views/html-key-input.php:7
+#: includes/updater/views/html-key-input.php:8
 msgid ""
-"Enter your licence key and email and hit return. A valid key is required for "
-"automatic updates."
+"Enter your license key and email and hit return. A valid key is required for "
+"updates."
 msgstr ""
 
 #: includes/updater/views/html-key-notice.php:2
@@ -752,20 +756,24 @@ msgid "Job Title"
 msgstr ""
 
 #: includes/wp-job-manager-applications-functions.php:330
-msgid "URL to the frontend job dashboard page"
+msgid "URL of the job listing"
 msgstr ""
 
 #: includes/wp-job-manager-applications-functions.php:331
-msgid "Name of the company which submitted the job listing"
+msgid "URL to the frontend job dashboard page"
 msgstr ""
 
 #: includes/wp-job-manager-applications-functions.php:332
+msgid "Name of the company which submitted the job listing"
+msgstr ""
+
+#: includes/wp-job-manager-applications-functions.php:333
 msgid ""
 "Some meta data from the job. e.g. <code>[job_post_meta key=\"_job_location"
 "\"]</code>"
 msgstr ""
 
-#: includes/wp-job-manager-applications-functions.php:342
+#: includes/wp-job-manager-applications-functions.php:343
 msgid "Custom field named \"%s\""
 msgstr ""
 
@@ -869,9 +877,9 @@ msgid ""
 msgstr ""
 
 #. Author of the plugin/theme
-msgid "Mike Jolley"
+msgid "Automattic"
 msgstr ""
 
 #. Author URI of the plugin/theme
-msgid "http://mikejolley.com"
+msgid "http://wpjobmanager.com"
 msgstr ""

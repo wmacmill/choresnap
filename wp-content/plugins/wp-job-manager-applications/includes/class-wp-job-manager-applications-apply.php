@@ -17,7 +17,7 @@ class WP_Job_Manager_Applications_Apply {
 	public function __construct() {
 		add_action( 'wp_enqueue_scripts', array( $this, 'frontend_scripts' ) );
 		add_filter( 'sanitize_file_name_chars', array( $this, 'sanitize_file_name_chars' ) );
-		add_action( 'init', array( $this, 'init' ), 20 );
+		add_action( 'init', array( $this, 'init' ) );
 		add_action( 'wp', array( $this, 'application_form_handler' ) );
 		add_filter( 'job_manager_locate_template', array( $this, 'disable_application_form' ), 10, 2 );
 		self::$secret_dir = uniqid();
@@ -49,7 +49,7 @@ class WP_Job_Manager_Applications_Apply {
 	 * Init application form
 	 */
 	public function init() {
-		global $job_manager, $resume_manager;
+		global $job_manager;
 
 		if ( ! is_admin() ) {
 			if ( get_option( 'job_application_form_for_email_method', '1' ) ) {
@@ -57,11 +57,6 @@ class WP_Job_Manager_Applications_Apply {
 
 				// Unhook job manager apply details
 				remove_action( 'job_manager_application_details_email', array( $job_manager->post_types, 'application_details_email' ) );
-
-				// Unhook resume managers form
-				if ( $resume_manager && ! empty( $resume_manager->apply ) ) {
-					remove_action( 'job_manager_application_details_email', array( $resume_manager->apply, 'apply_with_resume' ), 20 );
-				}
 			}
 			if ( get_option( 'job_application_form_for_url_method', '1' ) ) {
 				add_action( 'job_manager_application_details_url', array( $this, 'application_form' ), 20 );
@@ -160,7 +155,7 @@ class WP_Job_Manager_Applications_Apply {
 					$this->fields[ $key ]['description'] = '<a href="' . esc_url( get_permalink( current( array_keys( $resumes ) ) ) ) . '" target="_blank">' . current( $resumes ) . '</a>';
 				} else {
 					if ( ! $this->fields[ $key ]['required'] ) {
-						$resumes = array_merge( array( 0 => __( 'Choose an online resume...', 'wp-job-manager-applications' ) ), $resumes );
+						$resumes = array( 0 => __( 'Choose an online resume...', 'wp-job-manager-applications' ) ) + $resumes;
 					}
 					$this->fields[ $key ]['type']    = 'select';
 					$this->fields[ $key ]['options'] = $resumes;
@@ -239,6 +234,10 @@ class WP_Job_Manager_Applications_Apply {
 
 				if ( empty( $job_id ) || ! $job || 'job_listing' !== $job->post_type ) {
 					throw new Exception( __( 'Invalid job', 'wp-job-manager-applications' ) );
+				}
+
+				if ( 'publish' !== $job->post_status ) {
+					throw new Exception( __( 'That job is not available', 'wp-job-manager-applications' ) );
 				}
 
 				if ( get_option( 'job_application_prevent_multiple_applications' ) && user_has_applied_for_job( get_current_user_id(), $job_id ) ) {

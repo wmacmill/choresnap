@@ -19,7 +19,7 @@ class WP_Job_Manager_Applications_Post_Types {
 	}
 
 	public function already_applied_title( $title, $post_id = '' ) {
-		if ( $post_id && 'job_listing' === get_post_type( $post_id ) && ! is_single() && empty( $_GET['download-csv'] ) && user_has_applied_for_job( get_current_user_id(), $post_id ) ) {
+		if ( $post_id && 'job_listing' === get_post_type( $post_id ) && ! is_single() && empty( $_POST['wp_job_manager_resumes_apply_with_resume'] ) && empty( $_GET['download-csv'] ) && user_has_applied_for_job( get_current_user_id(), $post_id ) ) {
 			$title .= ' <span class="job-manager-applications-applied-notice">' . __( 'Applied', 'wp-job-manager-applications' ) . '</span>';
 		}
 		return $title;
