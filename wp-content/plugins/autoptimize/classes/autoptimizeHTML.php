@@ -10,6 +10,9 @@ class autoptimizeHTML extends autoptimizeBase {
 		// Remove the HTML comments?
 		$this->keepcomments = (bool) $options['keepcomments'];
 		
+		// filter to force xhtml
+		$this->forcexhtml = (bool) apply_filters( 'autoptimize_filter_html_forcexhtml', false );
+		
 		// filter to add strings to be excluded from HTML minification
 		$excludeHTML = apply_filters( 'autoptimize_filter_html_exclude','' );
                 if ($excludeHTML!=="") {
@@ -23,10 +26,10 @@ class autoptimizeHTML extends autoptimizeBase {
 	
 	//Joins and optimizes CSS
 	public function minify() {
-		$noptimizeHTML = apply_filters( 'autoptimize_filter_html_noptimize', false, $this->content );
+                $noptimizeHTML = apply_filters( 'autoptimize_filter_html_noptimize', false, $this->content );
                 if ($noptimizeHTML)
                         return false;
-
+		
 		if(class_exists('Minify_HTML')) {
 			// wrap the to-be-excluded strings in noptimize tags
                         foreach ($this->exclude as $exclString) {
@@ -41,6 +44,9 @@ class autoptimizeHTML extends autoptimizeBase {
 
 			// Minify html
 			$options = array('keepComments' => $this->keepcomments);
+			if ($this->forcexhtml) {
+				$options['xhtml'] = true;
+			}
 
 			if (@is_callable(array(new Minify_HTML,"minify"))) {
 				$tmp_content = Minify_HTML::minify($this->content,$options);

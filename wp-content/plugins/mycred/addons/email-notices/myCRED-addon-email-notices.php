@@ -276,7 +276,7 @@ if ( ! class_exists( 'myCRED_Email_Notice_Module' ) ) {
 		 * @since 1.1
 		 * @version 1.1
 		 */
-		public function after_general_settings() {
+		public function after_general_settings( $mycred = NULL ) {
 
 			$this->emailnotices = mycred_apply_defaults( $this->default_prefs, $this->emailnotices ); ?>
 

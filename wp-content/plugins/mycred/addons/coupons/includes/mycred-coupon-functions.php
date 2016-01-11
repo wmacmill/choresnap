@@ -216,7 +216,7 @@ endif;
 if ( ! function_exists( 'mycred_get_global_coupon_count' ) ) :
 	function mycred_get_global_coupon_count( $post_id = 0 ) {
 		$count = get_post_meta( $post_id, 'global_count', true );
-		if ( empty( $count ) )
+		if ( $count == '' )
 			$count = 0;
 
 		return apply_filters( 'mycred_get_global_coupon_count', $count, $post_id );

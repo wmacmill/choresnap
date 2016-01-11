@@ -191,7 +191,7 @@ class GF_Field_FileUpload extends GF_Field {
 				}
 			}
 
-			$plupload_init = gf_apply_filters( 'gform_plupload_settings', $form_id, $plupload_init, $form_id, $this );
+			$plupload_init = gf_apply_filters( array( 'gform_plupload_settings', $form_id ), $plupload_init, $form_id, $this );
 
 			$drop_files_here_text = esc_html__( 'Drop files here or', 'gravityforms' );
 			$select_files_text    = esc_attr__( 'Select files', 'gravityforms' );

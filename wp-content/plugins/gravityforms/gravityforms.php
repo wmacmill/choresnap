@@ -3,7 +3,7 @@
 Plugin Name: Gravity Forms
 Plugin URI: http://www.gravityforms.com
 Description: Easily create web forms and manage form entries within the WordPress admin.
-Version: 1.9.14
+Version: 1.9.15
 Author: rocketgenius
 Author URI: http://www.rocketgenius.com
 Text Domain: gravityforms
@@ -114,7 +114,7 @@ register_deactivation_hook( __FILE__, array( 'GFForms', 'deactivation_hook' ) );
 
 class GFForms {
 
-	public static $version = '1.9.14';
+	public static $version = '1.9.15';
 
 	public static function loaded() {
 
@@ -549,7 +549,8 @@ class GFForms {
               PRIMARY KEY  (id),
               KEY form_id (form_id),
               KEY lead_id (lead_id),
-              KEY lead_field_number (lead_id,field_number)
+              KEY lead_field_number (lead_id,field_number),
+              KEY lead_field_value (value($max_index_length))
             ) $charset_collate;";
 		dbDelta( $sql );
 
@@ -2238,7 +2239,7 @@ class GFForms {
 			$leads = ! is_array( $leads ) ? array( $leads ) : $leads;
 		}
 
-		$form = gf_apply_filters( 'gform_before_resend_notifications', $form_id, RGFormsModel::get_form_meta( $form_id ), $leads );
+		$form = gf_apply_filters( array( 'gform_before_resend_notifications', $form_id ), RGFormsModel::get_form_meta( $form_id ), $leads );
 
 		if ( empty( $leads ) || empty( $form ) ) {
 			_e( 'There was an error while resending the notifications.', 'gravityforms' );
@@ -2324,6 +2325,9 @@ class GFForms {
 		$status  = rgpost( 'status' );
 		$lead_id = rgpost( 'entry' );
 
+		$entry = GFAPI::get_entry( $lead_id );
+		$form = GFAPI::get_form( $entry['form_id'] );
+
 		switch ( $status ) {
 			case 'unspam' :
 				RGFormsModel::update_lead_property( $lead_id, 'status', 'active' );
@@ -2339,10 +2343,24 @@ class GFForms {
 				RGFormsModel::update_lead_property( $lead_id, 'status', $status );
 				break;
 		}
-		header( 'Content-Type: text/xml' );
-		echo "<?xml version='1.0' standalone='yes'?><wp_ajax></wp_ajax>";
-		exit();
+		require_once( 'entry_list.php' );
 
+
+		$filter_links = GFEntryList::get_filter_links( $form );
+
+		$counts = array();
+		foreach ( $filter_links as $filter_link ) {
+			$id = $filter_link['id'] == '' ? 'all' : $filter_link['id'];
+			$counts[ $id . '_count' ] = $filter_link['count'];
+		}
+
+		$x = new WP_Ajax_Response();
+		$x->add( array(
+			'what' => 'gf_entry',
+			'id' => $lead_id,
+			'supplemental' => $counts,
+		) );
+		$x->send();
 	}
 
 	//settings
@@ -2415,7 +2433,7 @@ class GFForms {
 		 * @param int $form_id The ID of the form to export
 		 * @param int $form The Form Object of the form to export
 		 */
-		$form = gf_apply_filters( 'gform_form_export_page', $form_id, $form );
+		$form = gf_apply_filters( array( 'gform_form_export_page', $form_id ), $form );
 
 		$filter_settings      = GFCommon::get_field_filter_settings( $form );
 		$filter_settings_json = json_encode( $filter_settings );
@@ -3211,12 +3229,25 @@ if ( ! function_exists( 'rgpost' ) ) {
 }
 
 if ( ! function_exists( 'rgar' ) ) {
-	function rgar( $array, $name ) {
-		if ( isset( $array[ $name ] ) ) {
-			return $array[ $name ];
+	/**
+	 * Get a specific property of an array without needing to check if that property exists. Provide a default value if
+	 * you want to return a specific value if the property is not set.
+	 *
+	 * @param      $array   array  Array from which the property's value should be retrieved.
+	 * @param      $prop    string Name of the property to be retreived.
+	 * @param null $default mixed  Value that should be returned if the property is not set or empty.
+	 *
+	 * @return null|string|mixed
+	 */
+	function rgar( $array, $prop, $default = null ) {
+
+		if ( isset( $array[ $prop ] ) ) {
+			$value = $array[ $prop ];
+		} else {
+			$value = '';
 		}
 
-		return '';
+		return empty( $value ) && $default !== null ? $default : $value;
 	}
 }
 
@@ -3276,16 +3307,27 @@ if ( ! function_exists( 'rgexplode' ) ) {
 }
 
 if ( ! function_exists( 'gf_apply_filters' ) ) {
-	function gf_apply_filters( $filter, $modifiers, $value ) {
+	//function gf_apply_filters( $filter, $modifiers, $value ) {
+	function gf_apply_filters( $filter, $value ) {
 
-		if ( ! is_array( $modifiers ) ) {
-			$modifiers = array( $modifiers );
+		$args = func_get_args();
+
+		if( is_array( $filter ) ) {
+			// func parameters are: $filter, $value
+			$modifiers = array_splice( $filter, 1, count( $filter ) );
+			$filter    = $filter[0];
+			$args      = array_slice( $args, 2 );
+		} else {
+			//_deprecated_argument( 'gf_apply_filters', '1.9.14.20', "Modifiers should no longer be passed as a separate parameter. Combine the filter name and modifier(s) into an array and pass that array as the first parameter of the function. Example: gf_apply_filters( array( 'action_name', 'mod1', 'mod2' ), \$value, \$arg1, \$arg2 );" );
+			// func parameters are: $filter, $modifier, $value
+			$modifiers = ! is_array( $value ) ? array( $value ) : $value;
+			$value     = $args[2];
+			$args      = array_slice( $args, 3 );
 		}
 
 		// add an empty modifier so the base filter will be applied as well
 		array_unshift( $modifiers, '' );
 
-		$args = array_slice( func_get_args(), 3 );
 		$args = array_pad( $args, 10, null );
 
 		// apply modified versions of filter
@@ -3300,23 +3342,32 @@ if ( ! function_exists( 'gf_apply_filters' ) ) {
 }
 
 if ( ! function_exists( 'gf_do_action' ) ) {
-	function gf_do_action( $filter, $modifiers ) {
+	function gf_do_action( $action ) {
 
-		if ( ! is_array( $modifiers ) ) {
-			$modifiers = array( $modifiers );
+		$args = func_get_args();
+
+		if( is_array( $action ) ) {
+			// func parameters are: $action, $value
+			$modifiers = array_splice( $action, 1, count( $action ) );
+			$action    = $action[0];
+			$args      = array_slice( $args, 1 );
+		} else {
+			//_deprecated_argument( 'gf_do_action', '1.9.14.20', "Modifiers should no longer be passed as a separate parameter. Combine the action name and modifier(s) into an array and pass that array as the first parameter of the function. Example: gf_do_action( array( 'action_name', 'mod1', 'mod2' ), \$arg1, \$arg2 );" );
+			// func parameters are: $action, $modifier, $value
+			$modifiers = ! is_array( $args[1] ) ? array( $args[1] ) : $args[1];
+			$args      = array_slice( $args, 2 );
 		}
 
 		// add an empty modifier so the base filter will be applied as well
 		array_unshift( $modifiers, '' );
 
-		$args = array_slice( func_get_args(), 2 );
 		$args = array_pad( $args, 10, null );
 
 		// apply modified versions of filter
 		foreach ( $modifiers as $modifier ) {
 			$modifier = empty( $modifier ) ? '' : sprintf( '_%s', $modifier );
-			$filter  .= $modifier;
-			do_action( $filter, $args[0], $args[1], $args[2], $args[3], $args[4], $args[5], $args[6], $args[7], $args[8], $args[9] );
+			$action  .= $modifier;
+			do_action( $action, $args[0], $args[1], $args[2], $args[3], $args[4], $args[5], $args[6], $args[7], $args[8], $args[9] );
 		}
 	}
 }

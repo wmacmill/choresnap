@@ -468,7 +468,7 @@ if ( ! class_exists( 'myCRED_Hook_Site_Visits' ) ) :
 		/**
 		 * Visit Hook
 		 * @since 1.5
-		 * @version 1.1.1
+		 * @version 1.1.2
 		 */
 		public function site_visit() {
 
@@ -485,7 +485,7 @@ if ( ! class_exists( 'myCRED_Hook_Site_Visits' ) ) :
 			if ( $this->core->exclude_user( $user_id ) ) return;
 
 			// Store todays date as an integer
-			$today = (int) apply_filters( 'mycred_site_visit_id', date_i18n( 'Ynj' ) );
+			$today = (int) apply_filters( 'mycred_site_visit_id', date_i18n( 'Ymd' ) );
 			$data = '';
 
 			// Make sure this is unique

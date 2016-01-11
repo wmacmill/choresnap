@@ -2,8 +2,8 @@
 Contributors: designbymerovingi
 Tags:points, tokens, credit, management, reward, charge, community, contest, buddypress, jetpack, bbpress, simple press, woocommerce, marketpress, wp e-commerce, gravity forms, share-this
 Requires at least: 3.8
-Tested up to: 4.3.1
-Stable tag: 1.6.6
+Tested up to: 4.4
+Stable tag: 1.6.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,7 +12,7 @@ myCRED is an adaptive points management system that lets you award / charge your
 == Description ==
 
 > #### Plugin Support
-> Free support is offered  via the [myCRED support forum](http://mycred.me/support/forums/). No support is provided here on the wordpress.org support forum.
+> Free support is offered  via the [myCRED support forum](http://mycred.me/support/forums/). No support is provided here on the wordpress.org website.
 
 myCRED is a adaptive points management tool to help you build reward programs, monetize your website or just reward users with points for posting comments or publishing content.
 
@@ -123,8 +123,8 @@ myCRED supports importing, exporting, inline editing and manual deletion of log 
 
 == Upgrade Notice ==
 
-= 1.6.6 =
-Critical bug fixes.
+= 1.6.7 =
+Big fixes.
 
 
 == Other Notes ==
@@ -148,12 +148,19 @@ Critical bug fixes.
 
 == Changelog ==
 
-= 1.6.6 =
-NEW - Added new mycred_total_points shortcode.
-FIX - PayPal IPN Verification is missing User-Agent.
-FIX - Ranks add-on causes an error that prevents the settings page from loading.
-FIX - Multisite block list is not being enforced.
-TWEAK - Updated Settings page styling slightly for better fit.
+= 1.6.7 =
+* NEW - Added new filter mycred_the_badge for when showing a users badge.
+* NEW - Added options to the mycred_load_coupons shortocode to change labels.
+* NEW - Added new shortcode mycred_best_user.
+* NEW - Removed addon paths from being saved in the database.
+* FIX - Removed incorrect usage of get_current_user_id() before init.
+* FIX - Visit hook date collision. Thank you onizuka007!
+* FIX - Fixed fatal error in badges functions.
+* FIX - Badges checkbox settings were not saved due to the use of the incorrect variable. Thank you Martin for reporting this!
+* FIX - Coupon usage indicator uses __() instead of _n() causing count to always show as 1 time.
+* TWEAK - Minor adjustments for WP 4.4
+
+
 
 = Previous Versions =
 http://mycred.me/support/changelog/

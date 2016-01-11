@@ -3,13 +3,13 @@
  * Plugin Name: myCRED
  * Plugin URI: http://mycred.me
  * Description: <strong>my</strong>CRED is an adaptive points management system for WordPress powered websites, giving you full control on how points are gained, used, traded, managed, logged or presented.
- * Version: 1.6.6
+ * Version: 1.6.7
  * Tags: points, tokens, credit, management, reward, charge, buddypress, bbpress, jetpack, woocommerce, marketpress, wp e-commerce, gravity forms, simplepress
  * Author: Gabriel S Merovingi
  * Author URI: http://www.merovingi.com
  * Author Email: support@mycred.me
  * Requires at least: WP 3.8
- * Tested up to: WP 4.3
+ * Tested up to: WP 4.4
  * Text Domain: mycred
  * Domain Path: /lang
  * License: GPLv2 or later
@@ -20,7 +20,7 @@
  * BuddyPress Compatible: yes
  * Forum URI: http://mycred.me/support/forums/
  */
-define( 'myCRED_VERSION',      '1.6.6' );
+define( 'myCRED_VERSION',      '1.6.7' );
 define( 'myCRED_SLUG',         'mycred' );
 define( 'myCRED_NAME',         '<strong>my</strong>CRED' );
 
@@ -344,6 +344,7 @@ if ( ! function_exists( 'mycred_init' ) ) :
 		add_shortcode( 'mycred_exchange',      'mycred_render_shortcode_exchange' );
 		add_shortcode( 'mycred_hook_table',    'mycred_render_shortcode_hook_table' );
 		add_shortcode( 'mycred_total_points',  'mycred_render_shortcode_total_points' );
+		add_shortcode( 'mycred_best_user',     'mycred_render_shortcode_best_user' );
 
 		// Shortcode related
 		add_action( 'wp_footer',                  'mycred_send_shortcode_footer' );

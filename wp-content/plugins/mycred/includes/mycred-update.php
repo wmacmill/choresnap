@@ -78,7 +78,7 @@ endif;
  * myCRED 1.6 Update
  * Updated existing myCRED installations to 1.6
  * @since 1.6
- * @version 1.0
+ * @version 1.1
  */
 add_action( 'mycred_reactivation', 'mycred_update_to_onesix', 10 );
 if ( ! function_exists( 'mycred_update_to_onesix' ) ) :
@@ -130,6 +130,27 @@ if ( ! function_exists( 'mycred_update_to_onesix' ) ) :
 					foreach ( $ranks as $rank_id )
 						update_post_meta( (int) $rank_id, 'ctype', 'mycred_default' );
 				}
+
+			}
+
+		}
+
+		// 1.6.7
+		elseif ( version_compare( $version, '1.6.7', '<' ) ) {
+
+			$addons = mycred_get_option( 'mycred_pref_addons' );
+			$addons = maybe_unserialize( $addons );
+
+			// Remove built-in add-ons Paths.
+			if ( ! empty( $addons['installed'] ) ) {
+
+				foreach ( $addons['installed'] as $id => $info ) {
+
+					$addons['installed'][ $id ]['path'] = str_replace( myCRED_ADDONS_DIR, '', $info['path'] );
+
+				}
+
+				mycred_update_option( 'mycred_pref_addons', $addons );
 
 			}
 

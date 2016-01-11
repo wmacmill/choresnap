@@ -1287,7 +1287,7 @@ if ( ! class_exists( 'myCRED_Ranks_Module' ) ) :
 		 * @since 1.1
 		 * @version 1.3
 		 */
-		public function after_general_settings( $mycred ) {
+		public function after_general_settings( $mycred = NULL ) {
 
 			$prefs             = $this->rank;
 			$this->add_to_core = true;

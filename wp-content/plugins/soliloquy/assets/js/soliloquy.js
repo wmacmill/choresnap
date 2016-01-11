@@ -51,8 +51,8 @@ function soliloquyYouTubeOnStateChange(event){
         }
     }
 
-    // If the video is playing, pause the slider.
-    if ( event.data === YT.PlayerState.PLAYING ) {
+    // If the video is playing or buffering, pause the slider.
+    if ( event.data === YT.PlayerState.PLAYING || event.data === YT.PlayerState.BUFFERING ) {
         if ( soliloquy_slider[id] ) {
             soliloquy_slider[id].stopAuto();
         }

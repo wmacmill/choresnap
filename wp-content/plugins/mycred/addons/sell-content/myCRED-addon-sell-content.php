@@ -382,7 +382,7 @@ if ( ! class_exists( 'myCRED_Sell_Content_Module' ) ) {
 		 * @since 0.1
 		 * @version 1.3
 		 */
-		public function after_general_settings() {
+		public function after_general_settings( $mycred = NULL ) {
 			$sell_content = $this->sell_content;
 			if ( ! isset( $sell_content['defaults']['expire'] ) )
 				$sell_content['defaults']['expire'] = 0;

@@ -225,7 +225,7 @@ if ( ! class_exists( 'myCRED_PayPal_Standard' ) ) :
 			$cost = $this->get_cost( $amount, $type );
 
 			$to = $this->get_to();
-			$from = $this->current_user_id;
+			$from = get_current_user_id();
 
 			// Revisiting pending payment
 			if ( isset( $_REQUEST['revisit'] ) ) {

@@ -5,7 +5,7 @@ if ( ! defined( 'myCRED_VERSION' ) ) exit;
  * myCRED_Module class
  * @see http://codex.mycred.me/classes/mycred_module/
  * @since 0.1
- * @version 1.3.3
+ * @version 1.3.4
  */
 if ( ! class_exists( 'myCRED_Module' ) ) :
 	abstract class myCRED_Module {
@@ -118,8 +118,6 @@ if ( ! class_exists( 'myCRED_Module' ) ) :
 			$this->menu_pos        = $args['menu_pos'];
 
 			$this->default_prefs   = $args['defaults'];
-
-			$this->current_user_id = get_current_user_id();
 			$this->now             = current_time( 'timestamp' );
 
 			$this->set_settings();
@@ -567,7 +565,7 @@ h4.ui-accordion-header:before { content: "<?php _e( 'click to open', 'mycred' );
 		 * @since 0.1
 		 * @version 1.0
 		 */
-		function after_general_settings() { }
+		function after_general_settings( $mycred = NULL ) { }
 
 		/**
 		 * Sanitize Core Settings

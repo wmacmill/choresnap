@@ -911,7 +911,7 @@ abstract class GFAddOn {
 		?>
 
 		<form id="gform-settings" action="" method="post">
-
+			<?php wp_nonce_field( $this->_slug . '_save_settings', '_' . $this->_slug . '_save_settings_nonce' ) ?>
 			<?php $this->settings( $sections ); ?>
 
 		</form>
@@ -1635,6 +1635,7 @@ abstract class GFAddOn {
 		/* Prepare input field */
 		$input_field          = $field;
 		$input_field['name'] .= '_custom';
+		$input_field['style'] = 'width:200px;max-width:90%;';
 		$input_field_display  = '';
 
 		/* Loop through select choices and make sure option for custom exists */
@@ -1787,8 +1788,8 @@ abstract class GFAddOn {
 
 	public function settings_field_map_select( $field, $form_id ) {
 
-		$field_type          = ( isset( $field['field_type'] ) ) ? $field['field_type'] : null;
-		$exclude_field_types = ( isset( $field['exclude_field_types'] ) ? $field['exclude_field_types'] : null );
+		$field_type          = rgempty( 'field_type', $field ) ? null : $field['field_type'];
+		$exclude_field_types = rgempty( 'exclude_field_types', $field ) ? null : $field['exclude_field_types'];
 
 		$field['choices'] = $this->get_field_map_choices( $form_id, $field_type, $exclude_field_types );
 
@@ -1835,19 +1836,18 @@ abstract class GFAddOn {
 
 		$fields[] = array( 'value' => '', 'label' => $first_choice_label );
 
-		// Adding default fields
+		// if field types not restricted add the default fields and entry meta
 		if ( is_null( $field_type ) ) {
 			$fields[] = array( 'value' => 'id', 'label' => esc_html__( 'Entry ID', 'gravityforms' ) );
 			$fields[] = array( 'value' => 'date_created', 'label' => esc_html__( 'Entry Date', 'gravityforms' ) );
 			$fields[] = array( 'value' => 'ip', 'label' => esc_html__( 'User IP', 'gravityforms' ) );
 			$fields[] = array( 'value' => 'source_url', 'label' => esc_html__( 'Source Url', 'gravityforms' ) );
 			$fields[] = array( 'value' => 'form_title', 'label' => esc_html__( 'Form Title', 'gravityforms' ) );
-		}
 
-		// Populate entry meta
-		$entry_meta = GFFormsModel::get_entry_meta( $form['id'] );
-		foreach ( $entry_meta as $meta_key => $meta ) {
-			$fields[] = array( 'value' => $meta_key, 'label' => rgars( $entry_meta, "{$meta_key}/label" ) );
+			$entry_meta = GFFormsModel::get_entry_meta( $form['id'] );
+			foreach ( $entry_meta as $meta_key => $meta ) {
+				$fields[] = array( 'value' => $meta_key, 'label' => rgars( $entry_meta, "{$meta_key}/label" ) );
+			}
 		}
 
 		// Populate form fields
@@ -2977,7 +2977,7 @@ abstract class GFAddOn {
 			$form = $this->get_current_form();
 
 			$form_id = $form['id'];
-			$form    = gf_apply_filters( 'gform_admin_pre_render', $form_id, $form );
+			$form    = gf_apply_filters( array( 'gform_admin_pre_render', $form_id ), $form );
 
 			if ( $this->method_is_overridden( 'form_settings' ) ) {
 
@@ -3036,6 +3036,13 @@ abstract class GFAddOn {
 	public function maybe_save_form_settings( $form ) {
 
 		if ( $this->is_save_postback() ) {
+
+			check_admin_referer( $this->_slug . '_save_settings', '_' . $this->_slug . '_save_settings_nonce' );
+
+			if ( ! $this->current_user_can_any( $this->_capabilities_form_settings ) ) {
+				GFCommon::add_error_message( esc_html__( "You don't have sufficient permissions to update the form settings.", 'gravityforms' ) );
+				return false;
+			}
 
 			// store a copy of the previous settings for cases where action would only happen if value has changed
 			$this->set_previous_settings( $this->get_form_settings( $form ) );
@@ -3224,7 +3231,9 @@ abstract class GFAddOn {
 		$menu_position = apply_filters( 'gform_app_menu_position_' . $this->_slug, $menu_position );
 		$this->app_hook_suffix = add_menu_page( $this->get_short_title(), $this->get_short_title(), $has_full_access ? 'gform_full_access' : $min_cap, $parent_menu['name'], $callback, $this->get_app_menu_icon(), $menu_position );
 
-		add_action( "load-$this->app_hook_suffix", array( $this, 'load_screen_options' ) );
+		if ( method_exists( $this, 'load_screen_options' ) ) {
+			add_action( "load-$this->app_hook_suffix", array( $this, 'load_screen_options' ) );
+		}
 
 		// Adding submenu pages
 		foreach ( $menu_items as $menu_item ) {
@@ -3316,7 +3325,7 @@ abstract class GFAddOn {
 	 *     );
 	 * add_screen_option( 'per_page', $args );
 	 */
-	protected function load_screen_options() {
+	public function load_screen_options() {
 	}
 
 	/**
@@ -3373,7 +3382,13 @@ abstract class GFAddOn {
 				if ( isset( $tab['permission'] ) && ! $this->current_user_can_any( $tab['permission'] ) ) {
 					wp_die( esc_html__( "You don't have adequate permission to view this page", 'gravityforms' ) );
 				}
-				$title = isset( $tab['label'] ) ? $tab['label'] : $tab['name'];
+
+				$title = rgar( $tab,'title' );
+
+				if ( empty( $title ) ) {
+					$title = isset( $tab['label'] ) ? $tab['label'] : $tab['name'];
+				}
+
 				$this->app_tab_page_header( $tabs, $current_tab, $title, '' );
 				call_user_func( $tab['callback'] );
 				$this->app_tab_page_footer();
@@ -3570,7 +3585,14 @@ abstract class GFAddOn {
 
 		if ( $this->is_save_postback() ) {
 
-			// store a copy of the previous settings for cases where action whould only happen if value has changed
+			check_admin_referer( $this->_slug . '_save_settings', '_' . $this->_slug . '_save_settings_nonce' );
+
+			if ( ! $this->current_user_can_any( $this->_capabilities_settings_page ) ) {
+				GFCommon::add_error_message( esc_html__( "You don't have sufficient permissions to update the settings.", 'gravityforms' ) );
+				return false;
+			}
+
+			// store a copy of the previous settings for cases where action would only happen if value has changed
 			$this->set_previous_settings( $this->get_plugin_settings() );
 
 			$settings = $this->get_posted_settings();
@@ -3854,6 +3876,13 @@ abstract class GFAddOn {
 	protected function maybe_save_app_settings() {
 
 		if ( $this->is_save_postback() ) {
+
+			check_admin_referer( $this->_slug . '_save_settings', '_' . $this->_slug . '_save_settings_nonce' );
+
+			if ( ! $this->current_user_can_any( $this->_capabilities_app_settings ) ) {
+				GFCommon::add_error_message( esc_html__( "You don't have sufficient permissions to update the settings.", 'gravityforms' ) );
+				return false;
+			}
 
 			// store a copy of the previous settings for cases where action would only happen if value has changed
 			$this->set_previous_settings( $this->get_app_settings() );
@@ -4321,7 +4350,8 @@ abstract class GFAddOn {
 		/* Get Add-On slug */
 		$slug = str_replace( 'gravityforms', '', $this->_slug );
 
-		return gf_apply_filters( "gform_{$slug}_field_value", array(
+		return gf_apply_filters( array(
+			"gform_{$slug}_field_value",
 			$form['id'],
 			$field_id
 		), $field_value, $form, $entry, $field_id );

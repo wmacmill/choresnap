@@ -217,6 +217,9 @@ if ( ! class_exists( 'myCRED_Hook' ) ) :
 			if ( $ref_id !== NULL && strlen( $ref_id ) > 0 )
 				$exists_check = true;
 
+			if ( count( explode( '/', $prefs ) ) != 2 )
+				$prefs = '0/x';
+
 			// Prep settings
 			list ( $amount, $period ) = explode( '/', $prefs );
 			$amount = (int) $amount;

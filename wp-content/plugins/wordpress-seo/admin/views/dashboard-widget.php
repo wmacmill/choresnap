@@ -37,7 +37,7 @@
 		</tr>
 	<?php endforeach; ?>
 </table>
-<?php if ( WPSEO_Utils::grant_access() ) : ?>
+<?php if ( ! empty( $onpage ) && WPSEO_Utils::grant_access() ) : ?>
 <div class="onpage">
 	<h4 class="hide-if-no-js"><?php
 		printf(
@@ -79,7 +79,7 @@
 			case WPSEO_OnPage_Option::NOT_FETCHED :
 				echo '<div class="wpseo-score-icon na"></div>';
 				printf(
-				/* translators: 1: opens a link to a related knowledge base article. 2: closes the link */
+					/* translators: 1: opens a link to a related knowledge base article. 2: closes the link */
 					__( 'Yoast SEO has %1$snot fetched your site’s indexability status%2$s yet from OnPage.org', 'wordpress-seo' ),
 					'<a href="http://yoa.st/onpagerequestfailed" target="_blank">',
 					'</a>'

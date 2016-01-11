@@ -59,7 +59,7 @@ class Jetpack_Photon {
 		add_filter( 'image_downsize', array( $this, 'filter_image_downsize' ), 10, 3 );
 
 		// Responsive image srcset substitution
-		add_filter( 'wp_calculate_image_srcset', array( $this, 'filter_srcset_array' ) );
+		add_filter( 'wp_calculate_image_srcset', array( $this, 'filter_srcset_array' ), 10, 4 );
 
 		// Helpers for maniuplated images
 		add_action( 'wp_enqueue_scripts', array( $this, 'action_wp_enqueue_scripts' ), 9 );
@@ -454,19 +454,26 @@ class Jetpack_Photon {
 
 				$photon_args = array();
 
-				// `full` is a special case in WP
-				// To ensure filter receives consistent data regardless of requested size, `$image_args` is overridden with dimensions of original image.
+				$image_meta = image_get_intermediate_size( $attachment_id, $size );
+
+				// 'full' is a special case: We need consistent data regardless of the requested size.
 				if ( 'full' == $size ) {
 					$image_meta = wp_get_attachment_metadata( $attachment_id );
-					if ( isset( $image_meta['width'], $image_meta['height'] ) ) {
-						// 'crop' is true so Photon's `resize` method is used
-						$image_args = array(
-							'width'  => $image_meta['width'],
-							'height' => $image_meta['height'],
-							'crop'   => true
-						);
+				} elseif ( ! $image_meta ) {
+					// If we still don't have any image meta at this point, it's probably from a custom thumbnail size
+					// for an image that was uploaded before the custom image was added to the theme.  Try to determine the size manually.
+					$image_meta = wp_get_attachment_metadata( $attachment_id );
+					$image_resized = image_resize_dimensions( $image_meta['width'], $image_meta['height'], $image_args['width'], $image_args['height'], $image_args['crop'] );
+					if ( $image_resized ) { // This could be false when the requested image size is larger than the full-size image.
+						$image_meta['width'] = $image_resized[6];
+						$image_meta['height'] = $image_resized[7];
 					}
 				}
+
+				$image_args['width']  = $image_meta['width'];
+				$image_args['height'] = $image_meta['height'];
+
+				list( $image_args['width'], $image_args['height'] ) = image_constrain_size_for_editor( $image_args['width'], $image_args['height'], $size, 'display' );
 
 				// Expose determined arguments to a filter before passing to Photon
 				$transform = $image_args['crop'] ? 'resize' : 'fit';
@@ -490,6 +497,7 @@ class Jetpack_Photon {
 					}
 
 				}
+
 
 				/**
 				 * Filter the Photon Arguments added to an image when going through Photon, when that image size is a string.
@@ -516,8 +524,8 @@ class Jetpack_Photon {
 				// Generate Photon URL
 				$image = array(
 					jetpack_photon_url( $image_url, $photon_args ),
-					false,
-					false
+					$image_args['width'],
+					$image_args['height']
 				);
 			} elseif ( is_array( $size ) ) {
 				// Pull width and height values from the provided array, if possible
@@ -525,8 +533,16 @@ class Jetpack_Photon {
 				$height = isset( $size[1] ) ? (int) $size[1] : false;
 
 				// Don't bother if necessary parameters aren't passed.
-				if ( ! $width || ! $height )
+				if ( ! $width || ! $height ) {
 					return $image;
+				}
+
+				$image_meta = wp_get_attachment_metadata( $attachment_id );
+				$image_resized = image_resize_dimensions( $image_meta['width'], $image_meta['height'], $width, $height );
+				$width = $image_resized[6];
+				$height = $image_resized[7];
+
+				list( $width, $height ) = image_constrain_size_for_editor( $width, $height, $size );
 
 				// Expose arguments to a filter before passing to Photon
 				$photon_args = array(
@@ -556,8 +572,8 @@ class Jetpack_Photon {
 				// Generate Photon URL
 				$image = array(
 					jetpack_photon_url( $image_url, $photon_args ),
-					false,
-					false
+					$width,
+					$height
 				);
 			}
 		}
@@ -573,17 +589,32 @@ class Jetpack_Photon {
 	 * @uses self::validate_image_url, jetpack_photon_url
 	 * @return array An array of Photon image urls and widths.
 	 */
-	public function filter_srcset_array( $sources ) {
+	public function filter_srcset_array( $sources, $size_array, $image_src, $image_meta ) {
+		$upload_dir = wp_upload_dir();
+
 		foreach ( $sources as $i => $source ) {
 			if ( ! self::validate_image_url( $source['url'] ) ) {
 				continue;
 			}
 
-			$url = Jetpack_Photon::strip_image_dimensions_maybe( $source['url'] );
+			$url = $source['url'];
+			list( $width, $height ) = Jetpack_Photon::parse_dimensions_from_filename( $url );
+
+			// It's quicker to get the full size with the data we have already, if available
+			if ( isset( $image_meta['file'] ) ) {
+				$url = trailingslashit( $upload_dir['baseurl'] ) . $image_meta['file'];
+			} else {
+				$url = Jetpack_Photon::strip_image_dimensions_maybe( $url );
+			}
 
 			$args = array();
 			if ( 'w' === $source['descriptor'] ) {
-				$args['w'] = $source['value'];
+				if ( $height && ( $source['value'] == $width ) ) {
+					$args['resize'] = $width . ',' . $height;
+				} else {
+					$args['w'] = $source['value'];
+				}
+
 			}
 
 			$sources[ $i ]['url'] = jetpack_photon_url( $url, $args );

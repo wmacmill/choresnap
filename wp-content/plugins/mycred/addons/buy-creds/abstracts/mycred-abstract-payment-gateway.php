@@ -5,7 +5,7 @@ if ( ! defined( 'myCRED_VERSION' ) ) exit;
  * myCRED_Payment_Gateway class
  * @see http://mycred.me/add-ons/mycred_payment_gateway/
  * @since 0.1
- * @version 1.2.1
+ * @version 1.2.2
  */
 if ( ! class_exists( 'myCRED_Payment_Gateway' ) ) {
 	abstract class myCRED_Payment_Gateway {
@@ -14,8 +14,8 @@ if ( ! class_exists( 'myCRED_Payment_Gateway' ) ) {
 		public $core;
 		public $prefs = false;
 
-		protected $current_user_id = 0;
-		protected $sandbox_mode = NULL;
+		public $current_user_id = 0;
+		public $sandbox_mode = NULL;
 		public $gateway_logo_url = '';
 
 		protected $response;

@@ -18,7 +18,7 @@ class autoptimizeConfig {
 				add_filter('plugin_row_meta',array($this,'setmeta'),10,2);
 			} elseif(function_exists('post_class')) {
 				//2.7
-				$plugin = plugin_basename(WP_PLUGIN_DIR.'/autoptimize/autoptimize.php');
+				$plugin = plugin_basename(AUTOPTIMIZE_PLUGIN_DIR.'/autoptimize.php');
 				add_filter('plugin_action_links_'.$plugin,array($this,'setmeta'));
 			}
 
@@ -41,11 +41,11 @@ class autoptimizeConfig {
 	
 	public function show() {
 ?>
-<style>input[type=url]:invalid {color: red; border-color:red;} .form-table th{font-weight:100;}</style>
+<style>input[type=url]:invalid {color: red; border-color:red;} .form-table th{font-weight:100;} #futtta_feed ul{list-style:outside;} #futtta_feed {font-size:medium; margin:0px 20px;}</style>
 
 <div class="wrap">
 
-<h2><?php _e('Autoptimize Settings','autoptimize'); ?></h2>
+<h1><?php _e('Autoptimize Settings','autoptimize'); ?></h1>
 
 <div style="float:left;width:70%;">
 <?php 
@@ -66,7 +66,7 @@ if (get_option('autoptimize_show_adv','0')=='1') {
 <form method="post" action="options.php">
 <?php settings_fields('autoptimize'); ?>
 
-<h3><?php _e('HTML Options','autoptimize'); ?></h3>
+<h2><?php _e('HTML Options','autoptimize'); ?></h2>
 <table class="form-table">
 <tr valign="top">
 <th scope="row"><?php _e('Optimize HTML Code?','autoptimize'); ?></th>
@@ -79,7 +79,7 @@ if (get_option('autoptimize_show_adv','0')=='1') {
 </tr>
 </table>
 
-<h3><?php _e('JavaScript Options','autoptimize'); ?></h3>
+<h2><?php _e('JavaScript Options','autoptimize'); ?></h2>
 <table class="form-table"> 
 <tr valign="top">
 <th scope="row"><?php _e('Optimize JavaScript Code?','autoptimize'); ?></th>
@@ -87,13 +87,20 @@ if (get_option('autoptimize_show_adv','0')=='1') {
 </tr>
 <tr valign="top" class="hidden js_sub ao_adv">
 <th scope="row"><?php _e('Force JavaScript in &lt;head&gt;?','autoptimize'); ?></th>
-<td><label for="autoptimize_js_forcehead"><input type="checkbox" name="autoptimize_js_forcehead" <?php echo get_option('autoptimize_js_forcehead')?'checked="checked" ':''; ?>/>
-<?php _e('For performance reasons it is better to include JavaScript at the bottom of HTML, but this sometimes breaks things. Especially useful for jQuery-based themes.','autoptimize'); ?></label></td>
+<td><label for="autoptimize_js_forcehead"><input type="checkbox" name="autoptimize_js_forcehead" <?php echo get_option('autoptimize_js_forcehead','1')?'checked="checked" ':''; ?>/>
+<?php _e('Load JavaScript early, reducing the chance of JS-errors but making it render blocking. You can disable this if you\'re not aggregating inline JS and you want JS to be deferred.','autoptimize'); ?></label></td>
 </tr>
+<?php if (get_option('autoptimize_js_justhead')) { ?>
 <tr valign="top" class="hidden js_sub ao_adv">
-<th scope="row"><?php _e('Look for scripts only in &lt;head&gt;?','autoptimize'); _e(' <i>(deprecated)</i>','autoptimize');?></th>
+<th scope="row"><?php _e('Look for scripts only in &lt;head&gt;?','autoptimize');  _e(' <i>(deprecated)</i>','autoptimize'); ?></th>
 <td><label for="autoptimize_js_justhead"><input type="checkbox" name="autoptimize_js_justhead" <?php echo get_option('autoptimize_js_justhead')?'checked="checked" ':''; ?>/>
 <?php _e('Mostly useful in combination with previous option when using jQuery-based templates, but might help keeping cache size under control.','autoptimize'); ?></label></td>
+</tr>
+<?php } ?>
+<tr valign="top" class="hidden js_sub ao_adv">
+<th scope="row"><?php _e('Also aggregate inline JS?','autoptimize'); ?></th>
+<td><label for="autoptimize_js_include_inline"><input type="checkbox" name="autoptimize_js_include_inline" <?php echo get_option('autoptimize_js_include_inline')?'checked="checked" ':''; ?>/>
+<?php _e('Check this option for Autoptimize to also aggregate JS in the HTML. If this option is not enabled, you might have to "force JavaScript in head".','autoptimize'); ?></label></td>
 </tr>
 <tr valign="top" class="hidden js_sub ao_adv">
 <th scope="row"><?php _e('Exclude scripts from Autoptimize:','autoptimize'); ?></th>
@@ -103,25 +110,37 @@ if (get_option('autoptimize_show_adv','0')=='1') {
 <tr valign="top" class="hidden js_sub ao_adv">
 <th scope="row"><?php _e('Add try-catch wrapping?','autoptimize'); ?></th>
 <td><label for="autoptimize_js_trycatch"><input type="checkbox" name="autoptimize_js_trycatch" <?php echo get_option('autoptimize_js_trycatch')?'checked="checked" ':''; ?>/>
-<?php _e('If your scripts break because of an script error, you might want to try this.','autoptimize'); ?></label></td>
+<?php _e('If your scripts break because of a JS-error, you might want to try this.','autoptimize'); ?></label></td>
 </tr>
 </table>
 
-<h3><?php _e('CSS Options','autoptimize'); ?></h3>
+<h2><?php _e('CSS Options','autoptimize'); ?></h2>
 <table class="form-table"> 
 <tr valign="top">
 <th scope="row"><?php _e('Optimize CSS Code?','autoptimize'); ?></th>
 <td><input type="checkbox" id="autoptimize_css" name="autoptimize_css" <?php echo get_option('autoptimize_css')?'checked="checked" ':''; ?>/></td>
 </tr>
-<tr class="css_sub" valign="top">
+<tr class="hidden css_sub ao_adv" valign="top">
 <th scope="row"><?php _e('Generate data: URIs for images?','autoptimize'); ?></th>
 <td><label for="autoptimize_css_datauris"><input type="checkbox" name="autoptimize_css_datauris" <?php echo get_option('autoptimize_css_datauris')?'checked="checked" ':''; ?>/>
 <?php _e('Enable this to include small background-images in the CSS itself instead of as seperate downloads.','autoptimize'); ?></label></td>
 </tr>
+<tr class="hidden css_sub ao_adv" valign="top">
+<th scope="row"><?php _e('Remove Google Fonts?','autoptimize'); ?></th>
+<td><label for="autoptimize_css_datauris"><input type="checkbox" name="autoptimize_css_nogooglefont" <?php echo get_option('autoptimize_css_nogooglefont')?'checked="checked" ':''; ?>/>
+<?php _e('Check this if you don\'t need or want Google Fonts being loaded.','autoptimize'); ?></label></td>
+</tr>
+<?php if (get_option('autoptimize_css_justhead')) { ?>
 <tr valign="top" class="hidden css_sub ao_adv">
 <th scope="row"><?php _e('Look for styles only in &lt;head&gt;?','autoptimize'); _e(' <i>(deprecated)</i>','autoptimize'); ?></th>
 <td><label for="autoptimize_css_justhead"><input type="checkbox" name="autoptimize_css_justhead" <?php echo get_option('autoptimize_css_justhead')?'checked="checked" ':''; ?>/>
 <?php _e('Don\'t autoptimize CSS outside the head-section. If the cache gets big, you might want to enable this.','autoptimize'); ?></label></td>
+</tr>
+<?php } ?>
+<tr valign="top" class="hidden css_sub ao_adv">
+<th scope="row"><?php _e('Also aggregate inline CSS?','autoptimize'); ?></th>
+<td><label for="autoptimize_css_include_inline"><input type="checkbox" name="autoptimize_css_include_inline" <?php echo get_option('autoptimize_css_include_inline')?'checked="checked" ':''; ?>/>
+<?php _e('Check this option for Autoptimize to also aggregate CSS in the HTML.','autoptimize'); ?></label></td>
 </tr>
 <tr valign="top" class="hidden css_sub ao_adv">
 <th scope="row"><?php _e('Inline and Defer CSS?','autoptimize'); ?></th>
@@ -144,16 +163,16 @@ if (get_option('autoptimize_show_adv','0')=='1') {
 </tr>
 </table>
 
-<h3><?php _e('CDN Options','autoptimize'); ?></h3>
+<h2><?php _e('CDN Options','autoptimize'); ?></h2>
 <table class="form-table"> 
 <tr valign="top">
 <th scope="row"><?php _e('CDN Base URL','autoptimize'); ?></th>
-<td><label for="autoptimize_url"><input id="cdn_url" type="url" name="autoptimize_cdn_url" pattern="^(https?:)?\/\/([\da-z\.-]+)\.([\da-z\.]{2,6})([\/\w \.-]*)*\/?$" style="width:100%" value="<?php $it = get_option('autoptimize_cdn_url','');echo htmlentities($it); ?>" /><br />
+<td><label for="autoptimize_url"><input id="cdn_url" type="url" name="autoptimize_cdn_url" pattern="^(https?:)?\/\/([\da-z\.-]+)\.([\da-z\.]{2,6})([\/\w \.-]*)*(:\d{2,5})?\/?$" style="width:100%" value="<?php $it = get_option('autoptimize_cdn_url','');echo htmlentities($it); ?>" /><br />
 <?php _e('Enter your CDN blog root directory URL if you want to enable CDN for images referenced in the CSS.','autoptimize'); ?></label></td>
 </tr>
 </table>
 
-<h3 class="hidden ao_adv"><?php _e('Cache Info','autoptimize'); ?></h3>
+<h2 class="hidden ao_adv"><?php _e('Cache Info','autoptimize'); ?></h2>
 <table class="form-table" > 
 <tr valign="top" class="hidden ao_adv">
 <th scope="row"><?php _e('Cache folder','autoptimize'); ?></th>
@@ -165,7 +184,11 @@ if (get_option('autoptimize_show_adv','0')=='1') {
 </tr>
 <tr valign="top" class="hidden ao_adv">
 <th scope="row"><?php _e('Cached styles and scripts','autoptimize'); ?></th>
-<td><?php echo autoptimizeCache::stats(); ?></td>
+<td><?php
+	$AOstatArr=autoptimizeCache::stats(); 
+	$AOcacheSize=round($AOstatArr[1]/1024);
+	echo $AOstatArr[0]." files, totalling ".$AOcacheSize." Kbytes (calculated at ".date("H:i e", $AOstatArr[2]).")";
+?></td>
 </tr>
 <tr valign="top" class="hidden ao_adv">
 <th scope="row"><?php _e('Save aggregated script/css as static files?','autoptimize'); ?></th>
@@ -182,31 +205,63 @@ if (get_option('autoptimize_show_adv','0')=='1') {
 
 </form>
 </div>
+<style>.autoptimize_banner ul li {font-size:medium;text-align:center;} .unslider-arrow {left:unset;}</style>
+<div class="autoptimize_banner">
+	<ul>
+	<?php
+	$AO_banner=get_transient("autoptimize_banner");
+	if (empty($AO_banner)) {
+		$banner_resp = wp_remote_get("http://optimizingmatters.com/autoptimize_news.html");
+		if (!is_wp_error($banner_resp)) {
+			if (wp_remote_retrieve_response_code($banner_resp)=="200") {
+				$AO_banner = wp_kses_post(wp_remote_retrieve_body($banner_resp));
+				set_transient("autoptimize_banner",$AO_banner,DAY_IN_SECONDS);
+			}
+		}
+	}
+	echo $AO_banner;
+	?>
+	<li><?php _e("Need help? <a href='https://wordpress.org/plugins/autoptimize/faq/'>Check out the FAQ</a> or post your question on <a href='http://wordpress.org/support/plugin/autoptimize'>the support-forum</a>."); ?></li>
+	<li><?php _e("Happy with Autoptimize?","autoptimize"); ?><br /><a href="<?php echo network_admin_url(); ?>plugin-install.php?tab=search&type=author&s=futtta"><?php _e("Try my other plugins!"); ?></a></li>
+	</ul>
+</div>
 <div style="float:right;width:30%" id="autoptimize_admin_feed">
-	<div style="margin:0px 15px 15px 15px;font-size:larger;"><a href="<?php echo network_admin_url(); ?>plugin-install.php?tab=search&type=author&s=futtta"><?php _e("Happy with Autoptimize? Try my other plugins!"); ?></a></div>
         <div style="margin-left:10px;margin-top:-5px;">
-                <h3>
+                <h2>
                         <?php _e("futtta about","autoptimize") ?>
                         <select id="feed_dropdown" >
                                 <option value="1"><?php _e("Autoptimize","autoptimize") ?></option>
                                 <option value="2"><?php _e("WordPress","autoptimize") ?></option>
                                 <option value="3"><?php _e("Web Technology","autoptimize") ?></option>
                         </select>
-                </h3>
-                <div id="futtta_feed"></div>
+                </h2>
+                <div id="futtta_feed">
+       			<div id="autoptimizefeed">
+				<?php $this->getFutttaFeeds("http://feeds.feedburner.com/futtta_autoptimize"); ?>
+			</div>
+			<div id="wordpressfeed">
+				<?php $this->getFutttaFeeds("http://feeds.feedburner.com/futtta_wordpress"); ?>
+			</div>
+			<div id="webtechfeed">
+				<?php $this->getFutttaFeeds("http://feeds.feedburner.com/futtta_webtech"); ?>
+			</div>
+                </div>
         </div>
 	<div style="float:right;margin:50px 15px;"><a href="http://blog.futtta.be/2013/10/21/do-not-donate-to-me/" target="_blank"><img width="100px" height="85px" src="<?php echo content_url(); ?>/plugins/autoptimize/classes/external/do_not_donate_smallest.png" title="<?php _e("Do not donate for this plugin!"); ?>"></a></div>
 </div>
 
 <script type="text/javascript">
 	var feed = new Array;
-	feed[1]="http://feeds.feedburner.com/futtta_autoptimize";
-	feed[2]="http://feeds.feedburner.com/futtta_wordpress";
-	feed[3]="http://feeds.feedburner.com/futtta_webtech";
+	feed[1]="autoptimizefeed";
+	feed[2]="wordpressfeed";
+	feed[3]="webtechfeed";
 	cookiename="autoptimize_feed";
 
 	jQuery(document).ready(function() {
 		check_ini_state();
+		
+		jQuery('.autoptimize_banner').unslider({autoplay:true, delay:5000});
+		
 		jQuery( "#ao_show_adv" ).click(function() {
 			jQuery( "#ao_show_adv" ).hide();
 			jQuery( "#ao_hide_adv" ).show();
@@ -300,12 +355,8 @@ if (get_option('autoptimize_show_adv','0')=='1') {
 	}
 
 	function show_feed(id) {
-  		jQuery('#futtta_feed').rssfeed(feed[id], {
-			<?php if ( is_ssl() ) echo "ssl: true,"; ?>
-    			limit: 4,
-			date: true,
-			header: false
-  		});
+		jQuery('#futtta_feed').children().hide();
+		jQuery('#'+feed[id]).show();
 		jQuery("#feed_dropdown").val(id);
 		jQuery.cookie(cookiename,id,{ expires: 365 });
 	}
@@ -322,15 +373,16 @@ if (get_option('autoptimize_show_adv','0')=='1') {
 	}
 
 	public function autoptimize_admin_scripts() {
-		wp_enqueue_script('jqzrssfeed', plugins_url('/external/js/jquery.zrssfeed.min.js', __FILE__), array('jquery'),null,true);
 		wp_enqueue_script('jqcookie', plugins_url('/external/js/jquery.cookie.min.js', __FILE__), array('jquery'),null,true);
+		wp_enqueue_script('unslider', plugins_url('/external/js/unslider-min.js', __FILE__), array('jquery'),null,true);
 	}
 
 	public function autoptimize_admin_styles() {
-        	wp_enqueue_style('zrssfeed', plugins_url('/external/js/jquery.zrssfeed.css', __FILE__));
+		wp_enqueue_style('unslider', plugins_url('/external/js/unslider.css', __FILE__));
+		wp_enqueue_style('unslider-dots', plugins_url('/external/js/unslider-dots.css', __FILE__));
 	}
 
-	
+
 	public function registersettings() {
 		register_setting('autoptimize','autoptimize_html');
 		register_setting('autoptimize','autoptimize_html_keepcomments');
@@ -339,6 +391,7 @@ if (get_option('autoptimize_show_adv','0')=='1') {
 		register_setting('autoptimize','autoptimize_js_trycatch');
 		register_setting('autoptimize','autoptimize_js_justhead');
 		register_setting('autoptimize','autoptimize_js_forcehead');
+		register_setting('autoptimize','autoptimize_js_include_inline');
 		register_setting('autoptimize','autoptimize_css');
 		register_setting('autoptimize','autoptimize_css_exclude');
 		register_setting('autoptimize','autoptimize_css_justhead');
@@ -346,6 +399,8 @@ if (get_option('autoptimize_show_adv','0')=='1') {
 		register_setting('autoptimize','autoptimize_css_defer');
 		register_setting('autoptimize','autoptimize_css_defer_inline');
 		register_setting('autoptimize','autoptimize_css_inline');
+		register_setting('autoptimize','autoptimize_css_include_inline');
+		register_setting('autoptimize','autoptimize_css_nogooglefont');
 		register_setting('autoptimize','autoptimize_cdn_url');
 		register_setting('autoptimize','autoptimize_cache_clean');
 		register_setting('autoptimize','autoptimize_cache_nogzip');
@@ -357,7 +412,7 @@ if (get_option('autoptimize_show_adv','0')=='1') {
 		//Do it only once - saves time
 		static $plugin;
 		if(empty($plugin))
-			$plugin = plugin_basename(WP_PLUGIN_DIR.'/autoptimize/autoptimize.php');
+			$plugin = plugin_basename(AUTOPTIMIZE_PLUGIN_DIR.'/autoptimize.php');
 		
 		if($file===null) {
 			//2.7
@@ -384,14 +439,17 @@ if (get_option('autoptimize_show_adv','0')=='1') {
 				'autoptimize_js_exclude' => "s_sid, smowtion_size, sc_project, WAU_, wau_add, comment-form-quicktags, edToolbar, ch_client, seal.js",
 				'autoptimize_js_trycatch' => 0,
 				'autoptimize_js_justhead' => 0,
-				'autoptimize_js_forcehead' => 0,
+				'autoptimize_js_include_inline' => 0,
+				'autoptimize_js_forcehead' => 1,
 				'autoptimize_css' => 0,
 				'autoptimize_css_exclude' => "admin-bar.min.css, dashicons.min.css",
 				'autoptimize_css_justhead' => 0,
+				'autoptimize_css_include_inline' => 0,
 				'autoptimize_css_defer' => 0,
 				'autoptimize_css_defer_inline' => "",
 				'autoptimize_css_inline' => 0,
 				'autoptimize_css_datauris' => 0,
+				'autoptimize_css_nogooglefont' => 0,
 				'autoptimize_cdn_url' => "",
 				'autoptimize_cache_nogzip' => 1,
 				'autoptimize_show_adv' => 0
@@ -414,5 +472,31 @@ if (get_option('autoptimize_show_adv','0')=='1') {
 			return $this->config[$key];
 		
 		return false;
+	}
+
+	private function getFutttaFeeds($url) {
+		$rss = fetch_feed( $url );
+		$maxitems = 0;
+
+		if ( ! is_wp_error( $rss ) ) {
+			$maxitems = $rss->get_item_quantity( 7 ); 
+			$rss_items = $rss->get_items( 0, $maxitems );
+		}
+		?>
+		<ul>
+			<?php if ( $maxitems == 0 ) : ?>
+				<li><?php _e( 'No items', 'autoptimize' ); ?></li>
+			<?php else : ?>
+				<?php foreach ( $rss_items as $item ) : ?>
+					<li>
+						<a href="<?php echo esc_url( $item->get_permalink() ); ?>"
+							title="<?php printf( __( 'Posted %s', 'autoptimize' ), $item->get_date('j F Y | g:i a') ); ?>">
+							<?php echo esc_html( $item->get_title() ); ?>
+						</a>
+					</li>
+				<?php endforeach; ?>
+			<?php endif; ?>
+		</ul>
+		<?php 
 	}
 }

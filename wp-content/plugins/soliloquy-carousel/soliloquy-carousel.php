@@ -5,7 +5,7 @@
  * Description: Enables carousel display for Soliloquy sliders.
  * Author:      Thomas Griffin
  * Author URI:  http://thomasgriffinmedia.com
- * Version:     2.1.4
+ * Version:     2.1.5
  * Text Domain: soliloquy-carousel
  * Domain Path: languages
  *
@@ -30,7 +30,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 // Define necessary addon constants.
 define( 'SOLILOQUY_CAROUSEL_PLUGIN_NAME', 'Soliloquy - Carousel Addon' );
-define( 'SOLILOQUY_CAROUSEL_PLUGIN_VERSION', '2.1.4' );
+define( 'SOLILOQUY_CAROUSEL_PLUGIN_VERSION', '2.1.5' );
 define( 'SOLILOQUY_CAROUSEL_PLUGIN_SLUG', 'soliloquy-carousel' );
 
 add_action( 'plugins_loaded', 'soliloquy_carousel_plugins_loaded' );
@@ -75,6 +75,7 @@ function soliloquy_carousel_plugin_init() {
     add_filter( 'soliloquy_disable_preloading', 'soliloquy_carousel_disable_preloading', 10, 2 );
     add_filter( 'soliloquy_crop_type', 'soliloquy_carousel_crop_output', 10, 4 );
     add_filter( 'soliloquy_api_config_callback', 'soliloquy_carousel_output' );
+    add_filter( 'soliloquy_output_container_classes', 'soliloquy_carousel_container_classes', 10, 2 );
     add_filter( 'soliloquy_output_image_slide_dimensions', 'soliloquy_carousel_image_dimensions', 10, 2 );
 
 }
@@ -398,6 +399,30 @@ function soliloquy_carousel_crop_output( $type, $id, $item, $data ) {
 
     // Change the crop type for our carousel.
     return apply_filters( 'soliloquy_carousel_crop_type', 'carousel', $type, $id, $item, $data );
+
+}
+
+/**
+ * Outputs the soliloquy-carousel class to the main container of a slider, if the
+ * carousel is enabled on that slider
+ *
+ * @since 2.1.5
+ *
+ * @param array $classes    CSS Classes
+ * @param array $data       Slider Config
+ * @return array            CSS CLasses
+ */
+function soliloquy_carousel_container_classes( $classes, $data ) {
+    
+    // If there is no carousel, don't output anything.
+    $instance = Soliloquy_Shortcode::get_instance();
+    if ( ! $instance->get_config( 'carousel', $data ) ) {
+        return $classes;
+    }
+
+    // Add carousel class
+    $classes[] = 'soliloquy-carousel';
+    return $classes;
 
 }
 

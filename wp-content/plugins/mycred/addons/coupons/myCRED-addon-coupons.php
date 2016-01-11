@@ -2,7 +2,7 @@
 /**
  * Addon: Coupons
  * Addon URI: http://mycred.me/add-ons/coupons/
- * Version: 1.0
+ * Version: 1.1.1
  * Description: Create coupons that your users can use to add points to their accounts.
  * Author: Gabriel S Merovingi
  * Author URI: http://www.merovingi.com
@@ -13,15 +13,15 @@ define( 'myCRED_COUPONS',         __FILE__ );
 define( 'myCRED_COUPONS_DIR',     myCRED_ADDONS_DIR . 'coupons/' );
 define( 'myCRED_COUPONS_VERSION', myCRED_VERSION . '.1' );
 
-include_once( myCRED_COUPONS_DIR . 'includes/mycred-coupon-functions.php' );
-include_once( myCRED_COUPONS_DIR . 'includes/mycred-coupon-shortcodes.php' );
+require_once myCRED_COUPONS_DIR . 'includes/mycred-coupon-functions.php';
+require_once myCRED_COUPONS_DIR . 'includes/mycred-coupon-shortcodes.php';
 
 /**
  * myCRED_Coupons_Module class
  * @since 1.4
  * @version 1.0
  */
-if ( ! class_exists( 'myCRED_Coupons_Module' ) ) {
+if ( ! class_exists( 'myCRED_Coupons_Module' ) ) :
 	class myCRED_Coupons_Module extends myCRED_Module {
 
 		public $instances = array();
@@ -30,6 +30,7 @@ if ( ! class_exists( 'myCRED_Coupons_Module' ) ) {
 		 * Construct
 		 */
 		function __construct() {
+
 			parent::__construct( 'myCRED_Coupons_Module', array(
 				'module_name' => 'coupons',
 				'defaults'    => array(
@@ -46,6 +47,7 @@ if ( ! class_exists( 'myCRED_Coupons_Module' ) ) {
 			) );
 
 			add_filter( 'mycred_parse_log_entry_coupon', array( $this, 'parse_log_entry' ), 10, 2 );
+
 		}
 
 		/**
@@ -54,9 +56,11 @@ if ( ! class_exists( 'myCRED_Coupons_Module' ) ) {
 		 * @version 1.0
 		 */
 		public function module_init() {
+
 			$this->register_post_type();
 
 			add_shortcode( 'mycred_load_coupon', 'mycred_render_shortcode_load_coupon' );
+
 		}
 
 		/**
@@ -65,15 +69,17 @@ if ( ! class_exists( 'myCRED_Coupons_Module' ) ) {
 		 * @version 1.1
 		 */
 		public function module_admin_init() {
-			add_filter( 'post_updated_messages', array( $this, 'update_messages' ) );
+
+			add_filter( 'post_updated_messages',                    array( $this, 'update_messages' ) );
 
 			add_filter( 'manage_mycred_coupon_posts_columns',       array( $this, 'adjust_column_headers' ) );
 			add_action( 'manage_mycred_coupon_posts_custom_column', array( $this, 'adjust_column_content' ), 10, 2 );
 
-			add_filter( 'enter_title_here',        array( $this, 'enter_title_here' )      );
-			add_filter( 'post_row_actions',        array( $this, 'adjust_row_actions' ), 10, 2 );
-			add_action( 'add_meta_boxes',          array( $this, 'add_meta_boxes' ) );
-			add_action( 'save_post_mycred_coupon', array( $this, 'update_coupon_details' ) );
+			add_filter( 'enter_title_here',                         array( $this, 'enter_title_here' ) );
+			add_filter( 'post_row_actions',                         array( $this, 'adjust_row_actions' ), 10, 2 );
+			add_action( 'add_meta_boxes',                           array( $this, 'add_meta_boxes' ) );
+			add_action( 'save_post_mycred_coupon',                  array( $this, 'update_coupon_details' ) );
+
 		}
 
 		/**
@@ -82,6 +88,7 @@ if ( ! class_exists( 'myCRED_Coupons_Module' ) ) {
 		 * @version 1.0
 		 */
 		protected function register_post_type() {
+
 			$labels = array(
 				'name'               => __( 'Coupons', 'mycred' ),
 				'singular_name'      => __( 'Coupon', 'mycred' ),
@@ -105,7 +112,9 @@ if ( ! class_exists( 'myCRED_Coupons_Module' ) ) {
 				'capability_type'    => 'page',
 				'supports'           => array( 'title' )
 			);
+
 			register_post_type( 'mycred_coupon', apply_filters( 'mycred_register_coupons', $args ) );
+
 		}
 
 		/**
@@ -114,6 +123,7 @@ if ( ! class_exists( 'myCRED_Coupons_Module' ) ) {
 		 * @version 1.0
 		 */
 		public function update_messages( $messages ) {
+
 			$messages['mycred_coupon'] = array(
 				0  => '',
 				1  => __( 'Coupon updated.', 'mycred' ),
@@ -128,7 +138,8 @@ if ( ! class_exists( 'myCRED_Coupons_Module' ) ) {
 				10 => __( 'Draft Coupon saved.', 'mycred' ),
 			);
 
-  			return $messages;
+			return $messages;
+
 		}
 
 		/**
@@ -137,11 +148,14 @@ if ( ! class_exists( 'myCRED_Coupons_Module' ) ) {
 		 * @version 1.0
 		 */
 		public function enter_title_here( $title ) {
+
 			global $post_type;
+
 			if ( $post_type == 'mycred_coupon' )
 				return __( 'Unique Coupon Code', 'mycred' );
 
 			return $title;
+
 		}
 
 		/**
@@ -151,8 +165,8 @@ if ( ! class_exists( 'myCRED_Coupons_Module' ) ) {
 		 */
 		public function adjust_column_headers( $defaults ) {
 
-			$columns = array();
-			$columns['cb'] = $defaults['cb'];
+			$columns            = array();
+			$columns['cb']      = $defaults['cb'];
 
 			// Add / Adjust
 			$columns['title']   = __( 'Coupon Code', 'mycred' );
@@ -165,14 +179,16 @@ if ( ! class_exists( 'myCRED_Coupons_Module' ) ) {
 				$columns['ctype'] = __( 'Point Type', 'mycred' );
 
 			return $columns;
+
 		}
 
 		/**
 		 * Adjust Column Body
 		 * @since 1.4
-		 * @version 1.1.1
+		 * @version 1.1.2
 		 */
 		public function adjust_column_content( $column_name, $post_id ) {
+
 			global $mycred;
 
 			switch ( $column_name ) {
@@ -189,17 +205,21 @@ if ( ! class_exists( 'myCRED_Coupons_Module' ) ) {
 				case 'usage' :
 
 					$count = mycred_get_global_coupon_count( $post_id );
-					if ( empty( $count ) )
+
+					if ( $count == 0 )
 						_e( 'not yet used', 'mycred' );
 
 					else {
+
 						$set_type = get_post_meta( $post_id, 'type', true );
-						$page = 'myCRED';
+						$page     = 'myCRED';
+
 						if ( $set_type != 'mycred_default' && array_key_exists( $set_type, $this->point_types ) )
 							$page .= '_' . $set_type;
 
 						$url = add_query_arg( array( 'page' => $page, 'ref' => 'coupon', 'data' => get_the_title( $post_id ) ), admin_url( 'admin.php' ) );
-						echo '<a href="' . esc_url( $url ) . '">' . sprintf( __( '1 time', '%d times', $count, 'mycred' ), $count ) . '</a>';
+						echo '<a href="' . esc_url( $url ) . '">' . sprintf( _n( '1 time', '%d times', $count, 'mycred' ), $count ) . '</a>';
+
 					}
 
 				break;
@@ -207,7 +227,8 @@ if ( ! class_exists( 'myCRED_Coupons_Module' ) ) {
 				case 'limits' :
 
 					$total = mycred_get_coupon_global_max( $post_id );
-					$user = mycred_get_coupon_user_max( $post_id );
+					$user  = mycred_get_coupon_user_max( $post_id );
+
 					printf( '%1$s: %2$d<br />%3$s: %4$d', __( 'Total', 'mycred' ), $total, __( 'Per User', 'mycred' ), $user );
 
 				break;
@@ -215,16 +236,21 @@ if ( ! class_exists( 'myCRED_Coupons_Module' ) ) {
 				case 'expires' :
 
 					$expires = mycred_get_coupon_expire_date( $post_id, true );
+
 					if ( empty( $expires ) || $expires === 0 )
 						_e( 'Never', 'mycred' );
+
 					else {
+
 						if ( $expires < date_i18n( 'U' ) ) {
 							wp_trash_post( $post_id );
 							echo '<span style="color:red;">' . __( 'Expired', 'mycred' ) . '</span>';
 						}
+
 						else {
 							echo sprintf( __( 'In %s time', 'mycred' ), human_time_diff( $expires ) ) . '<br /><small class="description">' . date_i18n( get_option( 'date_format' ), $expires ) . '</small>';
 						}
+
 					}
 
 				break;
@@ -232,8 +258,10 @@ if ( ! class_exists( 'myCRED_Coupons_Module' ) ) {
 				case 'ctype' :
 
 					$type = get_post_meta( $post_id, 'type', true );
+
 					if ( isset( $this->point_types[ $type ] ) )
 						echo $this->point_types[ $type ];
+
 					else
 						echo '-';
 
@@ -248,12 +276,14 @@ if ( ! class_exists( 'myCRED_Coupons_Module' ) ) {
 		 * @version 1.0
 		 */
 		public function adjust_row_actions( $actions, $post ) {
+
 			if ( $post->post_type == 'mycred_coupon' ) {
 				unset( $actions['inline hide-if-no-js'] );
 				unset( $actions['view'] );
 			}
 
 			return $actions;
+
 		}
 
 		/**
@@ -262,7 +292,9 @@ if ( ! class_exists( 'myCRED_Coupons_Module' ) ) {
 		 * @version 1.0
 		 */
 		public function parse_log_entry( $content, $log_entry ) {
+
 			return str_replace( '%coupon%', $log_entry->data, $content );
+
 		}
 
 		/**
@@ -319,15 +351,17 @@ if ( ! class_exists( 'myCRED_Coupons_Module' ) ) {
 		 * @version 1.1
 		 */
 		public function metabox_coupon_setup( $post ) {
+
 			global $mycred;
 
-			$value = get_post_meta( $post->ID, 'value', true );
+			$value    = get_post_meta( $post->ID, 'value', true );
 			if ( empty( $value ) )
 				$value = 1;
 
-			$expires = get_post_meta( $post->ID, 'expires', true );
-			$set_type = get_post_meta( $post->ID, 'type', true ); ?>
+			$expires  = get_post_meta( $post->ID, 'expires', true );
+			$set_type = get_post_meta( $post->ID, 'type', true );
 
+?>
 <style type="text/css">
 table { width: 100%; }
 table th { width: 20%; text-align: right; }
@@ -374,9 +408,11 @@ table td textarea { width: 95%; }
 		</tr>
 	</tbody>
 </table>
-	<?php do_action( 'mycred_coupon_after_setup', $post ); ?>
+
+<?php do_action( 'mycred_coupon_after_setup', $post ); ?>
 
 <?php
+
 		}
 
 		/**
@@ -385,6 +421,7 @@ table td textarea { width: 95%; }
 		 * @version 1.0
 		 */
 		public function metabox_coupon_limits( $post ) {
+
 			global $mycred;
 
 			$global_max = get_post_meta( $post->ID, 'global', true );
@@ -393,8 +430,9 @@ table td textarea { width: 95%; }
 
 			$user_max = get_post_meta( $post->ID, 'user', true );
 			if ( empty( $user_max ) )
-				$user_max = 1; ?>
+				$user_max = 1;
 
+?>
 <table class="table wide-fat">
 	<tbody>
 		<tr valign="top">
@@ -413,9 +451,11 @@ table td textarea { width: 95%; }
 		</tr>
 	</tbody>
 </table>
-	<?php do_action( 'mycred_coupon_after_limits', $post ); ?>
+
+<?php do_action( 'mycred_coupon_after_limits', $post ); ?>
 
 <?php
+
 		}
 
 		/**
@@ -424,6 +464,7 @@ table td textarea { width: 95%; }
 		 * @version 1.0
 		 */
 		public function mycred_coupon_requirements( $post ) {
+
 			global $mycred;
 
 			$min_balance = get_post_meta( $post->ID, 'min_balance', true );
@@ -432,8 +473,9 @@ table td textarea { width: 95%; }
 
 			$max_balance = get_post_meta( $post->ID, 'max_balance', true );
 			if ( empty( $max_balance ) )
-				$max_balance = 0; ?>
+				$max_balance = 0;
 
+?>
 <p>
 	<label for="mycred-coupon-min_balance"><?php _e( 'Minimum Balance', 'mycred' ); ?></label><br />
 	<input type="text" name="mycred_coupon[min_balance]" id="mycred-coupon-min_balance" value="<?php echo $mycred->number( $min_balance ); ?>" /><br />
@@ -444,9 +486,11 @@ table td textarea { width: 95%; }
 	<input type="text" name="mycred_coupon[max_balance]" id="mycred-coupon-max_balance" value="<?php echo $mycred->number( $max_balance ); ?>" /><br />
 	<span class="description"><?php _e( 'Optional maximum balance a user can have in order to use this coupon. Use zero to disable.', 'mycred' ); ?></span>
 </p>
+
 <?php do_action( 'mycred_coupon_after_requirements', $post ); ?>
 
 <?php
+
 		}
 
 		/**
@@ -459,14 +503,18 @@ table td textarea { width: 95%; }
 			$count = mycred_get_global_coupon_count( $post->ID );
 			if ( empty( $count ) )
 				_e( 'not yet used', 'mycred' );
+
 			else {
+
 				$set_type = get_post_meta( $post->ID, 'type', true );
-				$page = 'myCRED';
+				$page     = 'myCRED';
+
 				if ( $set_type != 'mycred_default' && array_key_exists( $set_type, $this->point_types ) )
 					$page .= '_' . $set_type;
 
 				$url = add_query_arg( array( 'page' => $page, 'ref' => 'coupon', 'data' => $post->post_title ), admin_url( 'admin.php' ) );
 				echo '<a href="' . esc_url( $url ) . '">' . sprintf( __( '1 time', '%d times', $count, 'mycred' ), $count ) . '</a>';
+
 			}
 
 		}
@@ -477,13 +525,18 @@ table td textarea { width: 95%; }
 		 * @version 1.0
 		 */
 		public function update_coupon_details( $post_id ) {
+
 			if ( ! isset( $_POST['mycred-coupon-nonce'] ) || ! wp_verify_nonce( $_POST['mycred-coupon-nonce'], 'update-mycred-coupon' ) ) return $post_id;
+
 			if ( isset( $_POST['mycred_coupon'] ) ) {
+
 				foreach ( $_POST['mycred_coupon'] as $key => $value ) {
 					$value = sanitize_text_field( $value );
 					update_post_meta( $post_id, $key, $value );
 				}
+
 			}
+
 		}
 
 		/**
@@ -491,12 +544,14 @@ table td textarea { width: 95%; }
 		 * @since 1.4
 		 * @version 1.0
 		 */
-		public function after_general_settings() {
+		public function after_general_settings( $mycred = NULL ) {
+
 			if ( ! isset( $this->coupons ) )
 				$prefs = $this->default_prefs;
 			else
-				$prefs = mycred_apply_defaults( $this->default_prefs, $this->coupons );  ?>
+				$prefs = mycred_apply_defaults( $this->default_prefs, $this->coupons );
 
+?>
 <h4><div class="icon icon-active"></div><?php _e( 'Coupons', 'mycred' ); ?></h4>
 <div class="body" style="display:none;">
 	<label class="subheader" for="<?php echo $this->field_id( 'log' ); ?>"><?php _e( 'Log Template', 'mycred' ); ?></label>
@@ -550,6 +605,7 @@ table td textarea { width: 95%; }
 	</ol>
 </div>
 <?php
+
 		}
 
 		/**
@@ -558,16 +614,18 @@ table td textarea { width: 95%; }
 		 * @version 1.0
 		 */
 		public function sanitize_extra_settings( $new_data, $data, $core ) {
-			$new_data['coupons']['log'] = sanitize_text_field( $data['coupons']['log'] );
+
+			$new_data['coupons']['log']        = sanitize_text_field( $data['coupons']['log'] );
 			
-			$new_data['coupons']['invalid'] = sanitize_text_field( $data['coupons']['invalid'] );
-			$new_data['coupons']['expired'] = sanitize_text_field( $data['coupons']['expired'] );
+			$new_data['coupons']['invalid']    = sanitize_text_field( $data['coupons']['invalid'] );
+			$new_data['coupons']['expired']    = sanitize_text_field( $data['coupons']['expired'] );
 			$new_data['coupons']['user_limit'] = sanitize_text_field( $data['coupons']['user_limit'] );
-			$new_data['coupons']['min'] = sanitize_text_field( $data['coupons']['min'] );
-			$new_data['coupons']['max'] = sanitize_text_field( $data['coupons']['max'] );
-			$new_data['coupons']['success'] = sanitize_text_field( $data['coupons']['success'] );
+			$new_data['coupons']['min']        = sanitize_text_field( $data['coupons']['min'] );
+			$new_data['coupons']['max']        = sanitize_text_field( $data['coupons']['max'] );
+			$new_data['coupons']['success']    = sanitize_text_field( $data['coupons']['success'] );
 
 			return $new_data;
+
 		}
 
 	}
@@ -575,6 +633,6 @@ table td textarea { width: 95%; }
 	$coupons = new myCRED_Coupons_Module();
 	$coupons->load();
 
-}
+endif;
 
 ?>

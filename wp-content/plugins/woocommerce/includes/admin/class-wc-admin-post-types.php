@@ -284,7 +284,7 @@ class WC_Admin_Post_Types {
 
 		switch ( $column ) {
 			case 'thumb' :
-				echo '<a href="' . get_edit_post_link( $post->ID ) . '">' . $the_product->get_image( 'thumbnail' ) . '</a>';
+				echo '<a href="' . get_edit_post_link( $post->ID ) . '">' . $the_product->get_image( 'post-thumbnail' ) . '</a>';
 				break;
 			case 'name' :
 				$edit_link = get_edit_post_link( $post->ID );
@@ -1036,7 +1036,7 @@ class WC_Admin_Post_Types {
 		// Save fields
 		if ( isset( $_REQUEST['_sku'] ) ) {
 			$sku     = get_post_meta( $post_id, '_sku', true );
-			$new_sku = wc_clean( stripslashes( $_REQUEST['_sku'] ) );
+			$new_sku = wc_clean( $_REQUEST['_sku'] );
 
 			if ( $new_sku !== $sku ) {
 				if ( ! empty( $new_sku ) ) {

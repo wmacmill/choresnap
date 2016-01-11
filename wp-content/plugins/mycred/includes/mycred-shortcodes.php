@@ -1185,7 +1185,7 @@ endif;
  * Allows to show total points of a specific point type or add up
  * points from the log based on reference, reference id or user id.
  * @since 1.6.6
- * @version 1.0
+ * @version 1.0.1
  */
 if ( ! function_exists( 'mycred_render_shortcode_total_points' ) ) :
 	function mycred_render_shortcode_total_points( $atts ) {
@@ -1217,16 +1217,8 @@ if ( ! function_exists( 'mycred_render_shortcode_total_points' ) ) :
 		// Simple
 		if ( $ref == '' && $ref_id == '' && $user_id == '' ) {
 
-			// Check if cached value exists
-			$total = mycred_get_option( 'mycred-cache-total-' . $point_type, false );
-			if ( $total === false ) {
-
-				// Add up all balances
-				$total = $wpdb->get_var( $wpdb->prepare( "SELECT SUM( meta_value ) FROM {$wpdb->usermeta} WHERE meta_key = %s", $type ) );
-				if ( $total !== NULL )
-					mycred_update_option( 'mycred-cache-total-' . $point_type, $total );
-
-			}
+			// Add up all balances
+			$total = $wpdb->get_var( $wpdb->prepare( "SELECT SUM( meta_value ) FROM {$wpdb->usermeta} WHERE meta_key = %s", $type ) );
 
 		}
 
@@ -1280,6 +1272,129 @@ if ( ! function_exists( 'mycred_render_shortcode_total_points' ) ) :
 			return $mycred->format_creds( $total );
 
 		return $total;
+
+	}
+endif;
+
+/**
+ * Best User
+ * Allows database queries in the history table to determen the
+ * "best user" based on references, time and point types.
+ * @since 1.6.7
+ * @version 1.0
+ */
+if ( ! function_exists( 'mycred_render_shortcode_best_user' ) ) :
+	function mycred_render_shortcode_best_user( $attr, $content = '' ) {
+
+		extract( shortcode_atts( array(
+			'ref'     => '',
+			'from'    => '',
+			'until'   => '',
+			'types'   => 'mycred_default',
+			'nothing' => 'No user found',
+			'order'   => 'DESC',
+			'avatar'  => 50
+		), $attr ) );
+
+		if ( $ref != '' )
+			$references = explode( ',', $ref );
+		else
+			$references = '';
+
+		$point_types = explode( ',', $types );
+		if ( empty( $point_types ) ) $point_types = array( 'mycred_default' );
+
+		$now = current_time( 'timestamp' );
+		if ( $from == 'now' )
+			$from = $now;
+
+		elseif ( $from != '' )
+			$from = strtotime( $from );
+
+		if ( $from == 0 )
+			$from = '';
+
+		if ( $until == 'now' )
+			$until = $now;
+
+		elseif ( $until != '' )
+			$until = strtotime( $until );
+
+		if ( $until == 0 )
+			$until = '';
+
+		global $wpdb;
+
+		if ( defined( 'MYCRED_LOG_TABLE' ) )
+			$table = MYCRED_LOG_TABLE;
+
+		else {
+
+			if ( is_multisite() && mycred_centralize_log() )
+				$table = $wpdb->base_prefix . 'myCRED_log';
+			else
+				$table = $wpdb->prefix . 'myCRED_log';
+
+		}
+
+		$wheres = $preps = array();
+
+		if ( ! empty( $references ) ) {
+			$wheres[] = "ref IN (" . str_repeat( '%s', count( $references ) ) . ")";
+			foreach ( $references as $reference )
+				$preps[] = $reference;
+		}
+
+		$wheres[] = "ctype IN (" . str_repeat( '%s', count( $point_types ) ) . ")";
+		foreach ( $point_types as $point_type )
+			$preps[] = $point_type;
+
+		if ( $from != '' || $until != '' ) {
+
+			if ( $from != '' && $until == '' )
+				$wheres[] = $wpdb->prepare( "time >= %d", $from );
+
+			elseif ( $from == '' && $until != '' )
+				$wheres[] = $wpdb->prepare( "time <= %d", $until );
+
+			elseif ( $from != '' && $until != '' )
+				$wheres[] = $wpdb->prepare( "time BETWEEN %d AND %d", $from, $until );
+
+		}
+
+		$where = 'WHERE ' . implode( ' AND ', $wheres );
+		$where = $wpdb->prepare( $where, $preps );
+
+		if ( ! in_array( $order, array( 'DESC', 'ASC' ) ) )
+			$order = 'DESC';
+
+		$result = $wpdb->get_row( "SELECT user_id, SUM( creds ) AS total, COUNT(*) AS count FROM {$table} {$where} ORDER BY SUM( creds ) {$order} LIMIT 0,1;" );
+		if ( ! isset( $result->user_id ) )
+			return '<p class="mycred-best-user-no-results text-center">' . $nothing . '</p>';
+
+		$user = get_userdata( $result->user_id );
+		if ( ! isset( $user->display_name ) )
+			return '<p class="mycred-best-user-no-results text-center">' . $nothing . '</p>';
+
+		if ( empty( $content ) )
+			$content = '<div class="mycred-best-user text-center">%avatar%<h4>%display_name%</h4></div>';
+
+		$content = apply_filters( 'mycred_best_user_content', $content, $attr, $table );
+
+		$content = str_replace( '%display_name%', $user->display_name, $content );
+		$content = str_replace( '%first_name%',   $user->first_name, $content );
+		$content = str_replace( '%last_name%',    $user->last_name, $content );
+		$content = str_replace( '%user_email%',   $user->user_email, $content );
+		$content = str_replace( '%user_login%',   $user->user_login, $content );
+
+		$content = str_replace( '%avatar%',       get_avatar( $result->user_id, $avatar ), $content );
+		$content = str_replace( '%total%',        $user->total, $content );
+		$content = str_replace( '%total_abs%',    abs( $user->total ), $content );
+		$content = str_replace( '%count%',        $user->count, $content );
+
+		$content = str_replace( '%debug%',        print_r( $sql, true ), $content );
+
+		return apply_filters( 'mycred_render_best_user', $content, $result, $atts, $table );
 
 	}
 endif;

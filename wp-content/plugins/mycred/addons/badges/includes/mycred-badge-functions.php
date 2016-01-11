@@ -270,7 +270,7 @@ endif;
  * Display Users Badges
  * Will echo all badge images a given user has earned.
  * @since 1.5
- * @version 1.1
+ * @version 1.2
  */
 if ( ! function_exists( 'mycred_display_users_badges' ) ) :
 	function mycred_display_users_badges( $user_id = NULL )
@@ -291,7 +291,9 @@ if ( ! function_exists( 'mycred_display_users_badges' ) ) :
 				if ( $level_image == '' )
 					$level_image = get_post_meta( $badge_id, 'main_image', true );
 
-				echo '<img src="' . $level_image . '" class="mycred-badge earned badge-id-' . $badge_id . ' level-' . $level . '" alt="' . get_the_title( $badge_id ) . '" title="' . get_the_title( $badge_id ) . '" />';
+				$badge = '<img src="' . $level_image . '" class="mycred-badge earned badge-id-' . $badge_id . ' level-' . $level . '" alt="' . get_the_title( $badge_id ) . '" title="' . get_the_title( $badge_id ) . '" />';
+				echo apply_filters( 'mycred_the_badge', $badge, $badge_id, $level, $user_id );
+
 			}
 
 		}

@@ -84,7 +84,7 @@ if ( ! class_exists( 'myCRED_Addons_Module' ) ) :
 		 * Run Addons
 		 * Catches all add-on activations and deactivations and loads addons
 		 * @since 0.1
-		 * @version 1.1
+		 * @version 1.1.1
 		 */
 		public function run_addons() {
 
@@ -105,8 +105,15 @@ if ( ! class_exists( 'myCRED_Addons_Module' ) ) :
 				if ( $this->is_active( $key ) ) {
 
 					// If path is set, load the file
-					if ( isset( $data['path'] ) && file_exists( $data['path'] ) )
-						include_once( $data['path'] );
+					if ( isset( $data['path'] ) ) {
+
+						if ( file_exists( myCRED_ADDONS_DIR . $key . '/myCRED-addon-' . $key . '.php' ) )
+							include_once( myCRED_ADDONS_DIR . $key . '/myCRED-addon-' . $key . '.php' );
+
+						elseif ( file_exists( $data['path'] ) )
+							include_once( $data['path'] );
+
+					}
 
 					// Check for activation
 					if ( $this->is_activation( $key ) )
@@ -148,7 +155,7 @@ if ( ! class_exists( 'myCRED_Addons_Module' ) ) :
 		/**
 		 * Get Addons
 		 * @since 0.1
-		 * @version 1.5
+		 * @version 1.5.1
 		 */
 		public function get( $save = false ) {
 
@@ -162,7 +169,7 @@ if ( ! class_exists( 'myCRED_Addons_Module' ) ) :
 				'version'     => '1.1',
 				'author'      => 'Gabriel S Merovingi',
 				'author_url'  => 'http://www.merovingi.com',
-				'path'        => myCRED_ADDONS_DIR . 'badges/myCRED-addon-badges.php'
+				'path'        => 'badges/myCRED-addon-badges.php'
 			);
 
 			// Banking Add-on
@@ -173,7 +180,7 @@ if ( ! class_exists( 'myCRED_Addons_Module' ) ) :
 				'version'     => '1.2',
 				'author'      => 'Gabriel S Merovingi',
 				'author_url'  => 'http://www.merovingi.com',
-				'path'        => myCRED_ADDONS_DIR . 'banking/myCRED-addon-banking.php'
+				'path'        => 'banking/myCRED-addon-banking.php'
 			);
 
 			// buyCRED Add-on
@@ -184,7 +191,7 @@ if ( ! class_exists( 'myCRED_Addons_Module' ) ) :
 				'version'     => '1.4.1',
 				'author'      => 'Gabriel S Merovingi',
 				'author_url'  => 'http://www.merovingi.com',
-				'path'        => myCRED_ADDONS_DIR . 'buy-creds/myCRED-addon-buy-creds.php'
+				'path'        => 'buy-creds/myCRED-addon-buy-creds.php'
 			);
 
 			// Coupons Add-on
@@ -192,10 +199,10 @@ if ( ! class_exists( 'myCRED_Addons_Module' ) ) :
 				'name'        => 'Coupons',
 				'description' => __( 'The coupons add-on allows you to create coupons that users can use to add points to their accounts.', 'mycred' ),
 				'addon_url'   => 'http://mycred.me/add-ons/coupons/',
-				'version'     => '1.1',
+				'version'     => '1.1.1',
 				'author'      => 'Gabriel S Merovingi',
 				'author_url'  => 'http://www.merovingi.com',
-				'path'        => myCRED_ADDONS_DIR . 'coupons/myCRED-addon-coupons.php'
+				'path'        => 'coupons/myCRED-addon-coupons.php'
 			);
 
 			// Email Notices Add-on
@@ -206,7 +213,7 @@ if ( ! class_exists( 'myCRED_Addons_Module' ) ) :
 				'version'     => '1.3',
 				'author'      => 'Gabriel S Merovingi',
 				'author_url'  => 'http://www.merovingi.com',
-				'path'        => myCRED_ADDONS_DIR . 'email-notices/myCRED-addon-email-notices.php'
+				'path'        => 'email-notices/myCRED-addon-email-notices.php'
 			);
 
 			// Gateway Add-on
@@ -217,7 +224,7 @@ if ( ! class_exists( 'myCRED_Addons_Module' ) ) :
 				'version'     => '1.4',
 				'author'      => 'Gabriel S Merovingi',
 				'author_url'  => 'http://www.merovingi.com',
-				'path'        => myCRED_ADDONS_DIR . 'gateway/myCRED-addon-gateway.php'
+				'path'        => 'gateway/myCRED-addon-gateway.php'
 			);
 
 			// Notifications Add-on
@@ -228,7 +235,7 @@ if ( ! class_exists( 'myCRED_Addons_Module' ) ) :
 				'version'     => '1.1',
 				'author'      => 'Gabriel S Merovingi',
 				'author_url'  => 'http://www.merovingi.com',
-				'path'        => myCRED_ADDONS_DIR . 'notifications/myCRED-addon-notifications.php',
+				'path'        => 'notifications/myCRED-addon-notifications.php',
 				'pro_url'     => 'http://mycred.me/store/notifications-plus-add-on/'
 			);
 
@@ -240,7 +247,7 @@ if ( ! class_exists( 'myCRED_Addons_Module' ) ) :
 				'version'     => '1.4.1',
 				'author'      => 'Gabriel S Merovingi',
 				'author_url'  => 'http://www.merovingi.com',
-				'path'        => myCRED_ADDONS_DIR . 'ranks/myCRED-addon-ranks.php'
+				'path'        => 'ranks/myCRED-addon-ranks.php'
 			);
 
 			// Sell Content Add-on
@@ -251,7 +258,7 @@ if ( ! class_exists( 'myCRED_Addons_Module' ) ) :
 				'version'     => '1.4',
 				'author'      => 'Gabriel S Merovingi',
 				'author_url'  => 'http://www.merovingi.com',
-				'path'        => myCRED_ADDONS_DIR . 'sell-content/myCRED-addon-sell-content.php'
+				'path'        => 'sell-content/myCRED-addon-sell-content.php'
 			);
 
 			// Statistics Add-on
@@ -262,7 +269,7 @@ if ( ! class_exists( 'myCRED_Addons_Module' ) ) :
 				'version'     => '1.0',
 				'author'      => 'Gabriel S Merovingi',
 				'author_url'  => 'http://www.merovingi.com',
-				'path'        => myCRED_ADDONS_DIR . 'stats/myCRED-addon-stats.php'
+				'path'        => 'stats/myCRED-addon-stats.php'
 			);
 
 			// Transfer Add-on
@@ -273,7 +280,7 @@ if ( ! class_exists( 'myCRED_Addons_Module' ) ) :
 				'version'     => '1.2',
 				'author'      => 'Gabriel S Merovingi',
 				'author_url'  => 'http://www.merovingi.com',
-				'path'        => myCRED_ADDONS_DIR . 'transfer/myCRED-addon-transfer.php'
+				'path'        => 'transfer/myCRED-addon-transfer.php'
 			);
 
 			$installed = apply_filters( 'mycred_setup_addons', $installed );

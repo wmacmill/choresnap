@@ -220,7 +220,7 @@ if ( ! class_exists( 'myCRED_Zombaio' ) ) :
 			$type = $this->get_point_type();
 
 			$to = $this->get_to();
-			$from = $this->current_user_id;
+			$from = get_current_user_id();
 
 			// Revisiting pending payment
 			if ( isset( $_REQUEST['revisit'] ) ) {

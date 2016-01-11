@@ -318,7 +318,7 @@ class Soliloquy_Shortcode {
         }
 
         // Add no JS fallback support.
-        $no_js_css = '<style type="text/css">#soliloquy-container-' . sanitize_html_class( $data['id'] ) . '{opacity:1}#soliloquy-container-' . sanitize_html_class( $data['id'] ) . ' li > .soliloquy-caption{display:none}#soliloquy-container-' . sanitize_html_class( $data['id'] ) . ' li:first-child > .soliloquy-caption{display:block}</style>';
+        $no_js_css = '<style type="text/css" scoped>#soliloquy-container-' . sanitize_html_class( $data['id'] ) . '{opacity:1}#soliloquy-container-' . sanitize_html_class( $data['id'] ) . ' li > .soliloquy-caption{display:none}#soliloquy-container-' . sanitize_html_class( $data['id'] ) . ' li:first-child > .soliloquy-caption{display:block}</style>';
         $no_js   = '<noscript>';
         $no_js  .= apply_filters( 'soliloquy_output_no_js', $no_js_css, $data );
 
@@ -388,10 +388,14 @@ class Soliloquy_Shortcode {
         // If our image is linked, link it.
         if ( ! empty( $item['link'] ) ) {
             $output  = apply_filters( 'soliloquy_output_before_link', $output, $id, $item, $data, $i );
+
+            // Filter CSS classes to apply to the link
+            $classes = apply_filters( 'soliloquy_get_image_slide_link_classes', array( 'soliloquy-link' ), $id, $item, $data, $i );
+
             if ( ! empty( $item['linktab'] ) && $item['linktab'] ) {
-                $output .= '<a href="' . esc_url( $item['link'] ) . '" class="soliloquy-link" title="' . esc_attr( $item['title'] ) . '" target="_blank"' . apply_filters( 'soliloquy_output_link_attr', '', $id, $item, $data, $i ) . '>';
+                $output .= '<a href="' . esc_url( $item['link'] ) . '" class="' . implode( ' ', $classes ) . '" title="' . esc_attr( $item['title'] ) . '" target="_blank"' . apply_filters( 'soliloquy_output_link_attr', '', $id, $item, $data, $i ) . '>';
             } else {
-                $output .= '<a href="' . esc_url( $item['link'] ) . '" class="soliloquy-link" title="' . esc_attr( $item['title'] ) . '"' . apply_filters( 'soliloquy_output_link_attr', '', $id, $item, $data, $i ) . '>';
+                $output .= '<a href="' . esc_url( $item['link'] ) . '" class="' . implode( ' ', $classes ) . '" title="' . esc_attr( $item['title'] ) . '"' . apply_filters( 'soliloquy_output_link_attr', '', $id, $item, $data, $i ) . '>';
             }
         }
 
@@ -466,7 +470,11 @@ class Soliloquy_Shortcode {
 
         // We need to link our video slides to process click handlers to play videos.
         $output  = apply_filters( 'soliloquy_output_before_link', $output, $id, $item, $data, $i );
-        $output .= '<a href="#" class="soliloquy-video-link" title="' . esc_attr( $item['title'] ) . '"' . apply_filters( 'soliloquy_output_link_attr', '', $id, $item, $data, $i ) . '>';
+        
+        // Filter CSS classes to apply to the link
+        $classes = apply_filters( 'soliloquy_get_video_slide_link_classes', array( 'soliloquy-video-link' ), $id, $item, $data, $i );
+
+        $output .= '<a href="#" class="' . implode( ' ', $classes ) . '" title="' . esc_attr( $item['title'] ) . '"' . apply_filters( 'soliloquy_output_link_attr', '', $id, $item, $data, $i ) . '>';
 
             $output  = apply_filters( 'soliloquy_output_before_video', $output, $id, $item, $data, $i );
             switch ( $vid_type ) {
@@ -940,7 +948,7 @@ class Soliloquy_Shortcode {
                     soliloquy_container_<?php echo $data['id']; ?>.find('.soliloquy-controls-direction a.soliloquy-next').attr('aria-label','next');
                   
                     $(window).trigger('resize');
-
+                    
                     soliloquy_container_<?php echo $data['id']; ?>.parent().attr('data-soliloquy-loaded', 1);
 
                     <?php

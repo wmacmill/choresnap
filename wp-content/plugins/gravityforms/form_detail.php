@@ -131,7 +131,7 @@ class GFFormDetail {
 			$form['fields'] = array();
 		}
 
-		$form = gf_apply_filters( 'gform_admin_pre_render', $form_id, $form );
+		$form = gf_apply_filters( array( 'gform_admin_pre_render', $form_id ), $form );
 
 		if ( isset( $form['id'] ) ) {
 			echo "<script type=\"text/javascript\">var form = " . json_encode( $form ) . ';</script>';
@@ -904,7 +904,7 @@ class GFFormDetail {
 			</label>
 			<?php
 			$args = array( 'name' => 'field_post_author' );
-			$args = gf_apply_filters( 'gform_author_dropdown_args', rgar( $form, 'id' ), $args );
+			$args = gf_apply_filters( array( 'gform_author_dropdown_args', rgar( $form, 'id' ) ), $args );
 			wp_dropdown_users( $args );
 			?>
 			<div>
@@ -1437,7 +1437,7 @@ class GFFormDetail {
 						__( 'Size', 'gravityforms' )                        => array( __( 'Extra Small', 'gravityforms' ), __( 'Small', 'gravityforms' ), __( 'Medium', 'gravityforms' ), __( 'Large', 'gravityforms' ), __( 'Extra Large', 'gravityforms' ) ),
 
 					);
-					$predefined_choices = gf_apply_filters( 'gform_predefined_choices', rgar( $form, 'id' ), $predefined_choices );
+					$predefined_choices = gf_apply_filters( array( 'gform_predefined_choices', rgar( $form, 'id' ) ), $predefined_choices );
 
 					$custom_choices = RGFormsModel::get_custom_choices();
 

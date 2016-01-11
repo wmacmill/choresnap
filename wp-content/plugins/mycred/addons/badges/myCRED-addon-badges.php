@@ -943,7 +943,7 @@ jQuery(function($) {
 		 * Add to General Settings
 		 * @version 1.0.1
 		 */
-		public function after_general_settings() {
+		public function after_general_settings( $mycred = NULL ) {
 			$settings = $this->badges;
 
 			$buddypress = false; 
@@ -1028,15 +1028,15 @@ jQuery(function($) {
 
 		/**
 		 * Save Settings
-		 * @version 1.0
+		 * @version 1.0.1
 		 */
 		public function sanitize_extra_settings( $new_data, $data, $core ) {
 
-			$new_data['badges']['show_all_bp'] = ( isset( $new_data['badges']['show_all_bp'] ) ) ? $new_data['badges']['show_all_bp'] : 0;
-			$new_data['badges']['show_all_bb'] = ( isset( $new_data['badges']['show_all_bb'] ) ) ? $new_data['badges']['show_all_bb'] : 0;
+			$new_data['badges']['show_all_bp'] = ( isset( $data['badges']['show_all_bp'] ) ) ? $data['badges']['show_all_bp'] : 0;
+			$new_data['badges']['show_all_bb'] = ( isset( $data['badges']['show_all_bb'] ) ) ? $data['badges']['show_all_bb'] : 0;
 
 			$new_data['badges']['buddypress'] = sanitize_text_field( $data['badges']['buddypress'] );
-			$new_data['badges']['bbpress'] = sanitize_text_field( $data['badges']['bbpress'] );
+			$new_data['badges']['bbpress']    = sanitize_text_field( $data['badges']['bbpress'] );
 
 			return $new_data;
 

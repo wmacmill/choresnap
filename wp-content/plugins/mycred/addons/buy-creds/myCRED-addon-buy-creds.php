@@ -120,6 +120,7 @@ if ( ! class_exists( 'myCRED_buyCRED_Module' ) ) :
 		public function module_init() {
 
 			// Register Pending Purchases
+			$this->current_user_id = get_current_user_id();
 			$this->register_pending_payments();
 
 			// Add shortcodes first
@@ -284,8 +285,6 @@ if ( ! class_exists( 'myCRED_buyCRED_Module' ) ) :
 				'not_found_in_trash'  => __( 'Not found in Trash', 'mycred' ),
 			);
 			$args = array(
-				'label'               => __( 'Pending Payments', 'mycred' ),
-				'description'         => '',
 				'labels'              => $labels,
 				'supports'            => array( 'title', 'author', 'comments', 'custom-fields' ),
 				'hierarchical'        => false,
@@ -602,7 +601,7 @@ if ( ! class_exists( 'myCRED_buyCRED_Module' ) ) :
 		 * @since 0.1
 		 * @version 1.1
 		 */
-		public function after_general_settings() {
+		public function after_general_settings( $mycred = NULL ) {
 
 			// Since we are both registering our own settings and want to hook into
 			// the core settings, we need to define our "defaults" here.

@@ -2,8 +2,8 @@
 Contributors: automattic, mikejolley, jameskoster, claudiosanches, royho, woothemes
 Tags: ecommerce, e-commerce, commerce, woothemes, wordpress ecommerce, affiliate, store, sales, sell, shop, shopping, cart, checkout, configurable, variable, widgets, reports, download, downloadable, digital, inventory, stock, reports, shipping, tax
 Requires at least: 4.1
-Tested up to: 4.3
-Stable tag: 2.4.10
+Tested up to: 4.4
+Stable tag: 2.4.12
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -157,6 +157,28 @@ Yes you can! Join in on our [GitHub repository](http://github.com/woothemes/wooc
 6. A product archive (grid).
 
 == Changelog ==
+
+= 2.4.12 - 9/12/2015 =
+* Fix - 4.4 - Permission error when editing attribute terms.
+* Fix - 4.4 - Missing variation images when wp_get_attachment_image_srcset() returns false instead of a string.
+* Fix - 4.4 - Use post-thumbnail size in admin to avoid srcset.
+* Fix - Webhook status not changed after save with active object-cache.
+
+= 2.4.11 - 7/12/2015 =
+* Fix - WordPress 4.4 support.
+* Fix - Removes Switzerland from EU VAT definition .
+* Fix - Fix auth endpoint urls.
+* Fix - To allow backslash in SKUs.
+* Fix - Sanity check for min/max quantity .
+* Fix - 4.4 - Shipping class menu display.
+* Fix - 4.4 - Admin menu icons and styling.
+* Fix - API - Variable product backorders editing.
+* Fix - API - Delete product transients when delete a variable product.
+* Fix - API - Returned status when have an invalid oAuth timestamp.
+* Fix - API - Early call of order status when editing orders.
+* Tweak - 4.4 - Basic support for product embeds.
+* Tweak - 4.4 - Support for srcset/sizes and responsive images.
+* Tweak - 4.4 - Support for Twenty Sixteen.
 
 = 2.4.10 - 10/11/2015 =
 * Fix - Geo IP - Correctly parse .dat files.

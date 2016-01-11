@@ -86,19 +86,21 @@ class WPSEO_OnPage_Option {
 	}
 
 	/**
-	 * Returns the indexable status of the website.
-	 *
-	 * @return bool
-	 */
-	public function is_indexable() {
-		return ! empty( $this->onpage_option[ self::STATUS ] );
-	}
-
-	/**
 	 * Saving the option with the current data
 	 */
 	public function save_option() {
 		update_option( self::OPTION_NAME, $this->onpage_option );
+	}
+
+	/**
+	 * Returns the value of the onpage_enabled status
+	 *
+	 * @return bool
+	 */
+	public function is_enabled() {
+		$options = get_option( 'wpseo' );
+
+		return ! empty( $options['onpage_indexability'] );
 	}
 
 	/**
@@ -108,6 +110,19 @@ class WPSEO_OnPage_Option {
 	 */
 	private function get_option() {
 		return get_option( self::OPTION_NAME, array( self::STATUS => self::NOT_FETCHED, self::LAST_FETCH => 0 ) );
+	}
+
+	/**
+	 * @deprecated 3.0.2
+	 *
+	 * Returns the indexable status of the website.
+	 *
+	 * @return bool
+	 */
+	public function is_indexable() {
+		_deprecated_function( 'WPSEO_OnPage_Option::is_indexable', 'WPSEO 3.0.2' );
+
+		return self::IS_INDEXABLE === $this->get_status();
 	}
 
 }

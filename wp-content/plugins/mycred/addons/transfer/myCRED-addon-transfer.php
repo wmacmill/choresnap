@@ -175,7 +175,7 @@ if ( ! class_exists( 'myCRED_Transfer_Module' ) ) :
 		 * @since 0.1
 		 * @version 1.3
 		 */
-		public function after_general_settings() {
+		public function after_general_settings( $mycred = NULL ) {
 
 			// Settings
 			$settings = $this->transfers;

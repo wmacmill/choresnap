@@ -45,18 +45,18 @@ class autoptimizeCache {
 	public function cache($code,$mime) {
 		if($this->nogzip == false) {
 			$file = ($this->delayed ? 'delayed.php' : 'default.php');
-			$phpcode = file_get_contents(WP_PLUGIN_DIR.'/autoptimize/config/'.$file);
+			$phpcode = file_get_contents(AUTOPTIMIZE_PLUGIN_DIR.'/config/'.$file);
 			$phpcode = str_replace(array('%%CONTENT%%','exit;'),array($mime,''),$phpcode);
-			file_put_contents($this->cachedir.$this->filename,$phpcode);
-			file_put_contents($this->cachedir.$this->filename.'.none',$code);
+			file_put_contents($this->cachedir.$this->filename,$phpcode, LOCK_EX);
+			file_put_contents($this->cachedir.$this->filename.'.none',$code, LOCK_EX);
 			if(!$this->delayed) {
 				// Compress now!
-				file_put_contents($this->cachedir.$this->filename.'.deflate',gzencode($code,9,FORCE_DEFLATE));
-				file_put_contents($this->cachedir.$this->filename.'.gzip',gzencode($code,9,FORCE_GZIP));
+				file_put_contents($this->cachedir.$this->filename.'.deflate',gzencode($code,9,FORCE_DEFLATE), LOCK_EX);
+				file_put_contents($this->cachedir.$this->filename.'.gzip',gzencode($code,9,FORCE_GZIP), LOCK_EX);
 			}
 		} else {
 			// Write code to cache without doing anything else
-			file_put_contents($this->cachedir.$this->filename,$code);			
+			file_put_contents($this->cachedir.$this->filename,$code, LOCK_EX);
 		}
 	}
 	
@@ -85,6 +85,7 @@ class autoptimizeCache {
 		}
 
 		@unlink(AUTOPTIMIZE_CACHE_DIR."/.htaccess");
+		delete_transient("autoptimize_stats");
 		
 		// Do we need to clean any caching plugins cache-files?
 		if(function_exists('wp_cache_clear_cache')) {
@@ -105,6 +106,8 @@ class autoptimizeCache {
                 	$wpfc -> deleteCache();
 		} else if ( class_exists("c_ws_plugin__qcache_purging_routines") ) {
 			c_ws_plugin__qcache_purging_routines::purge_cache_dir(); // quick cache
+		} else if ( class_exists("zencache") ) {
+			zencache::clear(); // zen cache, tbc
 		} else if(file_exists(WP_CONTENT_DIR.'/wp-cache-config.php') && function_exists('prune_super_cache')){
 			// fallback for WP-Super-Cache
 			global $cache_path;
@@ -120,42 +123,59 @@ class autoptimizeCache {
 			// fallback; schedule event and try to clear there
 			wp_schedule_single_event( time() + 1, 'ao_flush_pagecache' , array(time()));
 		}
+
+		if (!function_exists('autoptimize_do_cachepurged_action')) {
+			function autoptimize_do_cachepurged_action() {
+				do_action("autoptimize_action_cachepurged");
+			}
+		}
+		add_action("after_setup_theme","autoptimize_do_cachepurged_action");
+
 		return true;
 	}
-	
+
 	static function stats()	{
-		// Cache not available :(
-		if(!autoptimizeCache::cacheavail()) {
-			return 0;
-		}
-		
-		// Count cached info
-		$count = 0;
-		
-		// scan the cachedirs		
-		foreach (array("","js","css") as $scandirName) {
-			$scan[$scandirName] = scandir(AUTOPTIMIZE_CACHE_DIR.$scandirName);
-		}
-		
-		foreach ($scan as $scandirName=>$scanneddir) {
-			$thisAoCacheDir=rtrim(AUTOPTIMIZE_CACHE_DIR.$scandirName,"/")."/";
-			foreach($scanneddir as $file) {
-				if(!in_array($file,array('.','..')) && strpos($file,'autoptimize') !== false) {
-					if(is_file($thisAoCacheDir.$file)) {
-						if(AUTOPTIMIZE_CACHE_NOGZIP && (strpos($file,'.js') !== false || strpos($file,'.css') !== false)) {
-							$count++;
-						} elseif(!AUTOPTIMIZE_CACHE_NOGZIP && strpos($file,'.none') !== false) {
-							$count++;
+		$AOstats=get_transient("autoptimize_stats");
+
+		if (empty($AOstats)) {
+			// Cache not available :(
+			if(!autoptimizeCache::cacheavail()) {
+				return 0;
+			}
+			
+			// Count cached info
+			$count = 0;
+			$size = 0;
+			
+			// scan the cachedirs		
+			foreach (array("","js","css") as $scandirName) {
+				$scan[$scandirName] = scandir(AUTOPTIMIZE_CACHE_DIR.$scandirName);
+			}
+			
+			foreach ($scan as $scandirName=>$scanneddir) {
+				$thisAoCacheDir=rtrim(AUTOPTIMIZE_CACHE_DIR.$scandirName,"/")."/";
+				foreach($scanneddir as $file) {
+					if(!in_array($file,array('.','..')) && strpos($file,AUTOPTIMIZE_CACHEFILE_PREFIX) !== false) {
+						if(is_file($thisAoCacheDir.$file)) {
+							if(AUTOPTIMIZE_CACHE_NOGZIP && (strpos($file,'.js') !== false || strpos($file,'.css') !== false || strpos($file,'.img') !== false || strpos($file,'.txt') !== false )) {
+								$count++;
+							} elseif(!AUTOPTIMIZE_CACHE_NOGZIP && strpos($file,'.none') !== false) {
+								$count++;
+							}
+							$size+=filesize($thisAoCacheDir.$file);
 						}
 					}
 				}
 			}
+			$AOstats=array($count,$size,time());
+                        if ($count>100) {
+				set_transient("autoptimize_stats",$AOstats,HOUR_IN_SECONDS);
+                        }
 		}
-		
 		// print the number of instances
-		return $count;
-	}
-	
+		return $AOstats;
+	}	
+
 	static function cacheavail() {
 		if(!defined('AUTOPTIMIZE_CACHE_DIR')) {
 			// We didn't set a cache
@@ -173,12 +193,20 @@ class autoptimizeCache {
 		if(!is_file($indexFile)) {
 			@file_put_contents($indexFile,'<html><body>Generated by <a href="http://wordpress.org/extend/plugins/autoptimize/">Autoptimize</a></body></html>');
 		}
-                /** write .htaccess here to overrule wp_super_cache */
-                $htAccess=AUTOPTIMIZE_CACHE_DIR.'/.htaccess';
-                if(!is_file($htAccess)) {
-                        if (is_multisite() || AUTOPTIMIZE_CACHE_NOGZIP == false) {
 
-                                @file_put_contents($htAccess,'<IfModule mod_headers.c>
+		/** write .htaccess here to overrule wp_super_cache */
+	        $htAccess=AUTOPTIMIZE_CACHE_DIR.'/.htaccess';
+	        if(!is_file($htAccess)) {
+			/** 
+			 * create wp-content/AO_htaccess_tmpl with 
+			 * whatever htaccess rules you might need
+			 * if you want to override default AO htaccess
+			 */
+			$htaccess_tmpl=WP_CONTENT_DIR."/AO_htaccess_tmpl";
+			if (is_file($htaccess_tmpl)) { 
+				$htAccessContent=file_get_contents($htaccess_tmpl);
+			} else if (is_multisite() || AUTOPTIMIZE_CACHE_NOGZIP == false) {
+				$htAccessContent='<IfModule mod_headers.c>
         Header set Vary "Accept-Encoding"
         Header set Cache-Control "max-age=10672000, must-revalidate"
 </IfModule>
@@ -203,9 +231,9 @@ class autoptimizeCache {
         Order allow,deny
         Allow from all
     </Files>
-</IfModule>');
+</IfModule>';
 			} else {
-                        @file_put_contents($htAccess,'<IfModule mod_headers.c>
+                	        $htAccessContent='<IfModule mod_headers.c>
         Header set Vary "Accept-Encoding"
         Header set Cache-Control "max-age=10672000, must-revalidate"
 </IfModule>
@@ -216,7 +244,7 @@ class autoptimizeCache {
         ExpiresByType application/javascript A30672000
 </IfModule>
 <IfModule mod_deflate.c>
-        <FilesMatch "\.(js|css)$">
+    <FilesMatch "\.(js|css)$">
         SetOutputFilter DEFLATE
     </FilesMatch>
 </IfModule>
@@ -230,11 +258,12 @@ class autoptimizeCache {
         Order deny,allow
         Deny from all
     </Files>
-</IfModule>');
-                        }
-                }
-                // All OK
-                return true;
+</IfModule>';
+			}
+			@file_put_contents($htAccess,$htAccessContent);
+		}
+        // All OK
+        return true;
 	}
 
 	static function checkCacheDir($dir) {

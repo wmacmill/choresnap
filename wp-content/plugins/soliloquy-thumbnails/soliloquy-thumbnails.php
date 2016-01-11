@@ -5,7 +5,7 @@
  * Description: Enables thumbnails display for Soliloquy sliders.
  * Author:      Thomas Griffin
  * Author URI:  http://thomasgriffinmedia.com
- * Version:     2.2.1
+ * Version:     2.2.3
  * Text Domain: soliloquy-thumbnails
  * Domain Path: languages
  *
@@ -30,7 +30,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 // Define necessary addon constants.
 define( 'SOLILOQUY_THUMBNAILS_PLUGIN_NAME', 'Soliloquy - Thumbnails Addon' );
-define( 'SOLILOQUY_THUMBNAILS_PLUGIN_VERSION', '2.2.1' );
+define( 'SOLILOQUY_THUMBNAILS_PLUGIN_VERSION', '2.2.3' );
 define( 'SOLILOQUY_THUMBNAILS_PLUGIN_SLUG', 'soliloquy-thumbnails' );
 
 add_action( 'plugins_loaded', 'soliloquy_thumbnails_plugins_loaded' );
@@ -121,6 +121,8 @@ function soliloquy_thumbnails_defaults( $defaults, $post_id ) {
     $defaults['thumbnails_margin']   = 10;
     $defaults['thumbnails_num']      = 3;
     $defaults['thumbnails_crop']     = 1;
+    $defaults['thumbnails_loop']     = 0;
+
 
     // Mobile
     $defaults['mobile_thumbnails']   = 0;
@@ -266,6 +268,15 @@ function soliloquy_thumbnails_tab_thumbnails( $post ) {
                         <span class="description"><?php _e( 'Enables or disables thumbnail cropping.', 'soliloquy-thumbnails' ); ?></span>
                     </td>
                 </tr>
+                <tr id="soliloquy-config-thumbnails-loop-box">
+                    <th scope="row">
+                        <label for="soliloquy-config-thumbnails-loop"><?php _e( 'Loop Slider Thumbnails?', 'soliloquy-thumbnails' ); ?></label>
+                    </th>
+                    <td>
+                        <input id="soliloquy-config-thumbnails-loop" type="checkbox" name="_soliloquy[thumbnails_loop]" value="<?php echo $instance->get_config( 'thumbnails_loop', $instance->get_config_default( 'thumbnails_loop' ) ); ?>" <?php checked( $instance->get_config( 'thumbnails_loop', $instance->get_config_default( 'thumbnails_loop' ) ), 1 ); ?> />
+                        <span class="description"><?php _e( 'Enables or disables thumbnail looping.', 'soliloquy-thumbnails' ); ?></span>
+                    </td>
+                </tr>
                 <?php do_action( 'soliloquy_thumbnails_box', $post ); ?>
             </tbody>
         </table>
@@ -292,6 +303,7 @@ function soliloquy_thumbnails_save( $settings, $post_id ) {
     $settings['config']['thumbnails_margin']   = absint( $_POST['_soliloquy']['thumbnails_margin'] );
     $settings['config']['thumbnails_num']      = absint( $_POST['_soliloquy']['thumbnails_num'] );
     $settings['config']['thumbnails_crop']     = isset( $_POST['_soliloquy']['thumbnails_crop'] ) ? 1 : 0;
+    $settings['config']['thumbnails_loop']     = isset( $_POST['_soliloquy']['thumbnails_loop'] ) ? 1 : 0;
 
     // Mobile
     $settings['config']['mobile_thumbnails']   = isset( $_POST['_soliloquy']['mobile_thumbnails'] ) ? 1 : 0;
@@ -440,8 +452,16 @@ function soliloquy_thumbnails_init( $data ) {
  */
 function soliloquy_thumbnails_outer_container_classes( $classes, $data ) {
 
-    // Add position
+    // Get instance
     $instance  = Soliloquy_Shortcode::get_instance();
+
+    // Check thumbnails are enabled on this slider
+    if ( ! $instance->get_config( 'thumbnails', $data ) ) {
+        return $classes;
+    }
+
+    // If here, thumbnails are enabled
+    // Add classes
     $classes[] = 'soliloquy-thumbnails-outer-container';
     $classes[] = 'soliloquy-thumbnails-position-' . $instance->get_config( 'thumbnails_position', $data );
 
@@ -505,10 +525,16 @@ function soliloquy_thumbnails_output( $slider, $data ) {
         return $slider;
     }
     
+    // Calculate width and height
     $i        = 0;
     $width    = 'left' == $instance->get_config( 'thumbnails_position', $data ) || 'right' == $instance->get_config( 'thumbnails_position', $data ) ? $instance->get_config( 'thumbnails_width', $data ) : $instance->get_config( 'slider_width', $data );
     $height   = 'left' == $instance->get_config( 'thumbnails_position', $data ) || 'right' == $instance->get_config( 'thumbnails_position', $data ) ? $instance->get_config( 'slider_height', $data ) : $instance->get_config( 'thumbnails_height', $data );
-    
+
+    // If no width, force it
+    if ( empty( $width ) ) {
+        $width = 960;
+    }
+
     $thumbs   = apply_filters( 'soliloquy_thumbnails_output_start', $slider, $data );
 
     $thumbs  .= '<div id="soliloquy-thumbnails-container-' . sanitize_html_class( $data['id'] ) . '" class="' . soliloquy_thumbnails_classes( $data ) . '" style="max-width:' . $width . 'px;max-height:' . $height . 'px;' . apply_filters( 'soliloquy_thumbnails_output_container_style', '', $data ) . '"' . apply_filters( 'soliloquy_thumbnails_output_container_attr', '', $data ) . '>';
@@ -522,7 +548,7 @@ function soliloquy_thumbnails_output( $slider, $data ) {
                 }
 
                 $thumbs   = apply_filters( 'soliloquy_thumbnails_output_before_item', $thumbs, $id, $item, $data, $i );
-                $output   = '<li class="' . soliloquy_thumbnails_item_classes( $item, $i, $data ) . '"' . apply_filters( 'soliloquy_thumbnails_output_item_attr', '', $id, $item, $data, $i ) . ' draggable="false" style="list-style:none">';
+                $output   = '<li class="' . soliloquy_thumbnails_item_classes( $item, $i, $data ) . '"' . apply_filters( 'soliloquy_thumbnails_output_item_attr', '', $id, $item, $data, $i ) . ' data-index="' . $i . '" draggable="false" style="list-style:none">';
                     $output .= soliloquy_thumbnails_get_slide( $id, $item, $data, $i );
                 $output .= '</li>';
                 $output  = apply_filters( 'soliloquy_thumbnails_output_single_item', $output, $id, $item, $data, $i );
@@ -694,7 +720,7 @@ function soliloquy_thumbnails_js( $data ) {
         useCSS: 0,
         adaptiveHeight: 1,
         adaptiveHeightSpeed: <?php echo apply_filters( 'soliloquy_adaptive_height_speed', 400, $data ); ?>,
-        infiniteLoop: 0,
+        infiniteLoop: <?php echo $instance->get_config( 'thumbnails_loop', $data ); ?>,
         hideControlOnEnd: 1,
         mode: '<?php echo $mode; ?>',
         pager: 0,
@@ -714,8 +740,7 @@ function soliloquy_thumbnails_js( $data ) {
                 if ( $this.hasClass('soliloquy-active-slide') ) {
                     return;
                 }
-                soliloquy_slider['<?php echo $data['id']; ?>'].stopAuto();
-                soliloquy_slider['<?php echo $data['id']; ?>'].goToSlide($this.index());
+                soliloquy_slider['<?php echo $data['id']; ?>'].goToSlide($this.attr('data-index'));
             });
             <?php do_action( 'soliloquy_thumbnails_api_on_load', $data ); ?>
         },

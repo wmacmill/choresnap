@@ -159,7 +159,7 @@ if ( ! class_exists( 'myCRED_NETbilling' ) ) :
 			$cost = number_format( $cost, 2, '.', '' );
 
 			$to = $this->get_to();
-			$from = $this->current_user_id;
+			$from = get_current_user_id();
 
 			// Revisiting pending payment
 			if ( isset( $_REQUEST['revisit'] ) ) {

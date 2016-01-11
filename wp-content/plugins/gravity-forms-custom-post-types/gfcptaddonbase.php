@@ -113,8 +113,7 @@ if (!class_exists('GFCPTAddonBase')) {
 
         function enqueue_custom_scripts($form, $is_ajax) {
           //loop thru all fields
-          $formfields [] = $form['fields']; 
-          foreach( $formfields as $field) {
+          foreach($form['fields'] as &$field) {
             //if its a text field, see if we have set it to save to a taxonomy
             if ($field['type'] == 'text' && array_key_exists('saveToTaxonomy', $field)) {
               $saveToTaxonomy = $field['saveToTaxonomy'];
@@ -150,17 +149,18 @@ if (!class_exists('GFCPTAddonBase')) {
                     wp_enqueue_style('gfcpt_tagit_css');
 
 
-                    wp_register_script(
-                            $handle = 'gfcpt_jquery_ui',
-                            $src = plugins_url( 'js/jquery-ui-1.8.16.custom.min.js' , __FILE__ ),
-                            $deps = array('jquery') );
-
-                    wp_enqueue_script('gfcpt_jquery_ui');
+//                    wp_register_script(
+//                            $handle = 'gfcpt_jquery_ui',
+//                            $src = plugins_url( 'js/jquery-ui-1.8.16.custom.min.js' , __FILE__ ),
+//                            $deps = array('jquery') );
+//
+                    wp_enqueue_script( 'jquery-ui-core' );
+                    wp_enqueue_script( 'jquery-ui-autocomplete' );
 
                     wp_register_script(
                             $handle = 'gfcpt_tagit_js',
                             $src = plugins_url( 'js/tag-it.js' , __FILE__ ),
-                            $deps = array('gfcpt_jquery_ui') );
+                            $deps = array('jquery-ui-core') );
 
                     wp_enqueue_script('gfcpt_tagit_js');
 
@@ -247,24 +247,21 @@ if (!class_exists('GFCPTAddonBase')) {
          */
         function setup_post_type_field( &$field, $post_type ) {
             $first_choice = $field['choices'][0]['text'];
-            $selected = self::array_search_recursive("1",$field['choices'],$indexes);
-            $field['choices'] = $this->load_post_type_choices( $post_type, $first_choice, $selected);
+            $field['choices'] = $this->load_post_type_choices( $post_type, $first_choice );
         }
 
-        function load_post_type_choices($post_type, $first_choice = '', $selected = 0) {
+        function load_post_type_choices($post_type, $first_choice = '') {
             $posts = $this->load_posts_hierarchical( $post_type );
-            $isSelected = ( $first_choice['isSelected'] == $selected || $selected == 0 ? 1 : null );
             if ($first_choice === '' || $first_choice === 'First Choice'){
                 // if no default option is specified, dynamically create based on post type name
                 $post_type_obj = get_post_type_object($post_type);
-                $choices[] = array('text' => "-- select a {$post_type_obj->labels->singular_name} --", 'value' => "-- select a {$post_type_obj->labels->singular_name} --", 'isSelected' => $isSelected);
+                $choices[] = array('text' => "-- select a {$post_type_obj->labels->singular_name} --", 'value' => '');
             } else {
-                $choices[] = array('text' => $first_choice, 'value' => $first_choice, 'isSelected' => $isSelected);
+                $choices[] = array('text' => $first_choice, 'value' => '');
             }
 
-            foreach($posts as $key => $post) {
-                $isSelected = ( $key+1 == $selected ? 1 : null );
-                $choices[] = array('value' => $post->ID, 'text' => $post->post_title, 'isSelected' => $isSelected);
+            foreach($posts as $post) {
+                $choices[] = array('value' => $post->ID, 'text' => $post->post_title);
             }
 
             return $choices;
@@ -302,55 +299,56 @@ if (!class_exists('GFCPTAddonBase')) {
          * setup a field if it is linked to a taxonomy
          */
         function setup_taxonomy_field( &$field, $taxonomy ) {
-            if ( count($field['choices']) > 0 ) {
-                $first_choice = $field['choices'][0];
-                $selected = self::array_search_recursive("1",$field['choices'],$indexes);
-            }else{
-                $first_choice = '';
-                $selected = 0;
-            }
-            $field['choices'] = $this->load_taxonomy_choices( $taxonomy, $field['type'], $first_choice, $selected );
+
+            $first_choice = rgars( $field, 'choices/0/text/' );
+            $field['choices'] = $this->load_taxonomy_choices( $taxonomy, $field['type'], $first_choice, $field );
 
             //now check if we are dealing with a checkbox list and do some extra magic
             if ( $field['type'] == 'checkbox' ) {
-                //clear the inputs first
-                $field['inputs'] = array();
+
+	            $inputs = array();
 
                 $counter = 0;
                 //recreate the inputs so they are captured correctly on form submission
                 foreach( $field['choices'] as $choice ) {
-                    $counter++;
-                    if ( ($counter % 10) == 0 ) $counter++; //thanks to Peter Schuster for the help on this fix
+
+	                //thanks to Peter Schuster for the help on this fix
+	                $counter++;
+                    if ( $counter % 10 == 0 ) {
+	                    $counter++;
+                    }
+
                     $id = floatval( $field['id'] . '.' . $counter );
-                    $field['inputs'][] = array('label' => $choice['text'], 'id' => $id);
+                    $inputs[] = array( 'label' => $choice['text'], 'id' => $id );
                 }
+
+	            $field['inputs'] = $inputs;
+
             }
         }
 
         /*
          * Load any taxonomy terms
          */
-        function load_taxonomy_choices($taxonomy, $type, $first_choice = '', $selected = 0) {
+        function load_taxonomy_choices($taxonomy, $type, $first_choice = '', $field ) {
             $choices = array();
 
             if ($type === 'select') {
-                $terms = $this->load_taxonomy_hierarchical( $taxonomy );
-                $isSelected = ( $first_choice['isSelected'] == $selected || $selected == 0 ? 1 : null );
-                if ($first_choice['text'] === '' || $first_choice['text'] === 'First Choice'){
+                $terms = $this->load_taxonomy_hierarchical( $taxonomy, $field );
+                if ($first_choice === '' || $first_choice === 'First Choice'){
                     // if no default option is specified, dynamically create based on taxonomy name
                     $taxonomy = get_taxonomy($taxonomy);
-                    $choices[] = array('text' => "-- select a {$taxonomy->labels->singular_name} --", 'value' => "-- select a {$taxonomy->labels->singular_name} --", 'isSelected' => $isSelected);
+                    $choices[] = array('text' => "-- select a {$taxonomy->labels->singular_name} --", 'value' => '');
                 } else {
-                    $choices[] = array('text' => $first_choice['text'], 'value' => $first_choice['text'], 'isSelected' => $isSelected);
+                    $choices[] = array('text' => $first_choice, 'value' => '');
                 }
             } else {
                 $terms = get_terms($taxonomy, 'orderby=name&hide_empty=0');
             }
 
             if ( !array_key_exists("errors",$terms) ) {
-              foreach($terms as $key => $term) {
-                  $isSelected = ( $key+1 == $selected ? 1 : null );
-                  $choices[] = array('value' => $term->term_id, 'text' => $term->name, 'isSelected' => $isSelected);
+              foreach($terms as $term) {
+                  $choices[] = array('value' => $term->term_id, 'text' => $term->name);
               }
             }
 
@@ -360,20 +358,24 @@ if (!class_exists('GFCPTAddonBase')) {
         /*
          * Get a hierarchical list of taxonomies
          */
-        function load_taxonomy_hierarchical( $taxonomy ) {
-            $args = array(
+        function load_taxonomy_hierarchical( $taxonomy, $field ) {
+
+            $args = gf_apply_filters( 'gfcpt_taxonomy_args', array( $field->formId, $field->id ), array(
                 'taxonomy'      => $taxonomy,
                 'orderby'       => 'name',
                 'hierarchical'  => 1,
                 'hide_empty'    => 0
-            );
-            $terms = get_categories( $args );
+            ), $field );
+
+            $terms  = get_categories( $args );
             
             if ( array_key_exists("errors",$terms) ) {
-              return $terms;
+                return $terms;
+            } else {
+	            $parent = isset( $args['parent'] ) ? $args['parent'] : 0;
+	            return $this->walk_terms( $terms, $parent );
             }
-            else
-              return $this->walk_terms( $terms );
+
         }
 
         /*
@@ -430,24 +432,6 @@ if (!class_exists('GFCPTAddonBase')) {
                 if ( $term_id > 0 )
                     wp_set_object_terms( $entry['post_id'], $term_id, $taxonomy, true );
             }
-        }
-
-        /**
-         * Search an array recursively for a value
-         */
-        public function array_search_recursive($needle, $haystack, &$indexes=array()) {
-            foreach ($haystack as $key => $value) {
-                if (is_array($value)) {
-                    $indexes[] = $key;
-                    $status = self::array_search_recursive($needle, $value, $indexes);
-                    if ($status) return $key;
-                    else $indexes = array();
-                } else if ((string)$value == (string)$needle) {
-                    $indexes[] = $key;
-                    return $key;
-                }
-            }
-            return false;
         }
     }
 }

@@ -5,7 +5,7 @@
  * Description: Soliloquy is best responsive WordPress slider plugin.
  * Author:      Thomas Griffin
  * Author URI:  http://thomasgriffinmedia.com
- * Version:     2.4.3.3
+ * Version:     2.4.3.7
  * Text Domain: soliloquy
  * Domain Path: languages
  *
@@ -54,7 +54,7 @@ class Soliloquy {
      *
      * @var string
      */
-    public $version = '2.4.3.3';
+    public $version = '2.4.3.7';
 
     /**
      * The name of the plugin.
@@ -371,27 +371,26 @@ class Soliloquy {
      */
     public function _get_sliders( $skip_empty = true ) {
 
-        $sliders = get_posts(
-            array(
-                'post_type'     => 'any',
-                'no_found_rows' => true,
-                'cache_results' => false,
-                'nopaging'      => true,
-                'fields'        => 'ids',
-                'meta_query'    => array(
-                    array(
-                        'key' => '_sol_slider_data'
-                    )
-                )
-            )
-        );
-        if ( empty( $sliders ) ) {
+        $sliders = new WP_Query( array(
+            'post_type' => 'soliloquy',
+            'post_status' => 'publish',
+            'posts_per_page' => -1,
+            'fields' => 'ids',
+            'meta_query' => array(
+                array(
+                    'key' => '_sol_slider_data',
+                    'compare' => 'EXISTS',
+                ),
+            ),
+        ) );
+
+        if ( ! isset( $sliders->posts) || empty( $sliders->posts ) ) {
             return false;
         }
 
         // Now loop through all the sliders found and only use sliders that have images in them.
         $ret = array();
-        foreach ( $sliders as $id ) {
+        foreach ( $sliders->posts as $id ) {
             $data = get_post_meta( $id, '_sol_slider_data', true );
            
             // Skip empty sliders, if required

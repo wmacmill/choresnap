@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the Soliloquy package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Soliloquy 2.4.3.3\n"
+"Project-Id-Version: Soliloquy 2.4.3.7\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/soliloquy\n"
-"POT-Creation-Date: 2015-10-22 15:58:46+00:00\n"
+"POT-Creation-Date: 2015-12-23 13:14:43+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -40,7 +40,7 @@ msgstr ""
 msgid "Choose Your Slider"
 msgstr ""
 
-#: includes/admin/editor.php:149 includes/global/widget.php:162
+#: includes/admin/editor.php:149 includes/global/widget.php:163
 msgid "Slider ID #%s"
 msgstr ""
 
@@ -1226,7 +1226,7 @@ msgstr ""
 msgid "Soliloquy Sliders"
 msgstr ""
 
-#. #-#-#-#-#  soliloquy.pot (Soliloquy 2.4.3.3)  #-#-#-#-#
+#. #-#-#-#-#  soliloquy.pot (Soliloquy 2.4.3.7)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: includes/global/posttype.php:52 includes/global/posttype.php:62
 #: includes/global/widget.php:64
@@ -1265,7 +1265,7 @@ msgstr ""
 msgid "No Soliloquy sliders found in trash."
 msgstr ""
 
-#: includes/global/shortcode.php:463
+#: includes/global/shortcode.php:467
 msgid ""
 "<p><strong>Oops - it looks like we had trouble retrieving data about the "
 "video you requested. Please make sure your video URL is supported and in the "
@@ -1280,7 +1280,7 @@ msgstr ""
 msgid "Slider"
 msgstr ""
 
-#: soliloquy.php:578
+#: soliloquy.php:577
 msgid ""
 "Sorry, but your version of WordPress does not meet Soliloquy's required "
 "version of <strong>3.5.1</strong> to run properly. The plugin has been "
