@@ -3,13 +3,13 @@
 Plugin Name: WP Job Manager - Bookmarks
 Plugin URI: https://wpjobmanager.com/add-ons/bookmarks/
 Description: Allow logged in candidates and employers to bookmark jobs and resumes along with an added note.
-Version: 1.1.7
-Author: Mike Jolley
-Author URI: http://mikejolley.com
-Requires at least: 3.8
-Tested up to: 3.9
+Version: 1.2.1
+Author: Automattic
+Author URI: http://wpjobmanager.com
+Requires at least: 4.1
+Tested up to: 4.4
 
-	Copyright: 2014 Mike Jolley
+	Copyright: 2015 Automattic
 	License: GNU General Public License v3.0
 	License URI: http://www.gnu.org/licenses/gpl-3.0.html
 */
@@ -34,7 +34,7 @@ class WP_Job_Manager_Bookmarks extends WPJM_Updater {
 	public function __construct() {
 
 		// Define constants
-		define( 'JOB_MANAGER_BOOKMARKS_VERSION', '1.1.7' );
+		define( 'JOB_MANAGER_BOOKMARKS_VERSION', '1.2.1' );
 		define( 'JOB_MANAGER_BOOKMARKS_PLUGIN_DIR', untrailingslashit( plugin_dir_path( __FILE__ ) ) );
 		define( 'JOB_MANAGER_BOOKMARKS_PLUGIN_URL', untrailingslashit( plugins_url( basename( plugin_dir_path( __FILE__ ) ), basename( __FILE__ ) ) ) );
 
@@ -45,6 +45,7 @@ class WP_Job_Manager_Bookmarks extends WPJM_Updater {
 		add_action( 'single_job_listing_meta_after', array( $this, 'bookmark_form' ) );
 		add_action( 'single_resume_start', array( $this, 'bookmark_form' ) );
 		add_shortcode( 'my_bookmarks', array( $this, 'my_bookmarks' ) );
+		add_filter( 'post_class', array( $this, 'already_bookmarked_post_class' ), 20, 2 );
 
 		// Activate
 		register_activation_hook( basename( dirname( __FILE__ ) ) . '/' . basename( __FILE__ ), array( $this, 'install' ) );
@@ -113,18 +114,31 @@ CREATE TABLE {$wpdb->prefix}job_manager_bookmarks (
 	/**
 	 * Get a user's bookmarks
 	 * @param  integer $user_id
-	 * @return array
+	 * @param  integer $limit
+	 * @param  integer $offset
+	 * @return array|object
 	 */
-	public function get_user_bookmarks( $user_id = 0 ) {
+	public function get_user_bookmarks( $user_id = 0, $limit = 0, $offset = 0 ) {
+		global $wpdb;
+
 		if ( ! $user_id && is_user_logged_in() ) {
 			$user_id = get_current_user_id();
 		} elseif ( ! $user_id ) {
 			return false;
 		}
 
-		global $wpdb;
+		if ( $limit > 0 ) {
+			$results     = $wpdb->get_results( $wpdb->prepare( "SELECT SQL_CALC_FOUND_ROWS * FROM {$wpdb->prefix}job_manager_bookmarks WHERE user_id = %d ORDER BY date_created LIMIT %d, %d;", $user_id, $offset, $limit ) );
+			$max_results = $wpdb->get_var( "SELECT FOUND_ROWS()" );
 
-		return $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}job_manager_bookmarks WHERE user_id = %d ORDER BY date_created;", $user_id ) );
+			return (object) array(
+				'max_found_rows' => $max_results,
+				'max_num_pages'  => ceil( $max_results / $limit ),
+				'results'        => $results
+			);
+		} else {
+			return $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}job_manager_bookmarks WHERE user_id = %d ORDER BY date_created;", $user_id ) );
+		}
 	}
 
 	/**
@@ -266,22 +280,49 @@ CREATE TABLE {$wpdb->prefix}job_manager_bookmarks (
 	/**
 	 * User bookmarks shortcode
 	 */
-	public function my_bookmarks() {
+	public function my_bookmarks( $atts ) {
 		if ( ! is_user_logged_in() ) {
 			return __( 'You need to be signed in to manage your bookmarks.', 'wp-job-manager-bookmarks' );
 		}
+
+		extract( shortcode_atts( array(
+			'posts_per_page' => '25',
+		), $atts ) );
 
 		ob_start();
 
 		wp_enqueue_script( 'wp-job-manager-bookmarks-bookmark-js' );
 
-		$bookmarks = $this->get_user_bookmarks();
+		if ( $posts_per_page >= 0 ) {
+			$bookmarks = $this->get_user_bookmarks( get_current_user_id(), $posts_per_page, ( max( 1, get_query_var('paged') ) - 1 ) * $posts_per_page );
 
-		get_job_manager_template( 'my-bookmarks.php', array(
-			'bookmarks'     => $bookmarks
-		), 'wp-job-manager-bookmarks', JOB_MANAGER_BOOKMARKS_PLUGIN_DIR . '/templates/' );
+			get_job_manager_template( 'my-bookmarks.php', array(
+				'bookmarks'     => $bookmarks->results,
+				'max_num_pages' => $bookmarks->max_num_pages
+			), 'wp-job-manager-bookmarks', JOB_MANAGER_BOOKMARKS_PLUGIN_DIR . '/templates/' );
+		} else {
+			$bookmarks = $this->get_user_bookmarks( get_current_user_id() );
+
+			get_job_manager_template( 'my-bookmarks.php', array(
+				'bookmarks'     => $bookmarks,
+				'max_num_pages' => 1
+			), 'wp-job-manager-bookmarks', JOB_MANAGER_BOOKMARKS_PLUGIN_DIR . '/templates/' );
+		}
 
 		return ob_get_clean();
+	}
+
+	/**
+	 * Add note that the listing is bookmarked
+	 */
+	public function already_bookmarked_post_class( $classes ) {
+		global $post;
+
+		if ( is_user_logged_in() && $this->is_bookmarked( $post->ID ) ) {
+			$classes[] = 'listing-bookmarked';
+		}
+
+		return $classes;
 	}
 }
 

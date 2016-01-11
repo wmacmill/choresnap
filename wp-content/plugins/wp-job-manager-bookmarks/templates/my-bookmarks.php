@@ -7,8 +7,8 @@
 			</tr>
 		</thead>
 		<tbody>
-			<?php 
-			foreach ( $bookmarks as $bookmark ) : 
+			<?php
+			foreach ( $bookmarks as $bookmark ) :
 				if ( get_post_status( $bookmark->post_id ) !== 'publish' ) {
 					continue;
 				}
@@ -36,7 +36,7 @@
 						<?php echo wpautop( wp_kses_post( $bookmark->bookmark_note ) ); ?>
 					</td>
 				</tr>
-			<?php endforeach; ?> 
+			<?php endforeach; ?>
 
 			<?php if ( empty( $has_bookmark ) ) : ?>
 				<tr>
@@ -45,4 +45,5 @@
 			<?php endif; ?>
 		</tbody>
 	</table>
+	<?php get_job_manager_template( 'pagination.php', array( 'max_num_pages' => $max_num_pages ) ); ?>
 </div>

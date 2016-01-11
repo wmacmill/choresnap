@@ -1,8 +1,8 @@
 === Job Bookmarks ===
 Contributors: mikejolley
-Requires at least: 3.8
-Tested up to: 4.2
-Stable tag: 1.1.7
+Requires at least: 4.1
+Tested up to: 4.4
+Stable tag: 1.2.1
 License: GNU General Public License v3.0
 
 Lets candidates star/bookmark jobs, and employers star/bookmark resumes (if using the Resume Manager addon).
@@ -22,6 +22,13 @@ If you need help with customisation you will need to find and hire a developer c
 To install this plugin, please refer to the guide here: [http://codex.wordpress.org/Managing_Plugins#Manual_Plugin_Installation](http://codex.wordpress.org/Managing_Plugins#Manual_Plugin_Installation)
 
 == Changelog ==
+
+= 1.2.1 =
+* Fix pagination error when limit is not set.
+
+= 1.2.0 =
+* Added icon to bookmarked listings.
+* Added pagination to my_bookmarks.
 
 = 1.1.7 =
 * Improved ajax detection and form action.
