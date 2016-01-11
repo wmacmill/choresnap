@@ -3,8 +3,8 @@ Contributors: mikejolley, automattic
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=mike.jolley@me.com&currency_code=&amount=&return=&item_name=Buy+me+a+coffee+for+A+New+Job+Board+Plugin+for+WordPress
 Tags: job manager, job listing, job board, job management, job lists, job list, job, jobs, company, hiring, employment, employer, employees, candidate, freelance, internship, job listings, positions, board, application, hiring, listing, manager, recruiting, recruitment, talent
 Requires at least: 4.1
-Tested up to: 4.3
-Stable tag: 1.23.11
+Tested up to: 4.4
+Stable tag: 1.23.13
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -141,6 +141,19 @@ You can view (and contribute) translations via the [translate.wordpress.org](htt
 6. Job listings in admin.
 
 == Changelog ==
+
+= 1.23.13 =
+* Fix - Conflict between the_job_location() and the regions plugin.
+* Tweak - Allow some HTML in the_job_location - uses wp_kses_post.
+
+= 1.23.12 =
+* Fix - Transient clear query.
+* Tweak - New user notification pluggable function.
+* Tweak - Use subquery in keyword search to avoid long queries.
+* Tweak - Only search for keywords of 2 or more characters.
+* Tweak - job_manager_get_listings_keyword_length_threshold filter.
+* Tweak - PolyLang compatibility functions.
+* Tweak - Unattach company logo when a new attachment is uploaded.
 
 = 1.23.11 =
 * Fix - Author check in job_manager_user_can_edit_job().

@@ -241,7 +241,7 @@ class WP_Job_Manager_Form_Submit_Job extends WP_Job_Manager_Form {
 					if ( is_array( $values[ $group_key ][ $key ] ) ) {
 						$check_value = $values[ $group_key ][ $key ];
 					} else {
-						$check_value = array( $values[ $group_key ][ $key ] );
+						$check_value = empty( $values[ $group_key ][ $key ] ) ? array() : array( $values[ $group_key ][ $key ] );
 					}
 					foreach ( $check_value as $term ) {
 						if ( ! term_exists( $term, $field['taxonomy'] ) ) {
@@ -661,6 +661,8 @@ class WP_Job_Manager_Form_Submit_Job extends WP_Job_Manager_Form {
 				$update_job['post_status']   = get_option( 'job_manager_submission_requires_approval' ) ? 'pending' : 'publish';
 				$update_job['post_date']     = current_time( 'mysql' );
 				$update_job['post_date_gmt'] = current_time( 'mysql', 1 );
+				$update_job['post_author']   = get_current_user_id();
+
 				wp_update_post( $update_job );
 			}
 

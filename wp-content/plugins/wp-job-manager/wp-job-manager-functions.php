@@ -99,7 +99,9 @@ function get_job_listings( $args = array() ) {
 		);
 	}
 
-	if ( $job_manager_keyword = sanitize_text_field( $args['search_keywords'] ) ) {
+	$job_manager_keyword = sanitize_text_field( $args['search_keywords'] );
+
+	if ( ! empty( $job_manager_keyword ) && strlen( $job_manager_keyword ) >= apply_filters( 'job_manager_get_listings_keyword_length_threshold', 2 ) ) {
 		$query_args['_keyword'] = $job_manager_keyword; // Does nothing but needed for unique hash
 		add_filter( 'posts_clauses', 'get_job_listings_keyword_search' );
 	}
@@ -112,6 +114,11 @@ function get_job_listings( $args = array() ) {
 
 	if ( empty( $query_args['tax_query'] ) ) {
 		unset( $query_args['tax_query'] );
+	}
+
+	// Polylang LANG arg
+	if ( function_exists( 'pll_current_language' ) ) {
+		$query_args['lang'] = pll_current_language();
 	}
 
 	// Filter args
@@ -146,20 +153,14 @@ if ( ! function_exists( 'get_job_listings_keyword_search' ) ) :
 	function get_job_listings_keyword_search( $args ) {
 		global $wpdb, $job_manager_keyword;
 
-		// Query matching ids to avoid more joins
-		$post_ids   = $wpdb->get_col( "SELECT post_id FROM {$wpdb->postmeta} WHERE meta_value LIKE '%" . esc_sql( $job_manager_keyword ) . "%'" );
-		$conditions = array();
-
+		$conditions   = array();
 		$conditions[] = "{$wpdb->posts}.post_title LIKE '%" . esc_sql( $job_manager_keyword ) . "%'";
+		$conditions[] = "{$wpdb->posts}.ID IN ( SELECT post_id FROM {$wpdb->postmeta} WHERE meta_value LIKE '%" . esc_sql( $job_manager_keyword ) . "%' )";
 
 		if ( ctype_alnum( $job_manager_keyword ) ) {
 			$conditions[] = "{$wpdb->posts}.post_content RLIKE '[[:<:]]" . esc_sql( $job_manager_keyword ) . "[[:>:]]'";
 		} else {
 			$conditions[] = "{$wpdb->posts}.post_content LIKE '%" . esc_sql( $job_manager_keyword ) . "%'";
-		}
-
-		if ( $post_ids ) {
-			$conditions[] = "{$wpdb->posts}.ID IN (" . esc_sql( implode( ',', $post_ids ) ) . ")";
 		}
 
 		$args['where'] .= " AND ( " . implode( ' OR ', $conditions ) . " ) ";
@@ -322,6 +323,24 @@ function get_job_listing_rss_link( $args = array() ) {
 }
 endif;
 
+if ( ! function_exists( 'wp_job_manager_notify_new_user' ) ) :
+	/**
+	 * Handle account creation.
+	 *
+	 * @param  int $user_id
+	 * @param  string $password
+	 */
+	function wp_job_manager_notify_new_user( $user_id, $password ) {
+		global $wp_version;
+
+		if ( version_compare( $wp_version, '4.3.1', '<' ) ) {
+			wp_new_user_notification( $user_id, $password );
+		} else {
+			wp_new_user_notification( $user_id, null, 'both' );
+		}
+	}
+endif;
+
 if ( ! function_exists( 'job_manager_create_account' ) ) :
 /**
  * Handle account creation.
@@ -332,7 +351,6 @@ if ( ! function_exists( 'job_manager_create_account' ) ) :
  */
 function wp_job_manager_create_account( $args, $deprecated = '' ) {
 	global $current_user;
-	global $wp_version;
 
 	// Soft Deprecated in 1.20.0
 	if ( ! is_array( $args ) ) {
@@ -405,13 +423,8 @@ function wp_job_manager_create_account( $args, $deprecated = '' ) {
     }
 
     // Notify
-    if ( version_compare( $wp_version, '4.3.1', '<' ) ) {
-    	wp_new_user_notification( $user_id, $password );
-    } else {
-    	wp_new_user_notification( $user_id, null, 'both' );
-    }
-
-	// Login
+    wp_job_manager_notify_new_user( $user_id, $password, $new_user );
+    // Login
     wp_set_auth_cookie( $user_id, true, is_ssl() );
     $current_user = get_user_by( 'id', $user_id );
 
@@ -579,13 +592,26 @@ function job_manager_dropdown_categories( $args = '' ) {
 }
 
 /**
+ * Get the page ID of a page if set, with PolyLang compat.
+ * @param  string $page e.g. job_dashboard, submit_job_form, jobs
+ * @return int
+ */
+function job_manager_get_page_id( $page ) {
+	$page_id = get_option( 'job_manager_' . $page . '_page_id', false );
+	if ( $page_id ) {
+		return absint( function_exists( 'pll_get_post' ) ? pll_get_post( $page_id ) : $page_id );
+	} else {
+		return 0;
+	}
+}
+
+/**
  * Get the permalink of a page if set
  * @param  string $page e.g. job_dashboard, submit_job_form, jobs
  * @return string|bool
  */
 function job_manager_get_permalink( $page ) {
-	$page_id = get_option( 'job_manager_' . $page . '_page_id', false );
-	if ( $page_id ) {
+	if ( $page_id = job_manager_get_page_id( $page ) ) {
 		return get_permalink( $page_id );
 	} else {
 		return false;
