@@ -35,12 +35,12 @@ class WP_Resume_Manager_Post_Types {
 
 		add_action( 'update_post_meta', array( $this, 'maybe_update_menu_order' ), 10, 4 );
 		add_filter( 'wp_insert_post_data', array( $this, 'fix_post_name' ), 10, 2 );
-		add_action( 'pending_payment_to_publish', array( $this, 'set_expirey' ) );
-		add_action( 'pending_to_publish', array( $this, 'set_expirey' ) );
-		add_action( 'preview_to_publish', array( $this, 'set_expirey' ) );
-		add_action( 'draft_to_publish', array( $this, 'set_expirey' ) );
-		add_action( 'auto-draft_to_publish', array( $this, 'set_expirey' ) );
-		add_action( 'expired_to_publish', array( $this, 'set_expirey' ) );
+		add_action( 'pending_payment_to_publish', array( $this, 'set_expiry' ) );
+		add_action( 'pending_to_publish', array( $this, 'set_expiry' ) );
+		add_action( 'preview_to_publish', array( $this, 'set_expiry' ) );
+		add_action( 'draft_to_publish', array( $this, 'set_expiry' ) );
+		add_action( 'auto-draft_to_publish', array( $this, 'set_expiry' ) );
+		add_action( 'expired_to_publish', array( $this, 'set_expiry' ) );
 		add_action( 'resume_manager_check_for_expired_resumes', array( $this, 'check_for_expired_resumes' ) );
 
 		add_action( 'save_post', array( $this, 'flush_get_resume_listings_cache' ) );
@@ -535,42 +535,47 @@ class WP_Resume_Manager_Post_Types {
 	}
 
 	/**
-	 * Set expirey date when resume status changes
+	 * Typo -.-
 	 */
 	public function set_expirey( $post ) {
+		$this->set_expiry( $post );
+	}
+
+	/**
+	 * Set expirey date when resume status changes
+	 */
+	public function set_expiry( $post ) {
 		if ( $post->post_type !== 'resume' ) {
 			return;
 		}
 
 		// See if it is already set
-		$expires  = get_post_meta( $post->ID, '_resume_expires', true );
-
-		if ( ! empty( $expires ) ) {
+		if ( metadata_exists( 'post', $post->ID, '_resume_expires' ) ) {
+			$expires = get_post_meta( $post->ID, '_resume_expires', true );
+			if ( $expires && strtotime( $expires ) < current_time( 'timestamp' ) ) {
+				update_post_meta( $post->ID, '_resume_expires', '' );
+				$_POST[ '_resume_expires' ] = '';
+			}
 			return;
 		}
 
-		// Get duration from the product if set...
-		$duration = get_post_meta( $post->ID, '_resume_duration', true );
+		// No metadata set so we can generate an expiry date
+		// See if the user has set the expiry manually:
+		if ( ! empty( $_POST[ '_resume_expires' ] ) ) {
+			update_post_meta( $post->ID, '_resume_expires', date( 'Y-m-d', strtotime( sanitize_text_field( $_POST[ '_resume_expires' ] ) ) ) );
 
-		// ...otherwise use the global option
-		if ( ! $duration ) {
-			$duration = absint( get_option( 'resume_manager_submission_duration' ) );
-		}
-
-		if ( $duration ) {
-			$expires = date( 'Y-m-d', strtotime( "+{$duration} days", current_time( 'timestamp' ) ) );
+		// No manual setting? Lets generate a date
+		} else {
+			$expires = calculate_resume_expiry( $post->ID );
 			update_post_meta( $post->ID, '_resume_expires', $expires );
 
 			// In case we are saving a post, ensure post data is updated so the field is not overridden
 			if ( isset( $_POST[ '_resume_expires' ] ) ) {
 				$_POST[ '_resume_expires' ] = $expires;
 			}
-
-		} else {
-			update_post_meta( $post->ID, '_resume_expires', '' );
 		}
 	}
-
+	
 	/**
 	 * Expire resumes
 	 */

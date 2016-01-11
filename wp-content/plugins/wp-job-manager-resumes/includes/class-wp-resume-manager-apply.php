@@ -3,6 +3,8 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 /**
  * WP_Resume_Manager_Apply class.
+ *
+ * Handles application forms, and also integration with applications plugin if installed.
  */
 class WP_Resume_Manager_Apply {
 
@@ -13,26 +15,41 @@ class WP_Resume_Manager_Apply {
 	 * Constructor
 	 */
 	public function __construct() {
-		add_action( 'init', array( $this, 'init' ) );
+		add_action( 'wp', array( $this, 'init' ), 20 );
 		add_action( 'wp', array( $this, 'apply_with_resume_handler' ) );
 		add_action( 'submit_resume_form_start', array( $this, 'resume_form_intro' ) );
-		add_action( 'job_manager_application_details_email', array( $this, 'apply_with_resume' ), 20 );
-
-		if ( class_exists( 'WP_Job_Manager_Applications' ) && get_option( 'resume_manager_enable_application_for_url_method', 1 ) ) {
-			add_action( 'job_manager_application_details_url', array( $this, 'apply_with_resume' ), 20 );
-		}
 	}
 
 	/**
-	 * Init
+	 * Ensure application areas show the correct content.
 	 */
 	public function init() {
-		if ( get_option( 'resume_manager_force_application' ) ) {
-			global $job_manager;
-			remove_action( 'job_manager_application_details_email', array( $job_manager->post_types, 'application_details_email' ) );
+		global $job_manager;
 
+		$user_resumes = $this->get_user_resumes();
+
+		/**
+		 * What content is shown is based on settings and whether or not the user has resumes.
+		 */
+		if ( empty( $user_resumes ) && get_option( 'resume_manager_force_resume' ) ) {
+			remove_all_actions( 'job_manager_application_details_email' );
+			remove_all_actions( 'job_manager_application_details_url' );
+			add_action( 'job_manager_application_details_email', array( $this, 'force_apply_with_resume' ), 20 );
+			add_action( 'job_manager_application_details_url', array( $this, 'force_apply_with_resume' ), 20 );
+		} else {
+			if ( get_option( 'resume_manager_enable_application', 1 ) ) {
+				// If we're forcing application through resume manager, we should disable other forms and content.
+				if ( get_option( 'resume_manager_force_application' ) ) {
+					remove_all_actions( 'job_manager_application_details_email' );
+				}
+				add_action( 'job_manager_application_details_email', array( $this, 'apply_with_resume' ), 20 );
+			}
 			if ( class_exists( 'WP_Job_Manager_Applications' ) && get_option( 'resume_manager_enable_application_for_url_method', 1 ) ) {
-				remove_action( 'job_manager_application_details_url', array( $job_manager->post_types, 'application_details_url' ) );
+				// If we're forcing application through resume manager, we should disable other forms and content.
+				if ( get_option( 'resume_manager_force_application' ) ) {
+					remove_all_actions( 'job_manager_application_details_url' );
+				}
+				add_action( 'job_manager_application_details_url', array( $this, 'apply_with_resume' ), 20 );
 			}
 		}
 	}
@@ -53,9 +70,10 @@ class WP_Resume_Manager_Apply {
 	}
 
 	/**
-	 * Allow users to apply to a job with a resume
+	 * Get a user's resumes which they can apply with
+	 * @return array
 	 */
-	public function apply_with_resume() {
+	private function get_user_resumes() {
 		if ( is_user_logged_in() ) {
 			$args = apply_filters( 'resume_manager_get_application_form_resumes_args', array(
 				'post_type'           => 'resume',
@@ -72,7 +90,21 @@ class WP_Resume_Manager_Apply {
 			$resumes = array();
 		}
 
-		get_job_manager_template( 'apply-with-resume.php', array( 'resumes' => $resumes ), 'wp-job-manager-resumes', RESUME_MANAGER_PLUGIN_DIR . '/templates/' );
+		return $resumes;
+	}
+
+	/**
+	 * Allow users to apply to a job with a resume
+	 */
+	public function apply_with_resume() {
+		get_job_manager_template( 'apply-with-resume.php', array( 'resumes' => $this->get_user_resumes() ), 'wp-job-manager-resumes', RESUME_MANAGER_PLUGIN_DIR . '/templates/' );
+	}
+
+	/**
+	 * Allow users to apply to a job with a resume
+	 */
+	public function force_apply_with_resume() {
+		get_job_manager_template( 'force-apply-with-resume.php', array(), 'wp-job-manager-resumes', RESUME_MANAGER_PLUGIN_DIR . '/templates/' );
 	}
 
 	/**
@@ -80,38 +112,40 @@ class WP_Resume_Manager_Apply {
 	 */
 	public function apply_with_resume_handler() {
 		if ( ! empty( $_POST['wp_job_manager_resumes_apply_with_resume'] ) ) {
-			add_action( 'job_content_start', array( $this, 'apply_with_resume_result' ) );
-
 			$resume_id           = absint( $_POST['resume_id'] );
 			$job_id              = absint( $_POST['job_id'] );
 			$application_message = str_replace( '[nl]', "\n", sanitize_text_field( str_replace( "\n", '[nl]', strip_tags( stripslashes( $_POST['application_message'] ) ) ) ) );
 
-			if ( empty( $resume_id ) ) {
-				$this->error = __( 'Please choose a resume to apply with', 'wp-job-manager-resumes' );
-				return;
-			}
+			add_action( 'job_content_start', array( $this, 'apply_with_resume_result' ) );
+			add_action( 'job_manager_before_job_apply_' . $job_id, array( $this, 'apply_with_resume_result' ) );
 
-			if ( empty( $job_id ) ) {
-				$this->error = __( 'This job cannot be applied for using a resume', 'wp-job-manager-resumes' );
-				return;
-			}
+			try {
+				if ( empty( $resume_id ) ) {
+					throw new Exception( __( 'Please choose a resume to apply with', 'wp-job-manager-resumes' ) );
+				}
 
-			if ( empty( $application_message ) ) {
-				$this->error = __( 'Please enter a message to include with your application', 'wp-job-manager-resumes' );
-				return;
-			}
+				if ( empty( $job_id ) ) {
+					throw new Exception( __( 'This job cannot be applied for using a resume', 'wp-job-manager-resumes' ) );
+				}
 
-			$method = get_the_job_application_method( $job_id );
+				if ( empty( $application_message ) ) {
+					throw new Exception( __( 'Please enter a message to include with your application', 'wp-job-manager-resumes' ) );
+				}
 
-			if ( "email" !== $method->type && ! ( class_exists( 'WP_Job_Manager_Applications' ) && get_option( 'resume_manager_enable_application_for_url_method', 1 ) ) ) {
-				$this->error = __( 'This job cannot be applied for using a resume', 'wp-job-manager-resumes' );
-				return;
-			}
+				$method = get_the_job_application_method( $job_id );
 
-			if ( $this->send_application( $job_id, $resume_id, $application_message ) ) {
-				$this->message = __( 'Your application has been sent successfully', 'wp-job-manager-resumes' );
-			} else {
-				$this->error = __( 'Error sending application', 'wp-job-manager-resumes' );
+				if ( "email" !== $method->type && ! ( class_exists( 'WP_Job_Manager_Applications' ) && get_option( 'resume_manager_enable_application_for_url_method', 1 ) ) ) {
+					throw new Exception( __( 'This job cannot be applied for using a resume', 'wp-job-manager-resumes' ) );
+				}
+
+				if ( $this->send_application( $job_id, $resume_id, $application_message ) ) {
+					$this->message = __( 'Your application has been sent successfully', 'wp-job-manager-resumes' );
+					add_filter( 'job_manager_show_job_apply_' . $job_id, '__return_false' );
+				} else {
+					throw new Exception( __( 'Error sending application', 'wp-job-manager-resumes' ) );
+				}
+			} catch ( Exception $e ) {
+				  $this->error = $e->getMessage();
 			}
 		}
 	}

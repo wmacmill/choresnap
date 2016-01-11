@@ -15,6 +15,7 @@ $options = array(
 	'resume_manager_enable_skills',
 	'resume_manager_enable_resume_upload',
 	'resume_manager_enable_application',
+	'resume_manager_force_resume',
 	'resume_manager_force_application',
 	'resume_manager_autohide',
 	'resume_manager_user_requires_account',

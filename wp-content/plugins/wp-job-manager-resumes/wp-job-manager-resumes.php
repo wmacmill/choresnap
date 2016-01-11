@@ -3,13 +3,13 @@
 Plugin Name: WP Job Manager - Resume Manager
 Plugin URI: https://wpjobmanager.com/add-ons/resume-manager/
 Description: Manage canidate resumes from the WordPress admin panel, and allow candidates to post their resumes directly to your site.
-Version: 1.13.1
-Author: WP Job Manager Team
+Version: 1.15.0
+Author: Automattic
 Author URI: https://wpjobmanager.com
-Requires at least: 3.8
-Tested up to: 4.3
+Requires at least: 4.1
+Tested up to: 4.4
 
-	Copyright: 2015 Mike Jolley
+	Copyright: 2015 Automattic
 	License: GNU General Public License v3.0
 	License URI: http://www.gnu.org/licenses/gpl-3.0.html
 */
@@ -33,7 +33,7 @@ class WP_Resume_Manager extends WPJM_Updater {
 	 */
 	public function __construct() {
 		// Define constants
-		define( 'RESUME_MANAGER_VERSION', '1.13.1' );
+		define( 'RESUME_MANAGER_VERSION', '1.15.0' );
 		define( 'RESUME_MANAGER_PLUGIN_DIR', untrailingslashit( plugin_dir_path( __FILE__ ) ) );
 		define( 'RESUME_MANAGER_PLUGIN_URL', untrailingslashit( plugins_url( basename( plugin_dir_path( __FILE__ ) ), basename( __FILE__ ) ) ) );
 
@@ -46,14 +46,10 @@ class WP_Resume_Manager extends WPJM_Updater {
 		include( 'includes/class-wp-resume-manager-shortcodes.php' );
 		include( 'includes/class-wp-resume-manager-geocode.php' );
 		include( 'includes/class-wp-resume-manager-email-notification.php' );
-
-		if ( get_option( 'resume_manager_enable_application' ) ) {
-			include( 'includes/class-wp-resume-manager-apply.php' );
-
-			$this->apply = new WP_Resume_Manager_Apply();
-		}
+		include( 'includes/class-wp-resume-manager-apply.php' );
 
 		// Init classes
+		$this->apply      = new WP_Resume_Manager_Apply();
 		$this->forms      = new WP_Resume_Manager_Forms();
 		$this->post_types = new WP_Resume_Manager_Post_Types();
 

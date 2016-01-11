@@ -434,3 +434,24 @@ function resume_manager_get_permalink( $page ) {
 		return false;
 	}
 }
+
+/**
+ * Calculate and return the resume expiry date
+ * @param  int $resume_id
+ * @return string
+ */
+function calculate_resume_expiry( $resume_id ) {
+	// Get duration from the product if set...
+	$duration = get_post_meta( $resume_id, '_resume_duration', true );
+
+	// ...otherwise use the global option
+	if ( ! $duration ) {
+		$duration = absint( get_option( 'resume_manager_submission_duration' ) );
+	}
+
+	if ( $duration ) {
+		return date( 'Y-m-d', strtotime( "+{$duration} days", current_time( 'timestamp' ) ) );
+	}
+
+	return '';
+}

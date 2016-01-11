@@ -6,14 +6,13 @@ if ( ! get_option( 'resume_manager_force_application' ) ) {
 
 if ( is_user_logged_in() && sizeof( $resumes ) ) : ?>
 	<form class="apply_with_resume" method="post">
-		<p><?php _e( 'Apply using your online resume; just enter a short message and choose one of your resumes to email your application.', 'wp-job-manager-resumes' ); ?></p>
+		<p><?php _e( 'Apply using your online resume; just enter a short message to send your application.', 'wp-job-manager-resumes' ); ?></p>
 		<p>
 			<label for="resume_id"><?php _e( 'Online resume', 'wp-job-manager-resumes' ); ?>:</label>
 			<select name="resume_id" id="resume_id" required>
-				<option value=""><?php _e( 'Choose a resume...', 'wp-job-manager-resumes' ); ?></option>
 				<?php
 					foreach ( $resumes as $resume ) {
-						echo '<option value="' . absint( $resume->ID ) . '">' . $resume->post_title . '</option>';
+						echo '<option value="' . absint( $resume->ID ) . '">' . esc_html( $resume->post_title ) . '</option>';
 					}
 				?>
 			</select>
@@ -33,7 +32,7 @@ if ( is_user_logged_in() && sizeof( $resumes ) ) : ?>
 			?></textarea>
 		</p>
 		<p>
-			<input type="submit" name="wp_job_manager_resumes_apply_with_resume" value="<?php esc_attr_e( 'Send application', 'wp-job-manager-resumes' ); ?>" />
+			<input type="submit" name="wp_job_manager_resumes_apply_with_resume" value="<?php esc_attr_e( 'Send Application', 'wp-job-manager-resumes' ); ?>" />
 			<input type="hidden" name="job_id" value="<?php echo absint( $post->ID ); ?>" />
 		</p>
 	</form>
@@ -42,7 +41,7 @@ if ( is_user_logged_in() && sizeof( $resumes ) ) : ?>
 		<p><?php _e( 'You can apply to this job and others using your online resume. Click the link below to submit your online resume and email your application to this employer.', 'wp-job-manager-resumes' ); ?></p>
 
 		<p>
-			<input type="submit" name="wp_job_manager_resumes_apply_with_resume_create" value="<?php esc_attr_e( 'Submit resume and apply', 'wp-job-manager-resumes' ); ?>" />
+			<input type="submit" name="wp_job_manager_resumes_apply_with_resume_create" value="<?php esc_attr_e( 'Submit Resume &amp; Apply', 'wp-job-manager-resumes' ); ?>" />
 			<input type="hidden" name="job_id" value="<?php echo absint( $post->ID ); ?>" />
 		</p>
 	</form>

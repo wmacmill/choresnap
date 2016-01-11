@@ -100,7 +100,7 @@ class WP_Resume_Manager_Shortcodes {
 					break;
 					case 'relist' :
 						// redirect to post page
-						wp_redirect( add_query_arg( array( 'step' => 'preview', 'resume_id' => absint( $resume_id ) ), get_permalink( get_option( 'resume_manager_submit_resume_form_page_id' ) ) ) );
+						wp_redirect( add_query_arg( array( 'resume_id' => absint( $resume_id ) ), get_permalink( get_option( 'resume_manager_submit_resume_form_page_id' ) ) ) );
 
 						break;
 				}

@@ -100,7 +100,7 @@ function the_candidate_photo( $size = 'thumbnail', $default = null, $post = null
 	} elseif ( $default )
 		echo '<img class="candidate_photo" src="' . $default . '" alt="Photo" />';
 	else
-		echo '<img class="candidate_photo" src="' . RESUME_MANAGER_PLUGIN_URL . '/assets/images/candidate.png' . '" alt="Logo" />';
+		echo '<img class="candidate_photo" src="' . apply_filters( 'resume_manager_default_candidate_photo', RESUME_MANAGER_PLUGIN_URL . '/assets/images/candidate.png' ) . '" alt="Logo" />';
 }
 
 /**

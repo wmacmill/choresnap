@@ -1,4 +1,7 @@
 <?php wp_enqueue_script( 'wp-resume-manager-ajax-filters' ); ?>
+
+<?php do_action( 'resume_manager_resume_filters_before', $atts ); ?>
+
 <form class="resume_filters">
 
 	<div class="search_resumes">
@@ -31,6 +34,7 @@
 
 		<?php do_action( 'resume_manager_resume_filters_search_resumes_end', $atts ); ?>
 	</div>
-
 	<div class="showing_resumes"></div>
 </form>
+
+<?php do_action( 'resume_manager_resume_filters_after', $atts ); ?>
