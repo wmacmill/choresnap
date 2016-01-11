@@ -3,7 +3,7 @@
 Plugin Name: WooCommerce Stripe Gateway
 Plugin URI: http://www.woothemes.com/products/stripe/
 Description: A payment gateway for Stripe (https://stripe.com/). A Stripe account and a server with Curl, SSL support, and a valid SSL certificate is required (for security reasons) for this gateway to function. Requires WC 2.1+
-Version: 2.6.1
+Version: 2.6.7
 Author: Mike Jolley
 Author URI: http://mikejolley.com
 
@@ -39,7 +39,7 @@ class WC_Stripe {
 	 * Constructor
 	 */
 	public function __construct() {
-		define( 'WC_STRIPE_VERSION', '2.6.1' );
+		define( 'WC_STRIPE_VERSION', '2.6.7' );
 		define( 'WC_STRIPE_TEMPLATE_PATH', untrailingslashit( plugin_dir_path( __FILE__ ) ) . '/templates/' );
 		define( 'WC_STRIPE_PLUGIN_URL', untrailingslashit( plugins_url( basename( plugin_dir_path( __FILE__ ) ), basename( __FILE__ ) ) ) );
 		define( 'WC_STRIPE_MAIN_FILE', __FILE__ );

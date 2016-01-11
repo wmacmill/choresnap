@@ -217,12 +217,16 @@ class WCS_PayPal {
 						}
 
 						if ( ! wcs_is_subscription( $order ) ) {
-							self::process_subscription_payment( $order->get_total(), $order );
+
+							if ( $order->needs_payment() ) {
+								self::process_subscription_payment( $order->get_total(), $order );
+							}
+
 							$redirect_url = add_query_arg( 'utm_nooverride', '1', $order->get_checkout_order_received_url() );
 						}
 
 						// redirect customer to order received page
-						wp_safe_redirect( esc_url( $redirect_url ) );
+						wp_safe_redirect( esc_url_raw( $redirect_url ) );
 
 					} else {
 
@@ -277,7 +281,7 @@ class WCS_PayPal {
 		require_once( 'includes/class-wcs-paypal-standard-ipn-handler.php' );
 		require_once( 'includes/class-wcs-paypal-reference-transaction-ipn-handler.php' );
 
-		if ( ! in_array( $transaction_details['txn_type'], array_merge( self::get_ipn_handler( 'standard' )->get_transaction_types(), self::get_ipn_handler( 'reference' )->get_transaction_types() ) ) ) {
+		if ( ! isset( $transaction_details['txn_type'] ) || ! in_array( $transaction_details['txn_type'], array_merge( self::get_ipn_handler( 'standard' )->get_transaction_types(), self::get_ipn_handler( 'reference' )->get_transaction_types() ) ) ) {
 			return;
 		}
 

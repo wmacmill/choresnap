@@ -49,7 +49,7 @@ function wcs_maybe_make_user_inactive( $user_id ) {
  * @return WP_User The user with the new role.
  * @since 2.0
  */
-function wcs_update_users_role( $user_id, $role_name ) {
+function wcs_update_users_role( $user_id, $role_new ) {
 
 	$user = new WP_User( $user_id );
 
@@ -59,19 +59,29 @@ function wcs_update_users_role( $user_id, $role_name ) {
 	}
 
 	// Allow plugins to prevent Subscriptions from handling roles
-	if ( ! apply_filters( 'woocommerce_subscriptions_update_users_role', true, $user, $role_name ) ) {
+	if ( ! apply_filters( 'woocommerce_subscriptions_update_users_role', true, $user, $role_new ) ) {
 		return;
 	}
 
-	if ( 'default_subscriber_role' == $role_name ) {
-		$role_name = get_option( WC_Subscriptions_Admin::$option_prefix . '_subscriber_role' );
-	} elseif ( in_array( $role_name, array( 'default_inactive_role', 'default_cancelled_role' ) ) ) {
-		$role_name = get_option( WC_Subscriptions_Admin::$option_prefix . '_cancelled_role' );
+	$default_subscriber_role = get_option( WC_Subscriptions_Admin::$option_prefix . '_subscriber_role' );
+	$default_cancelled_role = get_option( WC_Subscriptions_Admin::$option_prefix . '_cancelled_role' );
+	$role_old = '';
+
+	if ( 'default_subscriber_role' == $role_new ) {
+		$role_old = $default_cancelled_role;
+		$role_new = $default_subscriber_role;
+	} elseif ( in_array( $role_new, array( 'default_inactive_role', 'default_cancelled_role' ) ) ) {
+		$role_old = $default_subscriber_role;
+		$role_new = $default_cancelled_role;
 	}
 
-	$user->set_role( $role_name );
+	if ( ! empty( $role_old ) ) {
+		$user->remove_role( $role_old );
+	}
 
-	do_action( 'woocommerce_subscriptions_updated_users_role', $role_name, $user );
+	$user->add_role( $role_new );
+
+	do_action( 'woocommerce_subscriptions_updated_users_role', $role_new, $user, $role_old );
 	return $user;
 }
 
@@ -217,7 +227,7 @@ function wcs_get_all_user_actions_for_subscription( $subscription, $user_id ) {
 
 	if ( user_can( $user_id, 'edit_shop_subscription_status', $subscription->id ) ) {
 
-		$admin_with_suspension_disallowed = ( current_user_can( 'manage_woocommerce' ) && 0 === get_option( WC_Subscriptions_Admin::$option_prefix . '_max_customer_suspensions', 0 ) ) ? true : false;
+		$admin_with_suspension_disallowed = ( current_user_can( 'manage_woocommerce' ) && 0 == get_option( WC_Subscriptions_Admin::$option_prefix . '_max_customer_suspensions', 0 ) ) ? true : false;
 
 		if ( $subscription->can_be_updated_to( 'on-hold' ) && wcs_can_user_put_subscription_on_hold( $subscription, $user_id ) && ! $admin_with_suspension_disallowed ) {
 			$actions['suspend'] = array(

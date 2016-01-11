@@ -5,7 +5,7 @@
  * Description: Sell products and services with recurring payments in your WooCommerce Store.
  * Author: Prospress Inc.
  * Author URI: http://prospress.com/
- * Version: 2.0.3
+ * Version: 2.0.7
  *
  * Copyright 2015 Prospress, Inc.  (email : freedoms@prospress.com)
  *
@@ -85,11 +85,17 @@ require_once( 'includes/upgrades/class-wc-subscriptions-upgrader.php' );
 
 require_once( 'includes/upgrades/class-wcs-upgrade-logger.php' );
 
+require_once( 'includes/libraries/tlc-transients/tlc-transients.php' );
+
 require_once( 'includes/libraries/action-scheduler/action-scheduler.php' );
 
 require_once( 'includes/abstracts/abstract-wcs-scheduler.php' );
 
 require_once( 'includes/class-wcs-action-scheduler.php' );
+
+require_once( 'includes/abstracts/abstract-wcs-cache-manager.php' );
+
+require_once( 'includes/class-wcs-cache-manager-tlc.php' );
 
 require_once( 'includes/class-wcs-cart-renewal.php' );
 
@@ -112,11 +118,13 @@ class WC_Subscriptions {
 
 	public static $plugin_file = __FILE__;
 
-	public static $version = '2.0.3';
+	public static $version = '2.0.7';
 
 	private static $total_subscription_count = null;
 
 	private static $scheduler;
+
+	public static $cache;
 
 	/**
 	 * Set up the class, including it's hooks & filters, when the file is loaded.
@@ -173,6 +181,8 @@ class WC_Subscriptions {
 
 		$scheduler_class = apply_filters( 'woocommerce_subscriptions_scheduler', 'WCS_Action_Scheduler' );
 
+		self::$cache = WCS_Cache_Manager::get_instance();
+
 		self::$scheduler = new $scheduler_class();
 	}
 
@@ -189,21 +199,21 @@ class WC_Subscriptions {
 				array(
 					// register_post_type() params
 					'labels'              => array(
-							'name'               => _x( 'Subscriptions', 'custom post type setting', 'woocommerce-subscriptions' ),
-							'singular_name'      => _x( 'Subscription', 'custom post type setting', 'woocommerce-subscriptions' ),
-							'add_new'            => _x( 'Add Subscription', 'custom post type setting', 'woocommerce-subscriptions' ),
-							'add_new_item'       => _x( 'Add New Subscription', 'custom post type setting', 'woocommerce-subscriptions' ),
-							'edit'               => _x( 'Edit', 'custom post type setting', 'woocommerce-subscriptions' ),
-							'edit_item'          => _x( 'Edit Subscription', 'custom post type setting', 'woocommerce-subscriptions' ),
-							'new_item'           => _x( 'New Subscription', 'custom post type setting', 'woocommerce-subscriptions' ),
-							'view'               => _x( 'View Subscription', 'custom post type setting', 'woocommerce-subscriptions' ),
-							'view_item'          => _x( 'View Subscription', 'custom post type setting', 'woocommerce-subscriptions' ),
-							'search_items'       => _x( 'Search Subscriptions', 'custom post type setting', 'woocommerce-subscriptions' ),
-							'not_found'          => self::get_not_found_text(),
-							'not_found_in_trash' => _x( 'No Subscriptions found in trash', 'custom post type setting', 'woocommerce-subscriptions' ),
-							'parent'             => _x( 'Parent Subscriptions', 'custom post type setting', 'woocommerce-subscriptions' ),
-							'menu_name'          => _x( 'Subscriptions', 'Admin menu name', 'woocommerce-subscriptions' ),
-						),
+						'name'               => _x( 'Subscriptions', 'custom post type setting', 'woocommerce-subscriptions' ),
+						'singular_name'      => _x( 'Subscription', 'custom post type setting', 'woocommerce-subscriptions' ),
+						'add_new'            => _x( 'Add Subscription', 'custom post type setting', 'woocommerce-subscriptions' ),
+						'add_new_item'       => _x( 'Add New Subscription', 'custom post type setting', 'woocommerce-subscriptions' ),
+						'edit'               => _x( 'Edit', 'custom post type setting', 'woocommerce-subscriptions' ),
+						'edit_item'          => _x( 'Edit Subscription', 'custom post type setting', 'woocommerce-subscriptions' ),
+						'new_item'           => _x( 'New Subscription', 'custom post type setting', 'woocommerce-subscriptions' ),
+						'view'               => _x( 'View Subscription', 'custom post type setting', 'woocommerce-subscriptions' ),
+						'view_item'          => _x( 'View Subscription', 'custom post type setting', 'woocommerce-subscriptions' ),
+						'search_items'       => _x( 'Search Subscriptions', 'custom post type setting', 'woocommerce-subscriptions' ),
+						'not_found'          => self::get_not_found_text(),
+						'not_found_in_trash' => _x( 'No Subscriptions found in trash', 'custom post type setting', 'woocommerce-subscriptions' ),
+						'parent'             => _x( 'Parent Subscriptions', 'custom post type setting', 'woocommerce-subscriptions' ),
+						'menu_name'          => _x( 'Subscriptions', 'Admin menu name', 'woocommerce-subscriptions' ),
+					),
 					'description'         => __( 'This is where subscriptions are stored.', 'woocommerce-subscriptions' ),
 					'public'              => false,
 					'show_ui'             => true,
@@ -220,12 +230,14 @@ class WC_Subscriptions {
 					'has_archive'         => false,
 
 					// wc_register_order_type() params
-					'exclude_from_orders_screen'  => true,
-					'add_order_meta_boxes'        => true,
-					'exclude_from_order_count'    => true,
-					'exclude_from_order_views'    => true,
-					'exclude_from_order_webhooks' => true,
-					'class_name'                  => 'WC_Subscription',
+					'exclude_from_orders_screen'       => true,
+					'add_order_meta_boxes'             => true,
+					'exclude_from_order_count'         => true,
+					'exclude_from_order_views'         => true,
+					'exclude_from_order_webhooks'      => true,
+					'exclude_from_order_reports'       => true,
+					'exclude_from_order_sales_reports' => true,
+					'class_name'                       => 'WC_Subscription',
 				)
 			)
 		);

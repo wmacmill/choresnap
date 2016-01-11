@@ -2,17 +2,32 @@ jQuery( function( $ ) {
 
 	var stripe_submit = false;
 
-	$( 'form.checkout' ).on( 'checkout_place_order_stripe', function() {
-		return stripeFormHandler();
-    });
+	// We need to bind directly to the click (and not checkout_place_order_stripe) to avoid popup blockers
+	// especially on mobile devices (like on Chrome for iOS) from blocking StripeCheckout.open from opening a tab
+	$( 'form.checkout' ).on( 'click', '#place_order', function( event ) {
+		var result = stripeFormHandler();
+		return result;
+	} );
 
-    $( 'form#order_review' ).submit( function() {
-		return stripeFormHandler();
-    });
+	// WooCommerce lets us return a false on checkout_place_order_{gateway} to keep the form from submitting
+	$( 'form.checkout' ).on( 'checkout_place_order_stripe', { preserve_stripe_submit_value : true }, possiblyAllowFormSubmit );
 
-	function stripeFormHandler() {
+	$( 'form#order_review' ).submit( function() {
+		var result = stripeFormHandler();
+		return result;
+	} );
+
+	// Evaluates whether the form submittal should be allowed to proceed
+	// Returns true to allow form submittal, false to block it
+	function possiblyAllowFormSubmit( event ) {
+
+		// If this submit is a result of the stripe request callback firing, let submit proceed by returning true immediately
 		if ( stripe_submit ) {
-			stripe_submit = false;
+			if ( 'undefined' !== typeof event && 'undefined' !== typeof event.data ) {
+				if ( 'undefined' !== typeof event.data.preserve_stripe_submit_value && ! event.data.preserve_stripe_submit_value ) {
+					stripe_submit = false;
+				}
+			}
 			return true;
 		}
 
@@ -53,6 +68,16 @@ jQuery( function( $ ) {
 			}
 		}
 
+		return false;
+	}
+
+	function stripeFormHandler() {
+
+		if ( possiblyAllowFormSubmit() ) {
+			return true; // don't interrupt submittal - allow it to proceed
+		}
+
+		// Capture submittal and open stripecheckout
 		var $form            = $( 'form.checkout, form#order_review' ),
 			$stripe_new_card = $( '.stripe_new_card' ),
 			token            = $form.find( 'input.stripe_token' );

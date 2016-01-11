@@ -96,8 +96,10 @@ class WCS_Cart_Renewal {
 					) );
 				}
 
-				// Store renewal order's ID in session so it can be re-used after payment
-				WC()->session->set( 'order_awaiting_payment', $order_id );
+				if ( WC()->cart->cart_contents_count != 0 ) {
+					// Store renewal order's ID in session so it can be re-used after payment
+					WC()->session->set( 'order_awaiting_payment', $order_id );
+				}
 
 				wp_safe_redirect( WC()->cart->get_checkout_url() );
 				exit;
@@ -113,9 +115,9 @@ class WCS_Cart_Renewal {
 	protected function setup_cart( $subscription, $cart_item_data ) {
 
 		WC()->cart->empty_cart( true );
+		$success = true;
 
-		foreach ( $subscription->get_items() as $line_item ) {
-
+		foreach ( $subscription->get_items() as $item_id => $line_item ) {
 			// Load all product info including variation data
 			$product_id   = (int) apply_filters( 'woocommerce_add_to_cart_product_id', $line_item['product_id'] );
 			$quantity     = (int) $line_item['qty'];
@@ -152,7 +154,18 @@ class WCS_Cart_Renewal {
 				}
 			}
 
-			WC()->cart->add_to_cart( $product_id, $quantity, $variation_id, $variations, apply_filters( 'woocommerce_order_again_cart_item_data', array( $this->cart_item_key => $cart_item_data ), $line_item, $subscription ) );
+			if ( wcs_is_subscription( $subscription ) ) {
+				$cart_item_data['subscription_line_item_id'] = $item_id;
+			}
+
+			$cart_item_key = WC()->cart->add_to_cart( $product_id, $quantity, $variation_id, $variations, apply_filters( 'woocommerce_order_again_cart_item_data', array( $this->cart_item_key => $cart_item_data ), $line_item, $subscription ) );
+			$success       = $success && (bool) $cart_item_key;
+		}
+
+		// If a product linked to a subscription failed to be added to the cart prevent partially paying for the order by removing all cart items.
+		if ( ! $success && wcs_is_subscription( $subscription ) ) {
+			wc_add_notice( sprintf( esc_html__( 'Subscription #%d has not been added to the cart.', 'woocommerce-subscriptions' ), $subscription->id ) , 'error' );
+			WC()->cart->empty_cart( true );
 		}
 
 		do_action( 'woocommerce_setup_cart_for_' . $this->cart_item_key, $subscription, $cart_item_data );
@@ -172,15 +185,17 @@ class WCS_Cart_Renewal {
 			$_product = $cart_item_session_data['data'];
 
 			// Need to get the original subscription price, not the current price
-			$subscription = wcs_get_subscription( $cart_item[ $this->cart_item_key ]['subscription_id'] );
+			$subscription       = wcs_get_subscription( $cart_item[ $this->cart_item_key ]['subscription_id'] );
+			$subscription_items = $subscription->get_items();
+			$item_to_renew      = $subscription_items[ $cart_item_session_data[ $this->cart_item_key ]['subscription_line_item_id'] ];
 
-			foreach ( $subscription->get_items() as $item_id => $item ) {
-				if ( $_product->id == $item['product_id'] && ( ! isset( $_product->variation_id ) || $_product->variation_id == $item['variation_id'] ) ) {
-					$item_to_renew = $item;
-				}
+			$price = $item_to_renew['line_subtotal'];
+
+			if ( 'yes' === get_option( 'woocommerce_prices_include_tax' ) ) {
+				$price += $item_to_renew['line_subtotal_tax'];
 			}
 
-			$_product->price = $item_to_renew['line_subtotal'] / $item_to_renew['qty'];
+			$_product->price = $price / $item_to_renew['qty'];
 
 			// Don't carry over any sign up fee
 			$_product->subscription_sign_up_fee = 0;
@@ -371,7 +386,7 @@ class WCS_Cart_Renewal {
 	 */
 	public function maybe_remove_items( $cart_item_key ) {
 
-		if ( isset( WC()->cart->cart_contents[ $cart_item_key ] ) && isset( WC()->cart->cart_contents[ $cart_item_key ][ $this->cart_item_key ] ) ) {
+		if ( isset( WC()->cart->cart_contents[ $cart_item_key ][ $this->cart_item_key ]['subscription_id'] ) ) {
 
 			$removed_item_count = 0;
 			$subscription_id    = WC()->cart->cart_contents[ $cart_item_key ][ $this->cart_item_key ]['subscription_id'];
@@ -405,7 +420,7 @@ class WCS_Cart_Renewal {
 	 */
 	public function items_removed_title( $product_title, $cart_item ) {
 
-		if ( isset( $cart_item[ $this->cart_item_key ] ) ) {
+		if ( isset( $cart_item[ $this->cart_item_key ]['subscription_id'] ) ) {
 			$subscription  = wcs_get_subscription( absint( $cart_item[ $this->cart_item_key ]['subscription_id'] ) );
 			$product_title = ( count( $subscription->get_items() ) > 1 ) ? esc_html__( 'All linked subscription items were', 'woocommerce-subscriptions' ) : $product_title;
 		}
@@ -421,7 +436,7 @@ class WCS_Cart_Renewal {
 	 */
 	public function maybe_restore_items( $cart_item_key ) {
 
-		if ( isset( WC()->cart->cart_contents[ $cart_item_key ][ $this->cart_item_key ] ) ) {
+		if ( isset( WC()->cart->cart_contents[ $cart_item_key ][ $this->cart_item_key ]['subscription_id'] ) ) {
 
 			$subscription_id = WC()->cart->cart_contents[ $cart_item_key ][ $this->cart_item_key ]['subscription_id'];
 

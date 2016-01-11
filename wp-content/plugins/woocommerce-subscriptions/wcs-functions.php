@@ -56,7 +56,7 @@ function wcs_is_subscription( $subscription ) {
  */
 function wcs_do_subscriptions_exist() {
 	global $wpdb;
-	$sql = $wpdb->prepare( "SELECT ID FROM {$wpdb->posts} WHERE post_type = %s;", 'shop_subscription' );
+	$sql = $wpdb->prepare( "SELECT ID FROM {$wpdb->posts} WHERE post_type = %s LIMIT 1;", 'shop_subscription' );
 
 	// query is the fastest, every other built in method uses this. Plus, the return value is the number of rows found
 	$num_rows_found = $wpdb->query( $sql );
@@ -537,3 +537,4 @@ function wcs_is_view_subscription_page() {
 
 	return ( is_page( wc_get_page_id( 'myaccount' ) ) && isset( $wp->query_vars['view-subscription'] ) ) ? true : false;
 }
+
