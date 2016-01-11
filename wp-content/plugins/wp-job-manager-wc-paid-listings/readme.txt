@@ -1,8 +1,8 @@
 === WC Paid Listings ===
 Contributors: mikejolley
-Requires at least: 3.8
-Tested up to: 4.2
-Stable tag: 2.5.6
+Requires at least: 4.1
+Tested up to: 4.4
+Stable tag: 2.6.2
 License: GNU General Public License v3.0
 
 Add paid listing functionality via WooCommerce. Create 'job packages' as products with their own price, listing duration, listing limit, and job featured status and either sell them via your store or during the job submission process.
@@ -29,6 +29,25 @@ If you need help with customisation you will need to find and hire a developer c
 To install this plugin, please refer to the guide here: [http://codex.wordpress.org/Managing_Plugins#Manual_Plugin_Installation](http://codex.wordpress.org/Managing_Plugins#Manual_Plugin_Installation)
 
 == Changelog ==
+
+= 2.6.2 =
+* Prevent expiry date being set on new listings.
+
+= 2.6.1 =
+* Prevent listings linked to subscriptions expiring.
+* Remove deprecated subs function.
+
+= 2.6.0 =
+* Feature - Supports WC subscriptions 2.0+
+* Feature - Show short description for packages if set, otherwise show prices on the package selection screen.
+* Tweak - Delete packages when user is deleted.
+* Tweak - Use wc_get_order.
+* Tweak - Filters on packages. wcpl_get_job_packages_args and wcpl_get_resume_packages_args
+* Tweak - Improved messages after submission.
+* Tweak - If submitting resume whilst applying for a job, thanks page will link back to job to continue with application.
+
+= 2.5.7 =
+* Tweak - Error handling.
 
 = 2.5.6 =
 * Fix - Subscriptions package check.

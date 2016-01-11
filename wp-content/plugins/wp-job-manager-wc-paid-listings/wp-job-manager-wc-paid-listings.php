@@ -3,13 +3,13 @@
 Plugin Name: WP Job Manager - WooCommerce Paid Listings
 Plugin URI: https://wpjobmanager.com/add-ons/wc-paid-listings/
 Description: Add paid listing functionality via WooCommerce. Create 'job packages' as products with their own price, listing duration, listing limit, and job featured status and either sell them via your store or during the job submission process. A user's packages are shown on their account page and can be used to post future jobs if they allow more than 1 job listing. Also allows 'resume packages' if using the resumes add-on.
-Version: 2.5.6
-Author: Mike Jolley
-Author URI: http://mikejolley.com
-Requires at least: 3.8
-Tested up to: 4.2
+Version: 2.6.2
+Author: Automattic
+Author URI: http://wpjobmanager.com
+Requires at least: 4.1
+Tested up to: 4.4
 
-	Copyright: 2014 Mike Jolley
+	Copyright: 2015 Automattic
 	License: GNU General Public License v3.0
 	License URI: http://www.gnu.org/licenses/gpl-3.0.html
 */
@@ -23,7 +23,7 @@ if ( ! class_exists( 'WPJM_Updater' ) ) {
 }
 
 // Define constants
-define( 'JOB_MANAGER_WCPL_VERSION', '2.5.6' );
+define( 'JOB_MANAGER_WCPL_VERSION', '2.6.2' );
 define( 'JOB_MANAGER_WCPL_PLUGIN_DIR', untrailingslashit( plugin_dir_path( __FILE__ ) ) );
 define( 'JOB_MANAGER_WCPL_PLUGIN_URL', untrailingslashit( plugins_url( basename( plugin_dir_path( __FILE__ ) ), basename( __FILE__ ) ) ) );
 define( 'JOB_MANAGER_WCPL_TEMPLATE_PATH', untrailingslashit( plugin_dir_path( __FILE__ ) ) . '/templates/' );
@@ -91,6 +91,19 @@ function wp_job_manager_wcpl_init() {
 			if ( version_compare( get_option( 'wcpl_db_version', 0 ), JOB_MANAGER_WCPL_VERSION, '<' ) ) {
 				wp_job_manager_wcpl_install();
 			}
+
+			if ( class_exists( 'WC_Subscriptions' ) && version_compare( WC_Subscriptions::$version, '2.0', '<' ) ) {
+				add_filter( 'admin_notices', array( $this, 'subscriptions_update_required' ) );
+			}
+		}
+
+		/**
+		 * Update nag
+		 */
+		public function subscriptions_update_required() {
+			?><div class="update-nag">
+				<?php _e( 'WC Paid Listings 2.6.0+ requires WooCommerce Subscriptions 2.0 and above. Please upgrade as soon as possible!', 'wp-job-manager-wc-paid-listings' ); ?>
+			</div><?php
 		}
 
 		/**

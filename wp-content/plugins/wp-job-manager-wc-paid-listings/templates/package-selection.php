@@ -35,17 +35,14 @@
 				}
 				?>
 				<li class="job-package">
-					<input type="radio" <?php checked( $checked, 1 ); ?> name="job_package" value="<?php echo $product->id; ?>" id="package-<?php echo $product->id; ?>" />
+					<input type="radio" <?php checked( $checked, 1 ); $checked = 0; ?> name="job_package" value="<?php echo $product->id; ?>" id="package-<?php echo $product->id; ?>" />
 					<label for="package-<?php echo $product->id; ?>"><?php echo $product->get_title(); ?></label><br/>
-					<?php
+					<?php if ( ! empty( $product->post->post_excerpt ) ) : ?>
+						<?php echo apply_filters( 'woocommerce_short_description', $product->post->post_excerpt ) ?>
+					<?php else :
 						printf( _n( '%s for %s job', '%s for %s jobs', $product->get_limit(), 'wp-job-manager-wc-paid-listings' ) . ' ', $product->get_price_html(), $product->get_limit() ? $product->get_limit() : __( 'unlimited', 'wp-job-manager-wc-paid-listings' ) );
-
-						if ( $product->get_duration() ) {
-							printf( _n( 'listed for %s day', 'listed for %s days', $product->get_duration(), 'wp-job-manager-wc-paid-listings' ), $product->get_duration() );
-						}
-
-						$checked = 0;
-					?>
+						echo $product->get_duration() ? sprintf( _n( 'listed for %s day', 'listed for %s days', $product->get_duration(), 'wp-job-manager-wc-paid-listings' ), $product->get_duration() ) : '';
+					endif; ?>
 				</li>
 
 			<?php endforeach; ?>
