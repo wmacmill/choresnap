@@ -30,6 +30,9 @@ class WC_Paid_Listings_Orders {
 		// Statuses
 		add_action( 'woocommerce_order_status_processing', array( $this, 'order_paid' ) );
 		add_action( 'woocommerce_order_status_completed', array( $this, 'order_paid' ) );
+
+		// User deletion
+		add_action( 'delete_user', array( $this, 'delete_user_packages' ) );
 	}
 
 	/**
@@ -38,14 +41,60 @@ class WC_Paid_Listings_Orders {
 	public function woocommerce_thankyou( $order_id ) {
 		global $wp_post_types;
 
-		$order = new WC_Order( $order_id );
+		$order = wc_get_order( $order_id );
 
 		foreach ( $order->get_items() as $item ) {
 			if ( isset( $item['job_id'] ) && 'publish' === get_post_status( $item['job_id'] ) ) {
-				echo wpautop( sprintf( __( '%s listed successfully. To view your listing <a href="%s">click here</a>.', 'wp-job-manager' ), get_the_title( $item['job_id'] ), get_permalink( $item['job_id'] ) ) );
+				switch ( get_post_status( $item['job_id'] ) ) {
+					case 'pending' :
+						echo wpautop( sprintf( __( '%s has been submitted successfully and will be visible once approved.', 'wp-job-manager-wc-paid-listings' ), get_the_title( $item['job_id'] ) ) );
+					break;
+					case 'pending_payment' :
+						echo wpautop( sprintf( __( '%s has been submitted successfully and will be visible once payment has been confirmed.', 'wp-job-manager-wc-paid-listings' ), get_the_title( $item['job_id'] ) ) );
+					break;
+					default :
+						echo wpautop( sprintf( __( '%s has been submitted successfully.', 'wp-job-manager-wc-paid-listings' ), get_the_title( $item['job_id'] ) ) );
+					break;
+				}
 
-			} elseif( isset( $item['resume_id'] ) ) {
-				echo wpautop( sprintf( __( '%s listed successfully. To view your listing <a href="%s">click here</a>.', 'wp-job-manager' ), get_the_title( $item['resume_id'] ), get_permalink( $item['resume_id'] ) ) );
+				echo '<p class="job-manager-submitted-paid-listing-actions">';
+
+				if ( 'publish' === get_post_status( $item['job_id'] ) ) {
+					echo '<a class="button" href="' . get_permalink( $item['job_id'] ) . '">' . __( 'View Listing', 'wp-job-manager-wc-paid-listings' ) . '</a> ';
+				} elseif ( get_option( 'job_manager_job_dashboard_page_id' ) ) {
+					echo '<a class="button" href="' . get_permalink( get_option( 'job_manager_job_dashboard_page_id' ) ) . '">' . __( 'View Dashboard', 'wp-job-manager-wc-paid-listings' ) . '</a> ';
+				}
+
+				echo '</p>';
+
+			} elseif ( isset( $item['resume_id'] ) ) {
+				$resume = get_post( $item['resume_id'] );
+
+				switch ( get_post_status( $item['resume_id'] ) ) {
+					case 'pending' :
+						echo wpautop( sprintf( __( '%s has been submitted successfully and will be visible once approved.', 'wp-job-manager-wc-paid-listings' ), get_the_title( $item['resume_id'] ) ) );
+					break;
+					case 'pending_payment' :
+						echo wpautop( sprintf( __( '%s has been submitted successfully and will be visible once payment has been confirmed.', 'wp-job-manager-wc-paid-listings' ), get_the_title( $item['resume_id'] ) ) );
+					break;
+					default :
+						echo wpautop( sprintf( __( '%s has been submitted successfully.', 'wp-job-manager-wc-paid-listings' ), get_the_title( $item['resume_id'] ) ) );
+					break;
+				}
+
+				echo '<p class="job-manager-submitted-paid-listing-actions">';
+
+				if ( 'publish' === get_post_status( $item['resume_id'] ) ) {
+					echo '<a class="button" href="' . get_permalink( $item['resume_id'] ) . '">' . __( 'View Listing', 'wp-job-manager-wc-paid-listings' ) . '</a> ';
+				} elseif ( get_option( 'resume_manager_candidate_dashboard_page_id' ) ) {
+					echo '<a class="button" href="' . get_permalink( get_option( 'resume_manager_candidate_dashboard_page_id' ) ) . '">' . __( 'View Dashboard', 'wp-job-manager-wc-paid-listings' ) . '</a> ';
+				}
+
+				if ( ! empty( $resume->_applying_for_job_id ) ) {
+					echo '<a class="button" href="' . get_permalink( absint( $resume->_applying_for_job_id ) ) . '">' . sprintf( __( 'Apply for "%s"', 'wp-job-manager-wc-paid-listings' ), get_the_title( absint( $resume->_applying_for_job_id ) ) ) . '</a> ';
+				}
+
+				echo '</p>';
 			}
 		}
 	}
@@ -68,7 +117,7 @@ class WC_Paid_Listings_Orders {
 	 */
 	public function order_paid( $order_id ) {
 		// Get the order
-		$order = new WC_Order( $order_id );
+		$order = wc_get_order( $order_id );
 
 		if ( get_post_meta( $order_id, 'wc_paid_listings_packages_processed', true ) ) {
 			return;
@@ -76,7 +125,7 @@ class WC_Paid_Listings_Orders {
 		foreach ( $order->get_items() as $item ) {
 			$product = wc_get_product( $item['product_id'] );
 
-			if ( $product->is_type( array( 'job_package', 'resume_package', 'job_package_subscription', 'resume_package_subscription' ) ) && $order->customer_user ) {
+			if ( $product->is_type( array( 'job_package', 'resume_package' ) ) && $order->customer_user ) {
 
 				// Give packages to user
 				for ( $i = 0; $i < $item['qty']; $i ++ ) {
@@ -101,6 +150,22 @@ class WC_Paid_Listings_Orders {
 		}
 
 		update_post_meta( $order_id, 'wc_paid_listings_packages_processed', true );
+	}
+
+	/**
+	 * Delete packages on user deletion
+	 */
+	public function delete_user_packages( $user_id ) {
+		global $wpdb;
+
+		if ( $user_id ) {
+			$wpdb->delete(
+				"{$wpdb->prefix}wcpl_user_packages",
+				array(
+					'user_id' => $user_id
+				)
+			);
+		}
 	}
 }
 WC_Paid_Listings_Orders::get_instance();

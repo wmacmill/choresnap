@@ -75,7 +75,7 @@ class WP_Job_Manager_WCPL_Submit_Job_Form {
 	 * @return array
 	 */
 	public static function get_packages( $post__in = array() ) {
-		return get_posts( array(
+		return get_posts( apply_filters( 'wcpl_get_job_packages_args', array(
 			'post_type'        => 'product',
 			'posts_per_page'   => -1,
 			'post__in'         => $post__in,
@@ -96,7 +96,7 @@ class WP_Job_Manager_WCPL_Submit_Job_Form {
 					'compare' => 'IN'
 				)
 			)
-		) );
+		) ) );
 	}
 
 	/**
@@ -245,11 +245,8 @@ class WP_Job_Manager_WCPL_Submit_Job_Form {
 
 			// Don't let them buy the same subscription twice if the subscription is for the package
 			if ( class_exists( 'WC_Subscriptions' ) && is_user_logged_in() && $package->is_type( 'job_package_subscription' ) && 'package' === $package->package_subscription_type ) {
-				$user_subscriptions = WC_Subscriptions_Manager::get_users_subscriptions( get_current_user_id() );
-				foreach ( $user_subscriptions as $user_subscription ) {
-					if ( $user_subscription['product_id'] == $package_id ) {
-						return new WP_Error( 'error', __( 'You already have this subscription.', 'wp-job-manager-wc-paid-listings' ) );
-					}
+				if ( wcs_user_has_subscription( get_current_user_id(), $package_id, 'active' ) ) {
+					return new WP_Error( 'error', __( 'You already have this subscription.', 'wp-job-manager-wc-paid-listings' ) );
 				}
 			}
 		}
@@ -285,7 +282,7 @@ class WP_Job_Manager_WCPL_Submit_Job_Form {
 			do_action( 'wcpl_process_package_for_job_listing', $package_id, $is_user_package, $job_id );
 
 			return true;
-		} else {
+		} elseif ( $package_id ) {
 			$package = wc_get_product( $package_id );
 
 			// Give job the package attributes

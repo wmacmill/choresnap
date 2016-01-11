@@ -47,13 +47,8 @@ class WP_Resume_Manager_Form_Submit_Resume extends WP_Job_Manager_Form {
 			'done' => array(
 				'name'     => __( 'Done', 'wp-job-manager-resumes' ),
 				'view'     => array( $this, 'done' ),
-				'handler'  => array( $this, 'application_handler' ),
+				'handler'  => '',
 				'priority' => 30
-			),
-			'application_done' => array(
-				'name'     => __( 'Application', 'wp-job-manager-resumes' ),
-				'view'     => array( $this, 'application_done' ),
-				'priority' => 40
 			)
 		) );
 
@@ -63,9 +58,11 @@ class WP_Resume_Manager_Form_Submit_Resume extends WP_Job_Manager_Form {
 		if ( ! empty( $_REQUEST['step'] ) ) {
 			$this->step = is_numeric( $_REQUEST['step'] ) ? max( absint( $_REQUEST['step'] ), 0 ) : array_search( $_REQUEST['step'], array_keys( $this->steps ) );
 		}
+
 		$this->resume_id = ! empty( $_REQUEST['resume_id'] ) ? absint( $_REQUEST[ 'resume_id' ] ) : 0;
 		$this->job_id    = ! empty( $_REQUEST['job_id'] ) ? absint( $_REQUEST[ 'job_id' ] ) : 0;
 
+		// Load resume details
 		if ( $this->resume_id ) {
 			$resume_status = get_post_status( $this->resume_id );
 			if ( 'expired' === $resume_status ) {
@@ -74,7 +71,7 @@ class WP_Resume_Manager_Form_Submit_Resume extends WP_Job_Manager_Form {
 					$this->job_id    = 0;
 					$this->step      = 0;
 				}
-			} elseif ( ! in_array( $resume_status, apply_filters( 'resume_manager_valid_submit_resume_statuses', array( 'preview' ) ) ) && empty( $_POST['resume_application_submit_button'] ) ) {
+			} elseif ( 0 === $this->step && ! in_array( $resume_status, apply_filters( 'resume_manager_valid_submit_resume_statuses', array( 'preview' ) ) ) && empty( $_POST['resume_application_submit_button'] ) ) {
 				$this->resume_id = 0;
 				$this->job_id    = 0;
 				$this->step      = 0;
@@ -478,7 +475,7 @@ class WP_Resume_Manager_Form_Submit_Resume extends WP_Job_Manager_Form {
 		$this->init_fields();
 
 		// Load data if neccessary
-		if ( ! empty( $_POST['edit_resume'] ) && $this->resume_id ) {
+		if ( $this->resume_id ) {
 			$resume = get_post( $this->resume_id );
 			foreach ( $this->fields as $group_key => $fields ) {
 				foreach ( $fields as $key => $field ) {
@@ -632,18 +629,20 @@ class WP_Resume_Manager_Form_Submit_Resume extends WP_Job_Manager_Form {
 			$resume_slug[] = $values['resume_fields']['candidate_location'];
 		}
 
-		$data = apply_filters( 'submit_resume_form_save_resume_data', array(
+		$data = array(
 			'post_title'     => $post_title,
 			'post_content'   => $post_content,
 			'post_type'      => 'resume',
 			'comment_status' => 'closed',
 			'post_password'  => '',
-			'post_name'      => sanitize_title( implode( '-', $resume_slug ) ),
-		), $post_title, $post_content, $status, $values );
+			'post_name'      => sanitize_title( implode( '-', $resume_slug ) )
+		);
 
 		if ( $status ) {
 			$data['post_status'] = $status;
 		}
+
+		$data = apply_filters( 'submit_resume_form_save_resume_data', $data, $post_title, $post_content, $status, $values, $this );
 
 		if ( $this->resume_id ) {
 			$data['ID'] = $this->resume_id;
@@ -676,6 +675,7 @@ class WP_Resume_Manager_Form_Submit_Resume extends WP_Job_Manager_Form {
 	protected function update_resume_data( $values ) {
 		// Set defaults
 		add_post_meta( $this->resume_id, '_featured', 0, true );
+		add_post_meta( $this->resume_id, '_applying_for_job_id', $this->job_id, true );
 
 		$maybe_attach = array();
 
@@ -845,7 +845,13 @@ class WP_Resume_Manager_Form_Submit_Resume extends WP_Job_Manager_Form {
 				wp_update_post( $update_resume );
 			}
 
+			// Trigger action
+			do_action( 'resume_manager_resume_submitted', $this->resume_id );
+
+			// Redirect to final step
 			$this->step ++;
+			wp_safe_redirect( esc_url_raw( add_query_arg( array( 'step' => $this->step, 'job_id' => $this->job_id, 'resume_id' => $this->resume_id ) ) ) );
+			exit;
 		}
 	}
 
@@ -853,69 +859,13 @@ class WP_Resume_Manager_Form_Submit_Resume extends WP_Job_Manager_Form {
 	 * Done Step
 	 */
 	public function done() {
-		do_action( 'resume_manager_resume_submitted', $this->resume_id );
-
 		get_job_manager_template( 'resume-submitted.php', array( 'resume' => get_post( $this->resume_id ), 'job_id' => $this->job_id ), 'wp-job-manager-resumes', RESUME_MANAGER_PLUGIN_DIR . '/templates/' );
 
-		if ( $this->job_id && get_option( 'resume_manager_enable_application' ) ) {
-			if ( get_post_type( $this->job_id ) !== 'job_listing' ) {
-				return;
-			}
+		// Allow application
+		if ( $this->job_id ) {
+			echo '<h3 class="applying_for">' . sprintf( __( 'Submit your application to the job "%s".', 'wp-job-manager-resumes' ), '<a href="' . get_permalink( $this->job_id ) . '">' . get_the_title( $this->job_id ) . '</a>' ) .'</h3>';
 
-			$method = get_the_job_application_method( $this->job_id );
-
-			if ( "email" === $method->type || ( class_exists( 'WP_Job_Manager_Applications' ) && get_option( 'resume_manager_enable_application_for_url_method', 1 ) ) ) {
-				?>
-				<form method="post" class="apply_with_resume">
-					<p class="applying_for"><?php printf( __( 'Enter a message below to apply to "%s". This will accompany your online resume and be sent to the employer.', 'wp-job-manager-resumes' ), '<a href="' . get_permalink( $this->job_id ) . '">' . get_the_title( $this->job_id ) . '</a>' ); ?></p>
-					<p>
-						<label><?php _e( 'Message', 'wp-job-manager-resumes' ); ?>:</label>
-						<textarea name="application_message" cols="20" rows="4" required><?php if ( isset( $_POST['application_message'] ) ) echo esc_textarea( stripslashes( $_POST['application_message'] ) ); ?></textarea>
-					</p>
-					<p>
-						<input type="submit" name="resume_application_submit_button" value="<?php esc_attr_e( 'Send application', 'wp-job-manager-resumes' ); ?>" />
-						<input type="hidden" name="resume_id" value="<?php echo esc_attr( $this->resume_id ); ?>" />
-						<input type="hidden" name="job_id" value="<?php echo esc_attr( $this->job_id ); ?>" />
-						<input type="hidden" name="step" value="<?php echo esc_attr( $this->step ); ?>" />
-						<input type="hidden" name="resume_manager_form" value="<?php echo $this->form_name; ?>" />
-					</p>
-				</form>
-				<?php
-			}
+			echo do_shortcode( '[job_apply id="' . absint( $this->job_id ) . '"]' );
 		}
-	}
-
-	/**
-	 * Optional step triggered when applying to a job after submitting a resume
-	 */
-	public function application_handler() {
-		if ( ! $_POST ) {
-			return;
-		}
-
-		// Continue = change job status then show next screen
-		if ( ! empty( $_POST['resume_application_submit_button'] ) ) {
-
-			$application_message = wp_kses_post( stripslashes( $_POST['application_message'] ) );
-
-			if ( ! $application_message ) {
-				$this->add_error( __( 'Please enter a message', 'wp-job-manager-resumes' ) );
-				return;
-			}
-
-			if ( WP_Resume_Manager_Apply::send_application( $this->job_id, $this->resume_id, $application_message ) ) {
-				$this->step ++;
-			} else {
-				$this->add_error( __( 'Error sending application.', 'wp-job-manager-resumes' ) );
-				return;
-			}
-		}
-	}
-
-	/**
-	 * Show message once the application has been sent
-	 */
-	public function application_done() {
-		printf( '<p class="resume-application-success">' . __( 'Your application has been sent successfully', 'wp-job-manager-resumes' ) . '</p>' );
 	}
 }

@@ -1,8 +1,8 @@
 === Resume Manager ===
 Contributors: mikejolley
-Requires at least: 3.8
-Tested up to: 4.3
-Stable tag: 1.13.1
+Requires at least: 4.1
+Tested up to: 4.4
+Stable tag: 1.15.0
 License: GNU General Public License v3.0
 
 Manage canidate resumes from the WordPress admin panel, and allow candidates to post their resumes directly to your site.
@@ -26,6 +26,22 @@ If you need help with customisation you will need to find and hire a developer c
 To install this plugin, please refer to the guide here: [http://codex.wordpress.org/Managing_Plugins#Manual_Plugin_Installation](http://codex.wordpress.org/Managing_Plugins#Manual_Plugin_Installation)
 
 == Changelog ==
+
+= 1.15.0 =
+* Feature - Force apply with resume setting will now force before applications plugin can be used as well.
+* Tweak - Deeper integration with applications.
+* Tweak - Improved 'apply' step after resume submission. Now uses job_apply shortcode to keep things DRY.
+* Tweak - Split apply with resume settings. "Force Resume Creation" to make users submit resumes before they can see apply forms, and "Force Apply with Resume" to force the resume manager apply form to be used regardless of other installed plugins.
+* Tweak - Attachments.
+
+= 1.14.0 =
+* Feature - UI to allow notifications to different addresses.
+* Fix - Improved resume expiry setting and calculation.
+* Tweak - resume_manager_default_candidate_photo filter.
+
+= 1.13.2 =
+* Fix - Relist compatibility with paid listings.
+* Tweak - resume_manager_resume_filters_before and after hooks.
 
 = 1.13.1 =
 * Fix - Add text links.

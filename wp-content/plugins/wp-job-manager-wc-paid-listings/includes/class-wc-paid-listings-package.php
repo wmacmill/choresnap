@@ -81,4 +81,12 @@ class WC_Paid_Listings_Package {
 	public function get_duration() {
 		return $this->package->package_duration ? $this->package->package_duration : false;
 	}
+
+	/**
+	 * Get order id
+	 * @return int
+	 */
+	public function get_order_id() {
+		return $this->order_id;
+	}
 }

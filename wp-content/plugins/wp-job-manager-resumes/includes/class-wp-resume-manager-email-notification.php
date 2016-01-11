@@ -25,13 +25,14 @@ class WP_Resume_Manager_Email_Notification {
 
 		$custom_fields = array_diff_key( WP_Resume_Manager_Writepanels::resume_fields(), array( '_resume_file' => '', '_resume_expires' => '' ) );
 		$resume        = get_post( $resume_id );
-		$recipient     = get_option( 'admin_email' );
+		$recipient     = get_option( 'resume_manager_email_notifications' );
+		$recipient     = ! empty( $recipient ) ? $recipient : get_option( 'admin_email' );
 		$subject       = sprintf( __( 'New Resume Submission From %s', 'wp-job-manager-resumes' ), $resume->post_title );
 		$attachments   = array();
 		$file_paths    = get_resume_files( $resume );
 
 		foreach ( $file_paths as $file_path ) {
-			$attachments[] = str_replace( array( site_url( '/', 'http' ), site_url( '/', 'https' ) ), ABSPATH, get_post_meta( $resume_id, '_resume_file', true ) );
+			$attachments[] = str_replace( array( WP_CONTENT_URL, site_url() ), array( WP_CONTENT_DIR, ABSPATH ), get_post_meta( $resume_id, '_resume_file', true ) );
 		}
 
 		ob_start();

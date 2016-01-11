@@ -32,6 +32,30 @@
 		}
 	}
 }
+ul.job_listings, ul.resumes {
+	.listing-bookmarked h3 {
+		&::before {
+			float: right;
+			content: "\e81e";
+			display: inline-block;
+			width: 16px;
+			height: 16px;
+			-webkit-font-smoothing: antialiased;
+			font-size: 16px;
+			font-family: "job-manager" !important;
+			text-decoration: none;
+			font-weight: normal;
+			font-style: normal;
+			vertical-align: top;
+			font-size: 16px;
+			margin: 0 0 0 .5em;
+			*overflow: auto;
+			*zoom: 1;
+			*display: inline;
+			color: red;
+		}
+	}
+}
 .wp-job-manager-bookmarks-form {
 	margin: 2em 0;
 	overflow: hidden;

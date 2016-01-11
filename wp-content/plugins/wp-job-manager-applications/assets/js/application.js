@@ -4,7 +4,11 @@ jQuery(document).ready(function($) {
 		$('.application_button').click();
 	}
 
-	$('body').on('submit', '.job-manager-application-form', function() {
+	$('body').on( 'change', '.job-manager-application-form :input', function() {
+		$( 'input.wp_job_manager_send_application_button' ).removeAttr( 'disabled', 'disabled' ).removeClass( 'disabled' );
+	});
+
+	$('body').on( 'submit', '.job-manager-application-form', function() {
 		var form    = $(this);
 		var success = true;
 
@@ -18,6 +22,11 @@ jQuery(document).ready(function($) {
 				return false;
 			}
 		});
+
+		// Prevent multiple submissions
+		if ( success ) {
+			$( 'input.wp_job_manager_send_application_button' ).attr( 'disabled', 'disabled' ).addClass( 'disabled' );
+		}
 
 		return success;
 	});

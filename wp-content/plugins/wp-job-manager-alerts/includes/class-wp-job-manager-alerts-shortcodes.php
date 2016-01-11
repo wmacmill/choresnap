@@ -89,6 +89,11 @@ class WP_Job_Manager_Alerts_Shortcodes {
 								wp_set_object_terms( $alert_id, $alert_regions, 'job_listing_region' );
 							}
 
+							if ( taxonomy_exists( 'job_listing_tag' ) ) {
+								$alert_tags = isset( $_POST['alert_tags'] ) ? array_map( 'absint', $_POST['alert_tags'] ) : '';
+								wp_set_object_terms( $alert_id, $alert_tags, 'job_listing_tag' );
+							}
+
 							$alert_job_type = isset( $_POST['alert_job_type'] ) ? array_map( 'sanitize_title', $_POST['alert_job_type'] ) : '';
 							wp_set_object_terms( $alert_id, $alert_job_type, 'job_listing_type' );
 
@@ -99,16 +104,12 @@ class WP_Job_Manager_Alerts_Shortcodes {
 							wp_clear_scheduled_hook( 'job-manager-alert', array( $alert_id ) );
 
 							// Schedule new alert
-							switch ( $alert_frequency ) {
-								case 'daily' :
-									$next = strtotime( '+1 day' );
-								break;
-								case 'fortnightly' :
-									$next = strtotime( '+2 week' );
-								break;
-								default :
-									$next = strtotime( '+1 week' );
-								break;
+							$schedules = WP_Job_Manager_Alerts_Notifier::get_alert_schedules();
+
+							if ( ! empty( $schedules[ $alert_frequency ] ) ) {
+								$next = strtotime( '+' . $schedules[ $alert_frequency ]['interval'] . ' seconds' );
+							} else {
+								$next = strtotime( '+1 day' );
 							}
 
 							// Create cron
@@ -131,16 +132,12 @@ class WP_Job_Manager_Alerts_Shortcodes {
 
 						if ( $alert->post_status == 'draft' ) {
 							// Schedule new alert
-							switch ( $alert->alert_frequency ) {
-								case 'daily' :
-									$next = strtotime( '+1 day' );
-								break;
-								case 'fortnightly' :
-									$next = strtotime( '+2 week' );
-								break;
-								default :
-									$next = strtotime( '+1 week' );
-								break;
+							$schedules = WP_Job_Manager_Alerts_Notifier::get_alert_schedules();
+
+							if ( ! empty( $schedules[ $alert->alert_frequency ] ) ) {
+								$next = strtotime( '+' . $schedules[ $alert->alert_frequency ]['interval'] . ' seconds' );
+							} else {
+								$next = strtotime( '+1 day' );
 							}
 
 							// Create cron
@@ -213,13 +210,13 @@ class WP_Job_Manager_Alerts_Shortcodes {
 			switch ( $this->action ) {
 				case 'add_alert' :
 					$this->add_alert();
-					return;
+					return ob_get_clean();
 				case 'edit' :
 					$this->edit_alert( $alert_id );
-					return;
+					return ob_get_clean();
 				case 'view' :
 					$this->view_results( $alert_id );
-					return;
+					return ob_get_clean();
 			}
 		}
 
@@ -254,6 +251,7 @@ class WP_Job_Manager_Alerts_Shortcodes {
 			'alert_region'    => isset( $_REQUEST['alert_region'] ) ? array( sanitize_text_field( $_REQUEST['alert_region'] ) ) : array(),
 			'alert_frequency' => isset( $_REQUEST['alert_frequency'] ) ? sanitize_text_field( $_REQUEST['alert_frequency'] ) : '',
 			'alert_cats'      => isset( $_REQUEST['alert_cats'] ) ? array_filter( array_map( 'absint', (array) $_REQUEST['alert_cats'] ) ) : array(),
+			'alert_tags'      => isset( $_REQUEST['alert_tags'] ) ? array_filter( array_map( 'absint', (array) $_REQUEST['alert_tags'] ) ) : array(),
 			'alert_job_type'  => isset( $_REQUEST['alert_job_type'] ) ? array_map( 'sanitize_title', $_REQUEST['alert_job_type'] ) : array()
 		), 'wp-job-manager-alerts', JOB_MANAGER_ALERTS_PLUGIN_DIR . '/templates/' );
 	}
@@ -274,6 +272,7 @@ class WP_Job_Manager_Alerts_Shortcodes {
 			'alert_location'  => isset( $_POST['alert_location'] ) ? sanitize_text_field( $_POST['alert_location'] ) : $alert->alert_location,
 			'alert_frequency' => isset( $_POST['alert_frequency'] ) ? sanitize_text_field( $_POST['alert_frequency'] ) : $alert->alert_frequency,
 			'alert_cats'      => isset( $_POST['alert_cats'] ) ? array_map( 'absint', $_POST['alert_cats'] ) : wp_get_post_terms( $alert_id, 'job_listing_category', array( 'fields' => 'ids' ) ),
+			'alert_tags'      => isset( $_POST['alert_tags'] ) ? array_map( 'absint', $_POST['alert_tags'] ) : wp_get_post_terms( $alert_id, 'job_listing_tag', array( 'fields' => 'ids' ) ),
 			'alert_job_type'  => isset( $_POST['alert_job_type'] ) ? array_map( 'sanitize_title', $_POST['alert_job_type'] ) : wp_get_post_terms( $alert_id, 'job_listing_type', array( 'fields' => 'slugs' ) )
 		), 'wp-job-manager-alerts', JOB_MANAGER_ALERTS_PLUGIN_DIR . '/templates/' );
 	}

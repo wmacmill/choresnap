@@ -96,3 +96,18 @@ function user_job_package_is_valid( $user_id, $package_id ) {
 function increase_job_package_job_count( $user_id, $package_id ) {
 	wc_paid_listings_increase_package_count( $user_id, $package_id );
 }
+
+/**
+ * Get listing IDs for a user package
+ * @return array
+ */
+function wc_paid_listings_get_listings_for_package( $user_package_id ) {
+	global $wpdb;
+
+	return $wpdb->get_col( $wpdb->prepare( "
+		SELECT post_id FROM {$wpdb->postmeta}
+		LEFT JOIN {$wpdb->posts} ON {$wpdb->postmeta}.post_id = {$wpdb->posts}.ID
+		WHERE meta_key = '_user_package_id'
+		AND meta_value = %s;
+	", $user_package_id ) );
+}
